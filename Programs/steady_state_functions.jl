@@ -18,15 +18,104 @@ using PrettyPrinting
 
     # Parameters determining units 
     Y_ss::Float64 = 1            # associated with Z_I
-    QC_ss::Float64 = 1           # associated with κ
-    QI_ss::Float64 = 1           # associated with ζ
+    qC_ss::Float64 = 1           # associated with κ
+    qI_ss::Float64 = 1           # associated with ζ
     L_ss::Float64 =1             # associated with χ
     pc_ss::Float64 =1            # associated with Z_C
 
 end
 
+Para = @with_kw (ϕ=0.1, A=0.8, α_2 = 0.35, α_1=0.35, β=0.99, δ_K = 0.025, ρ=2.0,
+         α_K=0.3, σ=1.0, η=1.0, ψ=1.0, Y=1.0, L=1.0, qC=1.0, qI=1.0)
+para = Para()
+
+function steady_state(para)
+    # Normalization: u=Y=L=q=1
+    # associated with parameters σ_b, ZC, ZI, χ, ζ, κ
+    crit = 1e-10
+
+    @unpack ϕ, A, α_2, α_1, β, δ_K, ρ, α_K, σ, η, ψ = para
+    @unpack Y, L, qC, qI = para
+
+    Γ = A^α_2*(α_2*ϕ+ρ*(1-ϕ))
+    α_L = α_1 + α_2
+
+    r = (1-β)/β
+    σ_b = r + δ_K
+    r_K = r + δ_K
+
+    # Sectoral output ratios
+    ϕ_I = δ_K*α_K/(r_K*Γ)
+    ϕ_C = 1 - ϕ_I
+
+    I_C = ϕ_I/ϕ_C
+    K_Y = α_K/(r_K*Γ)
+
+
+    # Labor share 
+    wL_Y = (1/Γ)*(α_L+(ρ-1)*δ_K*α_K/r_K)
+
+    Y = 1.0
+    L = 1.0
+    I = ϕ_I
+    C = ϕ_C 
+    K = I/δ_K
+
+    # Labor types
+    LC = ϕ_C*(1-ϕ_LK)*L
+    LI = ϕ_I*(1-ϕ_LK)*L
+    LK = ϕ_LK*L
+
+    KC = ϕ_C*K
+    KI = ϕ_I*K
+
+    # Investment goods price 
+    p_I = 1/A^(1-ρ)
+    # Solve for Z_I to be consistent with production function
+    ZI = I/(A*p_I*KI^(α_K)*LI^(α_L)*α_1^α_1*α_2^(α_2)/(α_K^α_K))
+    ZC = ZI
+
+    # Solve for p_C to be consistent with consumption production function
+    p_C = C/(A*ZC*KC^(α_K)*LC^(α_L)*α_1^α_1*α_2^(α_2)/(α_K^α_K))
+
+    #p_C = p_I*ZI/ZC
+    P_C = A^(1-ρ)*p_C
+    # consumption bundle
+    c_A = C/P_C
+    # Implied shopping effort cost from optimality condition
+    κ = (ρ-1)*c_A/(qC^(1+η))
+    # Marginal utility imposing GHH
+    u_C = ((2+η-ρ)/(1+η)*c_A)^(-σ)
+    # consumption marginal utility
+    λ = u_C/P_C 
+
+    wL = wL_Y*Y
+    w = wL/L
+    # Level parameter for labor supply
+    χ = λ*w/L^ψ
+    # Implied efficiency of shopping for investment goods 
+    ζ = qI/LK
+
+    # Value of additional unit of capital 
+    QI = α_K*I/(Γ*KI*σ_b)
+    QC = QI
+
+    # Profits 
+    D = (1-1/Γ)*Y
+
+    @assert L - (λ*w*L/χ)^(1/(ψ+1)) ≈ 0.0
+    @assert w*LK - (ρ-1)*I ≈ 0.0
+    @assert abs(C - A*p_C*ZC*KC^(α_K)*LC^(α_L)*α_1^α_1*α_2^(α_2)/(α_K^α_K)) < crit
+    @assert abs(χ*L^ψ - u_C*w/P_C) < crit
+
+    return (C, I, Y, L, w, c_A, K, KC, KI, LC, LI, LK, P_C, ZC, ZI, κ, ζ, χ, p_C, p_I)
+
+
+
+
+
 function calibrate(targets, Γ=1.3, ψ=0.5, ξ=1/0.72, σ=1.5)
-    @unpack r_annual, I_Y, wL_Y, occupancy_rate, Y_ss, QC_ss, QI_ss, L_ss, pc_ss = targets
+    @unpack r_annual, I_Y, wL_Y, occupancy_rate, Y_ss, qC_ss, qI_ss, L_ss, pc_ss = targets
     A = occupancy_rate 
     r= (1+r_annual)^(1/4) - 1
     β = 1/(1+r)
@@ -98,6 +187,8 @@ function calibrate(targets, Γ=1.3, ψ=0.5, ξ=1/0.72, σ=1.5)
     return (A=A, β=β, ϕ=ϕ, ρ=ρ, α_L=α_L, δ_K=δ_K, σ_b=σ_b,
     Z_C=Z_C, Z_I=Z_I, χ=χ, κ=κ, ζ=ζ)
 end
+
+function steady_state()
 
 function table(para, targets)
     @unpack A, β, ϕ, ρ, α_L, δ_K, σ_b, Z_C, Z_I, χ, κ, ζ = para
