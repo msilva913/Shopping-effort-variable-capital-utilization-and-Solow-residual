@@ -25,7 +25,7 @@ using PrettyPrinting
 
 end
 
-Para = @with_kw (ϕ=0.1, A=0.8, α_2 = 0.35, α_1=0.35, β=0.99, δ_K = 0.025, ρ=2.0,
+Para = @with_kw (ϕ=0.1, A=0.8, α_2 = 0.0, α_1=0.7, β=0.99, δ_K = 0.025, ρ=2.0,
          α_K=0.3, σ=1.0, η=1.0, ψ=1.0, Y=1.0, L=1.0, qC=1.0, qI=1.0)
 para = Para()
 
@@ -36,6 +36,8 @@ function steady_state(para)
 
     @unpack ϕ, A, α_2, α_1, β, δ_K, ρ, α_K, σ, η, ψ = para
     @unpack Y, L, qC, qI = para
+
+    cons = α_1^α_1*α_2^(α_2)/(α_K^α_K)
 
     Γ = A^α_2*(α_2*ϕ+ρ*(1-ϕ))
     α_L = α_1 + α_2
@@ -54,12 +56,17 @@ function steady_state(para)
 
     # Labor share 
     wL_Y = (1/Γ)*(α_L+(ρ-1)*δ_K*α_K/r_K)
+    # Profit share
+    #D_Y = (1-1/Γ)
+    #D_Y = 1 - (1-α_K)/Γ - ρ*ϕ_I
 
     Y = 1.0
     L = 1.0
-    I = ϕ_I
-    C = ϕ_C 
+    I = ϕ_I*Y
+    C = ϕ_C*Y
     K = I/δ_K
+    wL = wL_Y*Y
+    D = C - w*L
 
     # Labor types
     LC = ϕ_C*(1-ϕ_LK)*L
@@ -72,11 +79,11 @@ function steady_state(para)
     # Investment goods price 
     p_I = 1/A^(1-ρ)
     # Solve for Z_I to be consistent with production function
-    ZI = I/(A*p_I*KI^(α_K)*LI^(α_L)*α_1^α_1*α_2^(α_2)/(α_K^α_K))
+    ZI = I/(A*p_I*KI^(α_K)*LI^(α_L)*cons)
     ZC = ZI
 
     # Solve for p_C to be consistent with consumption production function
-    p_C = C/(A*ZC*KC^(α_K)*LC^(α_L)*α_1^α_1*α_2^(α_2)/(α_K^α_K))
+    p_C = C/(A*ZC*KC^(α_K)*LC^(α_L)*cons)
 
     #p_C = p_I*ZI/ZC
     P_C = A^(1-ρ)*p_C
@@ -93,21 +100,14 @@ function steady_state(para)
     w = wL/L
     # Level parameter for labor supply
     χ = λ*w/L^ψ
-    # Implied efficiency of shopping for investment goods 
+    # Implied efficiency of shopping for investment goods: q_I = ζ*LK
     ζ = qI/LK
 
-    # Value of additional unit of capital 
-    QI = α_K*I/(Γ*KI*σ_b)
-    QC = QI
-
-    # Profits 
-    D = (1-1/Γ)*Y
-
     @assert L - (λ*w*L/χ)^(1/(ψ+1)) ≈ 0.0
-    @assert w*LK - (ρ-1)*I ≈ 0.0
+    @assert abs(w*LK - (ρ-1)*I) < crit
     @assert abs(C - A*p_C*ZC*KC^(α_K)*LC^(α_L)*α_1^α_1*α_2^(α_2)/(α_K^α_K)) < crit
     @assert abs(χ*L^ψ - u_C*w/P_C) < crit
-
+    @assert abs(C-wL-D) < crit
     return (C, I, Y, L, w, c_A, K, KC, KI, LC, LI, LK, P_C, ZC, ZI, κ, ζ, χ, p_C, p_I)
 
 
@@ -142,7 +142,7 @@ function calibrate(targets, Γ=1.3, ψ=0.5, ξ=1/0.72, σ=1.5)
 
     w = wL_Y*(Y_ss/L_ss)
     p_I = A^(ρ-1)
-    MC_I = A*p_I/Γ
+
     # Productivity level in investment
     Z_I = (w/α_L)^(α_L)*(r_K/α_K)^(α_K)/MC_I
 
@@ -161,7 +161,6 @@ function calibrate(targets, Γ=1.3, ψ=0.5, ξ=1/0.72, σ=1.5)
     LI = ϕ_I*(1-ϕ_LK)*L_ss
     LK = ϕ_LK*L_ss
 
-    MC_C = A*pc_ss/Γ
     Z_C = (w/α_L)^(α_L)*(r_K/α_K)^(α_K)/MC_C
     P_C = pc_ss/p_I
 
