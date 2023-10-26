@@ -11,23 +11,21 @@ using PrettyPrinting
 @with_kw mutable struct Targets
     r_annual::Float64 = 0.03     #associated with β
     #δ_share::Float64 = 0.173    #inapplicable unless there is DRS, fixed costs, etc.
-    I_Y::Float64 = 0.22          #associated with δ
+    ϕ_I::Float64 = 0.22          #associated with δ
     wL_Y::Float64 = 0.667        #associated with α_L
     occupancy_rate::Float64 = 0.78 #assoiated with A
     markup::Float64 = 1.3        # Combined ρ(1-ϕ)
 
     # Parameters determining units 
-    Y_ss::Float64 = 1            # associated with Z_I
-    qC_ss::Float64 = 1           # associated with κ
-    qI_ss::Float64 = 1           # associated with ζ
-    L_ss::Float64 =1             # associated with χ
-    pc_ss::Float64 =1            # associated with Z_C
-
+    Y::Float64 = 1            # associated with Z_I
+    L::Float64 =1             # associated with χ
+    qC::Float64 = 1           # associated with κ
+    qI::Float64 = 1           # associated with ζ
 end
 
-Para = @with_kw (ϕ=0.1, A=0.8, α_2 = 0.0, α_1=0.7, β=0.99, δ_K = 0.025, ρ=2.0,
+Para2 = @with_kw (ϕ=0.1, A=0.8, α_2 = 0.0, α_1=0.7, β=0.99, δ_K = 0.025, ρ=2.0,
          α_K=0.3, σ=1.0, η=1.0, ψ=1.0, Y=1.0, L=1.0, qC=1.0, qI=1.0)
-para = Para()
+para = Para2()
 
 function steady_state(para)
     # Normalization: u=Y=L=q=1
@@ -49,6 +47,7 @@ function steady_state(para)
     # Sectoral output ratios
     ϕ_I = δ_K*α_K/(r_K*Γ)
     ϕ_C = 1 - ϕ_I
+    ϕ_LK = (ρ-1)*δ_K*α_K/(r+δ_K)/((ρ-1)*δ_K*α_K/(r+δ_K)+α_L)
 
     I_C = ϕ_I/ϕ_C
     K_Y = α_K/(r_K*Γ)
@@ -110,69 +109,114 @@ function steady_state(para)
     @assert abs(C-wL-D) < crit
     return (C, I, Y, L, w, c_A, K, KC, KI, LC, LI, LK, P_C, ZC, ZI, κ, ζ, χ, p_C, p_I)
 
+    function table(para, targets)
+        @unpack A, β, ϕ, ρ, δ_K, α_1, α_2, Z_C, Z_I, χ, κ, ζ = para
+        r = (1-β)/β
+        σ_b = r+δ_K
+        α = 1-α_1-α_2
+        t = PlotlyJS.plot(
+            PlotlyJS.table(
+            header_values=["Parameter", "Symbol", "Value", "Moment", "Value"],
+            cells_values = [
+            ["Depreciation mean of utilization",
+             "Investment production function units",
+             "Consumption production function units",
+             "Weight of labor in utility",
+             "Weight of search in utility",
+             "Efficiency of investment shopping",
+             "Discount factor",
+             "Depreciation rate",
+             "Labor coefficient in production",
+             "Mean efficiency of matching"],
+    
+            [:σ_b :Z_I :Z_C :χ :κ :ζ :β :δ_K :α :A],
+            [σ_b, Z_I, Z_C, χ, κ, ζ, β, δ_K, α, A],
+            ["SS Utilization",
+            "SS output",
+            "SS output",
+            "SS labor",
+            "Consumption search tightness",
+            "Investment search tightness",
+            "Interest rate",
+            "Investment-to-output ratio",
+            "Labor share",
+            "Occupancy rate"]
+            ]
+        ))
+        return t
+    end
 
+function calibrate(targets, Γ=1.3, Ψ=0.25, σ=2.0, var_share=0.5)
+    # Γ: gross markup
+    # Ψ: elasticity of matching probability of firm locations wrt aggregate spending
+     # Γ = A^α_2*(α_2*ϕ+ρ*(1-ϕ))
+     # Ψ = ((1+η)/ϕ + 1-ρ)^{-1}
 
-
-
-function calibrate(targets, Γ=1.3, ψ=0.5, ξ=1/0.72, σ=1.5)
-    @unpack r_annual, I_Y, wL_Y, occupancy_rate, Y_ss, qC_ss, qI_ss, L_ss, pc_ss = targets
+    @unpack r_annual, ϕ_I, wL_Y, occupancy_rate, Y, qC, qI, L = targets
     A = occupancy_rate 
     r= (1+r_annual)^(1/4) - 1
     β = 1/(1+r)
 
-    # Recover ϕ and ρ from Γ and Ψ
-    ψ_inv = ψ^(-1)
-    a = 1
-    b = ψ_inv - 2 - Γ
-    c = -Γ*(ψ_inv - 1)
-    ρ = (-b +sqrt(b^2-4*a*c))/*(2*a)
-    ϕ = 1 - Γ/ρ
-    # Obtain α_L using labor share wL_Y and I_Y
-    # wL_Y = α_L/(ρ(1-ϕ)) + (ρ-1)I_Y 
-    α_L = ρ*(1-ϕ)*(wL_Y -(ρ-1)*I_Y)
-    α_K = 1 - α_L
+    # depreciation rate 
+    δ_K = 0.025
+    σ_b = r+δ_K
 
-    # Use I_Y to get δ_K
-    # I_Y = δ_K*α_K/(r_K*ρ(1-ϕ))
-    δ_K = r*(α_K/(Γ*I_Y) - 1)^(-1)
-    r_K = r + δ_K
+    # Consistency of α with investment share
+    #wL_Y = (1/Γ)*(α_L+(ρ-1)*δ_K*α_K/r_K)
+    α =ϕ_I*(r+δ_K)*Γ/δ_K
+    # Find implied ρ (also with labor share)
+    ρ =1.0 + (r+δ_K)/δ_K + (Γ*wL_Y-1)*(r+δ_K)/(α*δ_K)
+    # consistency
+    #α = (1-Γ*wL_Y)*(r+δ_K)/((r+δ_K)-(ρ-1)*δ_K)
+    α_2 = var_share*(1-α)
+    # Use Γ to extract ϕ 
+    ϕ = (ρ -Γ/A^α_2)/(ρ-α_2)
 
-    # Depreciation function parameter
-    σ_b = r_K
+    # Use Ψ to extract η
+    Ψ_inv = 1/Ψ
+    (Ψ_inv-(1-ρ))*ϕ - 1.0
+    @show Γ - A^(α_2)*(α_2*ϕ+ρ*(1-ϕ))
 
-    w = wL_Y*(Y_ss/L_ss)
-    p_I = A^(ρ-1)
+    ϕ_C = 1.0 - ϕ_I
+    ϕ_LK = (ρ-1)*δ_K*α/(r+δ_K)/((ρ-1)*δ_K*α/(r+δ_K)+1-α)
 
-    # Productivity level in investment
-    Z_I = (w/α_L)^(α_L)*(r_K/α_K)^(α_K)/MC_I
+    # Labor types
+    LC = ϕ_C*(1-ϕ_LK)*L
+    LI = ϕ_I*(1-ϕ_LK)*L
+    LK = ϕ_LK*L
 
-    I = I_Y*Y_ss
-    C_Y = 1-I_Y
-    C = C_Y*Y_ss
-
+    I = ϕ_I*Y
     K = I/δ_K
-    ϕ_I = I_Y
-    ϕ_C = C_Y
-    KI = ϕ_I*K
     KC = ϕ_C*K
+    KI = ϕ_I*K
 
-    ϕ_LK = (ρ-1)*δ_K*α_K/(r+δ_K)/((ρ-1)*δ_K*α_K/(r+δ_K)+α_L)
-    LC = ϕ_C*(1-ϕ_LK)*L_ss
-    LI = ϕ_I*(1-ϕ_LK)*L_ss
-    LK = ϕ_LK*L_ss
+    # Investment goods price 
+    p_I = 1/A^(1-ρ)
+    # Solve for Z_I to be consistent with production function
+    ZI = I/(A*p_I*KI^(α_K)*LI^(α_L)*cons)
+    ZC = ZI
 
-    Z_C = (w/α_L)^(α_L)*(r_K/α_K)^(α_K)/MC_C
-    P_C = pc_ss/p_I
+    # Solve for p_C to be consistent with consumption production function
+    p_C = C/(A*ZC*KC^(α_K)*LC^(α_L)*cons)
 
-    c_A = C/P_C # from C = P_C*c_A
-    κ = (ρ-1)*c_A/QC_ss
-    ζ = QI_ss/LK
-    #u_c = (2-ρ)^(-σ)*c_A^(-σ)
-    u_c = (c_A-κ*QC_ss)^(-σ) #directly applying Q^C=1
-    # Determine chi from labor leisure tradeoff (sets L_ss = 1)
-    χ = u_c*w/(P_C*L_ss^(ξ))
+    #p_C = p_I*ZI/ZC
+    P_C = A^(1-ρ)*p_C
+    # consumption bundle
+    c_A = C/P_C
+    # Implied shopping effort cost from optimality condition
+    κ = (ρ-1)*c_A/(qC^(1+η))
+    # Marginal utility imposing GHH
+    u_C = ((2+η-ρ)/(1+η)*c_A)^(-σ)
+    # consumption marginal utility
+    λ = u_C/P_C 
 
-
+    wL = wL_Y*Y
+    w = wL/L
+    # Level parameter for labor supply
+    χ = λ*w/L^ψ
+    # Implied efficiency of shopping for investment goods: q_I = ζ*LK
+    ζ = qI/LK
+   
     # Check consistency
     @assert ψ_inv ≈ (1/ϕ+1-ρ)
     @assert Γ ≈ ρ*(1-ϕ)
@@ -183,37 +227,12 @@ function calibrate(targets, Γ=1.3, ψ=0.5, ξ=1/0.72, σ=1.5)
     @assert Y_ss ≈ C + I
     @assert LK ≈ (ρ-1)*I/w
 
-    return (A=A, β=β, ϕ=ϕ, ρ=ρ, α_L=α_L, δ_K=δ_K, σ_b=σ_b,
-    Z_C=Z_C, Z_I=Z_I, χ=χ, κ=κ, ζ=ζ)
+    return (A=A, β=β, ϕ=ϕ, ρ=ρ, α_1=α_1, α_2=α_2, ZC=Z_C, ZI=Z_I, χ=χ, κ=κ, ζ=ζ, δ_K=δ_K, σ_b=σ_b)
 end
 
-function steady_state()
 
-function table(para, targets)
-    @unpack A, β, ϕ, ρ, α_L, δ_K, σ_b, Z_C, Z_I, χ, κ, ζ = para
-    t = plot(
-        table(
-        header_values=["Parameter", "Symbol", "Value"],
-        cells_values = [
-        ["Depreciation mean of utilization",
-         "Investment production function units",
-         "Consumption production function units",
-         "Weight of labor in utility",
-         "Weight of search in utility",
-         "Efficiency of investment shopping",
-         "Discount factor",
-         "Depreciation rate",
-         "Labor coefficient in production",
-         "Mean efficiency of matching"],
 
-        [:σ_b :Z_I :Z_C :χ :κ :ζ :β :δ_K :α_L :A],
-        [σ_b, Z_I, Z_C, χ, κ, ζ, β, δ_K, α_L, A]
 
-        ]
-        )
-    )
-    return t
-end
 
 para = calibrate(targets)
 
