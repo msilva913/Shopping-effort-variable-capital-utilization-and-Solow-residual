@@ -227,13 +227,14 @@ function table(para, ss)
             "Efficiency of investment shopping",
             "Discount factor",
             "Depreciation rate",
-            "Labor coefficient in production",
+            "Share of capital",
+            "Coefficient on variable labor",
             "Mean efficiency of matching",
              "Love of variety",
              " Elasticity parameter in matching"],
 
-        [:σ_b :ZI :ZC :χ :κ :ζ :β :δ_K :α :A :ρ :ϕ],
-        round.([σ_b, ZI, ZC, χ, κ, ζ, β, δ_K, α, A, ρ, ϕ], digits=3),
+        [:σ_b :ZI :ZC :χ :κ :ζ :β :δ_K :α :α_2 :A :ρ :ϕ],
+        round.([σ_b, ZI, ZC, χ, κ, ζ, β, δ_K, α, α_2, A, ρ, ϕ], digits=3),
         ["SS Utilization",
         "SS output",
         "SS output",
@@ -243,11 +244,12 @@ function table(para, ss)
         "Interest rate",
         "Investment-to-output ratio",
         "Labor share",
+        "Share of variable labor",
         "Occupancy rate",
          "Gross markup Γ",
          "Elasticity Ψ"
         ],
-        [1.0, ss.Y, ss.Y, ss.L, 1.0, 1.0, 0.03, 0.22, 0.667, 0.78, 1.3, 0.25]
+        [1.0, ss.Y, ss.Y, ss.L, 1.0, 1.0, 0.03, 0.22, 0.667, 0.5, 0.78, 1.3, 0.25]
         ]
         ))
     return t
