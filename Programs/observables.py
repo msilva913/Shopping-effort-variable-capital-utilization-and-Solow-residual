@@ -135,8 +135,11 @@ if __name__ == "__main__":
     cycle = pd.concat([filter_transform(dat[x], init=init, final=final, transform_type='log',
                                         filter_type=filter_type) for x in lab], axis=1)
     cycle.columns = lab
+    
+    " Choose specific variable set "
+    cycle_red = cycle[["Y", "I", "lab_prod", "SR", "p_I", "SR_util", "cu"]]
 
-    mom_data = moments(100*cycle, lab=['Y'])
+    mom_data = moments(100*cycle_red, lab=['Y'])
     print(mom_data.to_latex())
     " Save moments "
     # Moments from data in growth rates and Hamilton-filtered data
@@ -160,6 +163,8 @@ if __name__ == "__main__":
     years = mdates.YearLocator(5, month=1)
     years_fmt = mdates.DateFormatter('%Y')
     
+ 
+    
     " Plot "
     def plot_cycle(cycle):
         " Plots cycle for a given decomposition "
@@ -167,10 +172,10 @@ if __name__ == "__main__":
         linestyles = ['-', '--']
         col_cycle = cycler(cycle.columns)
         lsty_cycler = cycler(linestyles)
-        fig = plt.figure(figsize=(20, 8))
+        fig = plt.figure(figsize=(14, 8))
         next(col_cycle)
         for n in range(nvars-1):
-            ax = fig.add_subplot(3, 3, n+1)
+            ax = fig.add_subplot(3, 2, n+1)
             z = next(col_cycle)
             ax.plot(cycle.Y, label='Y', lw=2, alpha=0.6, linestyle=next(lsty_cycler))
             ax.plot(cycle[z], label=f"{z}", lw=2, alpha=0.6, linestyle=next(lsty_cycler))
@@ -178,11 +183,11 @@ if __name__ == "__main__":
             ax.xaxis.set_major_locator(years)
             ax.xaxis.set_major_formatter(years_fmt)
             ax.grid(True)
-        #plt.savefig('output_comovement_simp.pdf')
+        plt.savefig('output_comovement_simp.pdf')
         plt.tight_layout()
         plt.show()
     
-    plot_cycle(cycle)
+    plot_cycle(cycle_red)
     # fig, ax = plt.subplots()
     # ax.plot(cycle.NE, label='NE', lw=2, alpha=0.6)
     # plt.show()
