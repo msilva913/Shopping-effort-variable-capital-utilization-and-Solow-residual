@@ -5,5 +5,5 @@ function y = set_auxiliary_variables(y, x, params)
 % Warning : this file is generated automatically by Dynare
 %           from model file (.mod)
 
-y(46)=y(36);
+y(45)=y(35);
 end

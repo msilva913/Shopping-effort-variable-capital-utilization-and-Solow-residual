@@ -4,7 +4,8 @@ Q_C, Q_I,
 C, Gamma_C, Gamma_I, c_A, C_util, I_util,
 I, I_C, I_I,
 w, L_C, L_I, L_K, L,
-L_obs, K_C, K_I, K, lam, 
+//L_obs,
+ K_C, K_I, K, lam, 
 u_C, u_I,
 % shock vars
 Z, Z_I, u_ZI, zeta, u_zeta,
@@ -15,7 +16,7 @@ Y_obs, C_obs, TI_obs, p_I_obs, lab_prod_obs, SR_obs,
 SR_util_obs, Y_util_obs;
 
 % 6 shocks, 1 measurement errors--one more shock than observable
-varexo e_ZI, e_Z, e_shop, e_zeta, e_chi, e_b, e_L_ME;
+varexo e_ZI, e_Z, e_shop, e_zeta, e_chi, e_b;
 
 parameters A, beta, delta_K, sigma_a, psi_inv, sigma, 
 var_share, Gamma_bar, wL_Y, phi_I, Psi, Psi_K, gam,
@@ -81,8 +82,6 @@ model(linear);
 
 %2) Consistency of labor share with ρ
 #rho =1.0 + (r+delta_K)/delta_K + (Gamma_bar*wL_Y-1)*(r+delta_K)/(alpha*delta_K);
-
-
 
 %3) Use Gamma_bar to extract phi
 #phi = (rho -Gamma_bar/A^alpha_2)/(rho-alpha_2);
@@ -261,7 +260,7 @@ SR_obs = Y_obs - (1-wL_Y)*K - wL_Y*L;
 SR_util_obs = Y_util_obs - (1-wL_Y)*K - wL_Y*L;
 
 lab_prod_obs = Y_obs - L;
-L_obs = L + e_L_ME;
+//L_obs = L + e_L_ME;
 
 % Levels
 
@@ -275,15 +274,15 @@ var e_zeta = 0.0072;
 var e_b = 0.0025;
 end;
 
-% Observed variables (5 series)
-varobs Y_obs, TI_obs, lab_prod_obs, p_I_obs, L_obs;
+% Observed variables (4 series) -- excluding labor supply for now
+varobs Y_obs, TI_obs, lab_prod_obs, p_I_obs;
 
 estimated_params;
 //x, init_value, upper bound, lower bound, prior shape, prior mean, prior std
 //sigma, 2, 0.5, 4,            GAMMA_PDF, 1.5, 0.25;
 
 % Inverse of Frisch elasticity
-psi_inv, 0.72, 0.1, 5.0,         GAMMA_PDF, 0.74, 0.25;
+//psi_inv, 0.72, 0.1, 5.0,         GAMMA_PDF, 0.74, 0.25;
 
 % Elasticity of TFP wrt real spending
 Psi, 0.25, 0.0, 0.5,          BETA_PDF, 0.2, 0.1, 0, 0.5;
@@ -337,7 +336,7 @@ stderr e_chi, 0.02, 0.001, 0.4,  INV_GAMMA_PDF, 0.01, 0.004;
 
 % Measurement errors
 //stderr e_TI_ME, 0.01, 0.001, 0.4, INV_GAMMA_PDF, 0.01, 0.004;
-stderr e_L_ME, 0.01, 0.001, 0.4, INV_GAMMA_PDF, 0.01, 0.004;
+//stderr e_L_ME, 0.01, 0.001, 0.4, INV_GAMMA_PDF, 0.01, 0.004;
 end;
 
 % local identification
@@ -375,7 +374,8 @@ tex)
 % Estimation variables
 //I = p_I + u_ZI + (1-alpha_2)*(-phi*Q_I) + alpha*(K_I) + (1-alpha)*L_I;
 p_I, u_ZI, Q_I, K_I, L_I,
-C, C_obs, q_C, Y_obs, TI_obs, SR_obs, SR_util_obs, p_I_obs, L;
+C, C_obs, q_C, Y_obs, TI_obs, SR_obs, SR_util_obs, p_I_obs, L,
+Gamma_C, Gamma_I;
 
 %mode_compute=4 uses Chris Sims' csminwel function
 % presample (number of observations to be skipped before calculating likelihood)
@@ -407,6 +407,6 @@ shock_decomposition Y_obs, SR_obs;
 
 stoch_simul (order=1, nofunctions, nograph, irf=60, periods=0,
 conditional_variance_decomposition=[1 4 8 40])
-C_obs,Y_obs, SR_obs, SR_util_obs, TI_obs, L, p_I_obs ;
+C_obs,Y_obs, SR_obs, SR_util_obs, TI_obs, L, p_I_obs, Gamma_C, Gamma_I ;
 
 
