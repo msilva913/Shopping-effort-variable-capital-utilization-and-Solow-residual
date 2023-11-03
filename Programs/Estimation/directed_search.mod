@@ -9,19 +9,19 @@ w, L_C, L_I, L_K, L,
 u_C, u_I,
 % shock vars
 Z, Z_I, u_ZI, zeta, u_zeta,
-kappa, u_shop,  chi, b,
+kappa, u_shop,  chi,
 
 %observables (4 series)
 Y_obs, C_obs, TI_obs, p_I_obs, lab_prod_obs, SR_obs,
 SR_util_obs, Y_util_obs;
 
 % 6 shocks, 1 measurement errors--one more shock than observable
-varexo e_ZI, e_Z, e_shop, e_zeta, e_chi, e_b;
+varexo e_ZI, e_Z, e_shop, e_zeta, e_chi;
 
 parameters A, beta, delta_K, sigma_a, psi_inv, sigma, 
 var_share, Gamma_bar, wL_Y, phi_I, Psi, Psi_K, gam,
 % persistence parameters
-rho_Z, rho_ZI , rho_shop, rho_zeta, rho_b,
+rho_Z, rho_ZI , rho_shop, rho_zeta
 
 % Roots AR(2) process on labor supply
 lambda_1, lambda_2;
@@ -45,8 +45,6 @@ rho_ZI = 0.979;
 rho_Z = 0.979;
 rho_shop = 0.979;
 rho_zeta = 0.979;
-rho_b = 0.9;
-
 
 %rho_chi = 0.979;
 lambda_1 = 0.979;
@@ -272,11 +270,10 @@ var e_Z = 0.0072;
 var e_ZI = 0.0072;
 var e_shop = 0.0072;
 var e_zeta = 0.0072;
-var e_b = 0.0025;
 end;
 
 % Observed variables (4 series) -- excluding labor supply for now
-varobs Y_obs, TI_obs, lab_prod_obs, p_I_obs;
+varobs Y_obs, TI_obs, SR_obs, p_I_obs;
 
 estimated_params;
 //x, init_value, upper bound, lower bound, prior shape, prior mean, prior std
@@ -310,8 +307,6 @@ sigma_a, 0.32, 0.0, 5.0,        GAMMA_PDF, 0.32, 0.3;
 rho_Z, 0.9, 0.0212, 0.99999,        BETA_PDF, 0.6, 0.2;
 rho_ZI, 0.92, 0.0212, 0.9999,       BETA_PDF, 0.6, 0.2;
 
-rho_b, 0.98, 0.0212, 0.999,        BETA_PDF, 0.6, 0.2;
-
 rho_shop, 0.95, 0.0212, 0.9999,     BETA_PDF, 0.6, 0.2;
 rho_zeta, 0.9, 0.0212, 0.999,     BETA_PDF, 0.6, 0.2;
 
@@ -330,15 +325,8 @@ stderr e_Z, 0.01, 0.001, 0.2,  INV_GAMMA_PDF, 0.01, 0.004;
 stderr e_shop, 0.01, 0.0001, 0.4,  INV_GAMMA_PDF, 0.01, 0.004;
 stderr e_zeta, 0.02, 0.0001, 0.4,  INV_GAMMA_PDF, 0.01, 0.004;
 
-stderr e_b, 0.027, 0.001, 0.4, INV_GAMMA_PDF, 0.01, 0.004;
-
 % Labor supply
 stderr e_chi, 0.02, 0.001, 0.4,  INV_GAMMA_PDF, 0.01, 0.004;
-
-% Measurement errors
-//stderr e_TI_ME, 0.01, 0.001, 0.4, INV_GAMMA_PDF, 0.01, 0.004;
-//stderr e_L_ME, 0.01, 0.001, 0.4, INV_GAMMA_PDF, 0.01, 0.004;
-end;
 
 % local identification
 //identification(ar=10);
@@ -375,7 +363,7 @@ tex)
 % Estimation variables
 //I = p_I + u_ZI + (1-alpha_2)*(-phi*Q_I) + alpha*(K_I) + (1-alpha)*L_I;
 p_I, u_ZI, Q_I, K_I, L_I,
-C, C_obs, q_C, Y_obs, TI_obs, SR_obs, SR_util_obs, p_I_obs, L,
+C, C_obs, q_C, Y_obs, TI_obs, SR_obs, SR_util_obs, lab_prod_obs, p_I_obs, L,
 Gamma_C, Gamma_I;
 
 %mode_compute=4 uses Chris Sims' csminwel function

@@ -44,7 +44,7 @@ def construct_data(init, final, freq):
     #Y = fred.get_series('GDPC1').resample(freq).mean().dropna() #real, quarterly
     
     " Investment goods deflator "
-    inv_deflator = fred.get_series("INVDEF").resample(freq).mean()
+    #inv_deflator = fred.get_series("INVDEF").resample(freq).mean()
     #cons_deflator = fred.get_series("CONSDEF").resample(freq).mean()
     
     
@@ -60,7 +60,7 @@ def construct_data(init, final, freq):
     pop = fred.get_series('CNP16OV').resample(freq).mean()
     
     " Consumer price index "
-    CPI = fred.get_series('CPIAUCSL').resample(freq).mean()
+    #CPI = fred.get_series('CPIAUCSL').resample(freq).mean()
     
     " Labor hours: average weekly "
     #L = fred.get_series('HOANBS').resample(freq).mean()
@@ -97,17 +97,19 @@ def construct_data(init, final, freq):
     " Real GDP "
     #Y = fred.get_series('GDPC1').resample(freq).mean().dropna() 
     # construct output from consumption and investment; omit G
-    Y = C + I
+    #Y = C + I
     
     # Labor productivity
     lab_prod = fred.get_series("OPHNFB").resample(freq).mean().dropna()
    
 
     " Scale by population and CPI "
-    y = Y/(pop*deflator)
-    c = C/(pop*CPI)
+    c = C/(pop*deflator)
+    i = I/(pop*deflator)
+    #y = Y/(pop*deflator)
+    y = c + i
     l = L
-    i = I/(pop*inv_deflator)
+   
     
     " List of data series "
     var_load_list = [y, c, i, w, l, lab_prod, p_I, SR, SR_util, cu] 
