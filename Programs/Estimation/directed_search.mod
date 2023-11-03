@@ -223,7 +223,7 @@ K = phi_C*K_C + phi_I*K_I;
 [name = 'Investment composition']
 I = phi_C*I_C + phi_I*I_I;
 
-% 24) 
+% 27) 
 [name = 'Aggregate accounting (income = expenditures)']
 //YC_Y*(YC) + I_Y*(I) = d_Y*d + wL_Y*(w+L) + (1-d_Y-wL_Y)*(phi_C*(r_C+K_C) + phi_I*(r_I+K_I));
 
@@ -236,10 +236,11 @@ Z_I = Z + u_ZI;
 
 % Shopping
 u_shop = rho_shop*u_shop(-1) + e_shop;
-zeta = rho_zeta*zeta(-1) + e_zeta;
-
-u_zeta = u_shop + zeta;
 kappa = - u_shop;
+
+zeta = rho_zeta*zeta(-1) + e_zeta;
+u_zeta = u_shop + zeta;
+
 
 b = rho_b*b(-1) - e_b; % intertemporal
 

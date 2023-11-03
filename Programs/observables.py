@@ -17,6 +17,7 @@ from time_series_functions import (moments, filter_transform, crosscorr)
 #arima =  statsmodels.tsa.x13.x13_arima_analysis
 #path = r'C:\Users\TJSEM\Dropbox\Documents - Copy\Research\Consumption diversity, entry, and goods market frictions\Programs\Estimation'
 
+# Price deflators
 
 
 
@@ -90,7 +91,10 @@ def construct_data(init, final, freq):
     G = fred.get_series('A955RX1Q020SBEA').resample('Q').mean()
     
     " Relative price of investment goods "
-    p_I = fred.get_series('PIRIC').resample('Q').mean()
+    #p_I = fred.get_series('PIRIC').resample('Q').mean()
+    p_I = fred.get_series("A006RD3Q086SBEA").resample(freq).mean().dropna()
+    p_C = fred.get_series("DPCERD3Q086SBEA").resample(freq).mean().dropna()
+    p_I = p_I/p_C
     
     " Real GDP "
     Y = fred.get_series('GDPC1').resample(freq).mean().dropna() 
