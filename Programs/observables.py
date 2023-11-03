@@ -27,7 +27,19 @@ def save_object(obj, filename):
 
 
 def construct_data(init, final, freq):
-    " GDP Deflator"
+    """
+    Nominal GDP: BEA 191RC
+		- Nominal C: BEA DNDGRC + DDURRC + DSERRC
+		- Nominal I: BEA A006RC
+		- Nominal H: BLS PRS85006023
+		- Capacity utilization: Fed Board G.17, CAPUTL.B00004.S
+		- Relative price of investment: BEA B006RG
+		- Nonfarm Nominal Hourly Wage: BLS PRS85006103
+		- GDP Deflator: A191RD
+		- Fed Funds rate: Fed Board H.15 (TB3MS for early sample)
+    """
+
+    " GDP Deflator BEA code A191RD"
     deflator =  fred.get_series('GDPDEF').resample(freq).mean()
     #Y = fred.get_series('GDPC1').resample(freq).mean().dropna() #real, quarterly
     
@@ -36,44 +48,33 @@ def construct_data(init, final, freq):
     #cons_deflator = fred.get_series("CONSDEF").resample(freq).mean()
     
     
-    
-    " Nominal consumption "
-    # Personal consumption non-durables
-    C1 = fred.get_series('PCND').resample(freq).mean()# monthly, nominal
-    # Personal consumption expenditure services
+    " Nominal consumption (BEA codes DNDGRC + DDURRC + DSERRC) "
+    # Personal consumption non-durables: BEA DNDGRC
+    C1 = fred.get_series('PCEND').resample(freq).mean()# monthly, nominal
+    # Personal consumption expenditure services: BEA DSERRC
     C2 = fred.get_series('PCESV').resample(freq).mean()
     C = C1 + C2
     #C = fred.get_series('PCEC').resample(freq).mean()# monthly, nominal
     
     " Non-institutional population "
     pop = fred.get_series('CNP16OV').resample(freq).mean()
-    #defl = fred.get_series('GDPDEF').resample(freq).mean()
     
     " Consumer price index "
     CPI = fred.get_series('CPIAUCSL').resample(freq).mean()
     
-    " Labor hours "
-    L = fred.get_series('HOANBS').resample(freq).mean()
+    " Labor hours: average weekly "
+    #L = fred.get_series('HOANBS').resample(freq).mean()
+    L = fred.get_series('PRS85006023').resample(freq).mean().dropna()
     
-    
-    " Investment "
-    # Fixed private investment
-    FPI = fred.get_series('FPI').resample(freq).mean().dropna()
-    # Durable goods
-    #PCDG = fred.get_series('PCDG').resample(freq).mean().dropna()
-    # Change in business inventories
-    CBI = fred.get_series('CBI').resample(freq).mean().dropna()
-    I = FPI + CBI
-    #I = fred.get_series('GPDIC1').resample(freq).mean().dropna()
-    
+    " Gross Private Domestic Investment (BEA code A006RC) "
+    #Equivalent to FPI (BEA A007RC) and change in business inentories (BEA CBI)
+    I = fred.get_series("GPDI").resample(freq).mean().dropna()
+  
     " Wages (real compensation per hour) "
     w = fred.get_series('COMPRNFB').resample(freq).mean().dropna()
     
     " Capacity utilization "
     cu = fred.get_series('TCU').resample(freq).mean().dropna()
-    
-   
-
     
     " Total factor productivity "
     dtfp = pd.read_csv('quarterly_tfp.csv', header=0, nrows=304, sep=';' )
@@ -87,9 +88,6 @@ def construct_data(init, final, freq):
     SR = tfp.dtfp
     SR_util = tfp.dtfp_util
     
-    " Real government consumption expenditure "
-    G = fred.get_series('A955RX1Q020SBEA').resample('Q').mean()
-    
     " Relative price of investment goods "
     #p_I = fred.get_series('PIRIC').resample('Q').mean()
     p_I = fred.get_series("A006RD3Q086SBEA").resample(freq).mean().dropna()
@@ -97,23 +95,22 @@ def construct_data(init, final, freq):
     p_I = p_I/p_C
     
     " Real GDP "
-    Y = fred.get_series('GDPC1').resample(freq).mean().dropna() 
+    #Y = fred.get_series('GDPC1').resample(freq).mean().dropna() 
     # construct output from consumption and investment; omit G
     Y = C + I
     
-    # Labor share of income #
-    
+    # Labor productivity
+    lab_prod = fred.get_series("OPHNFB").resample(freq).mean().dropna()
+   
 
     " Scale by population and CPI "
     y = Y/(pop*deflator)
     c = C/(pop*CPI)
-    l = L/pop
-    lab_prod = y/l
+    l = L
     i = I/(pop*inv_deflator)
-    g = G/pop
     
     " List of data series "
-    var_load_list = [y, c, i, w, l, lab_prod, g, p_I, SR, SR_util, cu] 
+    var_load_list = [y, c, i, w, l, lab_prod, p_I, SR, SR_util, cu] 
     return var_load_list
 
 
@@ -134,7 +131,7 @@ if __name__ == "__main__":
         save_object(var_load_list, 'var_load_list')
     
     dat = pd.concat(var_load_list, axis=1)
-    lab = ['Y', 'C', 'I', 'w', 'L', "lab_prod", 'G', 'p_I', 'SR', 'SR_util', 'cu']
+    lab = ['Y', 'C', 'I', 'w', 'L', "lab_prod", 'p_I', 'SR', 'SR_util', 'cu']
     dat.columns = lab
     cycle = pd.concat([filter_transform(dat[x], init=init, final=final, transform_type='log',
                                         filter_type=filter_type) for x in lab], axis=1)
@@ -153,7 +150,7 @@ if __name__ == "__main__":
         " Save relevant objects "
         #save_object(cycle, 'cycle')
         " Save output for estimation using growth filter"
-        lab = ['Y_obs', 'C_obs', 'TI_obs', 'w_obs', 'L_obs', 'lab_prod_obs', 'G_obs', 'p_I_obs',
+        lab = ['Y_obs', 'C_obs', 'TI_obs', 'w_obs', 'L_obs', 'lab_prod_obs', 'p_I_obs',
                'SR_obs', 'SR_util_obs', 'cu']
         dic_data = dict(zip(lab, [np.asarray(cycle[x]) for x in cycle.columns]))
         sio.savemat('observables.mat', dic_data)
