@@ -121,7 +121,6 @@ Gamma_C = alpha_2*phi*q_C + A^alpha_2*phi*(alpha_2-rho)/Gamma_bar*(1-phi)*gam*q_
 [name = 'Markup (investment)']
 Gamma_I = alpha_2*phi*q_I + A^alpha_2*phi*(alpha_2-rho)/Gamma_bar*(1-phi)*gam*q_I;
 
-
 % 6) 
 [name = 'Labor in retail']
 w + L_C = C - Gamma_C;
@@ -156,7 +155,7 @@ q_I = zeta + L_K;
 
 % 13) Consumption multiplier
 [name = 'Consumption multiplier']
-b - sigma*c_A = lam + P_C;
+- sigma*c_A = lam + P_C;
 
 
 %13) 
@@ -179,11 +178,11 @@ u_I + K_I + sigma_a*u_I = I - Gamma_I;
 
 %17)
 [name = 'Relative price of capital good: consumption']
-Q_C = Psi_K*delta_K*(I_C-K_C-Gamma_C);
+Q_C = Psi_K*delta_K*(I_C-K_C);
 
 %18)
 [name = 'Relative price of capital good: investment']
-Q_I = Psi_K*delta_K*(I_I-K_I-Gamma_I);
+Q_I = Psi_K*delta_K*(I_I-K_I);
 
 % 19) 
 [name = 'Relative price of investment']
@@ -238,9 +237,6 @@ kappa = - u_shop;
 
 zeta = rho_zeta*zeta(-1) + e_zeta;
 u_zeta = u_shop + zeta;
-
-
-b = rho_b*b(-1) - e_b; % intertemporal
 
 % Labor supply
 chi = rho_chi1*chi(-1) + rho_chi2*chi(-2) - e_chi;
@@ -362,7 +358,7 @@ tex)
 
 % Estimation variables
 //I = p_I + u_ZI + (1-alpha_2)*(-phi*Q_I) + alpha*(K_I) + (1-alpha)*L_I;
-p_I, u_ZI, Q_I, K_I, L_I,
+p_I, u_ZI, L_C, L_I,
 C, C_obs, q_C, Y_obs, TI_obs, SR_obs, SR_util_obs, lab_prod_obs, p_I_obs, L,
 Gamma_C, Gamma_I;
 
