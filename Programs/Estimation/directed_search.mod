@@ -2,6 +2,7 @@
 var p_C, p_I, P_C, q_C, q_I,
 Q_C, Q_I,
 C, Gamma_C, Gamma_I, c_A, C_util, I_util,
+cu, D,
 I, I_C, I_I,
 w, L_C, L_I, L_K, L,
 //L_obs,
@@ -55,11 +56,12 @@ var_share = 0.5; % share of labor in consumption sector which is variable
 A = 0.78; % steady-state occupancy rate
 delta_K = 0.174/4;
 
-sigma_a = 0.32;
-Gamma_bar = 1.2;
+% Key elasticities for estimation
 Psi = 0.25;
 gam = 0.42;
+Gamma_bar = 1.35;
 
+sigma_a = 0.32;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 model(linear);
@@ -150,7 +152,7 @@ K_I = (1-delta_K)*K_I(-1) + delta_K*(I_I(-1)) - (r+delta_K)*u_I(-1);
 (1+eta)*q_C = c_A - kappa;
 
 % 12) Workers shopping in investment sector
-q_I = zeta + L_K;
+q_I = u_zeta + L_K;
 
 % 13) Consumption multiplier
 [name = 'Consumption multiplier']
@@ -273,12 +275,12 @@ end;
 
 % Observed variables (4 series) -- excluding labor supply for now
 %%%%%%%%%%%%%%%%%%%%
-/* multiline comment
+%/* multiline comment
 varobs Y_obs, TI_obs, SR_obs, p_I_obs;
 
 estimated_params;
 //x, init_value, upper bound, lower bound, prior shape, prior mean, prior std
-//sigma, 2, 0.5, 4,            GAMMA_PDF, 1.5, 0.25;
+sigma, 2, 0.5, 4,            GAMMA_PDF, 1.5, 0.25;
 
 % Inverse of Frisch elasticity
 //psi_inv, 0.72, 0.1, 5.0,         GAMMA_PDF, 0.74, 0.25;
@@ -328,9 +330,10 @@ stderr e_zeta, 0.02, 0.0001, 0.4,  INV_GAMMA_PDF, 0.01, 0.004;
 
 % Labor supply
 stderr e_chi, 0.02, 0.001, 0.4,  INV_GAMMA_PDF, 0.01, 0.004;
+end;
 
 % local identification
-//identification(ar=10);
+identification(ar=10);
 % brute-force search identification
 //identification(advanced=1, max_dim_cova_group=2);
 
@@ -394,7 +397,7 @@ shock_decomposition Y_obs, SR_obs;
 % Compute forecast error variance decomposition at 0, 8, 16, 24 quarters
 %conditional_variance_decomposition=[1 9 17 25]
 
-*/
+%*/
 stoch_simul (order=1, nofunctions, irf=80, periods=0,
 conditional_variance_decomposition=[1 4 8 40])
 C_obs, Y_obs, D, lab_prod_obs, SR_obs, cu, TI_obs, L_C, L_I, L, p_I_obs, Gamma_C, Gamma_I ;

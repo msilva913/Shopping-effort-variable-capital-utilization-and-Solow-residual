@@ -34,7 +34,7 @@ psi_inv = 0.72;
 phi = 0.5;
 
 % IES
-sigma = 1.0;
+sigma = 1.5;
 % Adjustment cost parameter 
 Psi_K = 4.0;
 
