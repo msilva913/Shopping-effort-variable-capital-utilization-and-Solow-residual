@@ -84,7 +84,8 @@ model(linear);
 #phi = (rho -Gamma_bar/A^alpha_2)/(rho-alpha_2);
 
 %4) Use Psi to get eta
-# eta = phi*(1/Psi+rho-1) -1;
+%# eta = phi*(1/Psi+rho-1) -1;
+#eta = 0.0;
 % Labor share
 
 
@@ -169,11 +170,11 @@ Q_I = (lam(+1)-lam) + (r+delta_K)/(1+r)*(I(+1)-K_I(+1)-u_I(+1)-Gamma_I(+1)) + Q_
 
 % 15)
 [name = 'Capital utilization (C)']
-u_C + K_C + sigma_a*u_C = C- Gamma_C;
+Q_C + u_C + K_C + sigma_a*u_C = C- Gamma_C;
 
 % 16)
 [name = 'Capital utilization (I)']
-u_I + K_I + sigma_a*u_I = I - Gamma_I;
+Q_I + u_I + K_I + sigma_a*u_I = I - Gamma_I;
 
 %17)
 [name = 'Relative price of capital good: consumption']
@@ -391,7 +392,7 @@ shock_decomposition Y_obs, SR_obs;
 %conditional_variance_decomposition=[1 9 17 25]
 
 */
-stoch_simul (order=1, nofunctions, irf=60, periods=0,
+stoch_simul (order=1, nofunctions, irf=80, periods=0,
 conditional_variance_decomposition=[1 4 8 40])
 C_obs,Y_obs, SR_obs, SR_util_obs, TI_obs, L, p_I_obs, Gamma_C, Gamma_I ;
 

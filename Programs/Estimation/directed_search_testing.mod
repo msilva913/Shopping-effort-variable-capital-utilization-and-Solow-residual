@@ -1,5 +1,7 @@
 
+
 var p_C, p_I, P_C, q_C, q_I,
+Q_C, Q_I,
 C, Gamma_C, Gamma_I, c_A, C_util, I_util,
 I, I_C, I_I,
 w, L_C, L_I, L_K, L,
@@ -14,7 +16,7 @@ kappa, u_shop,  chi,
 Y_obs, C_obs, TI_obs, p_I_obs, lab_prod_obs, SR_obs,
 SR_util_obs, Y_util_obs;
 
-% 5 shocks, 1 measurement errors--one more shock than observable
+% 6 shocks, 1 measurement errors--one more shock than observable
 varexo e_ZI, e_Z, e_shop, e_zeta, e_chi;
 
 parameters A, beta, delta_K, sigma_a, psi_inv, sigma, 
@@ -33,7 +35,7 @@ psi_inv = 0.72;
 phi = 0.5;
 
 % IES
-sigma = 2.0;
+sigma = 1.0;
 % Adjustment cost parameter 
 Psi_K = 4.0;
 
@@ -58,7 +60,7 @@ delta_K = 0.174/4;
 sigma_a = 0.32;
 Gamma_bar = 1.3;
 Psi = 0.25;
-gam = 0.5;
+gam = 1.0;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -83,8 +85,8 @@ model(linear);
 #phi = (rho -Gamma_bar/A^alpha_2)/(rho-alpha_2);
 
 %4) Use Psi to get eta
-//# eta = phi*(1/Psi+rho-1) -1;
-#eta = 0.0;
+# eta = phi*(1/Psi+rho-1) -1;
+%#eta = 0.0;
 % Labor share
 
 
@@ -159,29 +161,29 @@ q_I = zeta + L_K;
 
 %13) 
 [name = 'Euler equation of capital (C))']
-    0 = lam(+1) - lam + (r+delta_K)/(1+r)*(C(+1)-Gamma_C(+1)-K_C(+1)-u_C(+1));
-//Q_C = (lam(+1)-lam) + (r+delta_K)/(1+r)*(C(+1)-K_C(+1)-u_C(+1)-Gamma_C(+1)) + Q_C(+1)/(1+r);
+   // 0 = lam(+1) - lam + (r+delta_K)/(1+r)*(C(+1)-Gamma_C(+1)-K_C(+1)-u_C(+1));
+Q_C = (lam(+1)-lam) + (r+delta_K)/(1+r)*(C(+1)-K_C(+1)-u_C(+1)-Gamma_C(+1)) + Q_C(+1)/(1+r);
 
 % 14)
 [name = 'Euler equation of capital (I)']
- 0 = lam(+1) - lam + (r+delta_K)/(1+r)*(I(+1)-Gamma_I(+1)-K_I(+1)-u_I(+1));
-//Q_I = (lam(+1)-lam) + (r+delta_K)/(1+r)*(I(+1)-K_I(+1)-u_I(+1)-Gamma_I(+1)) + Q_I(+1)/(1+r);
+// 0 = lam(+1) - lam + (r+delta_K)/(1+r)*(I(+1)-Gamma_I(+1)-K_I(+1)-u_I(+1));
+Q_I = (lam(+1)-lam) + (r+delta_K)/(1+r)*(I(+1)-K_I(+1)-u_I(+1)-Gamma_I(+1)) + Q_I(+1)/(1+r);
 
 % 15)
 [name = 'Capital utilization (C)']
-u_C + K_C + sigma_a*u_C = C- Gamma_C;
+Q_C + u_C + K_C + sigma_a*u_C = C- Gamma_C;
 
 % 16)
 [name = 'Capital utilization (I)']
-u_I + K_I + sigma_a*u_I = I - Gamma_I;
+Q_I + u_I + K_I + sigma_a*u_I = I - Gamma_I;
 
 %17)
-//[name = 'Relative price of capital good: consumption']
-//Q_C = Psi_K*delta_K*(I_C-K_C);
+[name = 'Relative price of capital good: consumption']
+Q_C = Psi_K*delta_K*(I_C-K_C);
 
 %18)
-//[name = 'Relative price of capital good: investment']
-//Q_I = Psi_K*delta_K*(I_I-K_I);
+[name = 'Relative price of capital good: investment']
+Q_I = Psi_K*delta_K*(I_I-K_I);
 
 % 19) 
 [name = 'Relative price of investment']
@@ -254,6 +256,7 @@ SR_obs = Y_obs - (1-wL_Y)*K - wL_Y*L;
 SR_util_obs = Y_util_obs - (1-wL_Y)*K - wL_Y*L;
 
 lab_prod_obs = Y_obs - L;
+//L_obs = L + e_L_ME;
 
 % Levels
 
@@ -266,8 +269,11 @@ var e_shop = 0.0072;
 var e_zeta = 0.0072;
 end;
 
-stoch_simul (order=1, nofunctions, irf=60, periods=0,
+% Observed variables (4 series) -- excluding labor supply for now
+%%%%%%%%%%%%%%%%%%%%
+
+stoch_simul (order=1, nofunctions, irf=80, periods=0,
 conditional_variance_decomposition=[1 4 8 40])
-C_obs,Y_obs, SR_obs, SR_util_obs, TI_obs, L, p_I_obs, Gamma_C, Gamma_I ;
+C_obs, Y_obs, SR_obs, SR_util_obs, TI_obs, L_C, L_I, L, p_I_obs, Gamma_C, Gamma_I ;
 
 
