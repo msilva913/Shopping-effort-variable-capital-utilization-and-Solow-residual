@@ -104,7 +104,7 @@ function steady_state(para, Y=1.0, L=1.0, qC=1.0, qI=1.0)
     @assert abs(χ*L^ψ - u_C*w/P_C) < crit
     @assert abs(C-wL-D) < crit
     return (C=C, I=I, Y=Y, L=L, w=w, c_A=c_A, K=K, KC=KC, KI=KI, 
-        LC=LC, LI=LI, LK=LK, P_C=P_C, ZC=ZC, ZI=ZI, κ=κ, ζ=ζ, χ=χ, p_C=p_C, p_I=p_I, Γ=Γ, Ψ=Ψ)
+        LC=LC, LI=LI, LK=LK, P_C=P_C, ZC=ZC, ZI=ZI, κ=κ, ζ=ζ, χ=χ, p_C=p_C, p_I=p_I, Γ=Γ, Ψ=Ψ, ϕ_LK=ϕ_LK)
 end
 
 function calibrate(targets, Γ=1.3, Ψ=0.25, η=0.0, var_share=0.5, σ=2.0, ψ=1.0)
@@ -360,6 +360,6 @@ end
 # Para = @with_kw (ϕ=0.1, A=0.8, α_2 = 0.0, α_1=0.7, β=0.99, δ_K = 0.025, ρ=2.0,
 #          α_K=0.3, σ=1.0, η=1.0, ψ=1.0, Y=1.0, L=1.0, qC=1.0, qI=1.0)
 targets = Targets()
-para = calibrate(targets)
+para = calibrate_dep(targets)
 ss = steady_state(para)
 tab = table(para, ss)

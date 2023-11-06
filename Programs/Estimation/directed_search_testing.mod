@@ -1,6 +1,5 @@
 
 var p_C, p_I, P_C, q_C, q_I,
-Q_C, Q_I,
 C, Gamma_C, Gamma_I, c_A, C_util, I_util,
 I, I_C, I_I,
 w, L_C, L_I, L_K, L,
@@ -15,7 +14,7 @@ kappa, u_shop,  chi,
 Y_obs, C_obs, TI_obs, p_I_obs, lab_prod_obs, SR_obs,
 SR_util_obs, Y_util_obs;
 
-% 6 shocks, 1 measurement errors--one more shock than observable
+% 5 shocks, 1 measurement errors--one more shock than observable
 varexo e_ZI, e_Z, e_shop, e_zeta, e_chi;
 
 parameters A, beta, delta_K, sigma_a, psi_inv, sigma, 
@@ -59,7 +58,7 @@ delta_K = 0.174/4;
 sigma_a = 0.32;
 Gamma_bar = 1.3;
 Psi = 0.25;
-gam = 1.0;
+gam = 0.5;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -84,7 +83,8 @@ model(linear);
 #phi = (rho -Gamma_bar/A^alpha_2)/(rho-alpha_2);
 
 %4) Use Psi to get eta
-# eta = phi*(1/Psi+rho-1) -1;
+//# eta = phi*(1/Psi+rho-1) -1;
+#eta = 0.0;
 % Labor share
 
 
@@ -159,13 +159,13 @@ q_I = zeta + L_K;
 
 %13) 
 [name = 'Euler equation of capital (C))']
-   // 0 = lam(+1) - lam + (r+delta_K)/(1+r)*(C(+1)-Gamma_C(+1)-K_C(+1)-u_C(+1));
-Q_C = (lam(+1)-lam) + (r+delta_K)/(1+r)*(C(+1)-K_C(+1)-u_C(+1)-Gamma_C(+1)) + Q_C(+1)/(1+r);
+    0 = lam(+1) - lam + (r+delta_K)/(1+r)*(C(+1)-Gamma_C(+1)-K_C(+1)-u_C(+1));
+//Q_C = (lam(+1)-lam) + (r+delta_K)/(1+r)*(C(+1)-K_C(+1)-u_C(+1)-Gamma_C(+1)) + Q_C(+1)/(1+r);
 
 % 14)
 [name = 'Euler equation of capital (I)']
-// 0 = lam(+1) - lam + (r+delta_K)/(1+r)*(I(+1)-Gamma_I(+1)-K_I(+1)-u_I(+1));
-Q_I = (lam(+1)-lam) + (r+delta_K)/(1+r)*(I(+1)-K_I(+1)-u_I(+1)-Gamma_I(+1)) + Q_I(+1)/(1+r);
+ 0 = lam(+1) - lam + (r+delta_K)/(1+r)*(I(+1)-Gamma_I(+1)-K_I(+1)-u_I(+1));
+//Q_I = (lam(+1)-lam) + (r+delta_K)/(1+r)*(I(+1)-K_I(+1)-u_I(+1)-Gamma_I(+1)) + Q_I(+1)/(1+r);
 
 % 15)
 [name = 'Capital utilization (C)']
@@ -176,12 +176,12 @@ u_C + K_C + sigma_a*u_C = C- Gamma_C;
 u_I + K_I + sigma_a*u_I = I - Gamma_I;
 
 %17)
-[name = 'Relative price of capital good: consumption']
-Q_C = Psi_K*delta_K*(I_C-K_C);
+//[name = 'Relative price of capital good: consumption']
+//Q_C = Psi_K*delta_K*(I_C-K_C);
 
 %18)
-[name = 'Relative price of capital good: investment']
-Q_I = Psi_K*delta_K*(I_I-K_I);
+//[name = 'Relative price of capital good: investment']
+//Q_I = Psi_K*delta_K*(I_I-K_I);
 
 % 19) 
 [name = 'Relative price of investment']
@@ -254,7 +254,6 @@ SR_obs = Y_obs - (1-wL_Y)*K - wL_Y*L;
 SR_util_obs = Y_util_obs - (1-wL_Y)*K - wL_Y*L;
 
 lab_prod_obs = Y_obs - L;
-//L_obs = L + e_L_ME;
 
 % Levels
 
@@ -267,130 +266,6 @@ var e_shop = 0.0072;
 var e_zeta = 0.0072;
 end;
 
-% Observed variables (4 series) -- excluding labor supply for now
-%%%%%%%%%%%%%%%%%%%%
-/* multiline comment
-varobs Y_obs, TI_obs, SR_obs, p_I_obs;
-
-estimated_params;
-//x, init_value, upper bound, lower bound, prior shape, prior mean, prior std
-//sigma, 2, 0.5, 4,            GAMMA_PDF, 1.5, 0.25;
-
-% Inverse of Frisch elasticity
-//psi_inv, 0.72, 0.1, 5.0,         GAMMA_PDF, 0.74, 0.25;
-
-% Elasticity of TFP wrt real spending
-Psi, 0.25, 0.0, 0.5,          BETA_PDF, 0.2, 0.1, 0, 0.5;
-
-% Gross markup
-Gamma_bar, 1.3, 1.01, 2.0,    BETA_PDF, 1.3, 0.20, 1.01, 2.0;
-
-% Elasticity parameter matching function
-gam, 1.0, 0.01, 2.0,          BETA_PDF, 1.0, 0.4, 0.0, 2.0;
-
-% Adjustment costs
-Psi_K, 5.0, 0.00, 30,        GAMMA_PDF, 1.57, 1.5;
-
-% Shopping elasticity parameter
-//eta, 1.0, 0.01, 20,           GAMMA_PDF, 0.5, 0.5;
-
-% Share of variable labor among labor
-var_share, 0.2, 0.01, 0.999,      BETA_PDF, 0.5, 0.2;
-
-% Capital utilization cost sigma_a
-sigma_a, 0.32, 0.0, 5.0,        GAMMA_PDF, 0.32, 0.3;
-
-% Persistence parameters
-rho_Z, 0.9, 0.0212, 0.99999,        BETA_PDF, 0.6, 0.2;
-rho_ZI, 0.92, 0.0212, 0.9999,       BETA_PDF, 0.6, 0.2;
-
-rho_shop, 0.95, 0.0212, 0.9999,     BETA_PDF, 0.6, 0.2;
-rho_zeta, 0.9, 0.0212, 0.999,     BETA_PDF, 0.6, 0.2;
-
-% Roots for labor supply
-//lambda_1, 0.9, -0.999, 0.9999,       BETA_PDF, 0.6, 0.2, -1, 1;
-lambda_1, 0.9, 0.0212, 0.9999,       BETA_PDF, 0.6, 0.2;
-//lambda_2, 0.1, -0.999, 0.999,        BETA_PDF, 0.0, 0.2, -1, 1;
-
-
-% Conditional standard deviations
-% technology: sector-specific and common
-stderr e_ZI, 0.01, 0.001, 0.2,  INV_GAMMA_PDF, 0.01, 0.004;
-stderr e_Z, 0.01, 0.001, 0.2,  INV_GAMMA_PDF, 0.01, 0.004;
-
-% Shopping demand: sector-specific and common
-stderr e_shop, 0.01, 0.0001, 0.4,  INV_GAMMA_PDF, 0.01, 0.004;
-stderr e_zeta, 0.02, 0.0001, 0.4,  INV_GAMMA_PDF, 0.01, 0.004;
-
-% Labor supply
-stderr e_chi, 0.02, 0.001, 0.4,  INV_GAMMA_PDF, 0.01, 0.004;
-
-% local identification
-//identification(ar=10);
-% brute-force search identification
-//identification(advanced=1, max_dim_cova_group=2);
-
-resid(1);
-steady;
-check;
-
-
-estimation(optim=('MaxIter', 200), 
-datafile=observables, 
-//mode_file=shopping_JR_simplified_noadj_cost_mode, 
-//load_mh_file, 
-//mh_recover,
-//mcmc_jumping_covariance=prior_variance,
-
-mode_compute=4, 
-presample=0, 
-lik_init=1,
-mh_jscale=0.3, 
-mode_check, 
-prefilter=1,
-mh_replic=250000, 
-//mh_replic=0,
-mh_nblocks=2, 
-bayesian_irf,
-mh_drop=0.2, 
-prior_trunc=0,
-tex)
-
-% Estimation variables
-//I = p_I + u_ZI + (1-alpha_2)*(-phi*Q_I) + alpha*(K_I) + (1-alpha)*L_I;
-p_I, u_ZI, L_C, L_I,
-C, C_obs, q_C, Y_obs, TI_obs, SR_obs, SR_util_obs, lab_prod_obs, p_I_obs, L,
-Gamma_C, Gamma_I;
-
-%mode_compute=4 uses Chris Sims' csminwel function
-% presample (number of observations to be skipped before calculating likelihood)
-% lik_init specifies initialization for Kalman filter (1 for stationary model)
-% mode_check (plot posterior density around mode
-% mh_nblocks (number of parallel chains for MH algorithm)
-% mh_jscale (scale for MH algorithm--target 23%)
-% mh_drop (fraction of draws to be dropped before using posterior simulations)
-
-% Trace analysis: check convergence of MCMC
-% Set moving average window
-options_.trace_plot_ma = 20000;
-
-//trace_plot(options_,M_,estim_params_,'PosteriorDensity',1)
-//trace_plot(options_,M_,estim_params_,'DeepParameter',2,'epsi')
-//trace_plot(options_,M_,estim_params_,'StructuralShock',2,'e_ZI')
-
-
-%Historical decomposition of output and the Solow residual
-% Decompose historical deviations of variables from their respective steady-state
-% values into the contribution comingn from various shocks
-
-shock_decomposition Y_obs, SR_obs;
-% Conditional variance dec at 1, 4, 40 quarters
-%conditional_variance_decomposition=[1, 4, 8, 40]
-
-% Compute forecast error variance decomposition at 0, 8, 16, 24 quarters
-%conditional_variance_decomposition=[1 9 17 25]
-
-*/
 stoch_simul (order=1, nofunctions, irf=60, periods=0,
 conditional_variance_decomposition=[1 4 8 40])
 C_obs,Y_obs, SR_obs, SR_util_obs, TI_obs, L, p_I_obs, Gamma_C, Gamma_I ;

@@ -1,5 +1,5 @@
-function g2 = static_g2(T, y, x, params, T_flag)
-% function g2 = static_g2(T, y, x, params, T_flag)
+function g3 = static_g3(T, y, x, params, T_flag)
+% function g3 = static_g3(T, y, x, params, T_flag)
 %
 % File created by Dynare Preprocessor from .mod file
 %
@@ -12,12 +12,12 @@ function g2 = static_g2(T, y, x, params, T_flag)
 %   T_flag    boolean                 boolean  flag saying whether or not to calculate temporary terms
 %
 % Output:
-%   g2
+%   g3
 %
 
 if T_flag
-    T = directed_search.static_g2_tt(T, y, x, params);
+    T = directed_search_testing.static_g3_tt(T, y, x, params);
 end
-g2 = sparse([],[],[],44,1936);
+g3 = sparse([],[],[],42,74088);
 
 end

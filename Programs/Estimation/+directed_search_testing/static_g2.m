@@ -16,8 +16,8 @@ function g2 = static_g2(T, y, x, params, T_flag)
 %
 
 if T_flag
-    T = directed_search.static_g2_tt(T, y, x, params);
+    T = directed_search_testing.static_g2_tt(T, y, x, params);
 end
-g2 = sparse([],[],[],44,1936);
+g2 = sparse([],[],[],42,1764);
 
 end
