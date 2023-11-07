@@ -1,15 +1,15 @@
 
 
 var p_C, p_I, P_C, q_C, q_I,
-Q_C, Q_I,
+Q_C, Q_I, 
 C, Gamma_C, Gamma_I, c_A, C_util, I_util,
 I, I_C, I_I,
 w, L_C, L_I, L_K, L,
 //L_obs,
- K_C, K_I, K, lam, 
+ K_C, K_I, K, lam, D,
 u_C, u_I, cu,
 % shock vars
-Z, Z_I, u_ZI, zeta, u_zeta,
+Z, Z_I, u_ZI, zeta
 kappa, u_shop,  chi,
 
 %observables (4 series)
@@ -17,7 +17,7 @@ Y_obs, C_obs, TI_obs, p_I_obs, lab_prod_obs, SR_obs,
 SR_util_obs, Y_util_obs;
 
 % 6 shocks, 1 measurement errors--one more shock than observable
-varexo e_ZI, e_Z, e_shop, e_zeta, e_chi;
+varexo e_ZI, e_Z, e_shop, e_chi;
 
 parameters A, beta, delta_K, sigma_a, psi_inv, sigma, 
 var_share, Gamma_bar, wL_Y, phi_I, Psi, Psi_K, gam,
@@ -28,14 +28,13 @@ rho_Z, rho_ZI , rho_shop, rho_zeta
 lambda_1, lambda_2;
 
 beta = 0.993;
-delta_K = 0.025;
 
 % Frisch elasticity of labor supply
 psi_inv = 0.72;
 phi = 0.5;
 
 % IES
-sigma = 1.0;
+sigma = 1.5;
 % Adjustment cost parameter 
 Psi_K = 4.0;
 
@@ -57,11 +56,15 @@ var_share = 0.5; % share of labor in consumption sector which is variable
 A = 0.78; % steady-state occupancy rate
 delta_K = 0.174/4;
 
+% Key elasticities for estimation
+Psi = 0.25;
+gam = 0.42;
+Gamma_bar = 1.35;
+
 sigma_a = 0.32;
-Gamma_bar = 1.3;
-%Psi = 0.25;
-Psi = 0.01;
-gam = 1.0;
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -165,12 +168,12 @@ q_I = zeta + L_K;
 %13) 
 [name = 'Euler equation of capital (C))']
    // 0 = lam(+1) - lam + (r+delta_K)/(1+r)*(C(+1)-Gamma_C(+1)-K_C(+1)-u_C(+1));
-Q_C = (lam(+1)-lam) + (r+delta_K)/(1+r)*(C(+1)-K_C(+1)-u_C(+1)-Gamma_C(+1)) + Q_C(+1)/(1+r);
+Q_C = lam(+1)-lam + (r+delta_K)/(1+r)*(C(+1)-K_C(+1)-u_C(+1)-Gamma_C(+1)) + Q_C(+1)/(1+r);
 
 % 14)
 [name = 'Euler equation of capital (I)']
 // 0 = lam(+1) - lam + (r+delta_K)/(1+r)*(I(+1)-Gamma_I(+1)-K_I(+1)-u_I(+1));
-Q_I = (lam(+1)-lam) + (r+delta_K)/(1+r)*(I(+1)-K_I(+1)-u_I(+1)-Gamma_I(+1)) + Q_I(+1)/(1+r);
+Q_I = lam(+1)-lam + (r+delta_K)/(1+r)*(I(+1)-K_I(+1)-u_I(+1)-Gamma_I(+1)) + Q_I(+1)/(1+r);
 
 % 15)
 [name = 'Capital utilization (C)']
@@ -228,9 +231,9 @@ I = phi_C*I_C + phi_I*I_I;
 [name = 'Capacity utilization']
 cu = phi_C*(phi*q_C + alpha*u_C) + phi_I*(phi*q_I+alpha*u_I);
 
-% 27) 
+% 28) 
 [name = 'Aggregate accounting (income = expenditures)']
-//YC_Y*(YC) + I_Y*(I) = d_Y*d + wL_Y*(w+L) + (1-d_Y-wL_Y)*(phi_C*(r_C+K_C) + phi_I*(r_I+K_I));
+phi_C*C = wL_Y*C + D_Y*D;
 
 
 % Technology shocks: common and investment-specific
@@ -243,8 +246,9 @@ Z_I = Z + u_ZI;
 u_shop = rho_shop*u_shop(-1) + e_shop;
 kappa = - u_shop;
 
-zeta = rho_zeta*zeta(-1) + e_zeta;
-//u_zeta = u_shop + zeta;
+//zeta = rho_zeta*zeta(-1) + e_zeta;
+
+zeta = u_shop;
 
 % Labor supply
 chi = rho_chi1*chi(-1) + rho_chi2*chi(-2) - e_chi;
@@ -273,7 +277,7 @@ shocks;
 var e_Z = 0.0072;
 var e_ZI = 0.0072;
 var e_shop = 0.0072;
-var e_zeta = 0.0072;
+//var e_zeta = 0.0072;
 end;
 
 % Observed variables (4 series) -- excluding labor supply for now
@@ -281,6 +285,6 @@ end;
 
 stoch_simul (order=1, nofunctions, irf=100, periods=0,
 conditional_variance_decomposition=[1 4 8 40])
-C_obs, Y_obs, SR_obs, cu, TI_obs, L_C, L_I, L, p_I_obs, Gamma_C, Gamma_I ;
+C_obs, Y_obs, D, lab_prod_obs, SR_obs, cu, TI_obs, L_C, L_I, L, p_I_obs, Gamma_C, Gamma_I ;
 
 

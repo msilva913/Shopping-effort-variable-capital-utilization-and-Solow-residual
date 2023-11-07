@@ -17,7 +17,7 @@ Y_obs, C_obs, TI_obs, p_I_obs, lab_prod_obs, SR_obs,
 SR_util_obs, Y_util_obs;
 
 % 6 shocks, 1 measurement errors--one more shock than observable
-varexo e_ZI, e_Z, e_shop, e_zeta, e_chi;
+varexo e_ZI, e_Z, e_shop, e_chi;
 
 parameters A, beta, delta_K, sigma_a, psi_inv, sigma, 
 var_share, Gamma_bar, wL_Y, phi_I, Psi, Psi_K, gam,
@@ -34,7 +34,7 @@ psi_inv = 0.72;
 phi = 0.5;
 
 % IES
-sigma = 1.5;
+sigma = 1.0;
 % Adjustment cost parameter 
 Psi_K = 4.0;
 
@@ -168,12 +168,12 @@ q_I = zeta + L_K;
 %13) 
 [name = 'Euler equation of capital (C))']
    // 0 = lam(+1) - lam + (r+delta_K)/(1+r)*(C(+1)-Gamma_C(+1)-K_C(+1)-u_C(+1));
-Q_C = (lam(+1)-lam) + (r+delta_K)/(1+r)*(C(+1)-K_C(+1)-u_C(+1)-Gamma_C(+1)) + Q_C(+1)/(1+r);
+Q_C = lam(+1)-lam + (r+delta_K)/(1+r)*(C(+1)-K_C(+1)-u_C(+1)-Gamma_C(+1)) + Q_C(+1)/(1+r);
 
 % 14)
 [name = 'Euler equation of capital (I)']
 // 0 = lam(+1) - lam + (r+delta_K)/(1+r)*(I(+1)-Gamma_I(+1)-K_I(+1)-u_I(+1));
-Q_I = (lam(+1)-lam) + (r+delta_K)/(1+r)*(I(+1)-K_I(+1)-u_I(+1)-Gamma_I(+1)) + Q_I(+1)/(1+r);
+Q_I = lam(+1)-lam + (r+delta_K)/(1+r)*(I(+1)-K_I(+1)-u_I(+1)-Gamma_I(+1)) + Q_I(+1)/(1+r);
 
 % 15)
 [name = 'Capital utilization (C)']
@@ -246,7 +246,9 @@ Z_I = Z + u_ZI;
 u_shop = rho_shop*u_shop(-1) + e_shop;
 kappa = - u_shop;
 
-zeta = rho_zeta*zeta(-1) + e_zeta;
+//zeta = rho_zeta*zeta(-1) + e_zeta;
+
+zeta = u_shop;
 
 % Labor supply
 chi = rho_chi1*chi(-1) + rho_chi2*chi(-2) - e_chi;
@@ -275,7 +277,7 @@ shocks;
 var e_Z = 0.0072;
 var e_ZI = 0.0072;
 var e_shop = 0.0072;
-var e_zeta = 0.0072;
+//var e_zeta = 0.0072;
 end;
 
 % Observed variables (4 series) -- excluding labor supply for now
