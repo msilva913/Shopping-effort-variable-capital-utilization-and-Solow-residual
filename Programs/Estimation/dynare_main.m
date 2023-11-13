@@ -4,8 +4,9 @@ clear;
 addpath c:\dynare\5.4\matlab
 
 %% Baseline model GHH
-dynare directed_search.mod
-dynare directed_search_testing.mod
+%dynare directed_search.mod
+%dynare directed_search_testing.mod
+dynare directed_search_testing_only_C.mod
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
