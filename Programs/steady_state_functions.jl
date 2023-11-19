@@ -421,10 +421,10 @@ function calibrate_only_C_fixed_costs(targets; Γ=1.3, δ_share=0.173, Ψ=0.25, 
     # var_share: share of variable labor
     #ψ: inverse of the Frisch elasticity
     #σ: inverse of IES
-    # Here we impose η = 0.0 and α_2 = 0.0
-        # Γ = A^α_2*(α_2*(c+ν)/c ϕ + ρ*(1-ϕ))
+    # Here we impose η = 0.0 
+        # Γ = A^α_2*(α_2*(1+ν_share) ϕ + ρ*(1-ϕ))
         # Ψ = (1/ϕ + 1-ρ)^{-1}
-        # wL/Y = (1-α)/Γ
+        # wL_Y = (1-α)/Γ*(1+ν_share)
 
     crit = 1e-10
 
@@ -432,17 +432,18 @@ function calibrate_only_C_fixed_costs(targets; Γ=1.3, δ_share=0.173, Ψ=0.25, 
     A = occupancy_rate 
     r= (1+r_annual)^(1/4) - 1
     β = 1/(1+r)
-    δ = δ_share/4
+    δ_K = δ_share/4
     Ψ_inv = 1/Ψ
 
-    # Labor share
-    #wL_Y = (1-α)/Γ*(1+ν_share)
-    # ϕ_I = δ_Kα/(r_KΓ)*(1+ν_share)
-    #=> wL_YΓ/(1-α) =  ϕ_I*(r_K*Γ)/(δ_K*α)
-    #=>  α_ratio = ϕ_I*(r+δ)/(δ*wL_Y)
+    #= Labor share
+    wL_Y = (1-α)/Γ*(1+ν_share)
+    ϕ_I = δ_Kα/(r_KΓ)*(1+ν_share)
+    => wL_YΓ/(1-α) =  ϕ_I*(r_K*Γ)/(δ_K*α)
+    =>  α_ratio = ϕ_I*(r+δ)/(δ*wL_Y)
     #α = α_ratio/(1+α_ratio)
+    =#
 
-    α_ratio = ϕ_I*(r+δ)/(δ*wL_Y)
+    α_ratio = ϕ_I*(r+δ_K)/(δ_K*wL_Y)
     α = α_ratio/(1+α_ratio)
 
     #2) ν_share
@@ -468,23 +469,9 @@ function calibrate_only_C_fixed_costs(targets; Γ=1.3, δ_share=0.173, Ψ=0.25, 
     #  x =fzero(loss, 0.1)
 
 
-  
-    #2) Consistency of δ_K with investment share
-    δ_K = r*(α/(ϕ_I*Γ) - 1)^(-1)
+    #2) Consistency of δ_K and α with investment share, markup
+    wL_Y - (1-α)/Γ*(1+ν_share)
     ϕ_I - δ_K*α/((r+δ_K)*Γ)
-
-    #Y = wL*Γ/(1-α) - Aν
-    #1) Map Γ and Ψ back to ρ and ϕ 
-    Ψ_inv = 1/Ψ
-    ρ = (sqrt((2+Γ-Ψ_inv)^2+4*(Ψ_inv-1))+(2+Γ-Ψ_inv))/2
-    ϕ = 1-Γ/ρ
-    #2) 
-
-   
-    #3) Consistency of δ_K with investment share 
-    #ϕ_I = δ_K*α_K/(r_K*Γ)
-    f(r) = ϕ_I - δ_K*α/((r+δ_K)*Γ)
-    r = fzero(f, 0.02)
    
 
     #TFP constant (adjustment due to composition)
