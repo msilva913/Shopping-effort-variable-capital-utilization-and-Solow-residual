@@ -106,7 +106,7 @@ function steady_state(para, Y=1.0, L=1.0, qC=1.0, qI=1.0)
         LC=LC, LI=LI, LK=LK, P_C=P_C, ZC=ZC, ZI=ZI, κ=κ, ζ=ζ, χ=χ, p_C=p_C, p_I=p_I, Γ=Γ, Ψ=Ψ, ϕ_LK=ϕ_LK)
 end
 
-function calibrate_(targets; Γ=1.3, Ψ=0.25, η=0.0, var_share=0.5, σ=2.0, ψ=1.0)
+function calibrate(targets; Γ=1.3, Ψ=0.25, var_share=0.5, σ=2.0, ψ=1.0)
     # Γ: gross markup
     # Ψ: elasticity of matching probability of firm locations wrt aggregate spending
     # var_share: share of variable labor
@@ -153,7 +153,7 @@ function calibrate_(targets; Γ=1.3, Ψ=0.25, η=0.0, var_share=0.5, σ=2.0, ψ=
     ν_R = Γ*wL_Y/(1-α) - 1
 
     #5) Solve for ϕ and ρ
-    A_c = α_2*(1+ν_share)+Ψ_inv - 1
+    A_c = α_2*(1+ν_R)+Ψ_inv - 1
     B_c = - (Ψ_inv + Γ/A^α_2)
     C_c = 1.0
 
@@ -218,8 +218,6 @@ function calibrate_(targets; Γ=1.3, Ψ=0.25, η=0.0, var_share=0.5, σ=2.0, ψ=
     #20) Fixed cost ν 
     ν = Y/((p_I+p_C)*A)*ν_R
 
-
-
     # Consistency of Γ, α, ϕ, ν, ρ
     @assert abs( Γ - A^α_2*(α_2*(1+ν_R)*ϕ+ρ*(1-ϕ))) < crit
     @assert abs( ϕ_I - δ_K*α/(r_K*Γ)*(1+ν_R) ) < crit
@@ -237,7 +235,7 @@ end
 
 
 function table(para, targets)
-    @unpack A, β, ϕ, ρ, δ_K, α_1, α_2, ZC, ZI, χ, κ, ζ, σ_b, σ, ψ, Ψ, ν = para
+    @unpack A, β, ϕ, ρ, δ_K, α_1, α_2, α, ZC, ZI, χ, κ, ζ, σ_b, σ, ψ, Γ, Ψ, ν = para
     @unpack r_annual, δ_share, ϕ_I, wL_Y, occupancy_rate = targets
     r = (1-β)/β
   
@@ -287,6 +285,6 @@ end
 #          α_K=0.3, σ=1.0, η=1.0, ψ=1.0, Y=1.0, L=1.0, qC=1.0, qI=1.0)
 
 targets = Targets()
-para = calibrate_(targets)
-ss = steady_state(para)
+para = calibrate(targets)
+#ss = steady_state(para)
 tab = table(para, targets)
