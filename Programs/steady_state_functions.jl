@@ -106,112 +106,7 @@ function steady_state(para, Y=1.0, L=1.0, qC=1.0, qI=1.0)
         LC=LC, LI=LI, LK=LK, P_C=P_C, ZC=ZC, ZI=ZI, κ=κ, ζ=ζ, χ=χ, p_C=p_C, p_I=p_I, Γ=Γ, Ψ=Ψ, ϕ_LK=ϕ_LK)
 end
 
-
-
-
-function calibrate_simp(targets; Γ=1.3, Ψ=0.25, η=0.0, var_share=0.5, σ=2.0, ψ=1.0, dep_rate_ann=0.173)
-    # Γ: gross markup
-    # Ψ: elasticity of matching probability of firm locations wrt aggregate spending
-    # var_share: share of variable labor
-    #ψ: inverse of the Frisch elasticity
-    #σ: inverse of IES
-    # Here we impose η = 0.0 and α_2 = 0.0
-        # Γ = ρ*(1-ϕ)
-        # Ψ = (1/ϕ + 1-ρ)^{-1}
-
-    crit = 1e-10
-
-    @unpack r_annual, _ , wL_Y, occupancy_rate, Y, qC, qI, L = targets
-    A = occupancy_rate 
-    r= (1+r_annual)^(1/4) - 1
-    β = 1/(1+r)
-    δ_K = dep_rate_ann/4
-
-    #1) Map Γ and Ψ back to ρ and ϕ 
-    Ψ_inv = 1/Ψ
-    ρ = (sqrt((2+Γ-Ψ_inv)^2+4*(Ψ_inv-1))+(2+Γ-Ψ_inv))/2
-    ϕ = 1-Γ/ρ
-
-    #2) Consistency of labor share and α
-    #wL_Y = (1/Γ)*(1-α+(ρ-1)*δ_K*α/r_K)
-    #wL_Y = (1/Γ)*(1-α+(ρ-1)*ϕ_I*Γ)
-    α = 1 - wL_Y*Γ + (ρ-1)*ϕ_I*Γ
-
-    #TFP constant (adjustment due to composition)
-    # Consistency with 
-    #1) labor share
-    #2) investment share
-    #3) markup
-    σ_b = r+δ_K
-    #1) Consistency of α with investment share
-    #ϕ_I = δ_K*α_K/(r_K*Γ)
-    α =ϕ_I*(r+δ_K)*Γ/δ_K
-
- 
-   
-
-    # 4) use Ψ to get η
-    η = ϕ*(1/Ψ+ρ-1) - 1
-    α_1 = 1-α-α_2
-    cons = α_1^α_1*α_2^(α_2)/((1-α)^(1-α))
-    r_K = r + δ_K
-    @assert abs(  ϕ_I - δ_K*α/(r_K*Γ) ) < crit
-    @assert abs(wL_Y- (1/Γ)*(1-α+(ρ-1)*δ_K*α/r_K)) < crit
-    @assert abs( Γ - A^α_2*(α_2*ϕ+ρ*(1-ϕ))) < crit
-    @assert abs( 1/Ψ -  ((1+η)/ϕ + 1-ρ)) < crit
-
-    ϕ_C = 1.0 - ϕ_I
-    # share of workers shopping for investment goods
-    ϕ_LK = (ρ-1)*δ_K*α/(r+δ_K)/((ρ-1)*δ_K*α/(r+δ_K)+1-α)
-
-    # Labor types
-    LC = ϕ_C*(1-ϕ_LK)*L
-    LI = ϕ_I*(1-ϕ_LK)*L
-    LK = ϕ_LK*L
-
-    I = ϕ_I*Y
-    C = ϕ_C*Y
-    K = I/δ_K
-    KC = ϕ_C*K
-    KI = ϕ_I*K
-
-    # Investment goods price 
-    p_I = 1/A^(1-ρ)
-    # Solve for Z_I to be consistent with production function
-    ZI = I/(A*p_I*KI^(α)*LI^(1-α)*cons)
-    ZC = ZI
-
-    # Solve for p_C to be consistent with consumption production function
-    p_C = C/(A*ZC*KC^(α)*LC^(1-α)*cons)
-
-    #p_C = p_I*ZI/ZC
-    P_C = A^(1-ρ)*p_C
-    # consumption bundle
-    c_A = C/P_C
-    # Implied shopping effort cost from optimality condition
-    κ = (ρ-1)*c_A/(qC^(1+η))
-    # Marginal utility imposing GHH
-    u_C = ((2+η-ρ)/(1+η)*c_A)^(-σ)
-    # consumption marginal utility
-    λ = u_C/P_C 
-
-    wL = wL_Y*Y
-    w = wL/L
-    # Level parameter for labor supply
-    χ = λ*w/L^ψ
-    # Implied efficiency of shopping for investment goods: q_I = ζ*LK
-    ζ = qI/LK
-    
-    # Elasticities 
-    # Check consistency of ζ, κ, χ
-    @assert abs(qI - ζ*LK) < crit
-    @assert abs(κ*qC^(1+η)/(ρ-1)-c_A) < crit
-    @assert abs(χ*L^ψ - u_C*w/P_C) < crit
-    return (A=A, β=β, ϕ=ϕ, ρ=ρ, δ_K=δ_K, α_1=α_1, α_2=α_2, α=α, ZC=ZC, ZI=ZI, χ=χ, κ=κ, ζ=ζ, η=η, σ_b=σ_b, σ=σ, ψ=ψ,
-                Γ=1.3, Ψ=0.25)
-end
-
-function calibrate_fixed_costs(targets; Γ=1.3, Ψ=0.25, η=0.0, var_share=0.5, σ=2.0, ψ=1.0)
+function calibrate_(targets; Γ=1.3, Ψ=0.25, η=0.0, var_share=0.5, σ=2.0, ψ=1.0)
     # Γ: gross markup
     # Ψ: elasticity of matching probability of firm locations wrt aggregate spending
     # var_share: share of variable labor
@@ -392,6 +287,6 @@ end
 #          α_K=0.3, σ=1.0, η=1.0, ψ=1.0, Y=1.0, L=1.0, qC=1.0, qI=1.0)
 
 targets = Targets()
-para = calibrate_fixed_costs(targets)
+para = calibrate_(targets)
 ss = steady_state(para)
 tab = table(para, targets)
