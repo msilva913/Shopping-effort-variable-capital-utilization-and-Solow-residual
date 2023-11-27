@@ -51,7 +51,6 @@ lambda_2 = 0.0;
 wL_Y = 0.667;
 phi_I = 0.22;
 var_share = 0.5; % share of labor in consumption sector which is variable
-A = 0.78; % steady-state occupancy rate
 delta_K = 0.174/4;
 
 % Key elasticities for estimation
@@ -74,8 +73,6 @@ model(linear);
 %1) Consistency of α with investment share
 #alpha_ratio = phi_I*(r+delta_K)/(delta_K*wL_Y);
 #alpha = alpha_ratio/(1+alpha_ratio);
-#alpha_2 = var_share*(1-alpha);
-#alpha_1 = 1-alpha-alpha_2;
 
 %2) Fixed cost share
 #nu_R = Gamma_bar*wL_Y/(1-alpha) - 1;
@@ -169,7 +166,6 @@ p_I_obs = p_I - p_C;
 
 % 19)
 [name =  'C production']
-//YC = p_C + Z + (1-alpha_2)*(-phi*Q_C) + alpha*(K_C)+(1-alpha)*L_C;
 C = (1+nu_R)*(p_C + Z + alpha*(u_C+K_C)+(1-alpha)*L_C)-nu_R*(p_C);
 
 % 20) 
