@@ -1,29 +1,28 @@
 
 
-var p_C, p_I, P_C, q_C, q_I, Q,
+var p_C, p_I, P_C, Q,
 C, I, Y,
- Gamma_C, Gamma_I, c_A, C_util, I_util,
+c_A, C_util, I_util,
 r_I, r_C,
 w, L_C, L_I, L,
 //L_obs,
  K_C, K_I, K, lam,
-u_C, u_I
+u_C, u_I,
 % shock vars
-Z, Z_I, u_ZI, 
-kappa, u_zeta, zeta, chi,
+Z, Z_I, u_ZI, chi,
 
 %observables (4 series)
 Y_obs, C_obs, TI_obs, p_I_obs, lab_prod_obs, SR_obs,
 SR_util_obs, Y_util_obs;
 
 % 6 shocks, 1 measurement errors--one more shock than observable
-varexo e_ZI, e_Z, e_kappa, e_zeta, e_chi;
+varexo e_ZI, e_Z, e_chi;
 
 parameters A, beta, delta_K, sigma_a, psi_inv, sigma, 
-var_share, Gamma_bar, wL_Y, phi_I, Psi, Psi_K, gam
+var_share, Gamma_bar, wL_Y, phi_I Psi_K
 
 % persistence parameters
-rho_Z, rho_ZI , rho_kappa, rho_zeta
+rho_Z, rho_ZI 
 
 % Roots AR(2) process on labor supply
 lambda_1, lambda_2;
@@ -37,14 +36,12 @@ phi = 0.5;
 % IES
 sigma = 1.0;
 % Adjustment cost parameter 
-Psi_K = 30.0;
+Psi_K = 40.0;
 
 
 % Persistence parameters
 rho_ZI = 0.979;
 rho_Z = 0.979;
-rho_kappa = 0.979;
-rho_zeta = 0.979;
 
 %rho_chi = 0.979;
 lambda_1 = 0.979;
@@ -58,10 +55,7 @@ A = 0.78; % steady-state occupancy rate
 delta_K = 0.174/4;
 
 % Key elasticities for estimation
-Psi = 0.05;
-gam = 0.42;
 Gamma_bar = 1.3;
-
 sigma_a = 0.32;
 
 
@@ -87,14 +81,7 @@ model(linear);
 #nu_R = Gamma_bar*wL_Y/(1-alpha) - 1;
 
 %3) Solve for phi and rho
-#Psi_inv = 1/Psi;
-#A_c = alpha_2*(1+nu_R)+Psi_inv - 1;
-#B_c = - (Psi_inv+Gamma_bar/A^alpha_2);
-#C_c = 1.0; 
-
-#phi = - (B_c-sqrt(B_c^2-4*A_c*C_c))/(2*A_c);
-#rho = 1-Psi_inv + 1/phi;
-
+#rho = Gamma_bar;
 
 % Variable labor
 
@@ -109,33 +96,23 @@ model(linear);
 
 % 1) 
 [name = 'Variety effect: household']
-P_C = phi*q_C*(1-rho) + p_C;
+P_C =  p_C;
 
 % 2) 
 [name = 'Variety effect (investment)']
-0 = phi*q_I*(1-rho) + p_I;
+0 =  p_I;
 
 % 3) 
 [name = 'Consumption aggregation']
 C = P_C + c_A;
 
-% 4) 
-[name = 'Markup (consumption)']
-Gamma_C = alpha_2*phi*q_C + A^alpha_2*phi*(alpha_2-rho)/Gamma_bar*(1-phi)*gam*q_C;
-//Gamma_C = 0.0;
-
-% 5)
-[name = 'Markup (investment)']
-Gamma_I = alpha_2*phi*q_I + A^alpha_2*phi*(alpha_2-rho)/Gamma_bar*(1-phi)*gam*q_I;
-//Gamma_I = 0.0;
-
 % 6) 
 [name = 'Labor C']
-w + L_C = C - Gamma_C + nu_R/(1+nu_R)*(p_C+phi*q_C-C);
+w + L_C = C -  nu_R/(1+nu_R)*(p_C-C);
 
 % 7) 
 [name = 'Labor in I']
-w + L_I = I - Gamma_I + nu_R/(1+nu_R)*(p_I+phi*q_I-I);
+w + L_I = I -  nu_R/(1+nu_R)*(p_I-I);
 
 % 8)
 [name = 'Capital in C']
@@ -154,17 +131,9 @@ chi + psi*L = -sigma*c_A + w - P_C;
 K = (1-delta_K)*K(-1) + delta_K*(I(-1)) - (r+delta_K)*(phi_C*u_C(-1)+phi_I*u_I(-1));
 
 
-% 12)  
-[name = 'C shopping']
-q_C = c_A - kappa;
-
-% 13) 
-[name = 'I shopping']
-q_I = I-P_C-zeta-kappa;
-
 % 14) 
 [name = 'Consumption multiplier']
-lam + P_C = -sigma*c_A + sigma*(rho-1)/(phi_C-(rho-1))*(Y-C);
+lam + P_C = -sigma*c_A;
 
 
 %14) 
@@ -197,11 +166,11 @@ p_I_obs = p_I - p_C;
 % 19)
 [name =  'C production']
 //YC = p_C + Z + (1-alpha_2)*(-phi*Q_C) + alpha*(K_C)+(1-alpha)*L_C;
-C = (1+nu_R)*((1-alpha_2)*phi*q_C + p_C + Z + alpha*(u_C+K_C)+(1-alpha)*L_C)-nu_R*(p_C+phi*q_C);
+C = (1+nu_R)*(p_C + Z + alpha*(u_C+K_C)+(1-alpha)*L_C)-nu_R*(p_C);
 
 % 20) 
 [name = 'I production']
-I = (1+nu_R)*((1-alpha_2)*(phi*q_I) + p_I + Z_I + alpha*(u_I+K_I) + (1-alpha)*L_I) - nu_R*(p_I+phi*q_I);
+I = (1+nu_R)*(p_I + Z_I + alpha*(u_I+K_I) + (1-alpha)*L_I) - nu_R*(p_I);
 
 % 21) 
 //[name = 'Utilization-adjusted retail production']
@@ -239,10 +208,6 @@ Z = rho_Z*Z(-1) + e_Z;
 u_ZI = rho_ZI*Z_I(-1) + e_ZI;
 Z_I = Z + u_ZI;
 
-% Shopping
-kappa = rho_kappa*kappa(-1) - e_kappa;
-u_zeta = rho_zeta*u_zeta(-1) - e_zeta;
-zeta = u_zeta;
 
 % Labor supply
 chi = rho_chi1*chi(-1) + rho_chi2*chi(-2) - e_chi;
@@ -270,8 +235,6 @@ end;
 shocks;
 var e_Z = 0.0072;
 var e_ZI = 0.0072;
-var e_kappa = 0.0072;
-var e_zeta = 0.0072;
 end;
 
 % Observed variables (4 series) -- excluding labor supply for now
@@ -279,6 +242,6 @@ end;
 
 stoch_simul (order=1, nofunctions, irf=100, periods=0,
 conditional_variance_decomposition=[1 4 8 40])
-C_obs, Y_obs, lab_prod_obs, SR_obs, TI_obs, L_C, L_I, L, p_I_obs, Gamma_C, Gamma_I ;
+C_obs, Y_obs, lab_prod_obs, SR_obs, TI_obs, L_C, L_I, L, p_I_obs ;
 
 
