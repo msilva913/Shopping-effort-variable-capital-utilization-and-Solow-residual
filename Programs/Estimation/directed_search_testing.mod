@@ -1,7 +1,7 @@
 
 
-var p_C, p_I, P_C, q_C, q_I, Q,
-C, I, Y,
+var p_C, p_I, P_C, q_C, q_I, Q_C, Q_I
+C, I, I_C, I_I, Y,
  Gamma_C, Gamma_I, c_A, C_util, I_util,
 r_I, r_C,
 w, L_C, L_I, L,
@@ -9,15 +9,15 @@ w, L_C, L_I, L,
  K_C, K_I, K, lam,
 u_C, u_I
 % shock vars
-Z, Z_I, u_ZI, 
-kappa, u_zeta, zeta, chi,
+Z, kappa, chi,
 
 %observables (4 series)
-Y_obs, C_obs, TI_obs, p_I_obs, lab_prod_obs, SR_obs,
+Y_obs, C_obs, TI_obs, p_I_obs, lab_prod_obs, labor_share, SR_obs,
 SR_util_obs, Y_util_obs;
 
 % 6 shocks, 1 measurement errors--one more shock than observable
-varexo e_ZI, e_Z, e_kappa, e_zeta, e_chi;
+//varexo e_ZI, e_Z, e_kappa, e_zeta, e_chi;
+varexo e_Z, e_kappa, e_chi;
 
 parameters A, beta, delta_K, sigma_a, psi_inv, sigma, 
 var_share, Gamma_bar, wL_Y, phi_I, Psi, Psi_K, gam
@@ -32,12 +32,11 @@ beta = 0.993;
 
 % Frisch elasticity of labor supply
 psi_inv = 0.72;
-phi = 0.5;
 
 % IES
 sigma = 1.0;
 % Adjustment cost parameter 
-Psi_K = 30.0;
+Psi_K = 2.0;
 
 
 % Persistence parameters
@@ -58,7 +57,7 @@ A = 0.78; % steady-state occupancy rate
 delta_K = 0.174/4;
 
 % Key elasticities for estimation
-Psi = 0.05;
+Psi = 0.25;
 gam = 0.42;
 Gamma_bar = 1.3;
 
@@ -151,7 +150,10 @@ chi + psi*L = -sigma*c_A + w - P_C;
 
 % 11) 
 [name = 'Capital accumulation (consumption)']
-K = (1-delta_K)*K(-1) + delta_K*(I(-1)) - (r+delta_K)*(phi_C*u_C(-1)+phi_I*u_I(-1));
+K_C = (1-delta_K)*K_C(-1) + delta_K*(I_C(-1)) - (r+delta_K)*(phi_C*u_C(-1));
+
+[name = 'Capital accumulation (investment)']
+K_I = (1-delta_K)*K_I(-1) + delta_K*(I_I(-1)) - (r+delta_K)*(phi_I*u_I(-1));
 
 
 % 12)  
@@ -160,7 +162,7 @@ q_C = c_A - kappa;
 
 % 13) 
 [name = 'I shopping']
-q_I = I-P_C-zeta-kappa;
+q_I = I-P_C-kappa;
 
 % 14) 
 [name = 'Consumption multiplier']
@@ -170,24 +172,28 @@ lam + P_C = -sigma*c_A + sigma*(rho-1)/(phi_C-(rho-1))*(Y-C);
 %14) 
 [name = 'Euler equation of capital (C))']
    // 0 = lam(+1) - lam + (r+delta_K)/(1+r)*(C(+1)-Gamma_C(+1)-K_C(+1)-u_C(+1));
-Q = lam(+1)-lam + (r+delta_K)/(1+r)*(r_C(+1)) + Q(+1)/(1+r);
+Q_C = lam(+1)-lam + (r+delta_K)/(1+r)*(r_C(+1)) + Q_C(+1)/(1+r);
 
 % 15)
 [name = 'Euler equation of capital (I)']
 // 0 = lam(+1) - lam + (r+delta_K)/(1+r)*(I(+1)-Gamma_I(+1)-K_I(+1)-u_I(+1));
-Q = lam(+1)-lam + (r+delta_K)/(1+r)*(r_I(+1)) + Q(+1)/(1+r);
+Q_I = lam(+1)-lam + (r+delta_K)/(1+r)*(r_I(+1)) + Q_I(+1)/(1+r);
 
 % 16)
 [name = 'Capital utilization (C)']
-r_C = sigma_a*u_C+Q;
+r_C = sigma_a*u_C+Q_C;
 
 % 17)
 [name = 'Capital utilization (I)']
-r_I = sigma_a*u_I+Q;
+r_I = sigma_a*u_I+Q_I;
 
 %18)
 [name = 'Relative price of capital good']
-Q = Psi_K*delta_K*(I-K);
+Q_C = Psi_K*delta_K*(I_C-K_C);
+
+%19)
+[name = 'Relative price of capital good']
+Q_I = Psi_K*delta_K*(I_I-K_I);
 
 % 19) 
 [name = 'Relative price of investment']
@@ -201,7 +207,7 @@ C = (1+nu_R)*((1-alpha_2)*phi*q_C + p_C + Z + alpha*(u_C+K_C)+(1-alpha)*L_C)-nu_
 
 % 20) 
 [name = 'I production']
-I = (1+nu_R)*((1-alpha_2)*(phi*q_I) + p_I + Z_I + alpha*(u_I+K_I) + (1-alpha)*L_I) - nu_R*(p_I+phi*q_I);
+I = (1+nu_R)*((1-alpha_2)*(phi*q_I) + p_I + Z + alpha*(u_I+K_I) + (1-alpha)*L_I) - nu_R*(p_I+phi*q_I);
 
 % 21) 
 //[name = 'Utilization-adjusted retail production']
@@ -210,7 +216,7 @@ C_util = (1+nu_R)*(p_C + Z + alpha*(K_C)+(1-alpha)*L_C)-nu_R*(p_C);
 
 % 22) 
 [name = 'Investment (utilization-adjusted)']
-I_util = (1+nu_R)*(p_I + Z_I + alpha*(K_I) + (1-alpha)*L_I) - nu_R*(p_I);
+I_util = (1+nu_R)*(p_I + Z + alpha*(K_I) + (1-alpha)*L_I) - nu_R*(p_I);
 
 
 % 23) 
@@ -221,6 +227,9 @@ L = phi_C*L_C + phi_I*(L_I);
 [name = 'Capital composition']
 K = phi_C*K_C + phi_I*K_I;
 
+%
+[name = 'Investment composition']
+I = phi_C*I_C + phi_I*I_I;
 
 % 25)
 //[name = 'Capacity utilization']
@@ -236,13 +245,13 @@ Y = phi_C*C + phi_I*I;
 % Technology shocks: common and investment-specific
 
 Z = rho_Z*Z(-1) + e_Z;
-u_ZI = rho_ZI*Z_I(-1) + e_ZI;
-Z_I = Z + u_ZI;
+//u_ZI = rho_ZI*Z_I(-1) + e_ZI;
+//Z_I = Z + u_ZI;
 
 % Shopping
 kappa = rho_kappa*kappa(-1) - e_kappa;
-u_zeta = rho_zeta*u_zeta(-1) - e_zeta;
-zeta = u_zeta;
+//u_zeta = rho_zeta*u_zeta(-1) - e_zeta;
+//zeta = u_zeta;
 
 % Labor supply
 chi = rho_chi1*chi(-1) + rho_chi2*chi(-2) - e_chi;
@@ -261,6 +270,7 @@ SR_obs = Y_obs - (1-wL_Y)*K - wL_Y*L;
 SR_util_obs = Y_util_obs - (1-wL_Y)*K - wL_Y*L;
 
 lab_prod_obs = Y_obs - L;
+labor_share = w-p_I + L - Y_obs;
 //L_obs = L + e_L_ME;
 
 % Levels
@@ -269,9 +279,9 @@ end;
 
 shocks;
 var e_Z = 0.0072;
-var e_ZI = 0.0072;
+//var e_ZI = 0.0072;
 var e_kappa = 0.0072;
-var e_zeta = 0.0072;
+//var e_zeta = 0.0072;
 end;
 
 % Observed variables (4 series) -- excluding labor supply for now
@@ -279,6 +289,6 @@ end;
 
 stoch_simul (order=1, nofunctions, irf=100, periods=0,
 conditional_variance_decomposition=[1 4 8 40])
-C_obs, Y_obs, lab_prod_obs, SR_obs, TI_obs, L_C, L_I, L, p_I_obs, Gamma_C, Gamma_I ;
+C_obs, Y_obs, lab_prod_obs, labor_share, SR_obs, TI_obs, L_C, L_I, L, labor_share, p_I_obs, Gamma_C, Gamma_I ;
 
 

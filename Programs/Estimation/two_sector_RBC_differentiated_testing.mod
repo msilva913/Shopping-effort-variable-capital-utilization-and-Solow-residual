@@ -9,14 +9,14 @@ w, L_C, L_I, L,
  K_C, K_I, K, lam,
 u_C, u_I,
 % shock vars
-Z, Z_I, u_ZI, chi,
+Z, chi,
 
 %observables (4 series)
-Y_obs, C_obs, TI_obs, p_I_obs, lab_prod_obs, SR_obs,
+Y_obs, C_obs, TI_obs, p_I_obs, lab_prod_obs, labor_share, SR_obs,
 SR_util_obs, Y_util_obs;
 
 % 6 shocks, 1 measurement errors--one more shock than observable
-varexo e_ZI, e_Z, e_chi;
+varexo e_Z, e_chi;
 
 parameters A, beta, delta_K, sigma_a, psi_inv, sigma, 
 var_share, Gamma_bar, wL_Y, phi_I Psi_K
@@ -36,7 +36,7 @@ phi = 0.5;
 % IES
 sigma = 1.0;
 % Adjustment cost parameter 
-Psi_K = 10.0;
+Psi_K = 5.0;
 
 
 % Persistence parameters
@@ -170,7 +170,7 @@ C = (1+nu_R)*(p_C + Z + alpha*(u_C+K_C)+(1-alpha)*L_C)-nu_R*(p_C);
 
 % 20) 
 [name = 'I production']
-I = (1+nu_R)*(p_I + Z_I + alpha*(u_I+K_I) + (1-alpha)*L_I) - nu_R*(p_I);
+I = (1+nu_R)*(p_I + Z + alpha*(u_I+K_I) + (1-alpha)*L_I) - nu_R*(p_I);
 
 % 21) 
 //[name = 'Utilization-adjusted retail production']
@@ -179,7 +179,7 @@ C_util = (1+nu_R)*(p_C + Z + alpha*(K_C)+(1-alpha)*L_C)-nu_R*(p_C);
 
 % 22) 
 [name = 'Investment (utilization-adjusted)']
-I_util = (1+nu_R)*(p_I + Z_I + alpha*(K_I) + (1-alpha)*L_I) - nu_R*(p_I);
+I_util = (1+nu_R)*(p_I + Z + alpha*(K_I) + (1-alpha)*L_I) - nu_R*(p_I);
 
 
 % 23) 
@@ -207,8 +207,8 @@ Y = phi_C*C + phi_I*I;
 % Technology shocks: common and investment-specific
 
 Z = rho_Z*Z(-1) + e_Z;
-u_ZI = rho_ZI*Z_I(-1) + e_ZI;
-Z_I = Z + u_ZI;
+//u_ZI = rho_ZI*Z_I(-1) + e_ZI;
+//Z_I = Z + u_ZI;
 
 
 % Labor supply
@@ -228,6 +228,7 @@ SR_obs = Y_obs - (1-wL_Y)*K - wL_Y*L;
 SR_util_obs = Y_util_obs - (1-wL_Y)*K - wL_Y*L;
 
 lab_prod_obs = Y_obs - L;
+labor_share = w-p_I + L - Y_obs;
 //L_obs = L + e_L_ME;
 
 % Levels
@@ -236,7 +237,7 @@ end;
 
 shocks;
 var e_Z = 0.0072;
-var e_ZI = 0.0072;
+//var e_ZI = 0.0072;
 end;
 
 % Observed variables (4 series) -- excluding labor supply for now
@@ -244,6 +245,6 @@ end;
 
 stoch_simul (order=1, nofunctions, irf=100, periods=0,
 conditional_variance_decomposition=[1 4 8 40])
-C_obs, Y_obs, lab_prod_obs, SR_obs, TI_obs, L_C, L_I, L, p_I_obs ;
+C_obs, Y_obs, lab_prod_obs, labor_share, SR_obs TI_obs, L_C, L_I, L, p_I_obs ;
 
 

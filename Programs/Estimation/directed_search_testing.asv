@@ -1,7 +1,7 @@
 
 
-var p_C, p_I, P_C, q_C, q_I, Q,
-C, I, Y,
+var p_C, p_I, P_C, q_C, q_I, Q_C, Q_I
+C, I, I_C, I_I, Y,
  Gamma_C, Gamma_I, c_A, C_util, I_util,
 r_I, r_C,
 w, L_C, L_I, L,
@@ -37,7 +37,7 @@ phi = 0.5;
 % IES
 sigma = 1.0;
 % Adjustment cost parameter 
-Psi_K = 4.0;
+Psi_K = 30.0;
 
 
 % Persistence parameters
@@ -58,7 +58,7 @@ A = 0.78; % steady-state occupancy rate
 delta_K = 0.174/4;
 
 % Key elasticities for estimation
-Psi = 0.25;
+Psi = 0.05;
 gam = 0.42;
 Gamma_bar = 1.3;
 
@@ -151,7 +151,10 @@ chi + psi*L = -sigma*c_A + w - P_C;
 
 % 11) 
 [name = 'Capital accumulation (consumption)']
-K = (1-delta_K)*K(-1) + delta_K*(I(-1)) - (r+delta_K)*(phi_C*u_C(-1)+phi_I*u_I(-1));
+K_C = (1-delta_K)*K_C(-1) + delta_K*(I_C(-1)) - (r+delta_K)*(phi_C*u_C(-1));
+
+[name = 'Capital accumulation (investment)']
+K_I = (1-delta_K)*K_I(-1) + delta_K*(I_I(-1)) - (r+delta_K)*(phi_I*u_I(-1));
 
 
 % 12)  
@@ -168,14 +171,14 @@ lam + P_C = -sigma*c_A + sigma*(rho-1)/(phi_C-(rho-1))*(Y-C);
 
 
 %14) 
-//[name = 'Euler equation of capital (C))']
+[name = 'Euler equation of capital (C))']
    // 0 = lam(+1) - lam + (r+delta_K)/(1+r)*(C(+1)-Gamma_C(+1)-K_C(+1)-u_C(+1));
-Q = lam(+1)-lam + (r+delta_K)/(1+r)*(r_C(+1)) + Q(+1)/(1+r);
+Q_C = lam(+1)-lam + (r+delta_K)/(1+r)*(r_C(+1)) + Q_C(+1)/(1+r);
 
 % 15)
 [name = 'Euler equation of capital (I)']
 // 0 = lam(+1) - lam + (r+delta_K)/(1+r)*(I(+1)-Gamma_I(+1)-K_I(+1)-u_I(+1));
-Q = lam(+1)-lam + (r+delta_K)/(1+r)*(r_I(+1)) + Q(+1)/(1+r);
+Q_I = lam(+1)-lam + (r+delta_K)/(1+r)*(r_I(+1)) + Q_I(+1)/(1+r);
 
 % 16)
 [name = 'Capital utilization (C)']
@@ -187,7 +190,11 @@ r_I = sigma_a*u_I+Q;
 
 %18)
 [name = 'Relative price of capital good']
-Q = Psi_K*delta_K*(I-K);
+Q_C = Psi_K*delta_K*(I_C-K_C);
+
+%19)
+[name = 'Relative price of capital good']
+Q_I = Psi_K*delta_K*(I_I-K_I);
 
 % 19) 
 [name = 'Relative price of investment']
@@ -221,6 +228,9 @@ L = phi_C*L_C + phi_I*(L_I);
 [name = 'Capital composition']
 K = phi_C*K_C + phi_I*K_I;
 
+%
+[name = 'Investment composition']
+I = phi_C*I_C + phi_I*I_I;
 
 % 25)
 //[name = 'Capacity utilization']
@@ -228,7 +238,7 @@ K = phi_C*K_C + phi_I*K_I;
 
 % 26) 
 [name = 'Aggregate accounting (income = expenditures)']
-//Y = phi_C*C + phi_I*I;
+Y = phi_C*C + phi_I*I;
 
 
 
@@ -240,9 +250,9 @@ u_ZI = rho_ZI*Z_I(-1) + e_ZI;
 Z_I = Z + u_ZI;
 
 % Shopping
-kappa = rho_kappa*kappa(-1) + e_kappa;
-u_zeta = rho_zeta*u_zeta(-1) + e_zeta;
-zeta = kappa + u_zeta;
+kappa = rho_kappa*kappa(-1) - e_kappa;
+u_zeta = rho_zeta*u_zeta(-1) - e_zeta;
+zeta = u_zeta;
 
 % Labor supply
 chi = rho_chi1*chi(-1) + rho_chi2*chi(-2) - e_chi;
