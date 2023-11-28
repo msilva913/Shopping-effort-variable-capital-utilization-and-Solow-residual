@@ -18,7 +18,7 @@ function residual = static_resid(T, y, x, params, T_flag)
 if T_flag
     T = directed_search_testing.static_resid_tt(T, y, x, params);
 end
-residual = zeros(42, 1);
+residual = zeros(43, 1);
 lhs = y(3);
 rhs = y(1)+T(10)*y(4)*T(12);
 residual(1) = lhs - rhs;
@@ -127,24 +127,27 @@ residual(35) = lhs - rhs;
 lhs = y(33);
 rhs = params(10)*(y(9)-y(2))+(1-params(10))*(y(8)-y(1));
 residual(36) = lhs - rhs;
-lhs = y(41);
-rhs = params(10)*(y(17)-y(2))+(1-params(10))*(y(16)-y(1));
+lhs = y(40);
+rhs = y(20)-y(2);
 residual(37) = lhs - rhs;
+lhs = y(42);
+rhs = params(10)*(y(17)-y(2))+(1-params(10))*(y(16)-y(1));
+residual(38) = lhs - rhs;
 lhs = y(39);
 rhs = y(33)-(1-params(9))*y(26)-params(9)*y(23);
-residual(38) = lhs - rhs;
-lhs = y(40);
-rhs = y(41)-(1-params(9))*y(26)-params(9)*y(23);
 residual(39) = lhs - rhs;
+lhs = y(41);
+rhs = y(42)-(1-params(9))*y(26)-params(9)*y(23);
+residual(40) = lhs - rhs;
 lhs = y(37);
 rhs = y(33)-y(23);
-residual(40) = lhs - rhs;
-lhs = y(38);
-rhs = y(23)+y(20)-y(2)-y(33);
 residual(41) = lhs - rhs;
-lhs = y(42);
-rhs = y(32);
+lhs = y(38);
+rhs = y(23)+y(40)-y(33);
 residual(42) = lhs - rhs;
+lhs = y(43);
+rhs = y(32);
+residual(43) = lhs - rhs;
 if ~isreal(residual)
   residual = real(residual)+imag(residual).^2;
 end

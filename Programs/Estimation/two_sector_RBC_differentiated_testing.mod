@@ -105,11 +105,11 @@ C = P_C + c_A;
 
 % 6) 
 [name = 'Labor C']
-w + L_C = C -  nu_R/(1+nu_R)*(p_C-C);
+w + L_C = C +  nu_R/(1+nu_R)*(p_C-C);
 
 % 7) 
 [name = 'Labor in I']
-w + L_I = I -  nu_R/(1+nu_R)*(p_I-I);
+w + L_I = I +  nu_R/(1+nu_R)*(p_I-I);
 
 % 8)
 [name = 'Capital in C']
@@ -245,6 +245,6 @@ end;
 
 stoch_simul (order=1, nofunctions, irf=100, periods=0,
 conditional_variance_decomposition=[1 4 8 40])
-C_obs, Y_obs, lab_prod_obs, labor_share, SR_obs TI_obs, L_C, L_I, L, p_I_obs ;
+C_obs, Y_obs, lab_prod_obs, labor_share, SR_obs TI_obs, L_C, L_I, L, p_I_obs, w ;
 
 

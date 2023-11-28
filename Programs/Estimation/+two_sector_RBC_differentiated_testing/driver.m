@@ -417,7 +417,7 @@ options_.nofunctions = true;
 options_.order = 1;
 options_.periods = 0;
 options_.conditional_variance_decomposition = [1;4;8;40;];
-var_list_ = {'C_obs';'Y_obs';'lab_prod_obs';'labor_share';'SR_obs';'TI_obs';'L_C';'L_I';'L';'p_I_obs'};
+var_list_ = {'C_obs';'Y_obs';'lab_prod_obs';'labor_share';'SR_obs';'TI_obs';'L_C';'L_I';'L';'p_I_obs';'w'};
 [info, oo_, options_, M_] = stoch_simul(M_, options_, oo_, var_list_);
 
 

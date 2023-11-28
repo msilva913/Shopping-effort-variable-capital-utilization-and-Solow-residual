@@ -12,7 +12,7 @@ u_C, u_I
 Z, kappa, chi,
 
 %observables (4 series)
-Y_obs, C_obs, TI_obs, p_I_obs, lab_prod_obs, labor_share, SR_obs,
+Y_obs, C_obs, TI_obs, p_I_obs, lab_prod_obs, labor_share, SR_obs, w_obs,
 SR_util_obs, Y_util_obs;
 
 % 6 shocks, 1 measurement errors--one more shock than observable
@@ -34,7 +34,7 @@ beta = 0.993;
 psi_inv = 0.72;
 
 % IES
-sigma = 1.0;
+sigma = 1;
 % Adjustment cost parameter 
 Psi_K = 2.0;
 
@@ -91,9 +91,8 @@ model(linear);
 #B_c = - (Psi_inv+Gamma_bar/A^alpha_2);
 #C_c = 1.0; 
 
-#phi = - (B_c-sqrt(B_c^2-4*A_c*C_c))/(2*A_c);
+#phi = (- B_c-sqrt(B_c^2-4*A_c*C_c))/(2*A_c);
 #rho = 1-Psi_inv + 1/phi;
-
 
 % Variable labor
 
@@ -264,13 +263,14 @@ chi = rho_chi1*chi(-1) + rho_chi2*chi(-2) - e_chi;
 C_obs = C - p_C; // equivalent to c - (p_C-P^H) like in BGM
 TI_obs = I - p_I;
 Y_obs = phi_C*(C-p_C) + phi_I*(I-p_I);
+w_obs = w - p_I;
 Y_util_obs = phi_C*(C_util-p_C) + phi_I*(I_util-p_I);
 
 SR_obs = Y_obs - (1-wL_Y)*K - wL_Y*L;
 SR_util_obs = Y_util_obs - (1-wL_Y)*K - wL_Y*L;
 
 lab_prod_obs = Y_obs - L;
-labor_share = w-p_I + L - Y_obs;
+labor_share = w_obs + L - Y_obs;
 //L_obs = L + e_L_ME;
 
 % Levels
@@ -289,6 +289,6 @@ end;
 
 stoch_simul (order=1, nofunctions, irf=100, periods=0,
 conditional_variance_decomposition=[1 4 8 40])
-C_obs, Y_obs, lab_prod_obs, labor_share, SR_obs, TI_obs, L_C, L_I, L, labor_share, p_I_obs, Gamma_C, Gamma_I ;
+C_obs, Y_obs, q_C, P_C, p_C, lab_prod_obs, labor_share, SR_obs, TI_obs, L_C, L_I, L, labor_share, w_obs, p_I_obs, Gamma_C, Gamma_I ;
 
 

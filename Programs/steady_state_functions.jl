@@ -106,7 +106,7 @@ function steady_state(para, Y=1.0, L=1.0, qC=1.0, qI=1.0)
         LC=LC, LI=LI, LK=LK, P_C=P_C, ZC=ZC, ZI=ZI, κ=κ, ζ=ζ, χ=χ, p_C=p_C, p_I=p_I, Γ=Γ, Ψ=Ψ, ϕ_LK=ϕ_LK)
 end
 
-function calibrate(targets; Γ=1.3, Ψ=0.25, var_share=0.5, σ=2.0, ψ=1.0)
+function calibrate(targets; Γ=1.3, Ψ=0.25, var_share=0.5, σ=1.0, ψ=1.0)
     # Γ: gross markup
     # Ψ: elasticity of matching probability of firm locations wrt aggregate spending
     # var_share: share of variable labor
