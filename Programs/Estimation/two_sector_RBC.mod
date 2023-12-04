@@ -52,7 +52,7 @@ delta_K = 0.04325;
 var_share = 0.5; % share of labor in consumption sector which is variable
 
 % Key elasticities for estimation
-Gamma_bar = 1.3;
+Gamma_bar = 1.1; %more reasonable investment share
 sigma_a = 0.32;
 
 

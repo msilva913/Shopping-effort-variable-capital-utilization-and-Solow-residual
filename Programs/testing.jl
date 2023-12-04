@@ -38,6 +38,7 @@ D_Y = 1 - wL_Y - r_KK_Y;
 
 
 ## no fixed costs
+Gamma_bar = 1.1;
 alpha = 1 - Gamma_bar*wL_Y
 phi_I = alpha/(Gamma_bar)*delta_K/(r+delta_K)
 #delta_K_ratio = (r+delta_K)/delta_K
