@@ -10,3 +10,17 @@ Programs/Estimation/+directed_search/dynamic_g3.m
 Programs/Estimation/+directed_search/dynamic_g3_tt.m
 *.log
 Programs/~$sectoral_labor_data.xlsx
+
+
+Programs/var_load_list
+Programs/utilization_series_comparison.pdf
+Programs/var_load_list
+Programs/Estimation/+directed_search/dynamic.m
+Programs/Estimation/+directed_search/dynamic_g1.m
+Programs/Estimation/+directed_search/dynamic_g1_tt.m
+Programs/Estimation/+directed_search/dynamic_g1_nz.m
+Programs/Estimation/+directed_search/dynamic_g3_tt.m
+Programs/Estimation/+directed_search/dynamic_g3.m
+Programs/Estimation/+directed_search/dynamic_g2_tt.m
+Programs/Estimation/+directed_search/dynamic_g2.m
+*.log

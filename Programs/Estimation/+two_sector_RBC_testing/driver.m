@@ -1,0 +1,445 @@
+%
+% Status : main Dynare file
+%
+% Warning : this file is generated automatically by Dynare
+%           from model file (.mod)
+
+if isoctave || matlab_ver_less_than('8.6')
+    clear all
+else
+    clearvars -global
+    clear_persistent_variables(fileparts(which('dynare')), false)
+end
+tic0 = tic;
+% Define global variables.
+global M_ options_ oo_ estim_params_ bayestopt_ dataset_ dataset_info estimation_info ys0_ ex0_
+options_ = [];
+M_.fname = 'two_sector_RBC_testing';
+M_.dynare_version = '5.4';
+oo_.dynare_version = '5.4';
+options_.dynare_version = '5.4';
+%
+% Some global variables initialization
+%
+global_initialization;
+M_.exo_names = cell(3,1);
+M_.exo_names_tex = cell(3,1);
+M_.exo_names_long = cell(3,1);
+M_.exo_names(1) = {'e_ZI'};
+M_.exo_names_tex(1) = {'e\_ZI'};
+M_.exo_names_long(1) = {'e_ZI'};
+M_.exo_names(2) = {'e_Z'};
+M_.exo_names_tex(2) = {'e\_Z'};
+M_.exo_names_long(2) = {'e_Z'};
+M_.exo_names(3) = {'e_chi'};
+M_.exo_names_tex(3) = {'e\_chi'};
+M_.exo_names_long(3) = {'e_chi'};
+M_.endo_names = cell(35,1);
+M_.endo_names_tex = cell(35,1);
+M_.endo_names_long = cell(35,1);
+M_.endo_names(1) = {'p_C'};
+M_.endo_names_tex(1) = {'p\_C'};
+M_.endo_names_long(1) = {'p_C'};
+M_.endo_names(2) = {'p_I'};
+M_.endo_names_tex(2) = {'p\_I'};
+M_.endo_names_long(2) = {'p_I'};
+M_.endo_names(3) = {'P_C'};
+M_.endo_names_tex(3) = {'P\_C'};
+M_.endo_names_long(3) = {'P_C'};
+M_.endo_names(4) = {'Q'};
+M_.endo_names_tex(4) = {'Q'};
+M_.endo_names_long(4) = {'Q'};
+M_.endo_names(5) = {'C'};
+M_.endo_names_tex(5) = {'C'};
+M_.endo_names_long(5) = {'C'};
+M_.endo_names(6) = {'I'};
+M_.endo_names_tex(6) = {'I'};
+M_.endo_names_long(6) = {'I'};
+M_.endo_names(7) = {'Y'};
+M_.endo_names_tex(7) = {'Y'};
+M_.endo_names_long(7) = {'Y'};
+M_.endo_names(8) = {'c_A'};
+M_.endo_names_tex(8) = {'c\_A'};
+M_.endo_names_long(8) = {'c_A'};
+M_.endo_names(9) = {'C_util'};
+M_.endo_names_tex(9) = {'C\_util'};
+M_.endo_names_long(9) = {'C_util'};
+M_.endo_names(10) = {'I_util'};
+M_.endo_names_tex(10) = {'I\_util'};
+M_.endo_names_long(10) = {'I_util'};
+M_.endo_names(11) = {'r_I'};
+M_.endo_names_tex(11) = {'r\_I'};
+M_.endo_names_long(11) = {'r_I'};
+M_.endo_names(12) = {'r_C'};
+M_.endo_names_tex(12) = {'r\_C'};
+M_.endo_names_long(12) = {'r_C'};
+M_.endo_names(13) = {'w'};
+M_.endo_names_tex(13) = {'w'};
+M_.endo_names_long(13) = {'w'};
+M_.endo_names(14) = {'L_C'};
+M_.endo_names_tex(14) = {'L\_C'};
+M_.endo_names_long(14) = {'L_C'};
+M_.endo_names(15) = {'L_I'};
+M_.endo_names_tex(15) = {'L\_I'};
+M_.endo_names_long(15) = {'L_I'};
+M_.endo_names(16) = {'L'};
+M_.endo_names_tex(16) = {'L'};
+M_.endo_names_long(16) = {'L'};
+M_.endo_names(17) = {'K_C'};
+M_.endo_names_tex(17) = {'K\_C'};
+M_.endo_names_long(17) = {'K_C'};
+M_.endo_names(18) = {'K_I'};
+M_.endo_names_tex(18) = {'K\_I'};
+M_.endo_names_long(18) = {'K_I'};
+M_.endo_names(19) = {'K'};
+M_.endo_names_tex(19) = {'K'};
+M_.endo_names_long(19) = {'K'};
+M_.endo_names(20) = {'lam'};
+M_.endo_names_tex(20) = {'lam'};
+M_.endo_names_long(20) = {'lam'};
+M_.endo_names(21) = {'u_C'};
+M_.endo_names_tex(21) = {'u\_C'};
+M_.endo_names_long(21) = {'u_C'};
+M_.endo_names(22) = {'u_I'};
+M_.endo_names_tex(22) = {'u\_I'};
+M_.endo_names_long(22) = {'u_I'};
+M_.endo_names(23) = {'Z'};
+M_.endo_names_tex(23) = {'Z'};
+M_.endo_names_long(23) = {'Z'};
+M_.endo_names(24) = {'Z_I'};
+M_.endo_names_tex(24) = {'Z\_I'};
+M_.endo_names_long(24) = {'Z_I'};
+M_.endo_names(25) = {'u_ZI'};
+M_.endo_names_tex(25) = {'u\_ZI'};
+M_.endo_names_long(25) = {'u_ZI'};
+M_.endo_names(26) = {'chi'};
+M_.endo_names_tex(26) = {'chi'};
+M_.endo_names_long(26) = {'chi'};
+M_.endo_names(27) = {'Y_obs'};
+M_.endo_names_tex(27) = {'Y\_obs'};
+M_.endo_names_long(27) = {'Y_obs'};
+M_.endo_names(28) = {'C_obs'};
+M_.endo_names_tex(28) = {'C\_obs'};
+M_.endo_names_long(28) = {'C_obs'};
+M_.endo_names(29) = {'TI_obs'};
+M_.endo_names_tex(29) = {'TI\_obs'};
+M_.endo_names_long(29) = {'TI_obs'};
+M_.endo_names(30) = {'p_I_obs'};
+M_.endo_names_tex(30) = {'p\_I\_obs'};
+M_.endo_names_long(30) = {'p_I_obs'};
+M_.endo_names(31) = {'lab_prod_obs'};
+M_.endo_names_tex(31) = {'lab\_prod\_obs'};
+M_.endo_names_long(31) = {'lab_prod_obs'};
+M_.endo_names(32) = {'SR_obs'};
+M_.endo_names_tex(32) = {'SR\_obs'};
+M_.endo_names_long(32) = {'SR_obs'};
+M_.endo_names(33) = {'SR_util_obs'};
+M_.endo_names_tex(33) = {'SR\_util\_obs'};
+M_.endo_names_long(33) = {'SR_util_obs'};
+M_.endo_names(34) = {'Y_util_obs'};
+M_.endo_names_tex(34) = {'Y\_util\_obs'};
+M_.endo_names_long(34) = {'Y_util_obs'};
+M_.endo_names(35) = {'AUX_ENDO_LAG_25_1'};
+M_.endo_names_tex(35) = {'AUX\_ENDO\_LAG\_25\_1'};
+M_.endo_names_long(35) = {'AUX_ENDO_LAG_25_1'};
+M_.endo_partitions = struct();
+M_.param_names = cell(15,1);
+M_.param_names_tex = cell(15,1);
+M_.param_names_long = cell(15,1);
+M_.param_names(1) = {'A'};
+M_.param_names_tex(1) = {'A'};
+M_.param_names_long(1) = {'A'};
+M_.param_names(2) = {'beta'};
+M_.param_names_tex(2) = {'beta'};
+M_.param_names_long(2) = {'beta'};
+M_.param_names(3) = {'delta_K'};
+M_.param_names_tex(3) = {'delta\_K'};
+M_.param_names_long(3) = {'delta_K'};
+M_.param_names(4) = {'sigma_a'};
+M_.param_names_tex(4) = {'sigma\_a'};
+M_.param_names_long(4) = {'sigma_a'};
+M_.param_names(5) = {'psi_inv'};
+M_.param_names_tex(5) = {'psi\_inv'};
+M_.param_names_long(5) = {'psi_inv'};
+M_.param_names(6) = {'sigma'};
+M_.param_names_tex(6) = {'sigma'};
+M_.param_names_long(6) = {'sigma'};
+M_.param_names(7) = {'var_share'};
+M_.param_names_tex(7) = {'var\_share'};
+M_.param_names_long(7) = {'var_share'};
+M_.param_names(8) = {'Gamma_bar'};
+M_.param_names_tex(8) = {'Gamma\_bar'};
+M_.param_names_long(8) = {'Gamma_bar'};
+M_.param_names(9) = {'wL_Y'};
+M_.param_names_tex(9) = {'wL\_Y'};
+M_.param_names_long(9) = {'wL_Y'};
+M_.param_names(10) = {'phi_I'};
+M_.param_names_tex(10) = {'phi\_I'};
+M_.param_names_long(10) = {'phi_I'};
+M_.param_names(11) = {'Psi_K'};
+M_.param_names_tex(11) = {'Psi\_K'};
+M_.param_names_long(11) = {'Psi_K'};
+M_.param_names(12) = {'rho_Z'};
+M_.param_names_tex(12) = {'rho\_Z'};
+M_.param_names_long(12) = {'rho_Z'};
+M_.param_names(13) = {'rho_ZI'};
+M_.param_names_tex(13) = {'rho\_ZI'};
+M_.param_names_long(13) = {'rho_ZI'};
+M_.param_names(14) = {'lambda_1'};
+M_.param_names_tex(14) = {'lambda\_1'};
+M_.param_names_long(14) = {'lambda_1'};
+M_.param_names(15) = {'lambda_2'};
+M_.param_names_tex(15) = {'lambda\_2'};
+M_.param_names_long(15) = {'lambda_2'};
+M_.param_partitions = struct();
+M_.exo_det_nbr = 0;
+M_.exo_nbr = 3;
+M_.endo_nbr = 35;
+M_.param_nbr = 15;
+M_.orig_endo_nbr = 34;
+M_.aux_vars(1).endo_index = 35;
+M_.aux_vars(1).type = 1;
+M_.aux_vars(1).orig_index = 26;
+M_.aux_vars(1).orig_lead_lag = -1;
+M_.aux_vars(1).orig_expr = 'chi(-1)';
+M_ = setup_solvers(M_);
+M_.Sigma_e = zeros(3, 3);
+M_.Correlation_matrix = eye(3, 3);
+M_.H = 0;
+M_.Correlation_matrix_ME = 1;
+M_.sigma_e_is_diagonal = true;
+M_.det_shocks = [];
+M_.surprise_shocks = [];
+M_.heteroskedastic_shocks.Qvalue_orig = [];
+M_.heteroskedastic_shocks.Qscale_orig = [];
+options_.linear = true;
+options_.block = false;
+options_.bytecode = false;
+options_.use_dll = false;
+M_.nonzero_hessian_eqs = [];
+M_.hessian_eq_zero = isempty(M_.nonzero_hessian_eqs);
+M_.orig_eq_nbr = 34;
+M_.eq_nbr = 35;
+M_.ramsey_eq_nbr = 0;
+M_.set_auxiliary_variables = exist(['./+' M_.fname '/set_auxiliary_variables.m'], 'file') == 2;
+M_.epilogue_names = {};
+M_.epilogue_var_list_ = {};
+M_.orig_maximum_endo_lag = 2;
+M_.orig_maximum_endo_lead = 1;
+M_.orig_maximum_exo_lag = 0;
+M_.orig_maximum_exo_lead = 0;
+M_.orig_maximum_exo_det_lag = 0;
+M_.orig_maximum_exo_det_lead = 0;
+M_.orig_maximum_lag = 2;
+M_.orig_maximum_lead = 1;
+M_.orig_maximum_lag_with_diffs_expanded = 2;
+M_.lead_lag_incidence = [
+ 0 9 0;
+ 0 10 0;
+ 0 11 0;
+ 0 12 44;
+ 0 13 0;
+ 1 14 0;
+ 0 15 0;
+ 0 16 0;
+ 0 17 0;
+ 0 18 0;
+ 0 19 45;
+ 0 20 46;
+ 0 21 0;
+ 0 22 0;
+ 0 23 0;
+ 0 24 0;
+ 0 25 0;
+ 0 26 0;
+ 2 27 0;
+ 0 28 47;
+ 3 29 0;
+ 4 30 0;
+ 5 31 0;
+ 6 32 0;
+ 0 33 0;
+ 7 34 0;
+ 0 35 0;
+ 0 36 0;
+ 0 37 0;
+ 0 38 0;
+ 0 39 0;
+ 0 40 0;
+ 0 41 0;
+ 0 42 0;
+ 8 43 0;]';
+M_.nstatic = 23;
+M_.nfwrd   = 4;
+M_.npred   = 8;
+M_.nboth   = 0;
+M_.nsfwrd   = 4;
+M_.nspred   = 8;
+M_.ndynamic   = 12;
+M_.dynamic_tmp_nbr = [3; 0; 0; 0; ];
+M_.model_local_variables_dynamic_tt_idxs = {
+};
+M_.equations_tags = {
+  1 , 'name' , 'Variety effect: household' ;
+  2 , 'name' , 'Variety effect (investment)' ;
+  3 , 'name' , 'Consumption aggregation' ;
+  4 , 'name' , 'Labor C' ;
+  5 , 'name' , 'Labor in I' ;
+  6 , 'name' , 'Capital in C' ;
+  7 , 'name' , 'Capital in I' ;
+  8 , 'name' , 'Labor intratemporal' ;
+  9 , 'name' , 'Capital accumulation (consumption)' ;
+  10 , 'name' , 'Consumption multiplier' ;
+  11 , 'name' , 'Euler equation of capital (C))' ;
+  12 , 'name' , 'Euler equation of capital (I)' ;
+  13 , 'name' , 'Capital utilization (C)' ;
+  14 , 'name' , 'Capital utilization (I)' ;
+  15 , 'name' , 'Relative price of capital good' ;
+  16 , 'name' , 'Relative price of investment' ;
+  17 , 'name' , 'C production' ;
+  18 , 'name' , 'I production' ;
+  19 , 'name' , 'C_util' ;
+  20 , 'name' , 'Investment (utilization-adjusted)' ;
+  21 , 'name' , 'Labor composition' ;
+  22 , 'name' , 'Capital composition' ;
+  23 , 'name' , 'Aggregate accounting (income = expenditures)' ;
+  24 , 'name' , 'Z' ;
+  25 , 'name' , 'u_ZI' ;
+  26 , 'name' , 'Z_I' ;
+  27 , 'name' , 'chi' ;
+  28 , 'name' , 'C_obs' ;
+  29 , 'name' , 'TI_obs' ;
+  30 , 'name' , 'Y_obs' ;
+  31 , 'name' , 'Y_util_obs' ;
+  32 , 'name' , 'SR_obs' ;
+  33 , 'name' , 'SR_util_obs' ;
+  34 , 'name' , 'lab_prod_obs' ;
+};
+M_.mapping.p_C.eqidx = [1 4 16 17 19 28 30 31 ];
+M_.mapping.p_I.eqidx = [2 ];
+M_.mapping.P_C.eqidx = [1 3 8 10 ];
+M_.mapping.Q.eqidx = [11 12 13 14 15 ];
+M_.mapping.C.eqidx = [3 4 17 23 28 30 ];
+M_.mapping.I.eqidx = [5 9 15 18 23 29 30 ];
+M_.mapping.Y.eqidx = [23 ];
+M_.mapping.c_A.eqidx = [3 8 10 ];
+M_.mapping.C_util.eqidx = [19 31 ];
+M_.mapping.I_util.eqidx = [20 31 ];
+M_.mapping.r_I.eqidx = [7 12 14 ];
+M_.mapping.r_C.eqidx = [6 11 13 ];
+M_.mapping.w.eqidx = [4 5 6 7 8 ];
+M_.mapping.L_C.eqidx = [4 6 17 19 21 ];
+M_.mapping.L_I.eqidx = [5 7 18 20 21 ];
+M_.mapping.L.eqidx = [8 21 32 33 34 ];
+M_.mapping.K_C.eqidx = [6 17 19 22 ];
+M_.mapping.K_I.eqidx = [7 18 20 22 ];
+M_.mapping.K.eqidx = [9 15 22 32 33 ];
+M_.mapping.lam.eqidx = [10 11 12 ];
+M_.mapping.u_C.eqidx = [6 9 13 17 ];
+M_.mapping.u_I.eqidx = [7 9 14 18 ];
+M_.mapping.Z.eqidx = [17 19 24 26 ];
+M_.mapping.Z_I.eqidx = [18 20 25 26 ];
+M_.mapping.u_ZI.eqidx = [25 26 ];
+M_.mapping.chi.eqidx = [8 27 ];
+M_.mapping.Y_obs.eqidx = [30 32 34 ];
+M_.mapping.C_obs.eqidx = [28 ];
+M_.mapping.TI_obs.eqidx = [29 ];
+M_.mapping.p_I_obs.eqidx = [16 ];
+M_.mapping.lab_prod_obs.eqidx = [34 ];
+M_.mapping.SR_obs.eqidx = [32 ];
+M_.mapping.SR_util_obs.eqidx = [33 ];
+M_.mapping.Y_util_obs.eqidx = [31 33 ];
+M_.mapping.e_ZI.eqidx = [25 ];
+M_.mapping.e_Z.eqidx = [24 ];
+M_.mapping.e_chi.eqidx = [27 ];
+M_.static_and_dynamic_models_differ = false;
+M_.has_external_function = false;
+M_.state_var = [6 19 21 22 23 24 26 35 ];
+M_.exo_names_orig_ord = [1:3];
+M_.maximum_lag = 1;
+M_.maximum_lead = 1;
+M_.maximum_endo_lag = 1;
+M_.maximum_endo_lead = 1;
+oo_.steady_state = zeros(35, 1);
+M_.maximum_exo_lag = 0;
+M_.maximum_exo_lead = 0;
+oo_.exo_steady_state = zeros(3, 1);
+M_.params = NaN(15, 1);
+M_.endo_trends = struct('deflator', cell(35, 1), 'log_deflator', cell(35, 1), 'growth_factor', cell(35, 1), 'log_growth_factor', cell(35, 1));
+M_.NNZDerivatives = [125; 0; -1; ];
+M_.static_tmp_nbr = [3; 0; 0; 0; ];
+M_.model_local_variables_static_tt_idxs = {
+};
+M_.params(2) = 0.993;
+beta = M_.params(2);
+M_.params(5) = 0.72;
+psi_inv = M_.params(5);
+phi = 0.5;
+M_.params(6) = 1.0;
+sigma = M_.params(6);
+M_.params(11) = 40.0;
+Psi_K = M_.params(11);
+M_.params(13) = 0.979;
+rho_ZI = M_.params(13);
+M_.params(12) = 0.979;
+rho_Z = M_.params(12);
+M_.params(14) = 0.979;
+lambda_1 = M_.params(14);
+M_.params(15) = 0.0;
+lambda_2 = M_.params(15);
+M_.params(9) = 0.667;
+wL_Y = M_.params(9);
+M_.params(10) = 0.22;
+phi_I = M_.params(10);
+M_.params(7) = 0.5;
+var_share = M_.params(7);
+M_.params(1) = 0.78;
+A = M_.params(1);
+M_.params(3) = 0.0435;
+delta_K = M_.params(3);
+M_.params(8) = 1.3;
+Gamma_bar = M_.params(8);
+M_.params(4) = 0.32;
+sigma_a = M_.params(4);
+%
+% SHOCKS instructions
+%
+M_.exo_det_length = 0;
+M_.Sigma_e(1, 1) = 0.0072;
+M_.Sigma_e(2, 2) = 0.0072;
+options_.irf = 100;
+options_.nofunctions = true;
+options_.order = 1;
+options_.periods = 0;
+options_.conditional_variance_decomposition = [1;4;8;40;];
+var_list_ = {'C_obs';'Y_obs';'lab_prod_obs';'SR_obs';'TI_obs';'L_C';'L_I';'L';'p_I_obs'};
+[info, oo_, options_, M_] = stoch_simul(M_, options_, oo_, var_list_);
+
+
+oo_.time = toc(tic0);
+disp(['Total computing time : ' dynsec2hms(oo_.time) ]);
+if ~exist([M_.dname filesep 'Output'],'dir')
+    mkdir(M_.dname,'Output');
+end
+save([M_.dname filesep 'Output' filesep 'two_sector_RBC_testing_results.mat'], 'oo_', 'M_', 'options_');
+if exist('estim_params_', 'var') == 1
+  save([M_.dname filesep 'Output' filesep 'two_sector_RBC_testing_results.mat'], 'estim_params_', '-append');
+end
+if exist('bayestopt_', 'var') == 1
+  save([M_.dname filesep 'Output' filesep 'two_sector_RBC_testing_results.mat'], 'bayestopt_', '-append');
+end
+if exist('dataset_', 'var') == 1
+  save([M_.dname filesep 'Output' filesep 'two_sector_RBC_testing_results.mat'], 'dataset_', '-append');
+end
+if exist('estimation_info', 'var') == 1
+  save([M_.dname filesep 'Output' filesep 'two_sector_RBC_testing_results.mat'], 'estimation_info', '-append');
+end
+if exist('dataset_info', 'var') == 1
+  save([M_.dname filesep 'Output' filesep 'two_sector_RBC_testing_results.mat'], 'dataset_info', '-append');
+end
+if exist('oo_recursive_', 'var') == 1
+  save([M_.dname filesep 'Output' filesep 'two_sector_RBC_testing_results.mat'], 'oo_recursive_', '-append');
+end
+if ~isempty(lastwarn)
+  disp('Note: warning(s) encountered in MATLAB/Octave code')
+end
