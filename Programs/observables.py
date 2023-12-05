@@ -38,14 +38,30 @@ def construct_data(init, final, freq):
 		- GDP Deflator: A191RD
 		- Fed Funds rate: Fed Board H.15 (TB3MS for early sample)
     """
-
+    
+    sectoral = pd.read_csv("sectoral_labor_data.csv", sep= ",", header=0)
+    date = pd.date_range(start='1/1947', periods=sectoral.shape[0], freq='MS')
+    sectoral.index = date
+    sectoral = sectoral[['Durable TH', 'Construction TH', 'Nondurable TH', 'Services TH']]
+    # Consumption: nondurable plus services
+    sectoral["L_C"] = sectoral["Nondurable TH"] + sectoral["Services TH"]
+    # Investment: construc
+    sectoral["L_I"] = sectoral["Construction TH"] + sectoral["Durable TH"]
+    # Total hours
+    # Aggregate to quarterly
+    sectoral = sectoral.resample(freq).mean()
+    sectoral = sectoral["1964":]
+    LC = sectoral.L_C
+    LI = sectoral.L_I
+    L = LC + LI
+    
     " GDP Deflator BEA code A191RD"
     deflator =  fred.get_series('GDPDEF').resample(freq).mean()
     #Y = fred.get_series('GDPC1').resample(freq).mean().dropna() #real, quarterly
     
     " Investment goods deflator "
     #inv_deflator = fred.get_series("INVDEF").resample(freq).mean()
-    #cons_deflator = fred.get_series("CONSDEF").resample(freq).mean()
+    #cons_deflator = fred.get_series("CONSDEF").resample(freq).mean()           
     
     
     " Nominal consumption (BEA codes DNDGRC + DDURRC + DSERRC) "
@@ -56,6 +72,10 @@ def construct_data(init, final, freq):
     C = C1 + C2
     #C = fred.get_series('PCEC').resample(freq).mean()# monthly, nominal
     
+    " Gross Private Domestic Investment (BEA code A006RC) "
+    #Equivalent to FPI (BEA A007RC) and change in business inentories (BEA CBI)
+    I = fred.get_series("GPDI").resample(freq).mean().dropna()
+    
     " Non-institutional population "
     pop = fred.get_series('CNP16OV').resample(freq).mean()
     
@@ -64,11 +84,9 @@ def construct_data(init, final, freq):
     
     " Labor hours: average weekly "
     #L = fred.get_series('HOANBS').resample(freq).mean()
-    L = fred.get_series('PRS85006023').resample(freq).mean().dropna()
+    #L = fred.get_series('PRS85006023').resample(freq).mean().dropna()
     
-    " Gross Private Domestic Investment (BEA code A006RC) "
-    #Equivalent to FPI (BEA A007RC) and change in business inentories (BEA CBI)
-    I = fred.get_series("GPDI").resample(freq).mean().dropna()
+   
   
     " Wages (real compensation per hour) "
     w = fred.get_series('COMPRNFB').resample(freq).mean().dropna()
@@ -108,19 +126,20 @@ def construct_data(init, final, freq):
     i = I/(pop*deflator)
     #y = Y/(pop*deflator)
     y = c + i
-    l = L
+    lc = LC/pop
+    li = LI/pop
+    l = L/pop
    
-    
     " List of data series "
-    var_load_list = [y, c, i, w, l, lab_prod, p_I, SR, SR_util, cu] 
+    var_load_list = [y, c, i, w, lc, li, l, lab_prod, p_I, SR, SR_util, cu] 
     return var_load_list
 
 
 
 if __name__ == "__main__":
    
-    init= '1960-01-01'
-    final = '2023-3-31'
+    init= '1964-01-01'
+    final = '2023-09-30'
     load = False
     filter_type = 'hamilton'
     freq = 'Q'
@@ -133,16 +152,16 @@ if __name__ == "__main__":
         save_object(var_load_list, 'var_load_list')
     
     dat = pd.concat(var_load_list, axis=1)
-    lab = ['Y', 'C', 'I', 'w', 'L', "lab_prod", 'p_I', 'SR', 'SR_util', 'cu']
+    lab = ['Y', 'C', 'I', 'w', 'LC', 'LI', 'L', "lab_prod", 'p_I', 'SR', 'SR_util', 'cu']
     dat.columns = lab
     cycle = pd.concat([filter_transform(dat[x], init=init, final=final, transform_type='log',
                                         filter_type=filter_type) for x in lab], axis=1)
     cycle.columns = lab
     
     " Choose specific variable set "
-    cycle_red = cycle[["Y", "I", "lab_prod", "SR", "p_I", "SR_util", "cu"]]
+    #cycle_red = cycle[["Y", "I", "lab_prod", "SR", "p_I", "SR_util", "cu"]]
 
-    mom_data = moments(100*cycle_red, lab=['Y'])
+    mom_data = moments(100*cycle, lab=['Y', 'L'])
     print(mom_data.to_latex())
     " Save moments "
     # Moments from data in growth rates and Hamilton-filtered data
@@ -152,8 +171,8 @@ if __name__ == "__main__":
         " Save relevant objects "
         #save_object(cycle, 'cycle')
         " Save output for estimation using growth filter"
-        lab = ['Y_obs', 'C_obs', 'TI_obs', 'w_obs', 'L_obs', 'lab_prod_obs', 'p_I_obs',
-               'SR_obs', 'SR_util_obs', 'cu']
+        lab = ['Y_obs', 'C_obs', 'TI_obs', 'w_obs', 'LC_obs', 'LI_obs', 'L_obs',
+               'lab_prod_obs', 'p_I_obs', 'SR_obs', 'SR_util_obs', 'cu']
         dic_data = dict(zip(lab, [np.asarray(cycle[x]) for x in cycle.columns]))
         sio.savemat('observables.mat', dic_data)
         
@@ -190,7 +209,21 @@ if __name__ == "__main__":
         plt.tight_layout()
         plt.show()
     
+    cycle_red = cycle[["Y", "C", "I", "LC", "LI", "lab_prod", "p_I", "SR"]]
     plot_cycle(cycle_red)
+    
+    fig, ax = plt.subplots()
+    ax.plot(cycle.LC, label= "Hours: consumption", alpha=0.6)
+    ax.plot(cycle.LI, label= "Hours: investment", alpha=0.6)
+    ax.plot(cycle.L, label= "Hours: aggregate", alpha=0.6)
+    ax.legend(loc="upper right")
+    ax.xaxis.set_major_locator(years)
+    ax.xaxis.set_major_formatter(years_fmt)
+    ax.grid(True)
+    plt.savefig("hours_comovement.pdf")
+    plt.tight_layout()
+    plt.show()
+    
     # fig, ax = plt.subplots()
     # ax.plot(cycle.NE, label='NE', lw=2, alpha=0.6)
     # plt.show()
