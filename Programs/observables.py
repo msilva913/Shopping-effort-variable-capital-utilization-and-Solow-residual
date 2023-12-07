@@ -80,18 +80,6 @@ def construct_data(init, final, freq):
     " Non-institutional population "
     pop = fred.get_series('CNP16OV').resample(freq).mean()
     
-    " Consumer price index "
-    #CPI = fred.get_series('CPIAUCSL').resample(freq).mean()
-    
-    " Labor hours: average weekly "
-    #L = fred.get_series('HOANBS').resample(freq).mean()
-    #L = fred.get_series('PRS85006023').resample(freq).mean().dropna()
-    
-   
-  
-    " Wages (real compensation per hour) "
-    w = fred.get_series('COMPRNFB').resample(freq).mean().dropna()
-    
     " Capacity utilization "
     cu = fred.get_series('TCU').resample(freq).mean().dropna()
     
