@@ -252,7 +252,7 @@ if __name__ == "__main__":
     ax.legend(loc = "upper right", fontsize=14)
     ax.axvline(nlags, color="black")
     plt.tight_layout()
-    #plt.savefig("dynamic_correlations_SR_Y.pdf")
+    plt.savefig("dynamic_correlations_SR_Y.pdf")
     
     
     " Two types of Solow residual "
