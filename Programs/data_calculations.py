@@ -10,9 +10,7 @@ fred = Fred(api_key = 'd35aabd7dc07cd94481af3d1e2f0ecf3	')
 #from statsmodels.tsa.arima_model import ARMA
 import os
 pd.set_option('display.precision', 2)
-path = r'C:\Users\msilva913\Dropbox\ComputationalMacro\Filtering\time_series_functions'
-#path = r'C:\Users\TJSEM\Dropbox\ComputationalMacro\Filtering\time_series_functions'
-os.chdir(path)
+
 from time_series_functions import (moments, filter_transform)
 from statsmodels.tsa.seasonal import seasonal_decompose
 import matplotlib.dates as mdates
@@ -21,13 +19,9 @@ years_fmt = mdates.DateFormatter('%Y')
 #import statsmodels
 #arima =  statsmodels.tsa.x13.x13_arima_analysis
 
-path = r'C:\Users\msilva913\Dropbox\Documents - Copy\Research\Consumption diversity, entry, and goods market frictions\Programs\Estimation'
-#path = r'C:\Users\TJSEM\Dropbox\Documents - Copy\Research\Consumption diversity, entry, and goods market frictions\Programs\Estimation'
-
-os.chdir(path)
-dtfp = pd.read_csv('quarterly_tfp.csv', header=0)
-dtfp = dtfp[dtfp['date'] < '2023:Q1']
-date = pd.date_range(start='1947Q1', end='2023Q1', freq='Q')
+dtfp = pd.read_csv('quarterly_tfp.csv', header=0, nrows=304, sep=';' )
+#dtfp = dtfp[dtfp['date'] < '2023:Q3']
+date = pd.date_range(start='1947Q1', periods=dtfp.shape[0], freq='Q')
 dtfp.index = date
 dtfp = dtfp[['dtfp', 'dtfp_util']]
 tfp = np.cumsum(dtfp/400)
@@ -51,33 +45,17 @@ plt.savefig('TFP_comparison_plot.pdf')
 
 # Labor share of income
 labor_share = fred.get_series('LABSHPUSA156NRUG')
-labor_share = labor_share.loc['1960':'2022']
+labor_share = labor_share.loc['1964':'2023']
 labor_share.mean()
 
-" Seasonality of business formation "
-# establishment_births = pd.read_csv('establishment_births.csv', engine='python',
-#                                     delimiter="\,", header=0)
-# date = pd.date_range(start='1993Q2', end='2021Q4', freq='Q')
-# establishment_births.index = date
-# establishment_births = establishment_births['Value']
-# NE = establishment_births
-# dec = seasonal_decompose(NE, model="additive")
-# trend = dec.trend
-# fig, ax = plt.subplots()
-# ax.plot(trend, label="trend")
-# ax.plot(NE, label="original series")
-# #ax.plot(dec.resid)
-# ax.legend()
-# plt.show()
 
 
 def save_object(obj, filename):
     with open(filename, 'wb') as output:
         pickle.dump(obj, output, pickle.HIGHEST_PROTOCOL)  
 
-
-init= '1960-01-01'
-final = '2022-12-31'
+init= '1964-01-01'
+final = '2023-09-30'
 
 # Calculate ratio of government to consumption spending: ratio in nominal terms
 # government-purchases: billions of dollars quarterly, annualized rate
@@ -90,11 +68,6 @@ C = C1 + C2
 # g_c = (G/C)[init:final]
 # g_c = g_c.mean()
 
-" Nominal government consumption expenditures "
-G_nom = fred.get_series('A955RC1Q027SBEA').resample('A').mean()
-" Ratio of nominal government expenditure to consumption "
-g_c = G_nom/C
-g_c.loc[init:final].mean()
 
 # Real government consumption expenditures and gross investment
 # G_tot = fred.get_series('GCEC1').resample('Q').mean()
@@ -110,5 +83,3 @@ g_c.loc[init:final].mean()
 # Y = fred.get_series('GDP').resample('A').mean()
 # C_Y = C/Y
 # C_Y.loc[init:final].mean()
-
-

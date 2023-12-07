@@ -10,7 +10,7 @@ import pickle
 fred = Fred(api_key = 'd35aabd7dc07cd94481af3d1e2f0ecf3	')
 #from statsmodels.tsa.arima_model import ARMA
 pd.set_option('display.precision', 3)
-pd.options.display.float_format = '{:5,.3f}'.format
+pd.options.display.float_format = '{:5,.3g}'.format
 
 from time_series_functions import (moments, filter_transform, crosscorr)
 #import statsmodels
@@ -43,13 +43,14 @@ def construct_data(init, final, freq):
     date = pd.date_range(start='1/1947', periods=sectoral.shape[0], freq='MS')
     sectoral.index = date
     sectoral = sectoral[['Durable TH', 'Construction TH', 'Nondurable TH', 'Services TH']]
-    # Consumption: nondurable plus services
+    " Consumption: nondurable plus services "
     sectoral["L_C"] = sectoral["Nondurable TH"] + sectoral["Services TH"]
-    # Investment: construc
+    " Investment: construction plus durables "
     sectoral["L_I"] = sectoral["Construction TH"] + sectoral["Durable TH"]
     # Total hours
-    # Aggregate to quarterly
+    " Aggregate to quarterly "
     sectoral = sectoral.resample(freq).mean()
+    " Limit data to after 1964 (services only available since then) "
     sectoral = sectoral["1964":]
     LC = sectoral.L_C
     LI = sectoral.L_I
@@ -113,18 +114,15 @@ def construct_data(init, final, freq):
     p_I = p_I/p_C
     
     " Real GDP "
-    #Y = fred.get_series('GDPC1').resample(freq).mean().dropna() 
-    # construct output from consumption and investment; omit G
-    #Y = C + I
-    
     # Labor productivity
     lab_prod = fred.get_series("OPHNFB").resample(freq).mean().dropna()
    
 
-    " Scale by population and CPI "
+    " Scale by population and GDP deflator "
     c = C/(pop*deflator)
     i = I/(pop*deflator)
     #y = Y/(pop*deflator)
+    " Construct output from consumption and investment "
     y = c + i
     lc = LC/pop
     li = LI/pop
@@ -209,7 +207,8 @@ if __name__ == "__main__":
         plt.tight_layout()
         plt.show()
     
-    cycle_red = cycle[["Y", "C", "I", "LC", "LI", "lab_prod", "p_I", "SR"]]
+    " Restricted set of variables: includes variables in estimation "
+    cycle_red = cycle[["Y", "C", "I", "LC", "LI", "p_I", "SR"]]
     plot_cycle(cycle_red)
     
     fig, ax = plt.subplots()
@@ -263,7 +262,7 @@ if __name__ == "__main__":
     ax.xaxis.set_major_locator(years)
     ax.xaxis.set_major_formatter(years_fmt)
     ax.grid(True)
-    #plt.tight_layout()
+    plt.tight_layout()
     ax.legend(fontsize=11)
     
     " Compare Fernald utilization vs capacity utilization "
