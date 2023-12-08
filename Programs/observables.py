@@ -103,7 +103,8 @@ def construct_data(init, final, freq):
     
     " Real GDP "
     # Labor productivity
-    lab_prod = fred.get_series("OPHNFB").resample(freq).mean().dropna()
+    lab_prod = (C+I)/(L*deflator)
+    #lab_prod = fred.get_series("OPHNFB").resample(freq).mean().dropna()
    
 
     " Scale by population and GDP deflator "
@@ -117,7 +118,7 @@ def construct_data(init, final, freq):
     l = L/pop
    
     " List of data series "
-    var_load_list = [y, c, i, w, lc, li, l, lab_prod, p_I, SR, SR_util, cu] 
+    var_load_list = [y, c, i, lc, li, l, lab_prod, p_I, SR, SR_util, cu] 
     return var_load_list
 
 
@@ -138,7 +139,7 @@ if __name__ == "__main__":
         save_object(var_load_list, 'var_load_list')
     
     dat = pd.concat(var_load_list, axis=1)
-    lab = ['Y', 'C', 'I', 'w', 'LC', 'LI', 'L', "lab_prod", 'p_I', 'SR', 'SR_util', 'cu']
+    lab = ['Y', 'C', 'I', 'LC', 'LI', 'L', "lab_prod", 'p_I', 'SR', 'SR_util', 'cu']
     dat.columns = lab
     cycle = pd.concat([filter_transform(dat[x], init=init, final=final, transform_type='log',
                                         filter_type=filter_type) for x in lab], axis=1)
@@ -162,9 +163,7 @@ if __name__ == "__main__":
         dic_data = dict(zip(lab, [np.asarray(cycle[x]) for x in cycle.columns]))
         sio.savemat('observables.mat', dic_data)
         
-    
-    
-    
+
     # Do plots
     
     import matplotlib.dates as mdates
