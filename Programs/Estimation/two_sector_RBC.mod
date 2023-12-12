@@ -19,7 +19,7 @@ SR_util_obs, Y_util_obs;
 varexo e_Z, e_chi;
 
 parameters A, beta, delta_K, sigma_a, psi_inv, sigma, 
-var_share, Gamma_bar, wL_Y,  Psi_K,
+var_share, Gamma_bar, wL_Y,  Psi_K, iota,
 
 % persistence parameters
 rho_Z, rho_ZI 
@@ -36,7 +36,8 @@ psi_inv = 0.72;
 sigma = 1.0;
 % Adjustment cost parameter 
 Psi_K = 5.0;
-
+% Habit formation
+iota = 0.0;
 
 % Persistence parameters
 rho_ZI = 0.979;
@@ -115,7 +116,7 @@ r_I+u_I+K_I = w+L_I;
 
 % 10) 
 [name = 'Labor intratemporal']
-chi + psi*L = -sigma*c_A + w - P_C;
+chi + psi*L = lam + w;
 
 % 11) 
 [name = 'Capital accumulation (consumption)']
@@ -126,7 +127,7 @@ K_I = (1-delta_K)*K_I(-1) + delta_K*(I_I(-1)) - (r+delta_K)*(phi_I*u_I(-1));
 
 % 14) 
 [name = 'Consumption multiplier']
-lam + P_C = -sigma*c_A;
+lam + P_C = -sigma/(1-iota)*(c_A-iota*c_A(-1));
 
 
 %14) 
