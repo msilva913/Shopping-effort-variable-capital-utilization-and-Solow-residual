@@ -9,7 +9,7 @@ w, L_C, L_I, L,
  K_C, K_I, K, lam,
 u_C, u_I
 % shock vars
-Z, kappa, chi,
+Z, Z_I, u_ZI, kappa, chi,
 
 %observables (4 series)
 Y_obs, C_obs, TI_obs, p_I_obs, lab_prod_obs, labor_share, SR_obs, w_obs,
@@ -17,7 +17,7 @@ SR_util_obs, Y_util_obs;
 
 % 6 shocks, 1 measurement errors--one more shock than observable
 //varexo e_ZI, e_Z, e_kappa, e_zeta, e_chi;
-varexo e_Z, e_kappa, e_chi;
+varexo e_ZI, e_Z, e_kappa, e_chi;
 
 parameters A, beta, delta_K, sigma_a, psi_inv, sigma, 
 var_share, Gamma_bar, wL_Y, phi_I, Psi, Psi_K, gam, iota
@@ -57,7 +57,7 @@ A = 0.78; % steady-state occupancy rate
 delta_K = 0.174/4;
 
 % Habit formation parameter
-iota = 0.0;
+iota = 0.5;
 
 % Key elasticities for estimation
 Psi = 0.25;
@@ -149,7 +149,7 @@ r_I+u_I+K_I = w+L_I;
 
 % 10) 
 [name = 'Labor intratemporal']
-chi + psi*L = -sigma*c_A + w - P_C;
+chi + psi*L = lam + w;
 
 % 11) 
 [name = 'Capital accumulation (consumption)']
@@ -211,7 +211,7 @@ C = (1+nu_R)*((1-alpha_2)*phi*q_C + p_C + Z + alpha*(u_C+K_C)+(1-alpha)*L_C)-nu_
 
 % 20) 
 [name = 'I production']
-I = (1+nu_R)*((1-alpha_2)*(phi*q_I) + p_I + Z + alpha*(u_I+K_I) + (1-alpha)*L_I) - nu_R*(p_I+phi*q_I);
+I = (1+nu_R)*((1-alpha_2)*(phi*q_I) + p_I + Z_I + alpha*(u_I+K_I) + (1-alpha)*L_I) - nu_R*(p_I+phi*q_I);
 
 % 21) 
 //[name = 'Utilization-adjusted retail production']
@@ -220,7 +220,7 @@ C_util = (1+nu_R)*(p_C + Z + alpha*(K_C)+(1-alpha)*L_C)-nu_R*(p_C);
 
 % 22) 
 [name = 'Investment (utilization-adjusted)']
-I_util = (1+nu_R)*(p_I + Z + alpha*(K_I) + (1-alpha)*L_I) - nu_R*(p_I);
+I_util = (1+nu_R)*(p_I + Z_I + alpha*(K_I) + (1-alpha)*L_I) - nu_R*(p_I);
 
 
 % 23) 
@@ -244,13 +244,11 @@ I = phi_C*I_C + phi_I*I_I;
 Y = phi_C*C + phi_I*I;
 
 
-
-
 % Technology shocks: common and investment-specific
 
 Z = rho_Z*Z(-1) + e_Z;
-//u_ZI = rho_ZI*Z_I(-1) + e_ZI;
-//Z_I = Z + u_ZI;
+u_ZI = rho_ZI*Z_I(-1) + e_ZI;
+Z_I = Z + u_ZI;
 
 % Shopping
 kappa = rho_kappa*kappa(-1) - e_kappa;
