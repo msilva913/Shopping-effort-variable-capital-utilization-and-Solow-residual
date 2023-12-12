@@ -117,6 +117,7 @@ def construct_data(init, final, freq):
     li = LI/pop
     l = L/pop
    
+    " Note: these series imply labor productivity in each sector "
     " List of data series "
     var_load_list = [y, c, i, lc, li, l, lab_prod, p_I, SR, SR_util, cu] 
     return var_load_list
@@ -198,7 +199,7 @@ if __name__ == "__main__":
     cycle_red = cycle[["Y", "C", "I", "LC", "LI", "p_I", "SR"]]
     plot_cycle(cycle_red)
     
-    fig, ax = plt.subplots()
+    fig, ax = plt.subplots(figsize=(10, 4))
     ax.plot(cycle.LC, label= "Hours: consumption", alpha=0.6)
     ax.plot(cycle.LI, label= "Hours: investment", alpha=0.6)
     ax.plot(cycle.L, label= "Hours: aggregate", alpha=0.6)
@@ -256,8 +257,8 @@ if __name__ == "__main__":
     cycle["util_Fern"] = cycle.SR - cycle.SR_util
     
     fig, ax = plt.subplots(figsize=(11, 4))
-    ax.plot(100*cycle.util_Fern.loc["1980":], label="Utilization (Fernald)", lw=2, alpha=0.6, color="blue")
-    ax.plot(100*cycle.cu.loc["1980":], label="Total capacity utilization", lw=2, alpha=0.6, color="green")
+    ax.plot(100*cycle.util_Fern, label="Utilization (Fernald)", lw=2, alpha=0.6, color="blue")
+    ax.plot(100*cycle.cu, label="Total capacity utilization", lw=2, alpha=0.6, color="green")
     ax.xaxis.set_major_locator(years)
     ax.xaxis.set_major_formatter(years_fmt)
     ax.set_ylabel("Percent")

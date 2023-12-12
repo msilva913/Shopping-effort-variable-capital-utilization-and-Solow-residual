@@ -20,7 +20,7 @@ SR_util_obs, Y_util_obs;
 varexo e_Z, e_kappa, e_chi;
 
 parameters A, beta, delta_K, sigma_a, psi_inv, sigma, 
-var_share, Gamma_bar, wL_Y, phi_I, Psi, Psi_K, gam
+var_share, Gamma_bar, wL_Y, phi_I, Psi, Psi_K, gam, iota
 
 % persistence parameters
 rho_Z, rho_ZI , rho_kappa, rho_zeta
@@ -55,6 +55,9 @@ phi_I = 0.22;
 var_share = 0.5; % share of labor in consumption sector which is variable
 A = 0.78; % steady-state occupancy rate
 delta_K = 0.174/4;
+
+% Habit formation parameter
+iota = 0.0;
 
 % Key elasticities for estimation
 Psi = 0.25;
@@ -101,6 +104,7 @@ model(linear);
 #r_KK_Y = alpha/(1-alpha)*wL_Y;
 #D_Y = 1 - wL_Y - r_KK_Y;
 
+#c_rho = 1 - (rho-1)/phi_C;
 
 
 %%%%%Start of main equations%%%%%%%%%%%%%%%%%%%%%%%
@@ -165,7 +169,8 @@ q_I = I-P_C-kappa;
 
 % 14) 
 [name = 'Consumption multiplier']
-lam + P_C = -sigma*c_A + sigma*(rho-1)/(phi_C-(rho-1))*(Y-C);
+//lam + P_C = -sigma*c_A + sigma*(rho-1)/(phi_C-(rho-1))*(Y-C);
+lam + P_C = -sigma/(c_rho*(1-iota))*(c_rho*c_A-(rho-1)/phi_C*(Y-C) - iota*(c_rho*c_A(-1)-(rho-1)/phi_C*(Y(-1)-C(-1))));
 
 
 %14) 

@@ -18,7 +18,7 @@ function T = dynamic_g1_tt(T, y, x, params, steady_state, it_)
 %   T           [#temp variables by 1]       double  vector of temporary terms
 %
 
-assert(length(T) >= 15);
+assert(length(T) >= 17);
 
 T = directed_search_testing.dynamic_resid_tt(T, y, x, params, steady_state, it_);
 

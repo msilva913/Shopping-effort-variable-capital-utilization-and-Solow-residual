@@ -7,7 +7,7 @@ addpath c:\dynare\5.4\matlab
 %dynare directed_search.mod
 dynare directed_search_testing.mod
 dynare two_sector_RBC.mod
-dynare two_sector_RBC_differentiated_testing.mod
+dynare two_sector_RBC_differentiated_testing.mod %with fixed cost
 %dynare two_sector_RBC_testing.mod
 %dynare directed_search_testing_only_C.mod
 %%

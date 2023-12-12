@@ -9,15 +9,15 @@ w, L_C, L_I, L,
  K_C, K_I, K, lam,
 u_C, u_I
 % shock vars
-Z, Z_I, u_ZI, 
-kappa, u_zeta, zeta, chi,
+Z, kappa, chi,
 
 %observables (4 series)
-Y_obs, C_obs, TI_obs, p_I_obs, lab_prod_obs, SR_obs,
+Y_obs, C_obs, TI_obs, p_I_obs, lab_prod_obs, labor_share, SR_obs, w_obs,
 SR_util_obs, Y_util_obs;
 
 % 6 shocks, 1 measurement errors--one more shock than observable
-varexo e_ZI, e_Z, e_kappa, e_zeta, e_chi;
+//varexo e_ZI, e_Z, e_kappa, e_zeta, e_chi;
+varexo e_Z, e_kappa, e_chi;
 
 parameters A, beta, delta_K, sigma_a, psi_inv, sigma, 
 var_share, Gamma_bar, wL_Y, phi_I, Psi, Psi_K, gam
@@ -32,12 +32,11 @@ beta = 0.993;
 
 % Frisch elasticity of labor supply
 psi_inv = 0.72;
-phi = 0.5;
 
 % IES
-sigma = 1.0;
+sigma = 1;
 % Adjustment cost parameter 
-Psi_K = 30.0;
+Psi_K = 2.0;
 
 
 % Persistence parameters
@@ -58,7 +57,7 @@ A = 0.78; % steady-state occupancy rate
 delta_K = 0.174/4;
 
 % Key elasticities for estimation
-Psi = 0.05;
+Psi = 0.25;
 gam = 0.42;
 Gamma_bar = 1.3;
 
@@ -92,9 +91,8 @@ model(linear);
 #B_c = - (Psi_inv+Gamma_bar/A^alpha_2);
 #C_c = 1.0; 
 
-#phi = - (B_c-sqrt(B_c^2-4*A_c*C_c))/(2*A_c);
+#phi = (- B_c-sqrt(B_c^2-4*A_c*C_c))/(2*A_c);
 #rho = 1-Psi_inv + 1/phi;
-
 
 % Variable labor
 
@@ -103,6 +101,7 @@ model(linear);
 #r_KK_Y = alpha/(1-alpha)*wL_Y;
 #D_Y = 1 - wL_Y - r_KK_Y;
 
+#c_rho = 1 - (rho-1)/phi_C;
 
 
 %%%%%Start of main equations%%%%%%%%%%%%%%%%%%%%%%%
@@ -163,11 +162,12 @@ q_C = c_A - kappa;
 
 % 13) 
 [name = 'I shopping']
-q_I = I-P_C-zeta-kappa;
+q_I = I-P_C-kappa;
 
 % 14) 
 [name = 'Consumption multiplier']
-lam + P_C = -sigma*c_A + sigma*(rho-1)/(phi_C-(rho-1))*(Y-C);
+//lam + P_C = -sigma*c_A + sigma*(rho-1)/(phi_C-(rho-1))*(Y-C);
+lam + P_C = -sigma/(c_rho*(1-iota))*(c_rho*c_A-(rho-1)/phi_C*(Y-C) - iota*(c_rho*c_A(-1)-(rho-1)/phi_C*
 
 
 %14) 
@@ -182,11 +182,11 @@ Q_I = lam(+1)-lam + (r+delta_K)/(1+r)*(r_I(+1)) + Q_I(+1)/(1+r);
 
 % 16)
 [name = 'Capital utilization (C)']
-r_C = sigma_a*u_C+Q;
+r_C = sigma_a*u_C+Q_C;
 
 % 17)
 [name = 'Capital utilization (I)']
-r_I = sigma_a*u_I+Q;
+r_I = sigma_a*u_I+Q_I;
 
 %18)
 [name = 'Relative price of capital good']
@@ -208,7 +208,7 @@ C = (1+nu_R)*((1-alpha_2)*phi*q_C + p_C + Z + alpha*(u_C+K_C)+(1-alpha)*L_C)-nu_
 
 % 20) 
 [name = 'I production']
-I = (1+nu_R)*((1-alpha_2)*(phi*q_I) + p_I + Z_I + alpha*(u_I+K_I) + (1-alpha)*L_I) - nu_R*(p_I+phi*q_I);
+I = (1+nu_R)*((1-alpha_2)*(phi*q_I) + p_I + Z + alpha*(u_I+K_I) + (1-alpha)*L_I) - nu_R*(p_I+phi*q_I);
 
 % 21) 
 //[name = 'Utilization-adjusted retail production']
@@ -217,7 +217,7 @@ C_util = (1+nu_R)*(p_C + Z + alpha*(K_C)+(1-alpha)*L_C)-nu_R*(p_C);
 
 % 22) 
 [name = 'Investment (utilization-adjusted)']
-I_util = (1+nu_R)*(p_I + Z_I + alpha*(K_I) + (1-alpha)*L_I) - nu_R*(p_I);
+I_util = (1+nu_R)*(p_I + Z + alpha*(K_I) + (1-alpha)*L_I) - nu_R*(p_I);
 
 
 % 23) 
@@ -246,13 +246,13 @@ Y = phi_C*C + phi_I*I;
 % Technology shocks: common and investment-specific
 
 Z = rho_Z*Z(-1) + e_Z;
-u_ZI = rho_ZI*Z_I(-1) + e_ZI;
-Z_I = Z + u_ZI;
+//u_ZI = rho_ZI*Z_I(-1) + e_ZI;
+//Z_I = Z + u_ZI;
 
 % Shopping
 kappa = rho_kappa*kappa(-1) - e_kappa;
-u_zeta = rho_zeta*u_zeta(-1) - e_zeta;
-zeta = u_zeta;
+//u_zeta = rho_zeta*u_zeta(-1) - e_zeta;
+//zeta = u_zeta;
 
 % Labor supply
 chi = rho_chi1*chi(-1) + rho_chi2*chi(-2) - e_chi;
@@ -265,12 +265,14 @@ chi = rho_chi1*chi(-1) + rho_chi2*chi(-2) - e_chi;
 C_obs = C - p_C; // equivalent to c - (p_C-P^H) like in BGM
 TI_obs = I - p_I;
 Y_obs = phi_C*(C-p_C) + phi_I*(I-p_I);
+w_obs = w - p_I;
 Y_util_obs = phi_C*(C_util-p_C) + phi_I*(I_util-p_I);
 
 SR_obs = Y_obs - (1-wL_Y)*K - wL_Y*L;
 SR_util_obs = Y_util_obs - (1-wL_Y)*K - wL_Y*L;
 
 lab_prod_obs = Y_obs - L;
+labor_share = w_obs + L - Y_obs;
 //L_obs = L + e_L_ME;
 
 % Levels
@@ -279,9 +281,9 @@ end;
 
 shocks;
 var e_Z = 0.0072;
-var e_ZI = 0.0072;
+//var e_ZI = 0.0072;
 var e_kappa = 0.0072;
-var e_zeta = 0.0072;
+//var e_zeta = 0.0072;
 end;
 
 % Observed variables (4 series) -- excluding labor supply for now
@@ -289,6 +291,6 @@ end;
 
 stoch_simul (order=1, nofunctions, irf=100, periods=0,
 conditional_variance_decomposition=[1 4 8 40])
-C_obs, Y_obs, lab_prod_obs, SR_obs, TI_obs, L_C, L_I, L, p_I_obs, Gamma_C, Gamma_I ;
+C_obs, Y_obs, q_C, P_C, p_C, lab_prod_obs, labor_share, SR_obs, TI_obs, L_C, L_I, L, labor_share, w_obs, p_I_obs, Gamma_C, Gamma_I ;
 
 
