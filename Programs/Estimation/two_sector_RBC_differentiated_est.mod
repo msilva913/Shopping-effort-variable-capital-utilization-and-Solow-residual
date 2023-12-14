@@ -1,29 +1,28 @@
 
 
-var p_C, p_I, P_C, q_C, q_I, Q_C, Q_I
+var p_C, p_I, P_C, Q_C, Q_I,
 C, I, I_C, I_I, Y,
- Gamma_C, Gamma_I, c_A, C_util, I_util,
+c_A, C_util, I_util,
 r_I, r_C,
 w, L_C, L_I, L,
 //L_obs,
  K_C, K_I, K, lam,
-u_C, u_I
+u_C, u_I,
 % shock vars
-Z, Z_I, u_ZI, kappa
+Z, Z_I, u_ZI
 
 %observables (4 series)
-C_obs, TI_obs, LC_obs, LI_obs, Y_obs, p_I_obs, lab_prod_obs, labor_share, SR_obs, w_obs,
+Y_obs, C_obs, TI_obs, LI_obs, p_I_obs, lab_prod_obs, labor_share, SR_obs,
 SR_util_obs, Y_util_obs;
 
 % 6 shocks, 1 measurement errors--one more shock than observable
-//varexo e_ZI, e_Z, e_kappa, e_zeta, e_chi;
-varexo e_ZI, e_Z, e_kappa;
+varexo e_Z, e_ZI;
 
 parameters A, beta, delta_K, sigma_a, psi_inv, sigma, 
-var_share, Gamma_bar, wL_Y, phi_I, Psi, Psi_K, gam, iota
+var_share, Gamma_bar, wL_Y, phi_I, Psi_K, iota
 
 % persistence parameters
-rho_Z, rho_ZI , rho_kappa, rho_zeta
+rho_Z, rho_ZI 
 
 % Roots AR(2) process on labor supply
 lambda_1, lambda_2;
@@ -32,18 +31,18 @@ beta = 0.993;
 
 % Frisch elasticity of labor supply
 psi_inv = 0.72;
+phi = 0.5;
 
 % IES
-sigma = 1;
+sigma = 1.0;
 % Adjustment cost parameter 
-Psi_K = 2.0;
-
+Psi_K = 5.0;
+% Habit formation
+iota = 0.0;
 
 % Persistence parameters
 rho_ZI = 0.979;
 rho_Z = 0.979;
-rho_kappa = 0.979;
-rho_zeta = 0.979;
 
 %rho_chi = 0.979;
 lambda_1 = 0.979;
@@ -52,19 +51,11 @@ lambda_2 = 0.0;
 % labor share
 wL_Y = 0.667;
 phi_I = 0.22;
-A = 0.78; % steady-state occupancy rate
+var_share = 0.5; % share of labor in consumption sector which is variable
 delta_K = 0.174/4;
 
-var_share = 0.5; % share of labor in consumption sector which is variable
-
-% Habit formation parameter
-iota = 0.0;
-
 % Key elasticities for estimation
-Psi = 0.25;
-gam = 0.42;
 Gamma_bar = 1.3;
-
 sigma_a = 0.32;
 
 
@@ -83,20 +74,12 @@ model(linear);
 %1) Consistency of α with investment share
 #alpha_ratio = phi_I*(r+delta_K)/(delta_K*wL_Y);
 #alpha = alpha_ratio/(1+alpha_ratio);
-#alpha_2 = var_share*(1-alpha);
-#alpha_1 = 1-alpha-alpha_2;
 
 %2) Fixed cost share
 #nu_R = Gamma_bar*wL_Y/(1-alpha) - 1;
 
 %3) Solve for phi and rho
-#Psi_inv = 1/Psi;
-#A_c = alpha_2*(1+nu_R)+Psi_inv - 1;
-#B_c = - (Psi_inv+Gamma_bar/A^alpha_2);
-#C_c = 1.0; 
-
-#phi = (- B_c-sqrt(B_c^2-4*A_c*C_c))/(2*A_c);
-#rho = 1-Psi_inv + 1/phi;
+#rho = Gamma_bar;
 
 % Variable labor
 
@@ -105,40 +88,29 @@ model(linear);
 #r_KK_Y = alpha/(1-alpha)*wL_Y;
 #D_Y = 1 - wL_Y - r_KK_Y;
 
-#c_rho = 1 - (rho-1)/phi_C;
 
 
 %%%%%Start of main equations%%%%%%%%%%%%%%%%%%%%%%%
 
 % 1) 
 [name = 'Variety effect: household']
-P_C = phi*q_C*(1-rho) + p_C;
+P_C =  p_C;
 
 % 2) 
 [name = 'Variety effect (investment)']
-0 = phi*q_I*(1-rho) + p_I;
+0 =  p_I;
 
 % 3) 
 [name = 'Consumption aggregation']
 C = P_C + c_A;
 
-% 4) 
-[name = 'Markup (consumption)']
-Gamma_C = alpha_2*phi*q_C + A^alpha_2*phi*(alpha_2-rho)/Gamma_bar*(1-phi)*gam*q_C;
-//Gamma_C = 0.0;
-
-% 5)
-[name = 'Markup (investment)']
-Gamma_I = alpha_2*phi*q_I + A^alpha_2*phi*(alpha_2-rho)/Gamma_bar*(1-phi)*gam*q_I;
-//Gamma_I = 0.0;
-
 % 6) 
 [name = 'Labor C']
-w + L_C = C - Gamma_C + nu_R/(1+nu_R)*(p_C+phi*q_C-C);
+w + L_C = C +  nu_R/(1+nu_R)*(p_C-C);
 
 % 7) 
 [name = 'Labor in I']
-w + L_I = I - Gamma_I + nu_R/(1+nu_R)*(p_I+phi*q_I-I);
+w + L_I = I +  nu_R/(1+nu_R)*(p_I-I);
 
 % 8)
 [name = 'Capital in C']
@@ -151,29 +123,18 @@ r_I+u_I+K_I = w+L_I;
 % 10) 
 [name = 'Labor intratemporal']
 //chi + psi*L = lam + w;
- psi*L = lam + w;
+psi*L = lam + w;
 
 % 11) 
 [name = 'Capital accumulation (consumption)']
 K_C = (1-delta_K)*K_C(-1) + delta_K*(I_C(-1)) - (r+delta_K)*(phi_C*u_C(-1));
 
-[name = 'Capital accumulation (investment)']
 K_I = (1-delta_K)*K_I(-1) + delta_K*(I_I(-1)) - (r+delta_K)*(phi_I*u_I(-1));
 
 
-% 12)  
-[name = 'C shopping']
-q_C = c_A - kappa;
-
-% 13) 
-[name = 'I shopping']
-//q_I = I-P_C-kappa-zeta;
-q_I = I-P_C-kappa;
-
 % 14) 
 [name = 'Consumption multiplier']
-//lam + P_C = -sigma*c_A + sigma*(rho-1)/(phi_C-(rho-1))*(Y-C);
-lam + P_C = -sigma/(c_rho*(1-iota))*(c_rho*c_A-(rho-1)/phi_C*(Y-C) - iota*(c_rho*c_A(-1)-(rho-1)/phi_C*(Y(-1)-C(-1))));
+lam + P_C = -sigma/(1-iota)*(c_A-iota*c_A(-1));
 
 
 %14) 
@@ -198,8 +159,6 @@ r_I = sigma_a*u_I+Q_I;
 [name = 'Relative price of capital good']
 Q_C = Psi_K*delta_K*(I_C-K_C);
 
-%19)
-[name = 'Relative price of capital good']
 Q_I = Psi_K*delta_K*(I_I-K_I);
 
 % 19) 
@@ -209,12 +168,11 @@ p_I_obs = p_I - p_C;
 
 % 19)
 [name =  'C production']
-//YC = p_C + Z + (1-alpha_2)*(-phi*Q_C) + alpha*(K_C)+(1-alpha)*L_C;
-C = (1+nu_R)*((1-alpha_2)*phi*q_C + p_C + Z + alpha*(u_C+K_C)+(1-alpha)*L_C)-nu_R*(p_C+phi*q_C);
+C = (1+nu_R)*(p_C + Z + alpha*(u_C+K_C)+(1-alpha)*L_C)-nu_R*(p_C);
 
 % 20) 
 [name = 'I production']
-I = (1+nu_R)*((1-alpha_2)*(phi*q_I) + p_I + Z_I + alpha*(u_I+K_I) + (1-alpha)*L_I) - nu_R*(p_I+phi*q_I);
+I = (1+nu_R)*(p_I + Z_I + alpha*(u_I+K_I) + (1-alpha)*L_I) - nu_R*(p_I);
 
 % 21) 
 //[name = 'Utilization-adjusted retail production']
@@ -223,7 +181,7 @@ C_util = (1+nu_R)*(p_C + Z + alpha*(K_C)+(1-alpha)*L_C)-nu_R*(p_C);
 
 % 22) 
 [name = 'Investment (utilization-adjusted)']
-I_util = (1+nu_R)*(p_I + Z_I + alpha*(K_I) + (1-alpha)*L_I) - nu_R*(p_I);
+I_util = (1+nu_R)*(p_I + Z + alpha*(K_I) + (1-alpha)*L_I) - nu_R*(p_I);
 
 
 % 23) 
@@ -234,9 +192,8 @@ L = phi_C*L_C + phi_I*(L_I);
 [name = 'Capital composition']
 K = phi_C*K_C + phi_I*K_I;
 
-%
-[name = 'Investment composition']
 I = phi_C*I_C + phi_I*I_I;
+
 
 % 25)
 //[name = 'Capacity utilization']
@@ -253,9 +210,6 @@ Z = rho_Z*Z(-1) + e_Z;
 u_ZI = rho_ZI*u_ZI(-1) + e_ZI;
 Z_I = Z + u_ZI;
 
-% Shopping
-kappa = rho_kappa*kappa(-1) - e_kappa;
-//zeta = rho_zeta*zeta(-1) - e_zeta;
 
 % Labor supply
 //chi = rho_chi1*chi(-1) + rho_chi2*chi(-2) - e_chi;
@@ -268,17 +222,14 @@ kappa = rho_kappa*kappa(-1) - e_kappa;
 C_obs = C - p_C; // equivalent to c - (p_C-P^H) like in BGM
 TI_obs = I - p_I;
 Y_obs = phi_C*(C-p_C) + phi_I*(I-p_I);
-w_obs = w - p_I;
 Y_util_obs = phi_C*(C_util-p_C) + phi_I*(I_util-p_I);
 
 SR_obs = Y_obs - (1-wL_Y)*K - wL_Y*L;
 SR_util_obs = Y_util_obs - (1-wL_Y)*K - wL_Y*L;
 
 lab_prod_obs = Y_obs - L;
-labor_share = w_obs + L - Y_obs;
-LC_obs = L_C;
+labor_share = w-p_I + L - Y_obs;
 LI_obs = L_I;
-//L_obs = L + e_L_ME;
 
 % Levels
 
@@ -287,13 +238,11 @@ end;
 shocks;
 var e_Z = 0.0072;
 var e_ZI = 0.0072;
-var e_kappa = 0.0072;
-//var e_zeta = 0.0072;
 end;
 
 % Observed variables (4 series) -- excluding labor supply for now
 %%%%%%%%%%%%%%%%%%%%
-varobs LI_obs, C_obs, TI_obs;
+varobs LI_obs, C_obs;
 
 estimated_params;
 //x, init_value, lower bound, upper bound, prior shape, prior mean, prior std
@@ -304,20 +253,11 @@ iota, 0.1, 0.0, 0.99,         BETA_PDF, 0.5, 0.25;
 % Inverse of Frisch elasticity
 //psi_inv, 0.72, 0.1, 5.0,         GAMMA_PDF, 0.74, 0.25;
 
-% Elasticity of TFP wrt real spending
-Psi, 0.25, 0.0, 0.5,          BETA_PDF, 0.2, 0.1, 0, 0.5;
-
 % Gross markup
 Gamma_bar, 1.3, 1.01, 2.0,    BETA_PDF, 1.3, 0.20, 1.01, 2.0;
 
-% Elasticity parameter matching function
-gam, 0.42, 0.01, 2.0,          BETA_PDF, 0.42, 0.3, 0.0, 2.0;
-
 % Adjustment costs
 Psi_K, 2.0, 0.00, 30,        GAMMA_PDF, 1.57, 1.5;
-
-% Share of variable labor among labor
-var_share, 0.9, 0.01, 0.999,      BETA_PDF, 0.5, 0.2;
 
 % Capital utilization cost sigma_a
 sigma_a, 0.32, 0.0, 15.0,        GAMMA_PDF, 0.32, 0.3;
@@ -325,9 +265,6 @@ sigma_a, 0.32, 0.0, 15.0,        GAMMA_PDF, 0.32, 0.3;
 % Persistence parameters
 rho_Z, 0.9, 0.0212, 0.99999,        BETA_PDF, 0.6, 0.2;
 rho_ZI, 0.92, 0.0212, 0.9999,       BETA_PDF, 0.6, 0.2;
-
-rho_kappa, 0.95, 0.0212, 0.9999,     BETA_PDF, 0.6, 0.2;
-//rho_zeta, 0.9, 0.0212, 0.9999,     BETA_PDF, 0.6, 0.2;
 
 % Roots for labor supply
 //lambda_1, 0.9, -0.999, 0.9999,       BETA_PDF, 0.6, 0.2, -1, 1;
@@ -340,15 +277,10 @@ rho_kappa, 0.95, 0.0212, 0.9999,     BETA_PDF, 0.6, 0.2;
 stderr e_ZI, 0.01, 0.001, 0.2,  INV_GAMMA_PDF, 0.01, 0.004;
 stderr e_Z, 0.01, 0.001, 0.2,  INV_GAMMA_PDF, 0.01, 0.004;
 
-% Shopping demand: sector-specific and common
-stderr e_kappa, 0.01, 0.0001, 0.4,  INV_GAMMA_PDF, 0.01, 0.004;
-//stderr e_zeta, 0.02, 0.0001, 0.4,  INV_GAMMA_PDF, 0.01, 0.004;
-
 % Labor supply
 //stderr e_chi, 0.02, 0.001, 0.4,  INV_GAMMA_PDF, 0.01, 0.004;
 end;
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Estimation options
 % local identification
 identification(ar=10);
@@ -367,7 +299,7 @@ datafile=observables,
 //mh_recover,
 //mcmc_jumping_covariance=prior_variance,
 
-mode_compute=6, 
+mode_compute=4, 
 presample=0, 
 lik_init=1,
 mh_jscale=0.3, 
