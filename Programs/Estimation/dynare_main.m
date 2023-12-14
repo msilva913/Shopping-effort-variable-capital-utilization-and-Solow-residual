@@ -6,6 +6,11 @@ addpath c:\dynare\5.4\matlab
 %% Baseline model GHH
 %dynare directed_search.mod
 % simple 2-sector RBC model
+%Mobile capital (one investment decision)--indeterminacy 
+%dynare directed_search_mobile_capital.mod
+dynare directed_search_est.mod
+
+%% Building-block models
 dynare two_sector_RBC.mod
 dynare two_sector_RBC_differentiated_testing.mod %with fixed cost
 dynare directed_search_testing.mod

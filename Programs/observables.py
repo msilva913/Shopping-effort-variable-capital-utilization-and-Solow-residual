@@ -159,7 +159,7 @@ if __name__ == "__main__":
         " Save relevant objects "
         #save_object(cycle, 'cycle')
         " Save output for estimation using growth filter"
-        lab = ['Y_obs', 'C_obs', 'TI_obs', 'w_obs', 'LC_obs', 'LI_obs', 'L_obs',
+        lab = ['Y_obs', 'C_obs', 'TI_obs', 'LC_obs', 'LI_obs', 'L_obs',
                'lab_prod_obs', 'p_I_obs', 'SR_obs', 'SR_util_obs', 'cu']
         dic_data = dict(zip(lab, [np.asarray(cycle[x]) for x in cycle.columns]))
         sio.savemat('observables.mat', dic_data)
@@ -257,8 +257,9 @@ if __name__ == "__main__":
     cycle["util_Fern"] = cycle.SR - cycle.SR_util
     
     fig, ax = plt.subplots(figsize=(11, 4))
-    ax.plot(100*cycle.util_Fern, label="Utilization (Fernald)", lw=2, alpha=0.6, color="blue")
-    ax.plot(100*cycle.cu, label="Total capacity utilization", lw=2, alpha=0.6, color="green")
+    ax.plot(100*cycle.util_Fern, linestyle[1], label="Utilization (Fernald)", lw=2, alpha=0.6, color="blue")
+    ax.plot(100*cycle.cu, linestyle[2], label="Total capacity utilization", lw=2, alpha=0.6, color="green")
+    ax.plot(100*cycle.Y, label="Real output (consumption plus investment)", lw=2, alpha=0.6, color="black")
     ax.xaxis.set_major_locator(years)
     ax.xaxis.set_major_formatter(years_fmt)
     ax.set_ylabel("Percent")

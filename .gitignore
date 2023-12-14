@@ -24,3 +24,5 @@ Programs/Estimation/+directed_search/dynamic_g3.m
 Programs/Estimation/+directed_search/dynamic_g2_tt.m
 Programs/Estimation/+directed_search/dynamic_g2.m
 *.log
+*.m
+*.m
