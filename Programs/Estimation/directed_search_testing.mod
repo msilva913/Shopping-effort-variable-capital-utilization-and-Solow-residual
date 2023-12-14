@@ -57,7 +57,7 @@ A = 0.78; % steady-state occupancy rate
 delta_K = 0.174/4;
 
 % Habit formation parameter
-iota = 0.5;
+iota = 0.0;
 
 % Key elasticities for estimation
 Psi = 0.25;
@@ -247,7 +247,7 @@ Y = phi_C*C + phi_I*I;
 % Technology shocks: common and investment-specific
 
 Z = rho_Z*Z(-1) + e_Z;
-u_ZI = rho_ZI*Z_I(-1) + e_ZI;
+u_ZI = rho_ZI*u_ZI(-1) + e_ZI;
 Z_I = Z + u_ZI;
 
 % Shopping
@@ -283,7 +283,7 @@ end;
 shocks;
 var e_Z = 0.0072;
 //var e_ZI = 0.0072;
-var e_kappa = 0.0072;
+//var e_kappa = 0.0072;
 //var e_zeta = 0.0072;
 end;
 
@@ -292,6 +292,6 @@ end;
 
 stoch_simul (order=1, nofunctions, irf=100, periods=0,
 conditional_variance_decomposition=[1 4 8 40])
-C_obs, Y_obs, q_C, P_C, p_C, lab_prod_obs, labor_share, SR_obs, TI_obs, L_C, L_I, L, labor_share, w_obs, p_I_obs, Gamma_C, Gamma_I ;
+C_obs, TI_obs, Y_obs, lab_prod_obs, labor_share, L_C, L_I, L, p_I_obs ;
 
 

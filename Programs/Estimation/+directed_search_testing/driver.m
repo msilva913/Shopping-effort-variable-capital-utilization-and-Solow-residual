@@ -312,8 +312,8 @@ M_.lead_lag_incidence = [
  8 42 0;
  9 43 0;
  10 44 0;
- 11 45 0;
- 0 46 0;
+ 0 45 0;
+ 11 46 0;
  12 47 0;
  13 48 0;
  0 49 0;
@@ -413,7 +413,7 @@ M_.mapping.lam.eqidx = [10 15 16 17 ];
 M_.mapping.u_C.eqidx = [8 11 18 23 ];
 M_.mapping.u_I.eqidx = [9 12 19 24 ];
 M_.mapping.Z.eqidx = [23 25 31 33 ];
-M_.mapping.Z_I.eqidx = [24 26 32 33 ];
+M_.mapping.Z_I.eqidx = [24 26 33 ];
 M_.mapping.u_ZI.eqidx = [32 33 ];
 M_.mapping.kappa.eqidx = [13 14 34 ];
 M_.mapping.chi.eqidx = [10 35 ];
@@ -433,7 +433,7 @@ M_.mapping.e_kappa.eqidx = [34 ];
 M_.mapping.e_chi.eqidx = [35 ];
 M_.static_and_dynamic_models_differ = false;
 M_.has_external_function = false;
-M_.state_var = [8 10 11 12 15 24 25 28 29 30 31 33 34 45 ];
+M_.state_var = [8 10 11 12 15 24 25 28 29 30 32 33 34 45 ];
 M_.exo_names_orig_ord = [1:4];
 M_.maximum_lag = 1;
 M_.maximum_lead = 1;
@@ -479,7 +479,7 @@ M_.params(1) = 0.78;
 A = M_.params(1);
 M_.params(3) = 0.0435;
 delta_K = M_.params(3);
-M_.params(14) = 0.5;
+M_.params(14) = 0.0;
 iota = M_.params(14);
 M_.params(11) = 0.25;
 Psi = M_.params(11);
@@ -494,13 +494,12 @@ sigma_a = M_.params(4);
 %
 M_.exo_det_length = 0;
 M_.Sigma_e(2, 2) = 0.0072;
-M_.Sigma_e(3, 3) = 0.0072;
 options_.irf = 100;
 options_.nofunctions = true;
 options_.order = 1;
 options_.periods = 0;
 options_.conditional_variance_decomposition = [1;4;8;40;];
-var_list_ = {'C_obs';'Y_obs';'q_C';'P_C';'p_C';'lab_prod_obs';'labor_share';'SR_obs';'TI_obs';'L_C';'L_I';'L';'w_obs';'p_I_obs';'Gamma_C';'Gamma_I'};
+var_list_ = {'C_obs';'TI_obs';'Y_obs';'lab_prod_obs';'labor_share';'L_C';'L_I';'L';'p_I_obs'};
 [info, oo_, options_, M_] = stoch_simul(M_, options_, oo_, var_list_);
 
 
@@ -528,7 +527,6 @@ end
 if exist('oo_recursive_', 'var') == 1
   save([M_.dname filesep 'Output' filesep 'directed_search_testing_results.mat'], 'oo_recursive_', '-append');
 end
-disp('Note: 1 warning(s) encountered in the preprocessor')
 if ~isempty(lastwarn)
   disp('Note: warning(s) encountered in MATLAB/Octave code')
 end
