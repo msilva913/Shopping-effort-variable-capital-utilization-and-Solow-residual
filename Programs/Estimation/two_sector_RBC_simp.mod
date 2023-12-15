@@ -2,8 +2,7 @@
 
 var p_C, p_I, P_C,
 C, I, Y,
-c_A, 
-r_I, r_C,
+c_A, r_K,
 w, L_C, L_I, L,
 //L_obs,
  K_C, K_I, K, lam,
@@ -105,11 +104,11 @@ w + L_I = I;
 
 % 6)
 [name = 'Capital in C']
-r_C+K_C = w + L_C;
+r_K+K_C = w + L_C;
 
 % 7)
 [name = 'Capital in I']
-r_I + K_I = w+L_I;
+r_K + K_I = w+L_I;
 
 % 8) 
 [name = 'Labor intratemporal']
@@ -128,37 +127,33 @@ lam + P_C = -sigma/(1-iota)*(c_A-iota*c_A(-1));
 %11) 
 [name = 'Euler equation of capital (C))']
    // 0 = lam(+1) - lam + (r+delta_K)/(1+r)*(C(+1)-Gamma_C(+1)-K_C(+1)-u_C(+1));
-0 = lam(+1)-lam + (r+delta_K)/(1+r)*(r_C(+1));
+0 = lam(+1)-lam + (r+delta_K)/(1+r)*(r_K(+1));
 
-% 12)
-[name = 'Euler equation of capital (I)']
-//0 = lam(+1) - lam + (r+delta_K)/(1+r)*(I(+1)-Gamma_I(+1)-K_I(+1)-u_I(+1));
-0 = lam(+1)-lam + (r+delta_K)/(1+r)*(r_I(+1));
 
-% 13) 
+% 12) 
 [name = 'Relative price of investment']
 p_I_obs = p_I - p_C;
 
 
-% 14)
+% 13)
 [name =  'C production']
 C = (p_C + Z + alpha*(K_C)+(1-alpha)*L_C);
 
-% 15) 
+% 14) 
 [name = 'I production']
 I = (p_I + Z + alpha*(K_I) + (1-alpha)*L_I);
 
 
-% 16) 
+% 15) 
 [name = 'Labor composition']
 L = phi_C*L_C + phi_I*(L_I);
 
-% 17) 
+% 16) 
 [name = 'Capital composition']
 K = phi_C*K_C + phi_I*K_I;
 
 
-% 18) 
+% 17) 
 [name = 'Aggregate accounting (income = expenditures)']
 Y = phi_C*C + phi_I*I;
 
