@@ -5,11 +5,16 @@ addpath c:\dynare\5.4\matlab
 
 %% Estimation building-block RBC model
 dynare two_sector_RBC_differentiated_est.mod
+
+%% Mobile capital
+%Mobile capital (one investment decision)--indeterminacy
+dynare two_sector_RBC_simp.mod
+dynare two_sector_RBC_mobile.mod
+dynare directed_search_mobile_capital.mod
 %% Baseline model GHH
 %dynare directed_search.mod
 % simple 2-sector RBC model
-%Mobile capital (one investment decision)--indeterminacy 
-%dynare directed_search_mobile_capital.mod
+
 dynare directed_search_testing.mod
 
 %% Building-block models

@@ -36,7 +36,7 @@ psi_inv = 0.72;
 % IES
 sigma = 1;
 % Adjustment cost parameter 
-Psi_K = 2.0;
+Psi_K = 5.0;
 
 
 % Persistence parameters
