@@ -9,13 +9,13 @@ w, L_C, L_I, L,
  K_C, K_I, K, lam,
 u_C, u_I,
 % shock vars
-Z, chi,
+Z, 
 
 %observables (4 series)
 Y_obs, C_obs, TI_obs, p_I_obs, lab_prod_obs, labor_share, SR_obs;
 
 % 6 shocks, 1 measurement errors--one more shock than observable
-varexo e_Z, e_chi;
+varexo e_Z;
 
 parameters beta, delta_K, sigma_a, psi_inv, sigma, 
 Gamma_bar, wL_Y,  Psi_K, iota,
@@ -34,7 +34,7 @@ psi_inv = 0.72;
 % IES
 sigma = 1.0;
 % Adjustment cost parameter 
-Psi_K = 5.0;
+Psi_K = 10.0;
 % Habit formation
 iota = 0.0;
 
@@ -51,8 +51,8 @@ wL_Y = 0.667;
 delta_K = 0.04325;
 
 % Key elasticities for estimation
-Gamma_bar = 1.1; %more reasonable investment share
-sigma_a = 10000;
+Gamma_bar = 1.0; %more reasonable investment share
+sigma_a = 0.32;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 model(linear);
@@ -76,8 +76,6 @@ model(linear);
 
 % Great ratios
 #phi_C = 1-phi_I;
-#r_KK_Y = alpha/(1-alpha)*wL_Y;
-#D_Y = 1 - wL_Y - r_KK_Y;
 
 
 
@@ -113,7 +111,8 @@ r_I+u_I+K_I = w+L_I;
 
 % 10) 
 [name = 'Labor intratemporal']
-chi + psi*L = lam + w;
+//chi + psi*L = lam + w;
+psi*L = lam + w;
 
 % 11) 
 [name = 'Capital accumulation (consumption)']
@@ -185,7 +184,7 @@ Z = rho_Z*Z(-1) + e_Z;
 
 
 % Labor supply
-chi = rho_chi1*chi(-1) + rho_chi2*chi(-2) - e_chi;
+//chi = rho_chi1*chi(-1) + rho_chi2*chi(-2) - e_chi;
 
 % Empirically relevant, log
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
