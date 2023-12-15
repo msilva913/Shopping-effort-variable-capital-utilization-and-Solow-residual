@@ -47,7 +47,6 @@ lambda_2 = 0.0;
 % labor share
 wL_Y = 0.667;
 delta_K = 0.04325;
-var_share = 0.5; % share of labor in consumption sector which is variable
 
 % Key elasticities for estimation
 Gamma_bar = 1.1; %more reasonable investment share
@@ -71,7 +70,6 @@ model(linear);
 %3) Solve for phi and rho
 #rho = Gamma_bar;
 
-% Variable labor
 
 % Great ratios
 #phi_C = 1-phi_I;
@@ -117,7 +115,7 @@ psi*L = lam + w;
 
 % 9) 
 [name = 'Capital accumulation (consumption)']
-K = (1-delta_K)*K(-1) + delta_K*(I(-1));
+K = (1-delta_K)*K(-1) + delta_K*(I);
 
 % 10) 
 [name = 'Consumption multiplier']
@@ -150,7 +148,7 @@ L = phi_C*L_C + phi_I*(L_I);
 
 % 16) 
 [name = 'Capital composition']
-K = phi_C*K_C + phi_I*K_I;
+K(-1) = phi_C*K_C + phi_I*K_I;
 
 
 % 17) 

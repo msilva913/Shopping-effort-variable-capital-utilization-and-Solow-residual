@@ -18,7 +18,7 @@ Y_obs, C_obs, TI_obs, p_I_obs, lab_prod_obs, labor_share, SR_obs;
 varexo e_Z, e_chi;
 
 parameters beta, delta_K, sigma_a, psi_inv, sigma, 
-var_share, Gamma_bar, wL_Y,  Psi_K, iota,
+Gamma_bar, wL_Y,  Psi_K, iota,
 
 % persistence parameters
 rho_Z, rho_ZI 
@@ -49,13 +49,10 @@ lambda_2 = 0.0;
 % labor share
 wL_Y = 0.667;
 delta_K = 0.04325;
-var_share = 0.5; % share of labor in consumption sector which is variable
 
 % Key elasticities for estimation
 Gamma_bar = 1.1; %more reasonable investment share
-//sigma_a = 0.32;
-sigma_a = 10;
-
+sigma_a = 10000;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 model(linear);
@@ -120,7 +117,7 @@ chi + psi*L = lam + w;
 
 % 11) 
 [name = 'Capital accumulation (consumption)']
-K = (1-delta_K)*K(-1) + delta_K*(I(-1)) - (r+delta_K)*(phi_C*u_C(-1)+phi_I*u_I(-1));
+K = (1-delta_K)*K(-1) + delta_K*(I) - (r+delta_K)*(phi_C*u_C+phi_I*u_I);
 
 % 14) 
 [name = 'Consumption multiplier']
@@ -147,7 +144,7 @@ r_I = sigma_a*u_I+Q;
 
 %18)
 [name = 'Relative price of capital good']
-Q = Psi_K*delta_K*(I-K);
+Q = Psi_K*delta_K*(I-K(-1));
 
 % 19) 
 [name = 'Relative price of investment']
@@ -169,7 +166,7 @@ L = phi_C*L_C + phi_I*(L_I);
 
 % 24) 
 [name = 'Capital composition']
-K = phi_C*K_C + phi_I*K_I;
+K(-1) = phi_C*K_C + phi_I*K_I;
 
 
 % 25)
@@ -199,7 +196,7 @@ C_obs = C - p_C; // equivalent to c - (p_C-P^H) like in BGM
 TI_obs = I - p_I;
 Y_obs = phi_C*(C-p_C) + phi_I*(I-p_I);
 
-SR_obs = Y_obs - (1-wL_Y)*K - wL_Y*L;
+SR_obs = Y_obs - (1-wL_Y)*K(-1) - wL_Y*L;
 
 lab_prod_obs = Y_obs - L;
 labor_share = w-p_I + L - Y_obs;

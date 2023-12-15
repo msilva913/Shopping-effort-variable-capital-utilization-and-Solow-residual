@@ -3,13 +3,22 @@ clear;
 %% 
 addpath c:\dynare\5.4\matlab
 
+%% Building-block RBC models
+% Mobile capital: no vcu or fixed costs
+dynare two_sector_RBC_simp.mod 
+% Mobile capital and vcu
+dynare two_sector_RBC_mobile.mod
+
+dynare two_sector_RBC_differentiated_testing.mod %with fixed cost
+dynare directed_search_testing.mod
+%dynare two_sector_RBC_testing.mod
+%dynare directed_search_testing_only_C.mod
+
 %% Estimation building-block RBC model
 dynare two_sector_RBC_differentiated_est.mod
 
 %% Mobile capital
 %Mobile capital (one investment decision)--indeterminacy
-dynare two_sector_RBC_simp.mod
-dynare two_sector_RBC_mobile.mod
 dynare directed_search_mobile_capital.mod
 %% Baseline model GHH
 %dynare directed_search.mod
@@ -17,12 +26,7 @@ dynare directed_search_mobile_capital.mod
 
 dynare directed_search_testing.mod
 
-%% Building-block models
-dynare two_sector_RBC.mod
-dynare two_sector_RBC_differentiated_testing.mod %with fixed cost
-dynare directed_search_testing.mod
-%dynare two_sector_RBC_testing.mod
-%dynare directed_search_testing_only_C.mod
+
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
