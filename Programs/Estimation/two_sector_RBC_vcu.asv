@@ -1,6 +1,6 @@
 
 
-var p_C, p_I, P_C, Q,
+var p_C, p_I, P_C,
 C, I, Y,
 c_A, 
 r_I, r_C,
@@ -17,8 +17,8 @@ Y_obs, C_obs, TI_obs, p_I_obs, lab_prod_obs, labor_share, SR_obs;
 % 6 shocks, 1 measurement errors--one more shock than observable
 varexo e_Z;
 
-parameters beta, delta_K, sigma_a, psi_inv, sigma, 
-Gamma_bar, wL_Y,  Psi_K, iota,
+parameters beta, delta_K, sigma_a_inv, psi_inv, sigma, 
+Gamma_bar, wL_Y, iota,
 
 % persistence parameters
 rho_Z, rho_ZI 
@@ -34,7 +34,6 @@ psi_inv = 0.72;
 % IES
 sigma = 1.0;
 % Adjustment cost parameter 
-Psi_K = 10.0;
 % Habit formation
 iota = 0.0;
 
@@ -52,7 +51,7 @@ delta_K = 0.04325;
 
 % Key elasticities for estimation
 Gamma_bar = 1.1; %more reasonable investment share
-sigma_a = 0.32;
+sigma_a_inv = 0.0;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 model(linear);
@@ -103,11 +102,11 @@ w + L_I = I;
 
 % 8)
 [name = 'Capital in C']
-r_C+u_C+K_C = w + L_C;
+r_K+u+K_C = w + L_C;
 
 % 9)
 [name = 'Capital in I']
-r_I+u_I+K_I = w+L_I;
+r_K+u+K_I = w + L_I;
 
 % 10) 
 [name = 'Labor intratemporal']
@@ -116,7 +115,7 @@ psi*L = lam + w;
 
 % 11) 
 [name = 'Capital accumulation (consumption)']
-K = (1-delta_K)*K(-1) + delta_K*(I) - (r+delta_K)*(phi_C*u_C+phi_I*u_I);
+K = (1-delta_K)*K(-1) + delta_K*(I) - (r+delta_K)*(u);
 
 % 14) 
 [name = 'Consumption multiplier']
@@ -126,29 +125,24 @@ lam + P_C = -sigma/(1-iota)*(c_A-iota*c_A(-1));
 %14) 
 [name = 'Euler equation of capital (C))']
    // 0 = lam(+1) - lam + (r+delta_K)/(1+r)*(C(+1)-Gamma_C(+1)-K_C(+1)-u_C(+1));
-Q = lam(+1)-lam + (r+delta_K)/(1+r)*(r_C(+1)) + Q(+1)/(1+r);
+0 = lam(+1)-lam + (r+delta_K)/(1+r)*(r_K(+1));
 
 % 15)
 [name = 'Euler equation of capital (I)']
 //0 = lam(+1) - lam + (r+delta_K)/(1+r)*(I(+1)-Gamma_I(+1)-K_I(+1)-u_I(+1));
-Q = lam(+1)-lam + (r+delta_K)/(1+r)*(r_I(+1)) + Q(+1)/(1+r);
+0 = lam(+1)-lam + (r+delta_K)/(1+r)*(r_I(+1));
 
 % 16)
 [name = 'Capital utilization (C)']
-r_C = sigma_a*u_C+Q;
+u_C = sigma_a_inv*r_C;
 
 % 17)
 [name = 'Capital utilization (I)']
-r_I = sigma_a*u_I+Q;
+u_I = sigma_a_inv*r_I;
 
-%18)
-[name = 'Relative price of capital good']
-Q = Psi_K*delta_K*(I-K(-1));
-
-% 19) 
+% 18) 
 [name = 'Relative price of investment']
 p_I_obs = p_I - p_C;
-
 
 % 19)
 [name =  'C production']
@@ -167,10 +161,6 @@ L = phi_C*L_C + phi_I*(L_I);
 [name = 'Capital composition']
 K(-1) = phi_C*K_C + phi_I*K_I;
 
-
-% 25)
-//[name = 'Capacity utilization']
-//cu = phi_C*(phi*q_C + alpha*u_C) + phi_I*(phi*q_I+alpha*u_I);
 
 % 26) 
 [name = 'Aggregate accounting (income = expenditures)']
