@@ -18,7 +18,7 @@ Y_obs, C_obs, TI_obs, p_I_obs, lab_prod_obs, labor_share, SR_obs;
 varexo e_Z;
 
 parameters beta, delta_K, sigma_a_inv, psi_inv, sigma, 
-Gamma_bar, wL_Y, iota,
+Gamma_bar, wL_Y, iota, scale,
 
 % persistence parameters
 rho_Z, rho_ZI 

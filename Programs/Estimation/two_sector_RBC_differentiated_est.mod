@@ -38,7 +38,7 @@ sigma = 1.0;
 % Adjustment cost parameter 
 Psi_K = 5.0;
 % Habit formation
-iota = 0.0;
+iota = 0.5;
 
 % Persistence parameters
 rho_ZI = 0.979;

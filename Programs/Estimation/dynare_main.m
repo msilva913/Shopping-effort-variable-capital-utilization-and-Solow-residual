@@ -4,12 +4,15 @@ clear;
 addpath c:\dynare\5.4\matlab
 
 %% Building-block RBC models
-% Mobile capital: no vcu or fixed costs
+% Mobile capital: no vcu or fixed costs: common rental rate
 dynare two_sector_RBC_simp.mod 
+% Same but with variable rental rate
+dynare two_sector_RBC_diff_R.mod
+
 % Mobile capital: only vcu ( investment adjustment costs)-> determinacy
 % only if rental rate is the same in each sector
 dynare two_sector_RBC_vcu.mod
-% Mobile capital and vcu
+% Mobile capital and vcu (differentiated rental rates--indeterminacy)
 dynare two_sector_RBC_mobile.mod
 
 dynare two_sector_RBC_differentiated_testing.mod %with fixed cost
