@@ -287,9 +287,9 @@ varobs LC_obs, LI_obs, C_obs, TI_obs;
 
 estimated_params;
 //x, init_value, lower bound, upper bound, prior shape, prior mean, prior std
-sigma, 1, 0.5, 4,            GAMMA_PDF, 1.5, 0.25;
+sigma, 1.5, 0.5, 4,            GAMMA_PDF, 1.5, 0.25;
 
-iota, 0.7, 0.0, 0.99,         BETA_PDF, 0.5, 0.25;
+iota, 0.5, 0.0, 0.99,         BETA_PDF, 0.5, 0.25;
 
 % Inverse of Frisch elasticity
 //psi_inv, 0.72, 0.1, 5.0,         GAMMA_PDF, 0.74, 0.25;
@@ -310,7 +310,7 @@ Psi_K, 2.0, 0.00, 30,        GAMMA_PDF, 1.57, 1.5;
 var_share, 0.9, 0.01, 0.999,      BETA_PDF, 0.5, 0.2;
 
 % Capital utilization cost sigma_a
-sigma_a, 0.32, 0.0, 15.0,        GAMMA_PDF, 0.32, 0.3;
+sigma_a, 0.32, 0.0, 30.0,        GAMMA_PDF, 0.32, 0.3;
 
 % Persistence parameters
 rho_Z, 0.9, 0.0212, 0.99999,        BETA_PDF, 0.6, 0.2;
