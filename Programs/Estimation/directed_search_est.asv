@@ -289,7 +289,7 @@ estimated_params;
 //x, init_value, lower bound, upper bound, prior shape, prior mean, prior std
 sigma, 1, 0.5, 4,            GAMMA_PDF, 1.5, 0.25;
 
-iota, 0.7, 0.0, 0.99,         BETA_PDF, 0.5, 0.25;
+iota, 0.1, 0.0, 0.99,         BETA_PDF, 0.5, 0.25;
 
 % Inverse of Frisch elasticity
 //psi_inv, 0.72, 0.1, 5.0,         GAMMA_PDF, 0.74, 0.25;

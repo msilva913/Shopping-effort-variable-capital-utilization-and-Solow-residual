@@ -9,18 +9,44 @@ dynare two_sector_RBC_simp.mod
 % Variable rental rate and capital predetermined in each sector
 dynare two_sector_RBC_diff_R.mod
 
-% With vcu
+%
 dynare two_sector_RBC_vcu.mod
 % Mobile capital and vcu (differentiated rental rates--indeterminacy)
 dynare two_sector_RBC_mobile.mod
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-dynare two_sector_RBC_differentiated_testing.mod %with fixed cost
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Baseline model
 dynare directed_search_common.mod
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Estimated model
-dynare directed_search_est.mod
+dynare two_sector_RBC_differentiated_testing.mod %with fixed cost
+dynare directed_search_testing.mod
+%dynare two_sector_RBC_testing.mod
+%dynare directed_search_testing_only_C.mod
+
+%% Estimation building-block RBC model
+dynare two_sector_RBC_differentiated_est.mod
+
+%% Mobile capital
+%Mobile capital (one investment decision)--indeterminacy
+dynare directed_search_mobile_capital.mod
+%% Baseline model GHH
+%dynare directed_search.mod
+% simple 2-sector RBC model
+
+dynare directed_search_testing.mod
+
+
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Simplified model (BRS preferences, immobile capital, with labor supply as observable)
+dynare shopping_immobile_BRS_pref_L.mod
+%% Simplified model (BRS preferences, immobile capital)
+dynare shopping_immobile_BRS_pref.mod
+
+%% Simplified model (immobility of capital)
+%dynare shopping_JR_simplified_immobility.mod
+%% Simplified model: fix gam = 1 1 (KR preferences)
+%dynare shopping_JR_simplified_gam_fixed.mod
+%% Shopping model JR preferenes: super simplified (simplified + remove variable capital utilization and adjustment costs)
+%dynare shopping_JR_simplified_noadj_cost
 
 
 %% Shopping model with JR preferences simplified

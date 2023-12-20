@@ -1,7 +1,6 @@
 
 
-var p_C, p_I, P_C,
-C, I, Y,
+var p_C, p_I, I, Y,
 c_A, r_C, r_I,
 w, L_C, L_I, L,
 //L_obs,
@@ -72,27 +71,19 @@ model(linear);
 % Great ratios
 #phi_C = 1-phi_I;
 #r_KK_Y = alpha/(1-alpha)*wL_Y;
-#D_Y = 1 - wL_Y - r_KK_Y;
 
 
 
 %%%%%Start of main equations%%%%%%%%%%%%%%%%%%%%%%%
 
-% 1) 
-[name = 'Variety effect: household']
-P_C =  p_C;
-
-% 2) 
-[name = 'Variety effect (investment)']
+[name = 'Investment price']
 0 =  p_I;
 
 % 3) 
-[name = 'Consumption aggregation']
-C = P_C + c_A;
 
 % 4) 
 [name = 'Labor C']
-w + L_C = C; 
+w + L_C = p_C + c_A; 
 
 % 5) 
 [name = 'Labor in I']
@@ -100,11 +91,11 @@ w + L_I = I;
 
 % 6)
 [name = 'Capital in C']
-r_C+K_C = C;
+r_C+K_C(-1) = p_C + c_A;
 
 % 7)
 [name = 'Capital in I']
-r_I + K_I = I;
+r_I + K_I(-1) = I;
 
 % 8) 
 [name = 'Labor intratemporal']
@@ -117,7 +108,7 @@ K = (1-delta_K)*K(-1) + delta_K*(I);
 
 % 10) 
 [name = 'Consumption multiplier']
-lam + P_C = -sigma/(1-iota)*(c_A-iota*c_A(-1));
+lam + p_C = -sigma/(1-iota)*(c_A-iota*c_A(-1));
 
 
 %11) 
@@ -126,9 +117,8 @@ lam + P_C = -sigma/(1-iota)*(c_A-iota*c_A(-1));
 0 = lam(+1)-lam + (r+delta_K)/(1+r)*(r_C(+1));
 
 [name = 'Euler equation of capital (I))']
-   // 0 = lam(+1) - lam + (r+delta_K)/(1+r)*(C(+1)-Gamma_C(+1)-K_C(+1)-u_C(+1));
 //0 = lam(+1)-lam + (r+delta_K)/(1+r)*(r_I(+1));
-r_C(+1) - r_I(+1) = 0;
+r_C(+1) - r_I(+1) = 0; //alternative representation
 
 
 % 12) 
@@ -138,11 +128,11 @@ p_I_obs = p_I - p_C;
 
 % 13)
 [name =  'C production']
-C = (p_C + Z + alpha*(K_C)+(1-alpha)*L_C);
+c_A =  Z + alpha*(K_C(-1))+(1-alpha)*L_C;
 
 % 14) 
 [name = 'I production']
-I = (p_I + Z + alpha*(K_I) + (1-alpha)*L_I);
+I =  Z + alpha*(K_I(-1)) + (1-alpha)*L_I;
 
 
 % 15) 
@@ -151,12 +141,12 @@ L = phi_C*L_C + phi_I*(L_I);
 
 % 16) 
 [name = 'Capital composition']
-K(-1) = phi_C*K_C + phi_I*K_I;
+K = phi_C*K_C + phi_I*K_I;
 
 
 % 17) 
 [name = 'Aggregate accounting (income = expenditures)']
-Y = phi_C*C + phi_I*I;
+Y = phi_C*(p_C+c_A) + phi_I*I;
 
 % Technology shocks: common and investment-specific
 
@@ -173,9 +163,9 @@ Z = rho_Z*Z(-1) + e_Z;
 
 % Apply base-year prices (Laspeyres index)
 
-C_obs = C - p_C; // equivalent to c - (p_C-P^H) like in BGM
+C_obs = c_A; // equivalent to c - (p_C-P^H) like in BGM
 TI_obs = I - p_I;
-Y_obs = phi_C*(C-p_C) + phi_I*(I-p_I);
+Y_obs = phi_C*(c_A) + phi_I*(I-p_I);
 
 SR_obs = Y_obs - (1-wL_Y)*K - wL_Y*L;
 
