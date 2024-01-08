@@ -9,7 +9,7 @@ w, L_C, L_I, L,
  K_C, K_I, K, lam,
 u_C, u_I,
 % shock vars
-Z, Z_I, u_ZI, kappa, zeta
+Z, Z_I, u_ZI, chi, kappa, zeta
 
 %observables (4 series)
 C_obs, TI_obs, LC_obs, LI_obs, Y_obs, p_I_obs, lab_prod_obs, labor_share, SR_obs, w_obs,
@@ -17,7 +17,7 @@ SR_util_obs, Y_util_obs;
 
 % 6 shocks, 1 measurement errors--one more shock than observable
 //varexo e_ZI, e_Z, e_kappa, e_zeta, e_chi;
-varexo e_ZI, e_Z, e_kappa, e_zeta;
+varexo e_ZI, e_Z, e_chi, e_kappa, e_zeta;
 
 parameters A, beta, delta_K, sigma_a, psi_inv, sigma, 
 var_share, Gamma_bar, wL_Y, phi_I, Psi, Psi_K, gam, iota
@@ -150,8 +150,8 @@ r_I+u_I+K_I(-1) = w+L_I;
 
 % 10) 
 [name = 'Labor intratemporal']
-//chi + psi*L = lam + w;
- psi*L = lam + w;
+chi + psi*L = lam + w;
+ //psi*L = lam + w;
 
 % 11) 
 [name = 'Capital accumulation (consumption)']
@@ -193,7 +193,6 @@ r_I = sigma_a*u_I+Q;
 %18)
 [name = 'Relative price of investment']
 Q = Psi_K*delta_K*(I-K(-1));
-
 
 % 19) 
 [name = 'Relative price of investment']
@@ -287,9 +286,9 @@ varobs LC_obs, LI_obs, C_obs, TI_obs;
 
 estimated_params;
 //x, init_value, lower bound, upper bound, prior shape, prior mean, prior std
-sigma, 1, 0.5, 4,            GAMMA_PDF, 1.5, 0.25;
+sigma, 1.5, 0.5, 4,            GAMMA_PDF, 1.5, 0.25;
 
-iota, 0.1, 0.0, 0.99,         BETA_PDF, 0.5, 0.25;
+iota, 0.5, 0.0, 0.99,         BETA_PDF, 0.5, 0.25;
 
 % Inverse of Frisch elasticity
 //psi_inv, 0.72, 0.1, 5.0,         GAMMA_PDF, 0.74, 0.25;
@@ -310,7 +309,7 @@ Psi_K, 2.0, 0.00, 30,        GAMMA_PDF, 1.57, 1.5;
 var_share, 0.9, 0.01, 0.999,      BETA_PDF, 0.5, 0.2;
 
 % Capital utilization cost sigma_a
-sigma_a, 0.32, 0.0, 15.0,        GAMMA_PDF, 0.32, 0.3;
+sigma_a, 0.32, 0.0, 30.0,        GAMMA_PDF, 0.32, 0.3;
 
 % Persistence parameters
 rho_Z, 0.9, 0.0212, 0.99999,        BETA_PDF, 0.6, 0.2;

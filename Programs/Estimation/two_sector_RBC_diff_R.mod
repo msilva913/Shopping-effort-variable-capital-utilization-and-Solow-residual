@@ -12,7 +12,7 @@ Z,
 Y_obs, C_obs, TI_obs, p_I_obs, lab_prod_obs, labor_share, SR_obs;
 
 % 6 shocks, 1 measurement errors--one more shock than observable
-varexo e_Z;
+varexo e_ZI, e_Z;
 
 parameters beta, delta_K, psi_inv, sigma, 
 Gamma_bar, wL_Y,  Psi_K, iota,
@@ -151,8 +151,8 @@ Y = phi_C*(p_C+c_A) + phi_I*I;
 % Technology shocks: common and investment-specific
 
 Z = rho_Z*Z(-1) + e_Z;
-//u_ZI = rho_ZI*Z_I(-1) + e_ZI;
-//Z_I = Z + u_ZI;
+u_ZI = rho_ZI*u_ZI(-1) + e_ZI;
+Z_I = Z + u_ZI;
 
 
 % Labor supply
@@ -179,7 +179,7 @@ end;
 
 shocks;
 var e_Z = 0.0072;
-//var e_ZI = 0.0072;
+var e_ZI = 0.0072;
 end;
 
 % Observed variables (4 series) -- excluding labor supply for now

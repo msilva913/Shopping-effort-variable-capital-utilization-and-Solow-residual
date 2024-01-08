@@ -9,7 +9,7 @@ w, L_C, L_I, L,
  K_C, K_I, K, lam,
 u_C, u_I,
 % shock vars
-Z, Z_I, u_ZI, kappa, zeta
+Z, Z_I, u_ZI, chi, kappa, zeta
 
 %observables (4 series)
 C_obs, TI_obs, LC_obs, LI_obs, Y_obs, p_I_obs, lab_prod_obs, labor_share, SR_obs, w_obs,
@@ -17,7 +17,7 @@ SR_util_obs, Y_util_obs;
 
 % 6 shocks, 1 measurement errors--one more shock than observable
 //varexo e_ZI, e_Z, e_kappa, e_zeta, e_chi;
-varexo e_ZI, e_Z, e_kappa, e_zeta;
+varexo e_ZI, e_Z, e_chi, e_kappa, e_zeta;
 
 parameters A, beta, delta_K, sigma_a, psi_inv, sigma, 
 var_share, Gamma_bar, wL_Y, phi_I, Psi, Psi_K, gam, iota
@@ -150,8 +150,8 @@ r_I+u_I+K_I(-1) = w+L_I;
 
 % 10) 
 [name = 'Labor intratemporal']
-//chi + psi*L = lam + w;
- psi*L = lam + w;
+chi + psi*L = lam + w;
+ //psi*L = lam + w;
 
 % 11) 
 [name = 'Capital accumulation (consumption)']
@@ -193,7 +193,6 @@ r_I = sigma_a*u_I+Q;
 %18)
 [name = 'Relative price of investment']
 Q = Psi_K*delta_K*(I-K(-1));
-
 
 % 19) 
 [name = 'Relative price of investment']
@@ -248,7 +247,7 @@ kappa = rho_kappa*kappa(-1) - e_kappa;
 zeta = rho_zeta*zeta(-1) - e_zeta;
 
 % Labor supply
-//chi = rho_chi1*chi(-1) + rho_chi2*chi(-2) - e_chi;
+chi = rho_chi1*chi(-1) + rho_chi2*chi(-2) - e_chi;
 
 % Empirically relevant, log
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -281,7 +280,7 @@ var e_kappa = 0.0072;
 var e_zeta = 0.0072;
 end;
 
-% Observed variables (4 series) -- excluding labor supply for now
+% Observed variables (4 series)
 %%%%%%%%%%%%%%%%%%%%
 varobs LC_obs, LI_obs, C_obs, TI_obs;
 
@@ -289,7 +288,7 @@ estimated_params;
 //x, init_value, lower bound, upper bound, prior shape, prior mean, prior std
 sigma, 1.5, 0.5, 4,            GAMMA_PDF, 1.5, 0.25;
 
-iota, 0.5, 0.0, 0.99,         BETA_PDF, 0.5, 0.25;
+iota, 0.1, 0.0, 0.99,         BETA_PDF, 0.5, 0.25;
 
 % Inverse of Frisch elasticity
 //psi_inv, 0.72, 0.1, 5.0,         GAMMA_PDF, 0.74, 0.25;
@@ -304,7 +303,7 @@ Gamma_bar, 1.3, 1.01, 2.0,    BETA_PDF, 1.3, 0.20, 1.01, 2.0;
 gam, 0.42, 0.01, 2.0,          BETA_PDF, 0.42, 0.3, 0.0, 2.0;
 
 % Adjustment costs
-Psi_K, 2.0, 0.00, 30,        GAMMA_PDF, 1.57, 1.5;
+Psi_K, 5.0, 0.00, 30,        GAMMA_PDF, 1.57, 1.5;
 
 % Share of variable labor among labor
 var_share, 0.9, 0.01, 0.999,      BETA_PDF, 0.5, 0.2;
@@ -320,8 +319,7 @@ rho_kappa, 0.95, 0.0212, 0.9999,     BETA_PDF, 0.6, 0.2;
 rho_zeta, 0.9, 0.0212, 0.9999,     BETA_PDF, 0.6, 0.2;
 
 % Roots for labor supply
-//lambda_1, 0.9, -0.999, 0.9999,       BETA_PDF, 0.6, 0.2, -1, 1;
-//lambda_1, 0.9, 0.0212, 0.9999,       BETA_PDF, 0.6, 0.2;
+lambda_1, 0.9, 0.0212, 0.9999,       BETA_PDF, 0.6, 0.2;
 //lambda_2, 0.1, -0.999, 0.999,        BETA_PDF, 0.0, 0.2, -1, 1;
 
 
@@ -335,7 +333,7 @@ stderr e_kappa, 0.01, 0.0001, 0.4,  INV_GAMMA_PDF, 0.01, 0.004;
 stderr e_zeta, 0.02, 0.0001, 0.4,  INV_GAMMA_PDF, 0.01, 0.004;
 
 % Labor supply
-//stderr e_chi, 0.02, 0.001, 0.4,  INV_GAMMA_PDF, 0.01, 0.004;
+stderr e_chi, 0.02, 0.001, 0.4,  INV_GAMMA_PDF, 0.01, 0.004;
 end;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -357,7 +355,7 @@ datafile=observables,
 //mh_recover,
 //mcmc_jumping_covariance=prior_variance,
 
-mode_compute=9, 
+mode_compute=4, 
 presample=0, 
 lik_init=1,
 mh_jscale=0.3, 

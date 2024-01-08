@@ -11,7 +11,8 @@ dynare two_sector_RBC_diff_R.mod
 
 % With vcu
 dynare two_sector_RBC_vcu.mod
-% Mobile capital and vcu (differentiated rental rates--indeterminacy)
+% Mobile capital and vcu (differentiated rental rates, capital
+% predetermined at time of shock)
 dynare two_sector_RBC_mobile.mod
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 dynare two_sector_RBC_differentiated_testing.mod %with fixed cost
@@ -21,6 +22,9 @@ dynare directed_search_common.mod
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Estimated model
 dynare directed_search_est.mod
+
+%% Simplified
+dynare directed_search_simp_est.mod
 
 
 %% Shopping model with JR preferences simplified
