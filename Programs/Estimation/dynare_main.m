@@ -15,7 +15,7 @@ dynare two_sector_RBC_vcu.mod
 % predetermined at time of shock)
 dynare two_sector_RBC_mobile.mod
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-dynare two_sector_RBC_differentiated_testing.mod %with fixed cost
+dynare two_sector_RBC_fixed_cost.mod %with fixed cost
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Baseline model
 dynare directed_search_common.mod
