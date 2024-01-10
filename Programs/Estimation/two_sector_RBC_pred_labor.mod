@@ -242,7 +242,6 @@ end;
 
 % Observed variables (4 series)
 %%%%%%%%%%%%%%%%%%%%
-/*
 varobs LC_obs, LI_obs, C_obs;
 
 estimated_params;
@@ -322,10 +321,10 @@ C_obs, TI_obs, Y_obs, lab_prod_obs, labor_share, L_C, L_I, L, p_I_obs;
 
 % Trace plots
 trace_plot(options_, M_, estim_params_, 'DeepParameter', 1, 'Gamma_bar')
-*/
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-stoch_simul (order=1, nofunctions, irf=80, periods=0,
+stoch_simul (order=1, nofunctions, irf=0, periods=0,
 conditional_variance_decomposition=[1 4 8 40])
 C_obs, TI_obs, Y_obs, lab_prod_obs, labor_share, L_C, L_I, L, p_I_obs ;
 

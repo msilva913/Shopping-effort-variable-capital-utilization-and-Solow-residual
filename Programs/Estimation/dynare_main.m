@@ -6,11 +6,6 @@ addpath c:\dynare\5.4\matlab
 %% Building-block RBC models
 % Mobile capital: no vcu or fixed costs: common rental rate
 dynare two_sector_RBC_simp.mod 
-% Variable rental rate and capital predetermined in each sector
-dynare two_sector_RBC_diff_R.mod
-
-% With vcu
-dynare two_sector_RBC_vcu.mod
 % Mobile capital and vcu (differentiated rental rates, capital
 % predetermined at time of shock)
 dynare two_sector_RBC_mobile.mod

@@ -128,6 +128,7 @@ if __name__ == "__main__":
    
     init= '1964-01-01'
     final = '2023-09-30'
+    #final = '1995' (comparison to earlier papers)
     load = False
     filter_type = 'hamilton'
     freq = 'Q'
