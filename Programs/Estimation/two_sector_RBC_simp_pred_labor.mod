@@ -3,16 +3,14 @@
 var p_C, p_I, P_C,
 C, I, Y,
 c_A, r_C, r_I,
-w, L_C, L_I, L,
+w_C, w_I, L_C, L_I, L,
 //L_obs,
  K_C, K_I, K, lam,
 % shock vars
 Z
 
 %observables (4 series)
-Y_obs, C_obs, TI_obs, p_I_obs, lab_prod_obs, labor_share, SR_obs;
-
-//predetermined_variables ;
+Y_obs, C_obs, TI_obs, p_I_obs, lab_prod_obs, SR_obs;
 % 6 shocks, 1 measurement errors--one more shock than observable
 varexo e_Z;
 
@@ -35,7 +33,7 @@ sigma = 1.0;
 % Adjustment cost parameter 
 Psi_K = 5.0;
 % Habit formation
-iota = 0.0;
+iota = 0.8;
 
 % Persistence parameters
 rho_ZI = 0.979;
@@ -95,24 +93,26 @@ C = P_C + c_A;
 
 % 4) 
 [name = 'Labor C']
-w + L_C = C; 
+w_C + L_C(-1) = C; 
 
 % 5) 
 [name = 'Labor in I']
-w + L_I = I; 
+w_I + L_I(-1) = I; 
 
 % 6)
 [name = 'Capital in C']
-r_C+K_C(-1) = w + L_C;
+r_C+K_C(-1) = w_C + L_C(-1);
 
 % 7)
 [name = 'Capital in I']
-r_I + K_I(-1) = w+L_I;
+r_I + K_I(-1) = w_I+L_I(-1);
 
 % 8) 
 [name = 'Labor intratemporal']
 //chi + psi*L = lam + w;
-psi*L = lam + w;
+psi*L = lam(+1) + w_C(+1);
+
+psi*L = lam(+1) + w_I(+1);
 
 % 9) 
 [name = 'Capital accumulation (consumption)']
@@ -133,8 +133,6 @@ lam + P_C = -sigma/(1-iota)*(c_A-iota*c_A(-1));
    // 0 = lam(+1) - lam + (r+delta_K)/(1+r)*(C(+1)-Gamma_C(+1)-K_C(+1)-u_C(+1));
 0 = lam(+1)-lam + (r+delta_K)/(1+r)*(r_I(+1));
 
-
-
 % 12) 
 [name = 'Relative price of investment']
 p_I_obs = p_I - p_C;
@@ -142,11 +140,11 @@ p_I_obs = p_I - p_C;
 
 % 13)
 [name =  'C production']
-C = (p_C + Z + alpha*(K_C(-1))+(1-alpha)*L_C);
+C = (p_C + Z + alpha*(K_C(-1))+(1-alpha)*L_C(-1));
 
 % 14) 
 [name = 'I production']
-I = (p_I + Z + alpha*(K_I(-1)) + (1-alpha)*L_I);
+I = (p_I + Z + alpha*(K_I(-1)) + (1-alpha)*L_I(-1));
 
 
 % 15) 
@@ -184,7 +182,7 @@ Y_obs = phi_C*(C-p_C) + phi_I*(I-p_I);
 SR_obs = Y_obs - (1-wL_Y)*K - wL_Y*L;
 
 lab_prod_obs = Y_obs - L;
-labor_share = w-p_I + L - Y_obs;
+//labor_share = w-p_I + L - Y_obs;
 //L_obs = L + e_L_ME;
 
 % Levels
@@ -201,6 +199,6 @@ end;
 
 stoch_simul (order=1, nofunctions, irf=100, periods=0,
 conditional_variance_decomposition=[1 4 8 40])
-C_obs, TI_obs, Y_obs, lab_prod_obs, labor_share, L_C, L_I, L, p_I_obs ;
+C_obs, TI_obs, Y_obs, lab_prod_obs, L_C, L_I, L, p_I_obs ;
 
 

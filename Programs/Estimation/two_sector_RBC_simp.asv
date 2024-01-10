@@ -12,7 +12,7 @@ Z
 %observables (4 series)
 Y_obs, C_obs, TI_obs, p_I_obs, lab_prod_obs, labor_share, SR_obs;
 
-//predetermined_variables ;
+//predetermined_variables L_C, L_I;
 % 6 shocks, 1 measurement errors--one more shock than observable
 varexo e_Z;
 
@@ -95,19 +95,19 @@ C = P_C + c_A;
 
 % 4) 
 [name = 'Labor C']
-w + L_C = C; 
+w_C + L_C(-1) = C; 
 
 % 5) 
 [name = 'Labor in I']
-w + L_I = I; 
+w_I + L_I(-1) = I; 
 
 % 6)
 [name = 'Capital in C']
-r_C+K_C(-1) = w + L_C;
+r_C+K_C(-1) = w_C + L_C(-1);
 
 % 7)
 [name = 'Capital in I']
-r_I + K_I(-1) = w+L_I;
+r_I + K_I(-1) = w+L_I(-1);
 
 % 8) 
 [name = 'Labor intratemporal']
@@ -142,11 +142,11 @@ p_I_obs = p_I - p_C;
 
 % 13)
 [name =  'C production']
-C = (p_C + Z + alpha*(K_C(-1))+(1-alpha)*L_C);
+C = (p_C + Z + alpha*(K_C(-1))+(1-alpha)*L_C(-1));
 
 % 14) 
 [name = 'I production']
-I = (p_I + Z + alpha*(K_I(-1)) + (1-alpha)*L_I);
+I = (p_I + Z + alpha*(K_I(-1)) + (1-alpha)*L_I(-1));
 
 
 % 15) 
