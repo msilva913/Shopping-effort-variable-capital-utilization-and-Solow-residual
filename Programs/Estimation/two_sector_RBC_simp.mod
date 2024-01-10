@@ -2,7 +2,7 @@
 
 var p_C, p_I, P_C,
 C, I, Y,
-c_A, r_K,
+c_A, r_C, r_I,
 w, L_C, L_I, L,
 //L_obs,
  K_C, K_I, K, lam,
@@ -102,11 +102,11 @@ w + L_I = I;
 
 % 6)
 [name = 'Capital in C']
-r_K+K_C = w + L_C;
+r_C+K_C(-1) = w + L_C;
 
 % 7)
 [name = 'Capital in I']
-r_K + K_I = w+L_I;
+r_I + K_I(-1) = w+L_I;
 
 % 8) 
 [name = 'Labor intratemporal']
@@ -125,7 +125,13 @@ lam + P_C = -sigma/(1-iota)*(c_A-iota*c_A(-1));
 %11) 
 [name = 'Euler equation of capital (C))']
    // 0 = lam(+1) - lam + (r+delta_K)/(1+r)*(C(+1)-Gamma_C(+1)-K_C(+1)-u_C(+1));
-0 = lam(+1)-lam + (r+delta_K)/(1+r)*(r_K(+1));
+0 = lam(+1)-lam + (r+delta_K)/(1+r)*(r_C(+1));
+
+%12) 
+[name = 'Euler equation of capital (C))']
+   // 0 = lam(+1) - lam + (r+delta_K)/(1+r)*(C(+1)-Gamma_C(+1)-K_C(+1)-u_C(+1));
+0 = lam(+1)-lam + (r+delta_K)/(1+r)*(r_I(+1));
+
 
 
 % 12) 
@@ -135,11 +141,11 @@ p_I_obs = p_I - p_C;
 
 % 13)
 [name =  'C production']
-C = (p_C + Z + alpha*(K_C)+(1-alpha)*L_C);
+C = (p_C + Z + alpha*(K_C(-1))+(1-alpha)*L_C);
 
 % 14) 
 [name = 'I production']
-I = (p_I + Z + alpha*(K_I) + (1-alpha)*L_I);
+I = (p_I + Z + alpha*(K_I(-1)) + (1-alpha)*L_I);
 
 
 % 15) 
@@ -148,7 +154,7 @@ L = phi_C*L_C + phi_I*(L_I);
 
 % 16) 
 [name = 'Capital composition']
-K(-1) = phi_C*K_C + phi_I*K_I;
+K = phi_C*K_C + phi_I*K_I;
 
 
 % 17) 
