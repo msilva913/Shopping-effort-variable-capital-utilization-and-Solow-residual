@@ -6,47 +6,30 @@ addpath c:\dynare\5.4\matlab
 %% Building-block RBC models
 % Mobile capital: no vcu or fixed costs: common rental rate
 dynare two_sector_RBC_simp.mod 
-% Variable rental rate and capital predetermined in each sector
-dynare two_sector_RBC_diff_R.mod
-
-%
-dynare two_sector_RBC_vcu.mod
-% Mobile capital and vcu (differentiated rental rates--indeterminacy)
+% Mobile capital and vcu (differentiated rental rates, capital
+% predetermined at time of shock)
 dynare two_sector_RBC_mobile.mod
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+dynare two_sector_RBC_fixed_cost.mod %with fixed cost
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%
+%% Predetermined labor
+dynare two_sector_RBC_simp_pred_labor.mod
+
+%% Baseline model
 dynare directed_search_common.mod
-dynare two_sector_RBC_differentiated_testing.mod %with fixed cost
-dynare directed_search_testing.mod
-%dynare two_sector_RBC_testing.mod
-%dynare directed_search_testing_only_C.mod
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Estimated model
+addpath C:\Users\TJSEM\Github\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation\two_sector_RBC_differentiated_est\Output
+savepath
+dynare directed_search_est.mod
 
-%% Estimation building-block RBC model
-dynare two_sector_RBC_differentiated_est.mod
+%% Estimate using (C, TI, labor prod, p_I) like BRS
+dynare directed_search_est_alt_obs.mod
 
-%% Mobile capital
-%Mobile capital (one investment decision)--indeterminacy
-dynare directed_search_mobile_capital.mod
-%% Baseline model GHH
-%dynare directed_search.mod
-% simple 2-sector RBC model
-
-dynare directed_search_testing.mod
-
-
-%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%% Simplified model (BRS preferences, immobile capital, with labor supply as observable)
-dynare shopping_immobile_BRS_pref_L.mod
-%% Simplified model (BRS preferences, immobile capital)
-dynare shopping_immobile_BRS_pref.mod
-
-%% Simplified model (immobility of capital)
-%dynare shopping_JR_simplified_immobility.mod
-%% Simplified model: fix gam = 1 1 (KR preferences)
-%dynare shopping_JR_simplified_gam_fixed.mod
-%% Shopping model JR preferenes: super simplified (simplified + remove variable capital utilization and adjustment costs)
-%dynare shopping_JR_simplified_noadj_cost
+%% Simplified
+%dynare directed_search_simp_est.mod
 
 
 %% Shopping model with JR preferences simplified

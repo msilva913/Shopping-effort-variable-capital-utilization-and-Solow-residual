@@ -6,25 +6,30 @@ addpath c:\dynare\5.4\matlab
 %% Building-block RBC models
 % Mobile capital: no vcu or fixed costs: common rental rate
 dynare two_sector_RBC_simp.mod 
-% Variable rental rate and capital predetermined in each sector
-dynare two_sector_RBC_diff_R.mod
-
-% With vcu
-dynare two_sector_RBC_vcu.mod
 % Mobile capital and vcu (differentiated rental rates, capital
 % predetermined at time of shock)
 dynare two_sector_RBC_mobile.mod
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-dynare two_sector_RBC_differentiated_testing.mod %with fixed cost
+dynare two_sector_RBC_fixed_cost.mod %with fixed cost
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%
+%% Predetermined labor
+dynare two_sector_RBC_simp_pred_labor.mod
+
 %% Baseline model
 dynare directed_search_common.mod
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Estimated model
+addpath C:\Users\TJSEM\Github\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation\directed_search_est\Output
+savepath
 dynare directed_search_est.mod
 
+%% Estimate using (C, TI, labor prod, p_I) like BRS
+dynare directed_search_est_alt_obs.mod
+
 %% Simplified
-dynare directed_search_simp_est.mod
+%dynare directed_search_simp_est.mod
 
 
 %% Shopping model with JR preferences simplified

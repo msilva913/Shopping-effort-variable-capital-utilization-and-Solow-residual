@@ -22,6 +22,6 @@ function g2 = dynamic_g2(T, y, x, params, steady_state, it_, T_flag)
 if T_flag
     T = directed_search_est.dynamic_g2_tt(T, y, x, params, steady_state, it_);
 end
-g2 = sparse([],[],[],45,4356);
+g2 = sparse([],[],[],46,4489);
 
 end

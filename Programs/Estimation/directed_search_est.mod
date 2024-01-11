@@ -7,7 +7,7 @@ r_I, r_C,
 w, L_C, L_I, L,
 //L_obs,
  K_C, K_I, K, lam,
-u_C, u_I,
+u_C, u_I, cu,
 % shock vars
 Z, Z_I, u_ZI, chi, kappa, zeta
 
@@ -229,7 +229,7 @@ K = phi_C*K_C + phi_I*K_I;
 
 % 25)
 //[name = 'Capacity utilization']
-//cu = phi_C*(phi*q_C + alpha*u_C) + phi_I*(phi*q_I+alpha*u_I);
+cu = phi_C*(phi*q_C + alpha*u_C) + phi_I*(phi*q_I+alpha*u_I);
 
 % 26) 
 [name = 'Aggregate accounting (income = expenditures)']
@@ -288,7 +288,7 @@ estimated_params;
 //x, init_value, lower bound, upper bound, prior shape, prior mean, prior std
 sigma, 1.5, 0.5, 4,            GAMMA_PDF, 1.5, 0.25;
 
-iota, 0.1, 0.0, 0.99,         BETA_PDF, 0.5, 0.25;
+iota, 0.5, 0.0, 0.99,         BETA_PDF, 0.5, 0.25;
 
 % Inverse of Frisch elasticity
 //psi_inv, 0.72, 0.1, 5.0,         GAMMA_PDF, 0.74, 0.25;
@@ -297,25 +297,25 @@ iota, 0.1, 0.0, 0.99,         BETA_PDF, 0.5, 0.25;
 Psi, 0.25, 0.0, 0.5,          BETA_PDF, 0.2, 0.1, 0, 0.5;
 
 % Gross markup
-Gamma_bar, 1.3, 1.01, 2.0,    BETA_PDF, 1.3, 0.20, 1.01, 2.0;
+Gamma_bar, 1.1, 1.0001, 2.0,    BETA_PDF, 1.3, 0.20, 1.01, 2.0;
 
 % Elasticity parameter matching function
-gam, 0.42, 0.01, 2.0,          BETA_PDF, 0.42, 0.3, 0.0, 2.0;
+gam, 0.3, 0.0001, 2.0,          BETA_PDF, 0.42, 0.3, 0.0, 2.0;
 
 % Adjustment costs
 Psi_K, 5.0, 0.00, 30,        GAMMA_PDF, 1.57, 1.5;
 
 % Share of variable labor among labor
-var_share, 0.9, 0.01, 0.999,      BETA_PDF, 0.5, 0.2;
+var_share, 0.5, 0.01, 0.999,      BETA_PDF, 0.5, 0.2;
 
 % Capital utilization cost sigma_a
 sigma_a, 0.32, 0.0, 30.0,        GAMMA_PDF, 0.32, 0.3;
 
 % Persistence parameters
-rho_Z, 0.9, 0.0212, 0.99999,        BETA_PDF, 0.6, 0.2;
-rho_ZI, 0.92, 0.0212, 0.99999,       BETA_PDF, 0.6, 0.2;
+rho_Z, 0.95, 0.0212, 0.99999,        BETA_PDF, 0.6, 0.2;
+rho_ZI, 0.95, 0.0212, 0.99999,       BETA_PDF, 0.6, 0.2;
 
-rho_kappa, 0.95, 0.0212, 0.9999,     BETA_PDF, 0.6, 0.2;
+rho_kappa, 0.9, 0.0212, 0.9999,     BETA_PDF, 0.6, 0.2;
 rho_zeta, 0.9, 0.0212, 0.9999,     BETA_PDF, 0.6, 0.2;
 
 % Roots for labor supply
@@ -325,15 +325,15 @@ lambda_1, 0.9, 0.0212, 0.9999,       BETA_PDF, 0.6, 0.2;
 
 % Conditional standard deviations
 % technology: sector-specific and common
-stderr e_ZI, 0.01, 0.001, 0.2,  INV_GAMMA_PDF, 0.01, 0.004;
-stderr e_Z, 0.01, 0.001, 0.2,  INV_GAMMA_PDF, 0.01, 0.004;
+stderr e_ZI, 0.01, 0.0001, 0.2,  INV_GAMMA_PDF, 0.01, 0.004;
+stderr e_Z, 0.01, 0.00001, 0.2,  INV_GAMMA_PDF, 0.01, 0.004;
 
 % Shopping demand: sector-specific and common
-stderr e_kappa, 0.01, 0.0001, 0.4,  INV_GAMMA_PDF, 0.01, 0.004;
-stderr e_zeta, 0.02, 0.0001, 0.4,  INV_GAMMA_PDF, 0.01, 0.004;
+stderr e_kappa, 0.01, 0.0001, 0.6,  INV_GAMMA_PDF, 0.01, 0.004;
+stderr e_zeta, 0.02, 0.0001, 1.5,  INV_GAMMA_PDF, 0.01, 0.004;
 
 % Labor supply
-stderr e_chi, 0.02, 0.001, 0.4,  INV_GAMMA_PDF, 0.01, 0.004;
+stderr e_chi, 0.02, 0.0001, 0.4,  INV_GAMMA_PDF, 0.01, 0.004;
 end;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -350,12 +350,13 @@ check;
 
 estimation(optim=('MaxIter', 200), 
 datafile=observables, 
-//mode_file=shopping_JR_simplified_noadj_cost_mode, 
+mode_file=directed_search_est_mode, 
 //load_mh_file, 
 //mh_recover,
 //mcmc_jumping_covariance=prior_variance,
 
 mode_compute=4, 
+//mode_compute=9,
 presample=0, 
 lik_init=1,
 mh_jscale=0.3, 
@@ -371,9 +372,16 @@ tex)
 
 % Estimation variables
 C_obs, TI_obs, Y_obs, lab_prod_obs, labor_share, L_C, L_I, L, p_I_obs;
+
+% Trace plots
+trace_plot(options_, M_, estim_params_, 'DeepParameter', 1, 'Psi')
+trace_plot(options_, M_, estim_params_, 'DeepParameter', 1, 'gam')
+trace_plot(options_, M_, estim_params_, 'DeepParameter', 1, 'Gamma_bar')
+trace_plot(options_, M_, estim_params_, 'DeepParameter', 1, 'var_share')
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-stoch_simul (order=1, nofunctions, irf=100, periods=0,
+stoch_simul (order=1, nofunctions, irf=0, periods=0,
 conditional_variance_decomposition=[1 4 8 40])
 C_obs, TI_obs, Y_obs, lab_prod_obs, labor_share, L_C, L_I, L, p_I_obs ;
 
