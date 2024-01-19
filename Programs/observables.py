@@ -125,10 +125,12 @@ def construct_data(init, final, freq):
 
 
 if __name__ == "__main__":
-   
-    init= '1964-01-01'
-    final = '2023-09-30'
-    #final = '1995' (comparison to earlier papers)
+    # Baseline
+    #init= '1964-01-01'
+    #final = '2023-12-30'
+    # Comparison to earlier BRS
+    init = '1967-01-01'
+    final = '2019-12-30'
     load = False
     filter_type = 'hamilton'
     freq = 'Q'
@@ -160,7 +162,7 @@ if __name__ == "__main__":
         " Save relevant objects "
         #save_object(cycle, 'cycle')
         " Save output for estimation using growth filter"
-        lab = ['Y_obs', 'C_obs', 'TI_obs', 'LC_obs', 'LI_obs', 'L_obs',
+        lab = ['Y_obs', 'C_obs', 'I_obs', 'LC_obs', 'LI_obs', 'L_obs',
                'lab_prod_obs', 'p_I_obs', 'SR_obs', 'SR_util_obs', 'cu']
         dic_data = dict(zip(lab, [np.asarray(cycle[x]) for x in cycle.columns]))
         sio.savemat('observables.mat', dic_data)

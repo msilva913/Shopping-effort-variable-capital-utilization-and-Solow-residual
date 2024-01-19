@@ -211,9 +211,9 @@ log_Y_N = log_Y - log_N;
 log_D = log(D);
 
 % Observation variables
-I_obs = log_I;
-Y_obs = log_Y;
-lab_prod_obs = log_Y_N;
+I_obs = log_I - steady_state(log_I);
+Y_obs = log_Y - steady_state(log_Y);
+lab_prod_obs = log_Y_N - steady_state(log_Y_N);
 p_I_obs = log(p_I);
 
 
@@ -267,10 +267,10 @@ steady_state_model;
     log_Y_N = log_Y - log_N;
     log_D = log(D);
     
-    I_obs = log_I;
-    Y_obs = log_Y;
-    lab_prod_obs = log_Y_N;
-    p_I_obs = log(p_I);
+    I_obs = 0;
+    Y_obs = 0;
+    lab_prod_obs = 0;
+    p_I_obs = 0;
 
 end;
 
@@ -290,14 +290,14 @@ steady;
 // check Blanchard-Kahn-conditions
 check;
 
-/*
+%/*
 estimated_params;
 //x, init_value, lower bound, upper bound, prior shape, prior mean, prior std
 
 
 % Persistence parameters
-rho_Z,  0.6, 0.01, 0.9999,        BETA_PDF, 0.6, 0.2;
-rho_ZI,  0.6, 0.01, 0.9999,        BETA_PDF, 0.6, 0.2;
+rho_Z,  0.6, 0.01, 0.99999,        BETA_PDF, 0.6, 0.2;
+rho_ZI,  0.6, 0.01, 0.99999,        BETA_PDF, 0.6, 0.2;
 rho_N,  0.6, 0.01, 0.9999,        BETA_PDF, 0.6, 0.2;
 rho_D,  0.6, 0.01, 0.9999,        BETA_PDF, 0.6, 0.2;
 
@@ -321,11 +321,10 @@ datafile=observables,
 //mh_recover,
 //mcmc_jumping_covariance=prior_variance,
 
-//mode_compute=1, 
 mode_compute=4,
 presample=0, 
 lik_init=1,
-mh_jscale=1.5, 
+mh_jscale=0.3, 
 mode_check, 
 mh_replic=250000, 
 //mh_replic=0,
@@ -351,7 +350,7 @@ collect_latex_files;
 %     error('TeX-File did not compile.')
 % end
 
-*/
+%*/
 % Stochastic simulation 
 stoch_simul (order=1, nofunctions, irf=100, periods=0,
 conditional_variance_decomposition=[1 4 8 40])

@@ -36,9 +36,9 @@ function [ys_, params, info] = steadystate(ys_, exo_, params)
     ys_(26)=log(ys_(7));
     ys_(27)=ys_(23)-ys_(26);
     ys_(28)=log(ys_(18));
-    ys_(29)=ys_(25);
-    ys_(30)=ys_(23);
-    ys_(31)=ys_(27);
-    ys_(32)=log(ys_(22));
+    ys_(29)=0;
+    ys_(30)=0;
+    ys_(31)=0;
+    ys_(32)=0;
     % Auxiliary equations
 end
