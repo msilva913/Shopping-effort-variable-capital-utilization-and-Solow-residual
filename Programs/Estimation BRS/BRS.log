@@ -1,0 +1,210 @@
+Starting Dynare (version 5.4).
+Calling Dynare with arguments: none
+Starting preprocessing of the model file ...
+Found 32 equation(s).
+Evaluating expressions...done
+Computing static model derivatives (order 1).
+Computing dynamic model derivatives (order 1).
+Processing outputs ...
+done
+Preprocessing completed.
+
+
+
+
+
+Residuals of the static equations:
+
+Equation number 1 : 0 : Labor leisure
+Equation number 2 : 0 : Shopping:C
+Equation number 3 : 0 : Shopping:I
+Equation number 4 : 0 : Composite utility term
+Equation number 5 : 0 : Euler equation: C
+Equation number 6 : 0 : Euler equation: I
+Equation number 7 : 0 : Consumption production
+Equation number 8 : 0 : Investment production
+Equation number 9 : 0 : Capital law of motion
+Equation number 10 : 0 : Labor demand:C
+Equation number 11 : 0 : Capital demand:C
+Equation number 12 : 0 : Labor demand:I
+Equation number 13 : 0 : Capital demand:I
+Equation number 14 : 0 : Labor composition
+Equation number 15 : 0 : Capital composition
+Equation number 16 : 0 : Shopping composition
+Equation number 17 : 0 : Output (base-year prices)
+Equation number 18 : 0 : exogenous TFP process
+Equation number 19 : 0 : u_ZI
+Equation number 20 : 0 : investment-specific TFP process
+Equation number 21 : 0 : Labor supply process
+Equation number 22 : 0 : Shopping effort process
+Equation number 23 : 0 : Definition log output
+Equation number 24 : 0 : Definition log consumption
+Equation number 25 : 0 : Definition log investment
+Equation number 26 : 0 : Definition log hours
+Equation number 27 : 0 : Definition log labor productivity
+Equation number 28 : 0 : Definition log shopping effort
+Equation number 29 : 0 : I_obs
+Equation number 30 : 0 : Y_obs
+Equation number 31 : 0 : lab_prod_obs
+Equation number 32 : 0 : p_I_obs
+
+
+
+STEADY-STATE RESULTS:
+
+Y            		 1
+C            		 0.8
+I            		 0.2
+K            		 11
+K_C          		 8.8
+K_I          		 2.2
+N            		 0.3
+N_C          		 0.24
+N_I          		 0.06
+Z_C          		 0
+u_ZI         		 0
+Z_I          		 0
+theta_N      		 0
+theta_D      		 0
+R_C          		 0.0412283
+R_I          		 0.0412283
+W            		 2.23333
+D            		 0.827037
+D_C          		 0.66163
+D_I          		 0.165407
+Gam          		 0.55595
+p_I          		 1
+log_Y        		 0
+log_C        		 -0.223144
+log_I        		 -1.60944
+log_N        		 -1.20397
+log_Y_N      		 1.20397
+log_D        		 -0.189906
+I_obs        		 -1.60944
+Y_obs        		 0
+lab_prod_obs 		 1.20397
+p_I_obs      		 0
+
+EIGENVALUES:
+         Modulus             Real        Imaginary
+
+        4.95e-14         4.95e-14                0
+             0.9              0.9                0
+             0.9              0.9                0
+             0.9              0.9                0
+             0.9              0.9                0
+          0.9726           0.9726                0
+           1.038            1.038                0
+       2.069e+18       -2.069e+18                0
+       2.324e+19        2.324e+19                0
+       2.639e+21       -2.639e+21                0
+
+
+There are 4 eigenvalue(s) larger than 1 in modulus 
+for 4 forward-looking variable(s)
+
+The rank condition is verified.
+
+
+MODEL SUMMARY
+
+  Number of variables:         32
+  Number of stochastic shocks: 4
+  Number of state variables:   6
+  Number of jumpers:           4
+  Number of static variables:  22
+
+
+MATRIX OF COVARIANCE OF EXOGENOUS SHOCKS
+Variables         e_Z      e_ZI       e_N       e_D
+e_Z          0.000052  0.000000  0.000000  0.000000
+e_ZI         0.000000  0.000052  0.000000  0.000000
+e_N          0.000000  0.000000  0.000052  0.000000
+e_D          0.000000  0.000000  0.000000  0.000052
+
+
+
+THEORETICAL MOMENTS
+VARIABLE             MEAN  STD. DEV.   VARIANCE
+I_obs             -1.6094     0.4045     0.1636
+log_C             -0.2231     0.0905     0.0082
+Y_obs              0.0000     0.0982     0.0097
+lab_prod_obs       1.2040     0.0657     0.0043
+p_I_obs            0.0000     0.1294     0.0168
+log_D             -0.1899     0.0138     0.0002
+log_N             -1.2040     0.0349     0.0012
+
+
+
+VARIANCE DECOMPOSITION (in percent)
+                   e_Z    e_ZI     e_N     e_D
+I_obs            97.73    2.13    0.14    0.01
+log_C            97.79    2.01    0.18    0.01
+Y_obs            98.70    0.98    0.29    0.02
+lab_prod_obs     98.53    1.06    0.39    0.02
+p_I_obs          97.82    2.17    0.01    0.00
+log_D            93.99    0.93    0.40    4.68
+log_N            92.43    0.92    6.63    0.03
+
+CONDITIONAL VARIANCE DECOMPOSITION (in percent)
+Period 1:
+                   e_Z    e_ZI     e_N     e_D
+I_obs            28.46   66.95    4.26    0.33
+log_C            94.19    3.72    1.94    0.15
+Y_obs            93.42    2.73    3.57    0.28
+lab_prod_obs     84.16    4.68   10.94    0.22
+p_I_obs           0.29   96.44    3.04    0.24
+log_D            58.59    0.39    2.59   38.43
+log_N            51.70    0.35   47.78    0.18
+Period 4:
+                   e_Z    e_ZI     e_N     e_D
+I_obs            82.59   16.30    1.04    0.08
+log_C            67.12   31.49    1.29    0.10
+Y_obs            95.36    1.96    2.49    0.19
+lab_prod_obs     90.63    3.81    5.42    0.14
+p_I_obs          79.07   20.80    0.12    0.01
+log_D            56.84    0.18    2.34   40.63
+log_N            50.27    0.16   49.41    0.16
+Period 8:
+                   e_Z    e_ZI     e_N     e_D
+I_obs            93.43    6.15    0.39    0.03
+log_C            84.75   14.52    0.68    0.05
+Y_obs            96.36    1.83    1.68    0.13
+lab_prod_obs     94.45    2.72    2.75    0.08
+p_I_obs          92.87    7.10    0.03    0.00
+log_D            58.81    0.30    2.35   38.54
+log_N            52.16    0.26   47.41    0.16
+Period 40:
+                   e_Z    e_ZI     e_N     e_D
+I_obs            97.72    2.13    0.14    0.01
+log_C            95.42    4.16    0.40    0.03
+Y_obs            98.45    1.13    0.39    0.03
+lab_prod_obs     98.29    1.19    0.49    0.02
+p_I_obs          97.81    2.18    0.01    0.00
+log_D            90.50    1.11    0.63    7.76
+log_N            88.04    1.08   10.83    0.05
+
+
+
+MATRIX OF CORRELATIONS
+Variables              I_obs         log_C         Y_obs  lab_prod_obs       p_I_obs         log_D         log_N
+I_obs                 1.0000       -0.1817        0.6895        0.7599       -0.9938        0.5102        0.5111
+log_C                -0.1817        1.0000        0.5869        0.4917        0.0955        0.7289        0.7269
+Y_obs                 0.6895        0.5869        1.0000        0.9878       -0.7479        0.9569        0.9561
+lab_prod_obs          0.7599        0.4917        0.9878        1.0000       -0.8150        0.9211        0.8989
+p_I_obs              -0.9938        0.0955       -0.7479       -0.8150        1.0000       -0.5758       -0.5715
+log_D                 0.5102        0.7289        0.9569        0.9211       -0.5758        1.0000        0.9605
+log_N                 0.5111        0.7269        0.9561        0.8989       -0.5715        0.9605        1.0000
+
+
+
+COEFFICIENTS OF AUTOCORRELATION
+Order                1       2       3       4       5
+I_obs           0.9925  0.9731  0.9454  0.9114  0.8726
+log_C           0.9872  0.9713  0.9532  0.9334  0.9123
+Y_obs           0.9947  0.9889  0.9824  0.9751  0.9671
+lab_prod_obs    0.9953  0.9886  0.9803  0.9705  0.9594
+p_I_obs         0.9925  0.9742  0.9484  0.9168  0.8809
+log_D           0.9876  0.9774  0.9683  0.9599  0.9520
+log_N           0.9863  0.9750  0.9650  0.9558  0.9471
+Total computing time : 0h00m04s

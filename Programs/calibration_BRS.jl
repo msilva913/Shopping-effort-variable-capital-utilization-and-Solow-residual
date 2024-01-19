@@ -83,13 +83,17 @@ N_c = (1-I_Y)*N
 z_c = (1-I_Y)/(Ψ_j*K_c^(α_K)*N_c^(α_N))
 z_i = (I_Y)/(Ψ_j*K_i^(α_K)*N_i^(α_N))
 
-return (γ=γ, β=β, δ=δ, α_N=α_N, α_K=α_K, A_c=A_c, A_i=A_i, z_c=z_c, z_i=z_i, C=C, I=I, Y=Y, K=K, N=N)
+return (γ=γ, β=β, δ=δ, α_N=α_N, α_K=α_K, A_c=A_c, A_i=A_i, z_c=z_c, z_i=z_i, C=C, I=I, Y=Y, K=K, N=N, N_c=N_c, N_i=N_i,
+    D=D, D_c=D_c, D_i=D_i)
 end
 
 targets = Targets(g_bar = 0.0074, γ=1.0)
 cal = calibrate(targets)
 
+targets_ng = Targets(g_bar = 0.0, γ=1.0)
+cal_ng = calibrate(targets_ng)
 
+# To be modified #
 function table(para, targets)
     @unpack A, β, ϕ, ρ, δ_K, α_1, α_2, α, ZC, ZI, χ, κ, ζ, σ_b, σ, ψ, Γ, Ψ, ν = para
     @unpack r_annual, δ_share, ϕ_I, wL_Y, occupancy_rate = targets

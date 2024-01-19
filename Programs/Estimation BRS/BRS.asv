@@ -250,11 +250,11 @@ steady_state_model;
     theta_N_s = (1-phi)*W/(N^(1/nu));
     Gam = C - D^(1+1/eta)/(1+1/eta) - theta_N_s*N^(1+1/nu)/(1+1/nu);
     
-    r_ss = (1+r_ann)^(1/4) - 1.0;
-    beta_ss = (1/(1+r_ss))*(1+g_bar)^(gam);
+
+    beta_ss = (1/(1+r))*(1+g_bar)^(gam);
     delta_ss = I_Y/K_Y - g_bar;
-    R_pi_ss = (1-beta_ss*(1+g_bar)^(-gam)*(1-delta_ss))/(beta_ss*(1+g_bar)^(-gam));
-    alpha_K_ss = R_pi_ss*K_Y;
+    #R_pi = (1-beta_ss*(1+g_bar)^(-gam)*(1-delta_ss))/(beta*(1+g_bar)^(-gam));
+    #alpha_K = R_pi*K_Y;
 
     R_C = W*(alpha_K_ss/alpha_N_ss)*N_I/K_I;
     R_I = R_C;
