@@ -18,6 +18,6 @@ function g3 = static_g3(T, y, x, params, T_flag)
 if T_flag
     T = BRS.static_g3_tt(T, y, x, params);
 end
-g3 = sparse([],[],[],32,32768);
+g3 = sparse([],[],[],33,35937);
 
 end

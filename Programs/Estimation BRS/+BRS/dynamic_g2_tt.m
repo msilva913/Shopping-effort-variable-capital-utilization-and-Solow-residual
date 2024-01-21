@@ -18,9 +18,10 @@ function T = dynamic_g2_tt(T, y, x, params, steady_state, it_)
 %   T           [#temp variables by 1]       double  vector of temporary terms
 %
 
-assert(length(T) >= 28);
+assert(length(T) >= 43);
 
 T = BRS.dynamic_g1_tt(T, y, x, params, steady_state, it_);
 
+T(43) = exp(y(20))*getPowerDeriv(y(24),T(3),2);
 
 end

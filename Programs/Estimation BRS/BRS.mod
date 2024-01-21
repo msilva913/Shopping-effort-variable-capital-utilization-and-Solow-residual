@@ -35,6 +35,7 @@ var Y           ${Y}$ (long_name='output')
     log_Y_N
     log_D
     
+    C_obs
     I_obs
     Y_obs
     lab_prod_obs
@@ -210,7 +211,8 @@ log_Y_N = log_Y - log_N;
 [name = 'Definition log shopping effort']
 log_D = log(D);
 
-% Observation variables
+% Observation variables: log deviations from steady state
+C_obs = log_C - steady_state(log_C);
 I_obs = log_I - steady_state(log_I);
 Y_obs = log_Y - steady_state(log_Y);
 lab_prod_obs = log_Y_N - steady_state(log_Y_N);
@@ -267,6 +269,7 @@ steady_state_model;
     log_Y_N = log_Y - log_N;
     log_D = log(D);
     
+    C_obs = 0;
     I_obs = 0;
     Y_obs = 0;
     lab_prod_obs = 0;
@@ -282,6 +285,8 @@ shocks;
     var e_D = 0.0072^2;
 end;
 
+// local identification
+identification(ar=10);
 //check the starting values for the steady state
 resid;
 
@@ -316,24 +321,25 @@ varobs I_obs, Y_obs, lab_prod_obs, p_I_obs;
 
 estimation(optim=('MaxIter', 200), 
 datafile=observables, 
-//mode_file=directed_search_est_mode, 
-//load_mh_file, 
+mode_file=BRS_mode, 
+load_mh_file, 
 //mh_recover,
 //mcmc_jumping_covariance=prior_variance,
 
-mode_compute=4,
+mode_compute=0,
 presample=0, 
 lik_init=1,
 mh_jscale=0.3, 
 mode_check, 
-mh_replic=250000, 
-//mh_replic=0,
+//mh_replic=250000, 
+mh_replic=0,
 mh_nblocks=2, 
 bayesian_irf,
 mh_drop=0.3, 
+moments_varendo,
 prior_trunc=0,
 tex)
-I_obs, log_C, Y_obs, lab_prod_obs, p_I_obs, log_D, log_N;
+I_obs, C_obs, Y_obs, lab_prod_obs, p_I_obs, log_D, log_N;
 
 
 %----------------------------------------------------------------
