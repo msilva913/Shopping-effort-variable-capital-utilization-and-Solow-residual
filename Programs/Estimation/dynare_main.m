@@ -14,8 +14,7 @@ dynare two_sector_RBC_fixed_cost.mod %with fixed cost
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%
-%% Predetermined labor
-dynare two_sector_RBC_simp_pred_labor.mod
+dynare directed_search_simp.mod
 
 %% Baseline model
 dynare directed_search_common.mod

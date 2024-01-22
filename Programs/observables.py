@@ -132,7 +132,7 @@ if __name__ == "__main__":
     init = '1967-01-01'
     final = '2019-12-30'
     load = False
-    filter_type = 'hamilton'
+    filter_type = 'growth'
     freq = 'Q'
     save_observables = True
     
@@ -165,7 +165,7 @@ if __name__ == "__main__":
         lab = ['Y_obs', 'C_obs', 'I_obs', 'LC_obs', 'LI_obs', 'L_obs',
                'lab_prod_obs', 'p_I_obs', 'SR_obs', 'SR_util_obs', 'cu']
         dic_data = dict(zip(lab, [np.asarray(cycle[x]) for x in cycle.columns]))
-        sio.savemat('observables.mat', dic_data)
+        sio.savemat('observables_fd.mat', dic_data)
         
 
     # Do plots
