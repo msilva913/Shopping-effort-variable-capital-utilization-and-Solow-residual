@@ -267,7 +267,7 @@ sigma, 1.5, 0.5, 4,            GAMMA_PDF, 1.5, 0.25;
 Psi, 0.25, 0.0, 0.5,          BETA_PDF, 0.2, 0.1, 0, 0.5;
 
 % Gross markup
-Gamma_bar, 1.1, 1.0001, 2.0,    BETA_PDF, 1.3, 0.20, 1.01, 2.0;
+Gamma_bar, 1.1, 1.00, 2.0,    BETA_PDF, 1.3, 0.20, 1.00, 2.0;
 
 % Elasticity parameter matching function
 gam, 0.3, 0.0001, 2.0,          BETA_PDF, 0.42, 0.3, 0.0, 2.0;
@@ -315,7 +315,7 @@ mode_file=directed_search_simp_mode,
 //mh_recover,
 //mcmc_jumping_covariance=prior_variance,
 
-mode_compute=1, 
+mode_compute=6, 
 //mode_compute=9,
 presample=0, 
 lik_init=1,
