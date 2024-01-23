@@ -41,6 +41,7 @@ var Y           ${Y}$ (long_name='output')
     Y_obs
     lab_prod_obs
     p_I_obs
+    N_obs
     
     ;
 
@@ -220,7 +221,7 @@ I_obs = log_I - log_I(-1);
 Y_obs = log_Y - log_Y(-1);
 lab_prod_obs = log_Y_N - log_Y_N(-1);
 p_I_obs = log_p_I - log_p_I(-1);
-
+N_obs = log_N - log_N(-1);
 
 
 end;
@@ -277,6 +278,7 @@ steady_state_model;
     I_obs = 0;
     Y_obs = 0;
     lab_prod_obs = 0;
+    N_obs = 0;
     p_I_obs = 0;
 
 end;
@@ -303,7 +305,7 @@ check;
 estimated_params;
 //x, init_value, lower bound, upper bound, prior shape, prior mean, prior std
 
-gam, 1.5, 0.5, 4,            GAMMA_PDF, 1.5, 0.25;
+//gam, 1.5, 0.5, 4,            GAMMA_PDF, 1.5, 0.25;
 
 % Persistence parameters
 rho_Z,  0.6, 0.01, 0.999999,        BETA_PDF, 0.6, 0.2;
@@ -329,12 +331,12 @@ datafile=observables_fd,
 mode_file=BRS_fd_mode, 
 //load_mh_file, 
 //mh_recover,
-//mcmc_jumping_covariance=prior_variance,
+mcmc_jumping_covariance=prior_variance,
 
-mode_compute=9,
+mode_compute=4,
 presample=0, 
 lik_init=1,
-mh_jscale=0.3, 
+mh_jscale=0.005, 
 mode_check, 
 mh_replic=250000, 
 //mh_replic=0,
@@ -365,5 +367,5 @@ collect_latex_files;
 % Stochastic simulation 
 stoch_simul (order=1, nofunctions, irf=100, periods=0,
 conditional_variance_decomposition=[1 4 8 40])
-I_obs, log_C, Y_obs, lab_prod_obs, p_I_obs, log_D, log_N; 
+I_obs, C_obs, Y_obs, lab_prod_obs, p_I_obs, log_D, log_N; 
 

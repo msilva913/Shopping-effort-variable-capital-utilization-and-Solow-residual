@@ -1,6 +1,5 @@
 using LaTeXStrings
 using Parameters, CSV, StatsBase, Statistics, Random, QuantEcon, ArgParse
-using Roots, Optim, NLsolve
 using PlotlyJS
 using Printf
 using DataFrames

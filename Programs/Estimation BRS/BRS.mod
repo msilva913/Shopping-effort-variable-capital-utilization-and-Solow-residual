@@ -360,5 +360,5 @@ collect_latex_files;
 % Stochastic simulation 
 stoch_simul (order=1, nofunctions, irf=100, periods=0,
 conditional_variance_decomposition=[1 4 8 40])
-I_obs, log_C, Y_obs, lab_prod_obs, p_I_obs, log_D, log_N; 
+I_obs, C_obs, Y_obs, lab_prod_obs, p_I_obs, log_D, log_N; 
 

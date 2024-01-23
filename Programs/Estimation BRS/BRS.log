@@ -225,23 +225,134 @@ parameters
 
 rho_Z         0.600       0.9992      0.9985      0.9999     beta       0.2000
 rho_ZI        0.600       0.7332      0.7125      0.7541     beta       0.2000
-{Operation terminated by user during <a href="matlab:matlab.internal.language.introspective.errorDocCallback('kernel_density_estimate')" style="font-weight:bold">kernel_density_estimate</a>
+rho_N         0.600       0.9437      0.9184      0.9700     beta       0.2000
+rho_D         0.600       0.8246      0.7861      0.8657     beta       0.2000
 
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('posterior_moments', 'C:\dynare\5.4\matlab\posterior_moments.m', 91)" style="font-weight:bold">posterior_moments</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\posterior_moments.m',91,0)">line 91</a>)
-        [density(:,1),density(:,2)] = kernel_density_estimate(xx,number_of_grid_points,...
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('GetPosteriorParametersStatistics', 'C:\dynare\5.4\matlab\GetPosteriorParametersStatistics.m', 101)" style="font-weight:bold">GetPosteriorParametersStatistics</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\GetPosteriorParametersStatistics.m',101,0)">line 101</a>)
-            [post_mean, post_median, post_var, hpd_interval, post_deciles, density] = posterior_moments(Draws, 1, options_.mh_conf_sig);
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation_1', 'C:\dynare\5.4\matlab\dynare_estimation_1.m', 511)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare_estimation_1.m',511,0)">line 511</a>)
-            oo_ = GetPosteriorParametersStatistics(estim_params_, M_, options_, bayestopt_, oo_, prior_dist_names);
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation', 'C:\dynare\5.4\matlab\dynare_estimation.m', 118)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare_estimation.m',118,0)">line 118</a>)
-    dynare_estimation_1(var_list,dname);
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('BRS.driver', 'C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS\driver.m', 450)" style="font-weight:bold">BRS.driver</a> (<a href="matlab: opentoline('C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS\driver.m',450,0)">line 450</a>)
-oo_recursive_=dynare_estimation(var_list_);
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare', 'C:\dynare\5.4\matlab\dynare.m', 278)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare.m',278,0)">line 278</a>)
-    evalin('base',[fname '.driver']);} 
-{Operation terminated by user during matlab.graphics.shape.internal.Button
+standard deviation of shocks
+         prior mean   post. mean        90% HPD interval    prior       pstdev
 
-In matlab.graphics.controls.internal.PostUpdatePlugin.doCacheLoad
+e_ZI          0.010       0.0245      0.0224      0.0266     invg       0.1000
+e_Z           0.010       0.0075      0.0067      0.0083     invg       0.1000
+e_N           0.010       0.0205      0.0187      0.0221     invg       0.1000
+e_D           0.010       0.1953      0.1899      0.2000     invg       0.1000
+Estimation::mcmc: Posterior (dsge) IRFs...
+Estimation::mcmc: Posterior IRFs, done!
+Estimation::compute_moments_varendo: I'm computing endogenous moments (this may take a while)... 
 
-In matlab.graphics.controls.internal.PostUpdatePlugin>@()matlab.graphics.controls.internal.PostUpdatePlugin.doCacheLoad(canvasParent)} 
-dynare BRS_comovement.mod
+
+Posterior mean variance decomposition (in percent)
+                   e_Z    e_ZI     e_N     e_D
+I_obs            98.52    0.89    0.15    0.43
+C_obs            99.76    0.11    0.06    0.06
+Y_obs            99.79    0.03    0.07    0.11
+lab_prod_obs     99.79    0.04    0.08    0.09
+p_I_obs          99.45    0.51    0.01    0.03
+log_D            81.66    0.02    0.07   18.26
+log_N            98.59    0.02    1.25    0.14
+
+
+Done!
+
+
+MODEL SUMMARY
+
+  Number of variables:         33
+  Number of stochastic shocks: 4
+  Number of state variables:   6
+  Number of jumpers:           4
+  Number of static variables:  23
+
+
+MATRIX OF COVARIANCE OF EXOGENOUS SHOCKS
+Variables         e_Z      e_ZI       e_N       e_D
+e_Z          0.000056  0.000000  0.000000  0.000000
+e_ZI         0.000000  0.000603  0.000000  0.000000
+e_N          0.000000  0.000000  0.000421  0.000000
+e_D          0.000000  0.000000  0.000000  0.038138
+
+
+
+THEORETICAL MOMENTS
+VARIABLE             MEAN  STD. DEV.   VARIANCE
+I_obs              0.0000     1.3286     1.7651
+C_obs              0.0000     0.7614     0.5797
+Y_obs              0.0000     0.8670     0.7517
+lab_prod_obs       0.0000     0.5469     0.2991
+p_I_obs            0.0000     0.5162     0.2664
+log_D             -0.1899     0.1417     0.0201
+log_N             -1.2040     0.3220     0.1037
+
+
+
+VARIANCE DECOMPOSITION (in percent)
+                   e_Z    e_ZI     e_N     e_D
+I_obs            98.49    0.91    0.15    0.44
+C_obs            99.78    0.11    0.05    0.06
+Y_obs            99.80    0.03    0.06    0.11
+lab_prod_obs     99.80    0.04    0.07    0.09
+p_I_obs          99.45    0.52    0.01    0.03
+log_D            80.77    0.02    0.06   19.15
+log_N            98.70    0.02    1.14    0.13
+
+CONDITIONAL VARIANCE DECOMPOSITION (in percent)
+Period 1:
+                   e_Z    e_ZI     e_N     e_D
+I_obs             0.06   74.62    2.69   22.62
+C_obs            45.71   16.27    5.16   32.86
+Y_obs            26.68    8.93    7.90   56.49
+lab_prod_obs     23.89   13.21   21.98   40.91
+p_I_obs           3.77   78.36    1.67   16.21
+log_D             0.19    0.02    0.07   99.72
+log_N             8.25    0.86   67.58   23.31
+Period 4:
+                   e_Z    e_ZI     e_N     e_D
+I_obs            11.94   59.34    4.22   24.50
+C_obs            37.33   47.10    2.62   12.95
+Y_obs            43.95    5.63    8.15   42.27
+lab_prod_obs     39.77   10.38   18.71   31.14
+p_I_obs          21.71   73.91    0.51    3.87
+log_D             0.34    0.01    0.09   99.56
+log_N            11.93    0.34   71.81   15.92
+Period 8:
+                   e_Z    e_ZI     e_N     e_D
+I_obs            40.78   37.41    4.16   17.64
+C_obs            37.04   44.14    3.95   14.87
+Y_obs            59.20    4.31    7.58   28.91
+lab_prod_obs     57.42    6.96   14.63   20.99
+p_I_obs          57.07   40.50    0.34    2.09
+log_D             0.60    0.02    0.12   99.26
+log_N            15.44    0.41   71.80   12.36
+Period 40:
+                   e_Z    e_ZI     e_N     e_D
+I_obs            85.73    8.62    1.44    4.20
+C_obs            81.12   10.10    3.51    5.26
+Y_obs            92.43    1.01    2.28    4.29
+lab_prod_obs     92.84    1.28    2.56    3.31
+p_I_obs          92.72    6.85    0.07    0.36
+log_D             7.22    0.07    0.27   92.44
+log_N            59.07    0.60   36.06    4.27
+
+
+
+MATRIX OF CORRELATIONS
+Variables              I_obs         C_obs         Y_obs  lab_prod_obs       p_I_obs         log_D         log_N
+I_obs                 1.0000        0.9582        0.9796        0.9799       -0.9962        0.9039        0.9734
+C_obs                 0.9582        1.0000        0.9961        0.9942       -0.9721        0.9043        0.9936
+Y_obs                 0.9796        0.9961        1.0000        0.9987       -0.9882        0.9123        0.9963
+lab_prod_obs          0.9799        0.9942        0.9987        1.0000       -0.9897        0.9099        0.9907
+p_I_obs              -0.9962       -0.9721       -0.9882       -0.9897        1.0000       -0.8872       -0.9799
+log_D                 0.9039        0.9043        0.9123        0.9099       -0.8872        1.0000        0.9110
+log_N                 0.9734        0.9936        0.9963        0.9907       -0.9799        0.9110        1.0000
+
+
+
+COEFFICIENTS OF AUTOCORRELATION
+Order                1       2       3       4       5
+I_obs           0.9980  0.9943  0.9911  0.9882  0.9856
+C_obs           0.9995  0.9991  0.9988  0.9986  0.9983
+Y_obs           0.9997  0.9995  0.9993  0.9990  0.9988
+lab_prod_obs    0.9997  0.9995  0.9992  0.9989  0.9986
+p_I_obs         0.9989  0.9973  0.9958  0.9944  0.9930
+log_D           0.9662  0.9391  0.9167  0.8982  0.8828
+log_N           0.9991  0.9983  0.9976  0.9970  0.9963
+Total computing time : 0h01m34s
