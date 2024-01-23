@@ -6,5 +6,11 @@ addpath c:\dynare\5.4\matlab
 %% BRS in levels (Hamilton regression filter)
 dynare BRS.mod
 
+%% BRS in levels (estimate shopping parameters)
+dynare BRS_est_shopping.mod
+
 %% BRS in first differences (demeaned)
 dynare BRS_fd.mod
+
+%% BRS: target LC, LI, C, I
+dynare BRS_comovement.mod

@@ -17,7 +17,7 @@ C_obs, I_obs, LC_obs, LI_obs, Y_obs, p_I_obs, lab_prod_obs, labor_share, SR_obs,
 //varexo e_ZI, e_Z, e_kappa, e_zeta, e_chi;
 varexo e_ZI, e_Z, e_chi, e_kappa;
 
-parameters A, beta, delta_K, psi_inv, sigma, Gamma_bar, wL_Y, phi_I, Psi, gam
+parameters A, beta, delta_K, psi_inv, sigma, Gamma_bar, wL_Y, Psi, gam
 
 % persistence parameters
 rho_Z, rho_ZI , rho_kappa, 
@@ -46,7 +46,7 @@ lambda_2 = 0.0;
 
 % labor share
 wL_Y = 0.667;
-phi_I = 0.22;
+%phi_I = 0.22;
 A = 0.78; % steady-state occupancy rate
 delta_K = 0.174/4;
 
@@ -58,7 +58,7 @@ iota = 0.0;
 % Key elasticities for estimation
 Psi = 0.25;
 gam = 0.42;
-Gamma_bar = 1.3;
+Gamma_bar = 1.1;
 
 
 
@@ -74,19 +74,13 @@ model(linear);
 #rho_chi2 = -lambda_1*lambda_2; 
 
 #r = 1/beta-1;
-%1) Consistency of α with investment share
-#alpha_ratio = phi_I*(r+delta_K)/(delta_K*wL_Y);
-#alpha = alpha_ratio/(1+alpha_ratio);
-#alpha_2 = 0.0;
-#alpha_1 = 1-alpha-alpha_2;
-
-%2) Fixed cost share
-#nu_R = Gamma_bar*wL_Y/(1-alpha) - 1;
+#alpha = 1 - Gamma_bar*wL_Y;
+#phi_I = alpha/(Gamma_bar)*delta_K/(r+delta_K);
 
 %3) Solve for phi and rho
 #Psi_inv = 1/Psi;
-#A_c = alpha_2*(1+nu_R)+Psi_inv - 1;
-#B_c = - (Psi_inv+Gamma_bar/A^alpha_2);
+#A_c = Psi_inv - 1;
+#B_c = - (Psi_inv+Gamma_bar);
 #C_c = 1.0; 
 
 #phi = (- B_c-sqrt(B_c^2-4*A_c*C_c))/(2*A_c);
@@ -184,11 +178,11 @@ p_I_obs = p_I - p_C;
 % 19)
 [name =  'C production']
 //YC = p_C + Z + (1-alpha_2)*(-phi*Q_C) + alpha*(K_C)+(1-alpha)*L_C;
-C = ((1-alpha_2)*phi*q_C + p_C + Z + alpha*(K_C(-1))+(1-alpha)*L_C);
+C = (phi*q_C + p_C + Z + alpha*(K_C(-1))+(1-alpha)*L_C);
 
 % 20) 
 [name = 'I production']
-I = ((1-alpha_2)*(phi*q_I) + p_I + Z_I + alpha*(K_I(-1)) + (1-alpha)*L_I);
+I = (phi*q_I + p_I + Z_I + alpha*(K_I(-1)) + (1-alpha)*L_I);
 
 
 % 23) 
@@ -267,7 +261,7 @@ sigma, 1.5, 0.5, 4,            GAMMA_PDF, 1.5, 0.25;
 Psi, 0.25, 0.0, 0.5,          BETA_PDF, 0.2, 0.1, 0, 0.5;
 
 % Gross markup
-Gamma_bar, 1.1, 1.00, 2.0,    BETA_PDF, 1.3, 0.20, 1.00, 2.0;
+//Gamma_bar, 1.1, 1.00, 2.0,    BETA_PDF, 1.3, 0.20, 1.00, 2.0;
 
 % Elasticity parameter matching function
 gam, 0.3, 0.0001, 2.0,          BETA_PDF, 0.42, 0.3, 0.0, 2.0;
@@ -290,7 +284,7 @@ stderr e_ZI, 0.01, 0.0001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
 stderr e_Z, 0.01, 0.00001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
 
 % Shopping demand: sector-specific and common
-stderr e_kappa, 0.01, 0.0001, 0.6,  INV_GAMMA_PDF, 0.01, 0.1;
+stderr e_kappa, 0.01, 0.0001, 2.0,  INV_GAMMA_PDF, 0.01, 0.1;
 
 % Labor supply
 stderr e_chi, 0.02, 0.0001, 0.4,  INV_GAMMA_PDF, 0.01, 0.1;
@@ -315,7 +309,7 @@ mode_file=directed_search_simp_mode,
 //mh_recover,
 //mcmc_jumping_covariance=prior_variance,
 
-mode_compute=6, 
+mode_compute=, 
 //mode_compute=9,
 presample=0, 
 lik_init=1,
@@ -336,7 +330,7 @@ C_obs, I_obs, Y_obs, lab_prod_obs, labor_share, L_C, L_I, L, p_I_obs;
 % Trace plots
 trace_plot(options_, M_, estim_params_, 'DeepParameter', 1, 'Psi')
 trace_plot(options_, M_, estim_params_, 'DeepParameter', 1, 'gam')
-trace_plot(options_, M_, estim_params_, 'DeepParameter', 1, 'Gamma_bar')
+//trace_plot(options_, M_, estim_params_, 'DeepParameter', 1, 'Gamma_bar')
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %*/
