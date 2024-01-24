@@ -9,8 +9,14 @@ dynare BRS.mod
 %% BRS in levels (estimate shopping parameters)
 dynare BRS_est_shopping.mod
 
-%% BRS in first differences (demeaned)
-dynare BRS_fd.mod
 
 %% BRS: target LC, LI, C, I
 dynare BRS_comovement.mod
+
+
+%% BRS in first differences (demeaned)
+dynare BRS_fd.mod
+
+%% BRS first differences with utilization
+dynare BRS_extended_fd.mod
+

@@ -201,13 +201,13 @@ theta_D = rho_D*theta_D(-1) - e_D;
 
 
 [name='Definition log output']
-log_Y = log(Y);
+log_Y = log(Y) - steady_state(log(Y));
 [name='Definition log consumption']
-log_C = log(C);
+log_C = log(C) - steady_state(log(C));
 [name = 'Definition log investment']
-log_I = log(I);
+log_I = log(I) - steady_state(log(I));
 [name='Definition log hours']
-log_N = log(N);
+log_N = log(N) - steady_state(l;
 [name='Definition log labor productivity']
 log_Y_N = log_Y - log_N;
 [name = 'Definition log shopping effort']
@@ -305,7 +305,7 @@ check;
 estimated_params;
 //x, init_value, lower bound, upper bound, prior shape, prior mean, prior std
 
-gam, 1.5, 0.5, 4,            GAMMA_PDF, 1.5, 0.25;
+//gam, 1.5, 0.5, 4,            GAMMA_PDF, 1.5, 0.25;
 
 % Persistence parameters
 rho_Z,  0.6, 0.01, 0.999999,        BETA_PDF, 0.6, 0.2;
@@ -329,24 +329,25 @@ varobs I_obs, Y_obs, lab_prod_obs, p_I_obs;
 estimation(optim=('MaxIter', 200), 
 datafile=observables_fd, 
 mode_file=BRS_fd_mode, 
-//load_mh_file, 
+load_mh_file, 
 //mh_recover,
-//mcmc_jumping_covariance=prior_variance,
+mcmc_jumping_covariance=prior_variance,
 
-mode_compute=9,
+mode_compute=0,
 presample=0, 
 lik_init=1,
-mh_jscale=0.3, 
+mh_jscale=0.005, 
 mode_check, 
-mh_replic=250000, 
-//mh_replic=0,
+//mh_replic=250000, 
+mh_replic=0,
 mh_nblocks=2, 
 bayesian_irf,
 mh_drop=0.3, 
 moments_varendo,
 prior_trunc=0,
 tex)
-I_obs, C_obs, Y_obs, lab_prod_obs, p_I_obs, log_D, log_N;
+I_obs, C_obs, Y_obs, lab_prod_obs, p_I_obs, 
+log_I, log_C, log_Y, log_Y_N, log_p_I;
 
 
 %----------------------------------------------------------------

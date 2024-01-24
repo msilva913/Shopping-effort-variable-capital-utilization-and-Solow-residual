@@ -201,19 +201,19 @@ theta_D = rho_D*theta_D(-1) - e_D;
 
 
 [name='Definition log output']
-log_Y = log(Y);
+log_Y = log(Y) - steady_state(log(Y));
 [name='Definition log consumption']
-log_C = log(C);
+log_C = log(C) - steady_state(log(C));
 [name = 'Definition log investment']
-log_I = log(I);
+log_I = log(I) - steady_state(log(I));
 [name='Definition log hours']
-log_N = log(N);
+log_N = log(N) - steady_state(log(N));
 [name='Definition log labor productivity']
 log_Y_N = log_Y - log_N;
 [name = 'Definition log shopping effort']
-log_D = log(D);
+log_D = log(D) - steady_state(log(D));
 [name = 'Definition of log relative investment  price']
-log_p_I = log(p_I);
+log_p_I = log(p_I) - steady_state(log_p_I);
 
 % Observation variables: first differences (demeaned) -> link to data in first differences
 C_obs = log_C - log_C(-1);
@@ -266,13 +266,13 @@ steady_state_model;
     R_I = R_C;
     
     % Logged versions of variables
-    log_Y = log(Y);
-    log_C = log(C);
-    log_I = log(I);
-    log_N = log(N);
-    log_Y_N = log_Y - log_N;
-    log_D = log(D);
-    log_p_I = log(p_I);
+    log_Y = 0;
+    log_C = 0;
+    log_I = 0;
+    log_N = 0;
+    log_Y_N = 0;
+    log_D = 0;
+    log_p_I = 0;
     
     C_obs = 0;
     I_obs = 0;
@@ -329,24 +329,26 @@ varobs I_obs, Y_obs, lab_prod_obs, p_I_obs;
 estimation(optim=('MaxIter', 200), 
 datafile=observables_fd, 
 mode_file=BRS_fd_mode, 
-//load_mh_file, 
+load_mh_file, 
 //mh_recover,
 mcmc_jumping_covariance=prior_variance,
 
-mode_compute=4,
+mode_compute=0,
 presample=0, 
 lik_init=1,
 mh_jscale=0.005, 
 mode_check, 
-mh_replic=250000, 
-//mh_replic=0,
+//mh_replic=250000, 
+mh_replic=0,
 mh_nblocks=2, 
 bayesian_irf,
+irf=100,
 mh_drop=0.3, 
 moments_varendo,
 prior_trunc=0,
 tex)
-I_obs, C_obs, Y_obs, lab_prod_obs, p_I_obs, log_D, log_N;
+I_obs, C_obs, Y_obs, lab_prod_obs, p_I_obs, 
+log_I, log_C, log_Y, log_Y_N, log_p_I;
 
 
 %----------------------------------------------------------------
@@ -357,7 +359,7 @@ write_latex_dynamic_model;
 write_latex_parameter_table;
 write_latex_definitions;
 write_latex_prior_table;
-generate_trace_plots(1);
+//generate_trace_plots(1);
 collect_latex_files;
 % if system(['pdflatex -halt-on-error -interaction=batchmode ' M_.fname '_TeX_binder.tex'])
 %     error('TeX-File did not compile.')
