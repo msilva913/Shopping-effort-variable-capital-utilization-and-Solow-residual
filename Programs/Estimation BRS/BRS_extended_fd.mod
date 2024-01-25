@@ -36,6 +36,8 @@ var Y           ${Y}$ (long_name='output')
     Gam        ${\Gamma}$ (long_name = 'Composite utility term')
 
     p_I        ${p_I}$ (long_name = 'Relative investment price')
+    Q          ${Q}$ (long_name = 'Relative price of capital')
+    x          ${x}$ (long_name = 'Investment-capital ratio')
     
     log_Y
     log_C
@@ -93,6 +95,7 @@ r_ann = 0.04; % annual interest rate
 g_bar = 0.0; % no-growth specification.
 nu = 0.72; % Frisch
 sigma_a = 0.32;
+Psi_K = 1.5;
 
 I_Y = 0.20;
 K_Y = 11;
@@ -158,18 +161,25 @@ exp(theta_D)*D^(1/eta) = phi*p_I*I/D_I;
 [name = 'Composite utility term']
 Gam = (C - exp(theta_D)*D^(1+1/eta)/(1+1/eta) - theta_N_ss*exp(theta_N)*N^(1+1/nu)/(1+1/nu));
 
+[name = 'Tobin's Q']
+Q = p_I/(1-phi)*(1-Psi_K*(x-delta))^(-1);
+
 [name= 'Euler equation: C']
-Gam^(-gam)*p_I = beta*((1-phi)*R_C(+1)*h_C(+1) + p_I(+1)*(1-delta_C(+1)))*Gam(+1)^(-gam);
+Q = beta*(Gam(+1)/Gam)^(-gam)*(R_C(+1)*h_C(+1) + (1-delta_C(+1) + Psi_K*(x(+1)-delta)*x(+1) - Psi_K/2*(x(+1)-delta)^2)*Q(+1));
 
 [name = 'Euler equation: I']
 //R_I(+1) = R_C(+1);
-Gam^(-gam)*p_I = beta*((1-phi)*R_I(+1)*h_I(+1) + p_I(+1)*(1-delta_I(+1)))*Gam(+1)^(-gam);
+//Gam^(-gam)*p_I = beta*((1-phi)*R_I(+1)*h_I(+1) + p_I(+1)*(1-delta_I(+1)))*Gam(+1)^(-gam);
+Q = beta*(Gam(+1)/Gam)^(-gam)*(R_I(+1)*h_I(+1) + (1-delta_I(+1) + Psi_K*(x(+1)-delta)*x(+1) - Psi_K/2*(x(+1)-delta)^2)*Q(+1));
+
+[name = 'Investment-capital ratio: x']
+x = I/K(-1);
 
 [name = 'Utilization: C']
-delta_C_pr*p_I = (1-phi)*R_C;
+delta_C_pr*Q = R_C;
 
 [name = 'Utilization: I']
-delta_I_pr*p_I = (1-phi)*R_I;
+delta_I_pr*Q = R_I;
 
 [name = 'Depreciation rate: C']
 delta_C = delta + sigma_b*(h_C-1) + sigma_a*sigma_b/2*(h_C-1)^2;
@@ -191,7 +201,7 @@ I = A_I*(D_I)^phi*Z_I_ss*exp(Z_I)*(h_I*K_I(-1))^alpha_K*(N_I)^alpha_N;
 
 [name = 'Capital law of motion']
 //I = K_C + K_I - (1-delta)*(K_C(-1)+K_I(-1));
-I = K_C + K_I - (1-delta_C)*K_C(-1) - (1-delta_I)*K_I(-1);
+I = K_C + K_I - (1-delta_C)*K_C(-1) - (1-delta_I)*K_I(-1) +Psi_K/2*(x-delta)^2;
 
 [name = 'Labor demand:C']
 (1-phi)*W = alpha_N*C/N_C;
@@ -298,9 +308,9 @@ steady_state_model;
     delta_C_pr = sigma_b_ss;
     delta_I_pr = sigma_b_ss;
 
-   
+    Q = p_I/(1-phi);
+    x = delta_ss + g_bar;
 
-   
 
     Z_C = 0;
     Z_I = 0;
@@ -355,6 +365,7 @@ estimated_params;
 
 //gam, 1.5, 0.5, 4,            GAMMA_PDF, 1.5, 0.25;
 sigma_a, 0.32, 0.0, 10,        GAMMA_PDF, 0.32, 0.2;
+Psi_K, 1.5, 0.0, 20,           GAMMA_PDF, 1.5, 1.0;
 
 % Persistence parameters
 rho_Z,  0.9, 0.01, 0.999999,        BETA_PDF, 0.6, 0.2;
@@ -377,7 +388,7 @@ varobs I_obs, Y_obs, lab_prod_obs, p_I_obs;
 
 estimation(optim=('MaxIter', 200), 
 datafile=observables_fd, 
-mode_file=BRS_extended_fd_mode, 
+//mode_file=BRS_extended_fd_mode, 
 //load_mh_file, 
 //mh_recover,
 mcmc_jumping_covariance=prior_variance,
