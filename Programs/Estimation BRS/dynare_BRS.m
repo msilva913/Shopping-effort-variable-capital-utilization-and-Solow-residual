@@ -17,6 +17,6 @@ dynare BRS_comovement.mod
 %% BRS in first differences (demeaned)
 dynare BRS_fd.mod
 
-%% BRS first differences with utilization
+%% BRS first differences with utilization and investment adjustment costs
 dynare BRS_extended_fd.mod
 

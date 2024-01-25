@@ -38,17 +38,20 @@ function calibrate(targets)
 r = (1+r_ann)^(1/4) - 1.0
 β = (1/(1+r))*(1+g_bar)^(γ)
 # Capital accumulation
-# (1+g_bar)K' = (1-δ)K + I
+# (1+g_bar)K' = (1-δ)K + I 
 # δ = p_I I_Y/(p_I K_Y) - g_bar
+#δ = I_Y/K_Y - g_bar
+# discrete time
 δ = I_Y/K_Y - g_bar
 
 # Labor share 
 α_N = (1-ϕ)*labor_share
-
+α_K = (r+δ)*K_Y
 # Capital share 
 # R_c=R_i=R in steady state 
-R_pi = (1-β*(1+g_bar)^(-γ)*(1-δ))/(β*(1+g_bar)^(-γ))
-α_K = R_pi *K_Y
+#R_pi = (1-β*(1+g_bar)^(-γ)*(1-δ))/(β*(1+g_bar)^(-γ))
+#R_pi = r + delta
+#α_K = R_pi *K_Y
 
 # Search efficiency A_c and A_i
 #Ψ_{Tj}(D_j) = A_jD_j^{ϕ}

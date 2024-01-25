@@ -67,7 +67,8 @@ parameters
     r_ann  ${r_ann}$    (long_name='Annual interest rate')
     g_bar  ${\overline{g}}$ (long_name = 'Quarterly growth rate')
     nu     $(\nu)$       (long_name = 'Frisch elasticity')
-    sigma_a $(\sigma_a)$ (long_name = 'Elasticity of marginal utilization cost')
+    sigma_a ${\sigma_a}$ (long_name = 'Elasticity of marginal utilization cost')
+    Psi_K ${\Psi_K}$ (long_name = 'Investment adjustment cost parameter')
    
     I_Y    $(I_Y)$   (long_name = 'Investment-output ratio')
     K_Y    $(K_Y)$   (long_name = 'Capital-output ratio (quarterly)')
@@ -161,7 +162,7 @@ exp(theta_D)*D^(1/eta) = phi*p_I*I/D_I;
 [name = 'Composite utility term']
 Gam = (C - exp(theta_D)*D^(1+1/eta)/(1+1/eta) - theta_N_ss*exp(theta_N)*N^(1+1/nu)/(1+1/nu));
 
-[name = 'Tobin's Q']
+[name = 'Tobins Q']
 Q = p_I/(1-phi)*(1-Psi_K*(x-delta))^(-1);
 
 [name= 'Euler equation: C']
@@ -369,7 +370,7 @@ Psi_K, 1.5, 0.0, 20,           GAMMA_PDF, 1.5, 1.0;
 
 % Persistence parameters
 rho_Z,  0.9, 0.01, 0.999999,        BETA_PDF, 0.6, 0.2;
-rho_ZI,  0.6, 0.01, 0.999999,        BETA_PDF, 0.6, 0.2;
+rho_ZI,  0.95, 0.01, 0.999999,        BETA_PDF, 0.6, 0.2;
 rho_N,  0.6, 0.01, 0.9999,        BETA_PDF, 0.6, 0.2;
 rho_D,  0.9, 0.01, 0.9999,        BETA_PDF, 0.6, 0.2;
 
@@ -388,15 +389,16 @@ varobs I_obs, Y_obs, lab_prod_obs, p_I_obs;
 
 estimation(optim=('MaxIter', 200), 
 datafile=observables_fd, 
-//mode_file=BRS_extended_fd_mode, 
+mode_file=BRS_extended_fd_mode, 
 //load_mh_file, 
 //mh_recover,
 mcmc_jumping_covariance=prior_variance,
 
-mode_compute=2,
+mode_compute=4,
 presample=0, 
 lik_init=1,
 mh_jscale=0.001, 
+//mh_jscale=0.3,
 mode_check, 
 mh_replic=250000, 
 //mh_replic=0,
