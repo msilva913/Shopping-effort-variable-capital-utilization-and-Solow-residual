@@ -35,20 +35,24 @@ function calibrate(targets)
 
 # Discount factor
 #β*(1+g_bar)^(-γ) = 1/(1+r)
+G = exp(g_bar)
 r = (1+r_ann)^(1/4) - 1.0
-β = (1/(1+r))*(1+g_bar)^(γ)
+β = (1/(1+r))*G^(γ)
 # Capital accumulation
-# (1+g_bar)K' = (1-δ)K + I
+# (1+g_bar)K' = (1-δ)K + I 
 # δ = p_I I_Y/(p_I K_Y) - g_bar
-δ = I_Y/K_Y - g_bar
+#δ = I_Y/K_Y - g_bar
+# discrete time
+δ = I_Y/K_Y +1 - G
 
 # Labor share 
 α_N = (1-ϕ)*labor_share
-
+α_K = (r+δ)*K_Y
 # Capital share 
 # R_c=R_i=R in steady state 
-R_pi = (1-β*(1+g_bar)^(-γ)*(1-δ))/(β*(1+g_bar)^(-γ))
-α_K = R_pi *K_Y
+#R_pi = (1-β*(1+g_bar)^(-γ)*(1-δ))/(β*(1+g_bar)^(-γ))
+#R_pi = r + delta
+#α_K = R_pi *K_Y
 
 # Search efficiency A_c and A_i
 #Ψ_{Tj}(D_j) = A_jD_j^{ϕ}
@@ -73,17 +77,19 @@ A_i = Ψ_j/D_i^(ϕ)
 # K_i/K_c = I_Y/(1-I_Y) 
 I = I_Y*Y
 C = Y - I
-K = K_Y*Y
+K = K_Y*Y*G # transformation of variables
 K_i = I_Y*K
 K_c = (1-I_Y)*K
 N_i = I_Y*N 
 N_c = (1-I_Y)*N
 
-z_c = (1-I_Y)/(Ψ_j*K_c^(α_K)*N_c^(α_N))
-z_i = (I_Y)/(Ψ_j*K_i^(α_K)*N_i^(α_N))
+Q = p_i/(1-ϕ);
+
+z_c = (1-I_Y)/(Ψ_j*G^(-α_K)*K_c^(α_K)*N_c^(α_N))
+z_i = (I_Y)/(Ψ_j*G^(-α_K)*K_i^(α_K)*N_i^(α_N))
 
 return (γ=γ, β=β, δ=δ, α_N=α_N, α_K=α_K, A_c=A_c, A_i=A_i, z_c=z_c, z_i=z_i, C=C, I=I, Y=Y, K=K, N=N, N_c=N_c, N_i=N_i,
-    D=D, D_c=D_c, D_i=D_i)
+    D=D, D_c=D_c, D_i=D_i, Q=Q)
 end
 
 targets = Targets(g_bar = 0.0074, γ=1.0)

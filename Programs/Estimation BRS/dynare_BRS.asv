@@ -1,0 +1,25 @@
+clc;
+clear;
+%% 
+addpath c:\dynare\5.4\matlab
+
+%% BRS in levels (Hamilton regression filter)
+dynare BRS.mod
+
+%% BRS in levels (estimate shopping parameters)
+dynare BRS_est_shopping.mod
+
+
+%% BRS: target LC, LI, C, I
+dynare BRS_comovement.mod
+
+
+%% BRS in first differences (demeaned)
+dynare BRS_fd.mod
+
+%% BRS first differences with utilization and investment adjustment costs
+dynare BRS_extended_fd.mod
+
+%% BRS extended with growth
+dynare BYRS_gr
+
