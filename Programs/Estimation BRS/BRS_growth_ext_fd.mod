@@ -412,10 +412,10 @@ varobs I_obs, Y_obs, lab_prod_obs, p_I_obs;
 
 estimation(optim=('MaxIter', 200), 
 datafile=observables_fd, 
-//mode_file=BRS_extended_fd_mode, 
+mode_file=BRS_growth_ext_fd_mode, 
 //load_mh_file, 
 //mh_recover,
-//mcmc_jumping_covariance=prior_variance,
+mcmc_jumping_covariance=prior_variance,
 
 mode_compute=4,
 presample=0, 
