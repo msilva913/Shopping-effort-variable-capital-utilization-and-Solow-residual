@@ -144,7 +144,7 @@ model;
 
 #I_ss = I_Y;
 #C_ss = 1 - I_ss;
-#K_ss = K_Y/exp(g_bar);
+#K_ss = K_Y*exp(g_bar);
 #K_I_ss = I_Y*K_ss;
 #K_C_ss = (1-I_Y)*K_ss;
 #N_I_ss = I_Y*N_ss;
@@ -152,8 +152,8 @@ model;
 
 #W_ss = (p_I_ss/(1-phi))*alpha_N*I_ss/N_I_ss;
 
-#Z_C_ss = (1-I_Y)/(Psi*K_C_ss^(alpha_K)*N_C_ss^(alpha_N));
-#Z_I_ss = (I_Y)/(Psi*K_I_ss^(alpha_K)*N_I_ss^(alpha_N));
+#Z_C_ss = (1-I_Y)/(Psi*exp(g_bar)^(-alpha_K)*K_C_ss^(alpha_K)*N_C_ss^(alpha_N));
+#Z_I_ss = (I_Y)/(Psi*exp(g_bar)^(-alpha_K)*K_I_ss^(alpha_K)*N_I_ss^(alpha_N));
 
 #theta_N_ss = (1-phi)*W_ss/(N_ss^(1/nu));
 
@@ -183,6 +183,7 @@ Q = beta*(Gam(+1)/Gam)^(-gam)*exp(g(+1))^(-gam)*(R_I(+1)*h_I(+1) + (1-delta_I(+1
 
 [name = 'Investment-capital ratio: x']
 x = I/K(-1)*exp(g);
+//x = I/K(-1);
 
 [name = 'Utilization: C']
 delta_C_pr*Q = R_C;
@@ -207,7 +208,7 @@ C = A_C*(D_C)^phi*Z_C_ss*exp(g)^(-alpha_K)*(h_C*K_C(-1))^alpha_K*(N_C)^alpha_N;
 //C = A_C*(D_C)^phi*exp(g)^(-alpha_K)*(h_C*K_C(-1))^alpha_K*(N_C)^alpha_N;
 
 [name = 'Investment production']
-I = A_I*(D_I)^phi*Z_I_ss*exp(g)^(-alpha_K)*(h_I*K_I(-1))^alpha_K*(N_I)^alpha_N;
+I = A_I*(D_I)^phi*Z_I_ss*exp(Z_I)*exp(g)^(-alpha_K)*(h_I*K_I(-1))^alpha_K*(N_I)^alpha_N;
 //I = A_I*(D_I)^phi*exp(g)^(-alpha_K)*(h_I*K_I(-1))^alpha_K*(N_I)^alpha_N;
 
 [name = 'Capital law of motion']
@@ -274,10 +275,10 @@ log_D = log(D) - steady_state(log(D));
 [name = 'Definition of log relative investment  price']
 log_p_I = log(p_I) - steady_state(log_p_I);
 
-% Observation variables: first differences (demeaned) -> link to data in first differences
-C_obs = log_C - log_C(-1);
-I_obs = log_I - log_I(-1);
-Y_obs = log_Y - log_Y(-1);
+% Observation variables: first differences (demeaned) -> link to data in first differences (p. 58 of Pfeifer's Observation Equations)
+C_obs = log_C - log_C(-1) +g-g_bar;
+I_obs = log_I - log_I(-1) + g-g_bar;
+Y_obs = log_Y - log_Y(-1) + g-g_bar;
 lab_prod_obs = log_Y_N - log_Y_N(-1);
 p_I_obs = log_p_I - log_p_I(-1);
 N_obs = log_N - log_N(-1);
@@ -286,6 +287,7 @@ N_obs = log_N - log_N(-1);
 end;
 
 steady_state_model;
+//initval;
     //Do Calibration
     //Calibrate the model to N=0.3, annual interest rate, and normalizations
     N = N_ss;
@@ -299,7 +301,7 @@ steady_state_model;
     D_I = I_Y*D;
 
     //K = K_Y;
-    K = K_Y/exp(g_bar);
+    K = K_Y*exp(g_bar);
     K_I = I_Y*K;
     K_C = (1-I_Y)*K;
     N_I = I_Y*N;
@@ -330,7 +332,8 @@ steady_state_model;
     delta_I_pr = sigma_b_ss;
 
     Q = p_I/(1-phi);
-    x = delta_ss + g_bar;
+    //x = delta_ss + g_bar;
+    x = I_Y/K_Y;
 
 
     Z_C = 0;
@@ -341,7 +344,7 @@ steady_state_model;
 
     
 
-    R_C = W*exp(g)*(alpha_K_ss/alpha_N_ss)*N_I/K_I;
+    R_C = W*exp(g)*(alpha_K_ss/alpha_N_ss)*N_C/K_C;
     R_I = R_C;
     
     % Logged versions of variables
@@ -409,15 +412,15 @@ varobs I_obs, Y_obs, lab_prod_obs, p_I_obs;
 
 estimation(optim=('MaxIter', 200), 
 datafile=observables_fd, 
-//mode_file=BRS_extended_fd_mode, 
-//load_mh_file, 
+mode_file=BRS_growth_ext_fd_mode, 
+load_mh_file, 
 //mh_recover,
-//mcmc_jumping_covariance=prior_variance,
+mcmc_jumping_covariance=prior_variance,
 
-mode_compute=4,
+mode_compute=0,
 presample=0, 
 lik_init=1,
-mh_jscale=0.001, 
+mh_jscale=0.003, 
 //mh_jscale=0.3,
 mode_check, 
 mh_replic=250000, 

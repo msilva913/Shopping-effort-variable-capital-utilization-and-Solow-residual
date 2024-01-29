@@ -275,11 +275,12 @@ log_D = log(D) - steady_state(log(D));
 [name = 'Definition of log relative investment  price']
 log_p_I = log(p_I) - steady_state(log_p_I);
 
-% Observation variables: first differences (demeaned) -> link to data in first differences
-C_obs = log_C - log_C(-1);
-I_obs = log_I - log_I(-1);
-Y_obs = log_Y - log_Y(-1);
-lab_prod_obs = log_Y_N - log_Y_N(-1);
+% Observation variables: first differences (demeaned) -> link to data in first differences (p. 58 of Pfeifer's Observation Equations)
+C_obs = log_C - log_C(-1) +g-g_bar;
+I_obs = log_I - log_I(-1) + g-g_bar;
+Y_obs = log_Y - log_Y(-1) + g-g_bar;
+lab_prod_obs = log_Y_N - log_Y_N(-1) + g-g_bar;
+% Stationary variables
 p_I_obs = log_p_I - log_p_I(-1);
 N_obs = log_N - log_N(-1);
 
@@ -420,7 +421,7 @@ mcmc_jumping_covariance=prior_variance,
 mode_compute=0,
 presample=0, 
 lik_init=1,
-mh_jscale=0.003, 
+mh_jscale=0.0006, 
 //mh_jscale=0.3,
 mode_check, 
 mh_replic=250000, 
