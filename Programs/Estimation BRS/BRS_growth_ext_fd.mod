@@ -144,7 +144,7 @@ model;
 
 #I_ss = I_Y;
 #C_ss = 1 - I_ss;
-#K_ss = K_Y/exp(g_bar);
+#K_ss = K_Y*exp(g_bar);
 #K_I_ss = I_Y*K_ss;
 #K_C_ss = (1-I_Y)*K_ss;
 #N_I_ss = I_Y*N_ss;
@@ -152,8 +152,8 @@ model;
 
 #W_ss = (p_I_ss/(1-phi))*alpha_N*I_ss/N_I_ss;
 
-#Z_C_ss = (1-I_Y)/(Psi*K_C_ss^(alpha_K)*N_C_ss^(alpha_N));
-#Z_I_ss = (I_Y)/(Psi*K_I_ss^(alpha_K)*N_I_ss^(alpha_N));
+#Z_C_ss = (1-I_Y)/(Psi*exp(g_bar)^(-alpha_K)*K_C_ss^(alpha_K)*N_C_ss^(alpha_N));
+#Z_I_ss = (I_Y)/(Psi*exp(g_bar)^(-alpha_K)*K_I_ss^(alpha_K)*N_I_ss^(alpha_N));
 
 #theta_N_ss = (1-phi)*W_ss/(N_ss^(1/nu));
 
@@ -208,7 +208,7 @@ C = A_C*(D_C)^phi*Z_C_ss*exp(g)^(-alpha_K)*(h_C*K_C(-1))^alpha_K*(N_C)^alpha_N;
 //C = A_C*(D_C)^phi*exp(g)^(-alpha_K)*(h_C*K_C(-1))^alpha_K*(N_C)^alpha_N;
 
 [name = 'Investment production']
-I = A_I*(D_I)^phi*Z_I_ss*exp(g)^(-alpha_K)*(h_I*K_I(-1))^alpha_K*(N_I)^alpha_N;
+I = A_I*(D_I)^phi*Z_I_ss*exp(Z_I)*exp(g)^(-alpha_K)*(h_I*K_I(-1))^alpha_K*(N_I)^alpha_N;
 //I = A_I*(D_I)^phi*exp(g)^(-alpha_K)*(h_I*K_I(-1))^alpha_K*(N_I)^alpha_N;
 
 [name = 'Capital law of motion']
@@ -301,7 +301,7 @@ steady_state_model;
     D_I = I_Y*D;
 
     //K = K_Y;
-    K = K_Y/exp(g_bar);
+    K = K_Y*exp(g_bar);
     K_I = I_Y*K;
     K_C = (1-I_Y)*K;
     N_I = I_Y*N;

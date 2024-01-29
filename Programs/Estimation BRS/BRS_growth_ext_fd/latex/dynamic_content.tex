@@ -44,13 +44,13 @@ I\_ss = {(I_Y)}
 C\_ss = 1-{(I_Y)}
 \end{dmath*}
 \begin{dmath*}
-K\_ss = \frac{{(K_Y)}}{\exp\left({{\overline{g}}}\right)}
+K\_ss = {(K_Y)}\, \exp\left({{\overline{g}}}\right)
 \end{dmath*}
 \begin{dmath*}
-K\_I\_ss = {(I_Y)}\, \frac{{(K_Y)}}{\exp\left({{\overline{g}}}\right)}
+K\_I\_ss = {(I_Y)}\, {(K_Y)}\, \exp\left({{\overline{g}}}\right)
 \end{dmath*}
 \begin{dmath*}
-K\_C\_ss = \left(1-{(I_Y)}\right)\, \frac{{(K_Y)}}{\exp\left({{\overline{g}}}\right)}
+K\_C\_ss = \left(1-{(I_Y)}\right)\, {(K_Y)}\, \exp\left({{\overline{g}}}\right)
 \end{dmath*}
 \begin{dmath*}
 N\_I\_ss = {(I_Y)}\, {N\_ss}
@@ -62,10 +62,10 @@ N\_C\_ss = \left(1-{(I_Y)}\right)\, {N\_ss}
 W\_ss = \frac{{(I_Y)}\, \left(1-{(\phi)}\right)\, {(labor share)}\, \frac{{p\_I\_ss}}{1-{(\phi)}}}{{(I_Y)}\, {N\_ss}}
 \end{dmath*}
 \begin{dmath*}
-Z\_C\_ss = \frac{1-{(I_Y)}}{{(\Psi)}\, \left(\left(1-{(I_Y)}\right)\, \frac{{(K_Y)}}{\exp\left({{\overline{g}}}\right)}\right)^{{(K_Y)}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{(I_Y)}}{{(K_Y)}}-\exp\left({{\overline{g}}}\right)\right)}\, \left(\left(1-{(I_Y)}\right)\, {N\_ss}\right)^{\left(1-{(\phi)}\right)\, {(labor share)}}}
+Z\_C\_ss = \frac{1-{(I_Y)}}{{(\Psi)}\, \exp\left({{\overline{g}}}\right)^{\left(-\left({(K_Y)}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{(I_Y)}}{{(K_Y)}}-\exp\left({{\overline{g}}}\right)\right)\right)\right)}\, \left(\left(1-{(I_Y)}\right)\, {(K_Y)}\, \exp\left({{\overline{g}}}\right)\right)^{{(K_Y)}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{(I_Y)}}{{(K_Y)}}-\exp\left({{\overline{g}}}\right)\right)}\, \left(\left(1-{(I_Y)}\right)\, {N\_ss}\right)^{\left(1-{(\phi)}\right)\, {(labor share)}}}
 \end{dmath*}
 \begin{dmath*}
-Z\_I\_ss = \frac{{(I_Y)}}{{(\Psi)}\, \left({(I_Y)}\, \frac{{(K_Y)}}{\exp\left({{\overline{g}}}\right)}\right)^{{(K_Y)}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{(I_Y)}}{{(K_Y)}}-\exp\left({{\overline{g}}}\right)\right)}\, \left({(I_Y)}\, {N\_ss}\right)^{\left(1-{(\phi)}\right)\, {(labor share)}}}
+Z\_I\_ss = \frac{{(I_Y)}}{{(\Psi)}\, \exp\left({{\overline{g}}}\right)^{\left(-\left({(K_Y)}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{(I_Y)}}{{(K_Y)}}-\exp\left({{\overline{g}}}\right)\right)\right)\right)}\, \left({(I_Y)}\, {(K_Y)}\, \exp\left({{\overline{g}}}\right)\right)^{{(K_Y)}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{(I_Y)}}{{(K_Y)}}-\exp\left({{\overline{g}}}\right)\right)}\, \left({(I_Y)}\, {N\_ss}\right)^{\left(1-{(\phi)}\right)\, {(labor share)}}}
 \end{dmath*}
 \begin{dmath*}
 theta\_N\_ss = \frac{\left(1-{(\phi)}\right)\, \frac{{(I_Y)}\, \left(1-{(\phi)}\right)\, {(labor share)}\, \frac{{p\_I\_ss}}{1-{(\phi)}}}{{(I_Y)}\, {N\_ss}}}{{N\_ss}^{\frac{1}{{(\nu)}}}}
@@ -100,7 +100,7 @@ theta\_N\_ss = \frac{\left(1-{(\phi)}\right)\, \frac{{(I_Y)}\, \left(1-{(\phi)}\
 \end{dmath}
 % Equation 8
 \begin{dmath}
-{{x}}_{t}=\frac{{{I}}_{t}}{{{K}}_{t-1}}
+{{x}}_{t}=\frac{{{I}}_{t}}{{{K}}_{t-1}}\, \exp\left({{g}}_{t}\right)
 \end{dmath}
 % Equation 9
 \begin{dmath}
@@ -128,11 +128,11 @@ theta\_N\_ss = \frac{\left(1-{(\phi)}\right)\, \frac{{(I_Y)}\, \left(1-{(\phi)}\
 \end{dmath}
 % Equation 15
 \begin{dmath}
-{{C}}_{t}={{N_C}}_{t}^{\left(1-{(\phi)}\right)\, {(labor share)}}\, \frac{1-{(I_Y)}}{{(\Psi)}\, \left(\left(1-{(I_Y)}\right)\, \frac{{(K_Y)}}{\exp\left({{\overline{g}}}\right)}\right)^{{(K_Y)}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{(I_Y)}}{{(K_Y)}}-\exp\left({{\overline{g}}}\right)\right)}\, \left(\left(1-{(I_Y)}\right)\, {N\_ss}\right)^{\left(1-{(\phi)}\right)\, {(labor share)}}}\, {{D}}_{t}^{{(\phi)}}\, \frac{{(\Psi)}}{\left({(\phi)}^{\frac{{(\eta)}}{1+{(\eta)}}}\, \left(1-{(I_Y)}\right)\right)^{{(\phi)}}}\, \exp\left({{g}}_{t}\right)^{\left(-\left({(K_Y)}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{(I_Y)}}{{(K_Y)}}-\exp\left({{\overline{g}}}\right)\right)\right)\right)}\, \left({{h_C}}_{t}\, {{K_C}}_{t-1}\right)^{{(K_Y)}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{(I_Y)}}{{(K_Y)}}-\exp\left({{\overline{g}}}\right)\right)}
+{{C}}_{t}={{N_C}}_{t}^{\left(1-{(\phi)}\right)\, {(labor share)}}\, \frac{1-{(I_Y)}}{{(\Psi)}\, \exp\left({{\overline{g}}}\right)^{\left(-\left({(K_Y)}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{(I_Y)}}{{(K_Y)}}-\exp\left({{\overline{g}}}\right)\right)\right)\right)}\, \left(\left(1-{(I_Y)}\right)\, {(K_Y)}\, \exp\left({{\overline{g}}}\right)\right)^{{(K_Y)}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{(I_Y)}}{{(K_Y)}}-\exp\left({{\overline{g}}}\right)\right)}\, \left(\left(1-{(I_Y)}\right)\, {N\_ss}\right)^{\left(1-{(\phi)}\right)\, {(labor share)}}}\, {{D}}_{t}^{{(\phi)}}\, \frac{{(\Psi)}}{\left({(\phi)}^{\frac{{(\eta)}}{1+{(\eta)}}}\, \left(1-{(I_Y)}\right)\right)^{{(\phi)}}}\, \exp\left({{g}}_{t}\right)^{\left(-\left({(K_Y)}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{(I_Y)}}{{(K_Y)}}-\exp\left({{\overline{g}}}\right)\right)\right)\right)}\, \left({{h_C}}_{t}\, {{K_C}}_{t-1}\right)^{{(K_Y)}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{(I_Y)}}{{(K_Y)}}-\exp\left({{\overline{g}}}\right)\right)}
 \end{dmath}
 % Equation 16
 \begin{dmath}
-{{I}}_{t}={{N_I}}_{t}^{\left(1-{(\phi)}\right)\, {(labor share)}}\, \exp\left({{g}}_{t}\right)^{\left(-\left({(K_Y)}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{(I_Y)}}{{(K_Y)}}-\exp\left({{\overline{g}}}\right)\right)\right)\right)}\, \frac{{(I_Y)}}{{(\Psi)}\, \left({(I_Y)}\, \frac{{(K_Y)}}{\exp\left({{\overline{g}}}\right)}\right)^{{(K_Y)}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{(I_Y)}}{{(K_Y)}}-\exp\left({{\overline{g}}}\right)\right)}\, \left({(I_Y)}\, {N\_ss}\right)^{\left(1-{(\phi)}\right)\, {(labor share)}}}\, {{D}}_{t}^{{(\phi)}}\, \frac{{(\Psi)}}{\left({(I_Y)}\, {(\phi)}^{\frac{{(\eta)}}{1+{(\eta)}}}\right)^{{(\phi)}}}\, \left({{h_C}}_{t}\, {{K_I}}_{t-1}\right)^{{(K_Y)}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{(I_Y)}}{{(K_Y)}}-\exp\left({{\overline{g}}}\right)\right)}
+{{I}}_{t}={{N_I}}_{t}^{\left(1-{(\phi)}\right)\, {(labor share)}}\, \exp\left({{g}}_{t}\right)^{\left(-\left({(K_Y)}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{(I_Y)}}{{(K_Y)}}-\exp\left({{\overline{g}}}\right)\right)\right)\right)}\, \exp\left({{Z_I}}_{t}\right)\, \frac{{(I_Y)}}{{(\Psi)}\, \exp\left({{\overline{g}}}\right)^{\left(-\left({(K_Y)}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{(I_Y)}}{{(K_Y)}}-\exp\left({{\overline{g}}}\right)\right)\right)\right)}\, \left({(I_Y)}\, {(K_Y)}\, \exp\left({{\overline{g}}}\right)\right)^{{(K_Y)}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{(I_Y)}}{{(K_Y)}}-\exp\left({{\overline{g}}}\right)\right)}\, \left({(I_Y)}\, {N\_ss}\right)^{\left(1-{(\phi)}\right)\, {(labor share)}}}\, {{D}}_{t}^{{(\phi)}}\, \frac{{(\Psi)}}{\left({(I_Y)}\, {(\phi)}^{\frac{{(\eta)}}{1+{(\eta)}}}\right)^{{(\phi)}}}\, \left({{h_C}}_{t}\, {{K_I}}_{t-1}\right)^{{(K_Y)}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{(I_Y)}}{{(K_Y)}}-\exp\left({{\overline{g}}}\right)\right)}
 \end{dmath}
 % Equation 17
 \begin{dmath}
