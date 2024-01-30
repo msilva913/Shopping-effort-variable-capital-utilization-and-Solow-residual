@@ -241,6 +241,9 @@ D = D_C + D_I;
 [name = 'Output (base-year prices)']
 Y = C + p_I_ss*I;
 
+[name = 'TFP']
+TFP = Y/(K(-1)^(1-omega)*N^(omega));
+
 % Exogenous processes
 [name='exogenous TFP growth process']
 //Z_C = rho_Z*Z_C(-1)+e_Z;
@@ -413,8 +416,8 @@ varobs I_obs, Y_obs, lab_prod_obs, p_I_obs;
 
 estimation(optim=('MaxIter', 200), 
 datafile=observables_fd, 
-//mode_file=BRS_growth_ext_fd_mode, 
-//load_mh_file, 
+mode_file=BRS_growth_ext_fd_v1_mode, 
+load_mh_file, 
 //mh_recover,
 mcmc_jumping_covariance=prior_variance,
 
@@ -424,8 +427,8 @@ lik_init=1,
 mh_jscale=0.003, 
 //mh_jscale=0.3,
 mode_check, 
-mh_replic=250000, 
-//mh_replic=0,
+//mh_replic=250000, 
+mh_replic=0,
 mh_nblocks=2, 
 bayesian_irf,
 irf=120,

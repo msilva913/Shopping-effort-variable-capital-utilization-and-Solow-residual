@@ -23,5 +23,6 @@ dynare BRS_extended_fd.mod
 %% BRS extended with TFP growth (shock to growth rate)
 dynare BRS_growth_ext_fd_v1.mod nostrict
 
-dynare BRS_growth_ext_fd.mod nostrict
-
+%dynare BRS_growth_ext_fd.mod nostrict
+%% BRS extended with TFP growth (estimate shopping parameters)
+dynare BRS_growth_ext_shopping.mod
