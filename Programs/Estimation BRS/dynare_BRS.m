@@ -26,3 +26,6 @@ dynare BRS_growth_ext_fd_v1.mod nostrict
 %dynare BRS_growth_ext_fd.mod nostrict
 %% BRS extended with TFP growth (estimate shopping parameters)
 dynare BRS_growth_ext_shopping.mod
+
+%% BRS extended with TFP growth (estimate on sectoral data LC, LI, C, I)
+dynare BRS_growth_ext_comovement.mod 
