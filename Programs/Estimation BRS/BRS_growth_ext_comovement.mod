@@ -39,6 +39,8 @@ var Y           ${Y}$ (long_name='output')
     p_I        ${p_I}$ (long_name = 'Relative investment price')
     Q          ${Q}$ (long_name = 'Relative price of capital')
     x          ${x}$ (long_name = 'Investment-capital ratio')
+    
+    util       ${util}$ (long_name = 'Capacity utilization:')
 
     g          ${g}$ (long_name = 'Output growth rate due to technology')
     g_z        ${g_z}$ (long_name = 'Growth rate of technology')
@@ -250,6 +252,9 @@ D = D_C + D_I;
 [name = 'Output (base-year prices)']
 Y = C + p_I_ss*I;
 
+[name = 'Capacity utilization']
+util = (C/Y)*A_C*D_C^(phi)*h_C^(alpha_K) + (I/Y)*A_I*D_I^(phi)*h_I^(alpha_K);
+
 % Exogenous processes
 [name='exogenous TFP growth process']
 //Z_C = rho_Z*Z_C(-1)+e_Z;
@@ -288,6 +293,8 @@ log_Y_N = log_Y - log_N;
 log_D = log(D) - steady_state(log(D));
 [name = 'Definition of log relative investment  price']
 log_p_I = log(p_I) - steady_state(log_p_I);
+[name = 'Definition of log capacity utilization']
+log_util = log(util) - steady_state(log(util));
 
 % Observation variables: first differences (demeaned) -> link to data in first differences (p. 58 of Pfeifer's Observation Equations)
 C_obs = log_C - log_C(-1) ;
@@ -299,6 +306,7 @@ lab_prod_obs = log_Y_N - log_Y_N(-1) ;
 % Stationary variables
 p_I_obs = log_p_I - log_p_I(-1);
 N_obs = log_N - log_N(-1);
+util_obs = log_util - log_util(-1);
 
 
 end;
@@ -351,6 +359,7 @@ steady_state_model;
     //x = delta_ss + g_bar;
     x = I_Y/K_Y;
 
+    util = (C/Y)*A_C*D_C^(phi)*h_C^(alpha_K_ss) + (I/Y)*A_I*D_I^(phi)*h_I^(alpha_K_ss);
 
     Z_C = 0;
     Z_I = 0;
@@ -373,6 +382,7 @@ steady_state_model;
     log_Y_N = 0;
     log_D = 0;
     log_p_I = 0;
+    log_util = 0;
     
     C_obs = 0;
     I_obs = 0;
@@ -382,6 +392,7 @@ steady_state_model;
     LC_obs = 0;
     LI_obs = 0;
     p_I_obs = 0;
+    util_obs = 0;
 
 end;
 
@@ -434,7 +445,7 @@ end;
 
 options_.TeX=1;
 
-varobs I_obs, Y_obs, lab_prod_obs, LC_obs;
+varobs I_obs, Y_obs, lab_prod_obs, LC_obs, util_obs;
 //varobs I_obs, Y_obs, lab_prod_obs, p_I_obs;
 
 

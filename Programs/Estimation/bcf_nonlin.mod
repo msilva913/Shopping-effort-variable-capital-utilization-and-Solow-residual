@@ -6,7 +6,7 @@
 //---------------------------------------------------------------------
 var yt, kt, ct, Ht, it, lambdat, zt;
 	
-//predetermined_variables Ht;
+predetermined_variables Ht;
 varexo x_e_z_t;
 
 //---------------------------------------------------------------------
@@ -77,7 +77,7 @@ Z(1)=oo_.irfs.zt_x_e_z_t(1)+Z_0;
 //for ii=2:length(oo_.irfs.yt_x_e_z_t)
 //Z(ii)=oo_.irfs.zt_x_e_z_t(ii)+Z(ii-1);
 //yt(ii)=oo_.irfs.yt_x_e_z_t(ii)+Z(ii);
-//end
+//end;
 
 % plot output IRF
 //plot(yt(2:end))

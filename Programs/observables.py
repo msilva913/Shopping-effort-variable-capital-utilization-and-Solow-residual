@@ -81,7 +81,7 @@ def construct_data(init, final, freq):
     pop = fred.get_series('CNP16OV').resample(freq).mean()
     
     " Capacity utilization "
-    cu = fred.get_series('TCU').resample(freq).mean().dropna()
+    util = fred.get_series('TCU').resample(freq).mean().dropna()
     
     " Total factor productivity "
     dtfp = pd.read_csv('quarterly_tfp.csv', header=0, nrows=304, sep=';' )
@@ -119,7 +119,7 @@ def construct_data(init, final, freq):
    
     " Note: these series imply labor productivity in each sector "
     " List of data series "
-    var_load_list = [y, c, i, lc, li, l, lab_prod, p_I, SR, SR_util, cu] 
+    var_load_list = [y, c, i, lc, li, l, lab_prod, p_I, SR, SR_util, util] 
     return var_load_list
 
 
@@ -132,7 +132,8 @@ if __name__ == "__main__":
     init = '1967-01-01'
     final = '2019-12-30'
     load = False
-    filter_type = 'hamilton'
+    #filter_type = 'hamilton'
+    filter_type = 'growth'
     freq = 'Q'
     save_observables = True
     
@@ -143,7 +144,7 @@ if __name__ == "__main__":
         save_object(var_load_list, 'var_load_list')
     
     dat = pd.concat(var_load_list, axis=1)
-    lab = ['Y', 'C', 'I', 'LC', 'LI', 'L', "lab_prod", 'p_I', 'SR', 'SR_util', 'cu']
+    lab = ['Y', 'C', 'I', 'LC', 'LI', 'L', "lab_prod", 'p_I', 'SR', 'SR_util', 'util']
     dat.columns = lab
     cycle = pd.concat([filter_transform(dat[x], init=init, final=final, transform_type='log',
                                         filter_type=filter_type) for x in lab], axis=1)
@@ -163,9 +164,9 @@ if __name__ == "__main__":
         #save_object(cycle, 'cycle')
         " Save output for estimation using growth filter"
         lab = ['Y_obs', 'C_obs', 'I_obs', 'LC_obs', 'LI_obs', 'L_obs',
-               'lab_prod_obs', 'p_I_obs', 'SR_obs', 'SR_util_obs', 'cu']
+               'lab_prod_obs', 'p_I_obs', 'SR_obs', 'SR_util_obs', 'util_obs']
         dic_data = dict(zip(lab, [np.asarray(cycle[x]) for x in cycle.columns]))
-        sio.savemat('observables.mat', dic_data)
+        sio.savemat('observables_fd.mat', dic_data)
         
 
     # Do plots
@@ -271,7 +272,7 @@ if __name__ == "__main__":
     ax.legend(fontsize=11)
     plt.savefig("utilization_series_comparison.pdf")
     
-    util_series = cycle[["util_Fern", "cu", "Y"]]
+    util_series = cycle[["util_Fern", "util", "Y"]]
     mom_util = moments(100*util_series)
     print(mom_util.to_latex())
     #mom_util.style.to_latex()
