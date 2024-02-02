@@ -241,8 +241,6 @@ D = D_C + D_I;
 [name = 'Output (base-year prices)']
 Y = C + p_I_ss*I;
 
-[name = 'TFP']
-TFP = Y/(K(-1)^(1-omega)*N^(omega));
 
 % Exogenous processes
 [name='exogenous TFP growth process']
@@ -421,7 +419,7 @@ load_mh_file,
 //mh_recover,
 mcmc_jumping_covariance=prior_variance,
 
-mode_compute=1,
+mode_compute=0,
 presample=0, 
 lik_init=1,
 mh_jscale=0.003, 

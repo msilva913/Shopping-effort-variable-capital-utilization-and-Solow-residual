@@ -17,10 +17,13 @@ dynare BRS_comovement.mod
 %% BRS in first differences (demeaned) -> closest correspondence to paper
 dynare BRS_fd.mod
 
+%% BRS with  TFP growth
+dynare BRS_growth.mod
+
 %% BRS first differences with utilization and investment adjustment costs
 dynare BRS_extended_fd.mod
 
-%% BRS extended with TFP growth (shock to growth rate)
+%% BRS with extensions and TFP growth (shock to growth rate)
 dynare BRS_growth_ext_fd_v1.mod nostrict
 
 %dynare BRS_growth_ext_fd.mod nostrict
