@@ -37,3 +37,6 @@ dynare BRS_growth_ext_util.mod
 
 %% BRS extended with TFP growth (estimate on sectoral data LC, LI, C, I)
 dynare BRS_growth_ext_comovement.mod 
+
+%% Intersector labor market friction
+dynare BRS_imp_mobility.mod

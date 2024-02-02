@@ -146,8 +146,18 @@ if __name__ == "__main__":
     dat = pd.concat(var_load_list, axis=1)
     lab = ['Y', 'C', 'I', 'LC', 'LI', 'L', "lab_prod", 'p_I', 'SR', 'SR_util', 'util']
     dat.columns = lab
-    cycle = pd.concat([filter_transform(dat[x], init=init, final=final, transform_type='log',
-                                        filter_type=filter_type) for x in lab], axis=1)
+    """
+    Create cycles
+    (1) Use growth rates for estimation (Smets and Wouters 2007)
+    (2) Use Hamilton filter for description
+    """
+    
+    cycle_growth = pd.concat([filter_transform(dat[x], init=init, final=final, transform_type='log',
+                                        filter_type="growth") for x in lab], axis=1)
+    cycle_growth.columns = lab
+    
+    cycle =  pd.concat([filter_transform(dat[x], init=init, final=final, transform_type='log',
+                                         filter_type="hamilton") for x in lab], axis=1)
     cycle.columns = lab
     
     " Choose specific variable set "
@@ -165,7 +175,7 @@ if __name__ == "__main__":
         " Save output for estimation using growth filter"
         lab = ['Y_obs', 'C_obs', 'I_obs', 'LC_obs', 'LI_obs', 'L_obs',
                'lab_prod_obs', 'p_I_obs', 'SR_obs', 'SR_util_obs', 'util_obs']
-        dic_data = dict(zip(lab, [np.asarray(cycle[x]) for x in cycle.columns]))
+        dic_data = dict(zip(lab, [np.asarray(cycle_growth[x]) for x in cycle_growth.columns]))
         sio.savemat('observables_fd.mat', dic_data)
         
 
@@ -262,7 +272,7 @@ if __name__ == "__main__":
     
     fig, ax = plt.subplots(figsize=(11, 4))
     ax.plot(100*cycle.util_Fern, linestyle[1], label="Utilization (Fernald)", lw=2, alpha=0.6, color="blue")
-    ax.plot(100*cycle.cu, linestyle[2], label="Total capacity utilization", lw=2, alpha=0.6, color="green")
+    ax.plot(100*cycle.util, linestyle[2], label="Total capacity utilization", lw=2, alpha=0.6, color="green")
     ax.plot(100*cycle.Y, label="Real output (consumption plus investment)", lw=2, alpha=0.6, color="black")
     ax.xaxis.set_major_locator(years)
     ax.xaxis.set_major_formatter(years_fmt)
