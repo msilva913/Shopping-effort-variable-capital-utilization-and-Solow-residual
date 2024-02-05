@@ -126,11 +126,11 @@ def construct_data(init, final, freq):
 
 if __name__ == "__main__":
     # Baseline
-    #init= '1964-01-01'
-    #final = '2023-12-30'
+    init= '1964-01-01'
+    final = '2023-12-30'
     # Comparison to earlier BRS
-    init = '1967-01-01'
-    final = '2019-12-30'
+    #init = '1967-01-01'
+    #final = '2019-12-30'
     load = False
     #filter_type = 'hamilton'
     filter_type = 'growth'
@@ -213,16 +213,19 @@ if __name__ == "__main__":
     cycle_red = cycle[["Y", "C", "I", "LC", "LI", "p_I", "SR"]]
     plot_cycle(cycle_red)
     
-    fig, ax = plt.subplots(figsize=(10, 4))
-    ax.plot(cycle.LC, label= "Hours: consumption", alpha=0.6)
-    ax.plot(cycle.LI, label= "Hours: investment", alpha=0.6)
-    ax.plot(cycle.L, label= "Hours: aggregate", alpha=0.6)
+    linestyle = ['-', ':', '-.']
+    
+    fig, ax = plt.subplots(figsize=(11, 4))
+    ax.plot(100*cycle.LC, linestyle[0], label= "Hours: consumption", lw=2, alpha=0.7)
+    ax.plot(100*cycle.LI, linestyle[1], label= "Hours: investment", lw=2, alpha=0.7)
+    ax.plot(100*cycle.L, linestyle[2], label= "Hours: aggregate", lw=2, alpha=0.7)
     ax.legend(loc="upper right")
     ax.xaxis.set_major_locator(years)
     ax.xaxis.set_major_formatter(years_fmt)
+    ax.set_ylabel("%")
     ax.grid(True)
-    plt.savefig("hours_comovement.pdf")
     plt.tight_layout()
+    plt.savefig("hours_comovement.pdf")
     plt.show()
     
     # fig, ax = plt.subplots()
@@ -232,7 +235,7 @@ if __name__ == "__main__":
     cycle.mean()
     
     " Dynamic correlations "
-    linestyle = ['-', ':', '-.']
+   
     colors = ["red", "green", "blue"]
     nlags = 8
     nleads = 8
@@ -259,13 +262,16 @@ if __name__ == "__main__":
     
     " Two types of Solow residual "
     fig, ax = plt.subplots(figsize=(11, 4))
-    ax.plot(cycle.SR, label="Solow residual", lw=2, alpha=0.6, color="blue")
-    ax.plot(cycle.SR_util, label="Utilization-adjusted Solow residual", lw=2, alpha=0.6, color="green")
+    ax.plot(100*cycle.SR, linestyle[1], label="Solow residual", lw=2, alpha=0.7, color="blue")
+    ax.plot(100*cycle.SR_util, linestyle[2], label="Utilization-adjusted Solow residual", lw=2, alpha=0.7, color="green")
     ax.xaxis.set_major_locator(years)
     ax.xaxis.set_major_formatter(years_fmt)
+    ax.set_ylabel("%")
+    ax.set_ylabel("Percent")
     ax.grid(True)
     plt.tight_layout()
     ax.legend(fontsize=11)
+    plt.savefig("TFP_comparison.pdf")
     
     " Compare Fernald utilization vs capacity utilization "
     cycle["util_Fern"] = cycle.SR - cycle.SR_util
