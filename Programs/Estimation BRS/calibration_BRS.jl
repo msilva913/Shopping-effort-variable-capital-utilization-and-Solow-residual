@@ -27,11 +27,14 @@ using PrettyPrinting
     # Targets specific to this economy
     ϕ::Float64 = 0.32
     η::Float64 = 0.20
+
+    # Inverse of MRS of labor supply in each sector 
+    θ::Float64 = 1/0.1735
 end
 
 
 function calibrate(targets)
-@unpack γ, r_ann, g_bar, ν, Y, p_i, N, Ψ_j, I_Y, K_Y, labor_share, ϕ, η = targets
+@unpack γ, r_ann, g_bar, ν, Y, p_i, N, Ψ_j, I_Y, K_Y, labor_share, ϕ, η, θ = targets
 
 # Discount factor
 #β*(1+g_bar)^(-γ) = 1/(1+r)
@@ -85,22 +88,30 @@ N_c = (1-I_Y)*N
 
 Q = p_i/(1-ϕ);
 
+# TFP parameter
 z_c = (1-I_Y)/(Ψ_j*G^(-α_K)*K_c^(α_K)*N_c^(α_N))
 z_i = (I_Y)/(Ψ_j*G^(-α_K)*K_i^(α_K)*N_i^(α_N))
 
-return (γ=γ, β=β, δ=δ, α_N=α_N, α_K=α_K, A_c=A_c, A_i=A_i, z_c=z_c, z_i=z_i, C=C, I=I, Y=Y, K=K, N=N, N_c=N_c, N_i=N_i,
-    D=D, D_c=D_c, D_i=D_i, Q=Q)
+# Weight on labor aggregator
+ω = N_c/N
+# Labor composite 
+N_a = (ω^(-θ)*N_c^(1+θ)+(1-ω)^(-θ)*N_i^(1+θ))^(1/(1+θ))
+# Level parameter on labor supply
+θ_n = (1-ϕ)*W/(N_a^(1/ν))
+
+return (γ=γ, β=β, δ=δ, α_N=α_N, α_K=α_K, A_c=A_c, A_i=A_i, z_c=z_c, z_i=z_i, ω, θ_n,
+ C=C, I=I, Y=Y, K=K, N=N, N_c=N_c, N_i=N_i, N_a, D=D, D_c=D_c, D_i=D_i, Q=Q)
 end
 
-targets = Targets(g_bar = 0.0074, γ=1.0)
+targets = Targets(g_bar = 0.0074, γ=1.1, r_ann=0.04)
 cal = calibrate(targets)
 
-targets_ng = Targets(g_bar = 0.0, γ=1.0)
-cal_ng = calibrate(targets_ng)
+#targets_ng = Targets(g_bar = 0.0, γ=1.0)
+# cal_ng = calibrate(targets_ng)
 
 # To be modified #
-function table(para, targets)
-    @unpack A, β, ϕ, ρ, δ_K, α_1, α_2, α, ZC, ZI, χ, κ, ζ, σ_b, σ, ψ, Γ, Ψ, ν = para
+function table(cal, targets)
+    @unpack γ, β, δ, α_n, α_k, A_c, A_i, z_c, z_i, C, I, Y, K, N, N_c, N_i = para
     @unpack r_annual, δ_share, ϕ_I, wL_Y, occupancy_rate = targets
     r = (1-β)/β
   
