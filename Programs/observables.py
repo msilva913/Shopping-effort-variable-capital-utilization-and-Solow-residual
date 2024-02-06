@@ -126,11 +126,11 @@ def construct_data(init, final, freq):
 
 if __name__ == "__main__":
     # Baseline
-    init= '1964-01-01'
-    final = '2023-12-30'
+    #init= '1964-01-01'
+    #final = '2023-12-30'
     # Comparison to earlier BRS
-    #init = '1967-01-01'
-    #final = '2019-12-30'
+    init = '1967-01-01'
+    final = '2019-12-30'
     load = False
     #filter_type = 'hamilton'
     filter_type = 'growth'

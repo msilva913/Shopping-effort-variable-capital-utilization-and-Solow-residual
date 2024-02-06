@@ -11,8 +11,6 @@ var Y           ${Y}$ (long_name='output')
     N           ${N}$   (long_name='Hours')
     N_C         ${N_C}$ (long_name='Hours:C')
     N_I         ${N_I}$ (long_name='Hours:I')
-    Z_C         ${Z_C}$ (long_name='Tech:C')
-    u_ZI
     Z_I         ${Z_I}$ (long_name='Tech:I')
     theta_N     ${\theta_N}$ (long_name='Labor disutility')
     theta_D     ${\theta_D}$ (long_name='Shopping disutility')
@@ -48,7 +46,7 @@ var Y           ${Y}$ (long_name='output')
     
     ;
 
-varexo e_g ${e_Z}$ (long_name= 'TFP shock')
+varexo e_g ${e_g}$ (long_name= 'TFP shock')
        e_ZI ${e_ZI}$ (long_name= 'Investment-specific tech shock')
        e_N ${e_N}$ (long_name= 'Labor supply shock')
        e_D ${e_D}$ (long_name = 'Shopping disutility shock')
@@ -96,7 +94,7 @@ Psi = 0.81;
 p_I_ss = 1.0;
 N_ss = 0.30;
 
-rho_Z = 0.9;
+rho_g = 0.9;
 rho_ZI = 0.9;
 rho_N = 0.9;
 rho_D = 0.9;
@@ -108,8 +106,9 @@ rho_D = 0.9;
 model;
 % Dependent parameters
 #r = (1+r_ann)^(1/4) - 1.0;
+#I_K = I_Y/K_Y;
 #beta=(1/(1+r))*(exp(g_bar))^(gam);
-#delta = I_Y/K_Y - g_bar;
+#delta = I_K + 1 - exp(g_bar);
 
 #alpha_N = (1-phi)*labor_share;
 #alpha_K = (r+delta)*K_Y;
@@ -131,8 +130,8 @@ model;
 
 #W_ss = (p_I_ss/(1-phi))*alpha_N*I_ss/N_I_ss;
 
-#Z_C_ss = (1-I_Y)/(Psi*K_C_ss^(alpha_K)*N_C_ss^(alpha_N));
-#Z_I_ss = (I_Y)/(Psi*K_I_ss^(alpha_K)*N_I_ss^(alpha_N));
+#Z_C_ss = (1-I_Y)/(Psi*exp(g_bar)^(-alpha_K)*K_C_ss^(alpha_K)*N_C_ss^(alpha_N));
+#Z_I_ss = (I_Y)/(Psi*exp(g_bar)^(-alpha_K)*K_I_ss^(alpha_K)*N_I_ss^(alpha_N));
 
 #theta_N_ss = (1-phi)*W_ss/(N_ss^(1/nu));
 
@@ -190,7 +189,6 @@ Y = C + p_I_ss*I;
 
 % Exogenous processes
 [name='exogenous TFP growth process']
-//Z_C = rho_Z*Z_C(-1)+e_Z;
 g_z = (1-rho_g)*g_z_bar + rho_g*g_z(-1) + e_g;
 
 [name = 'output growth related to TFP growth']
@@ -265,7 +263,7 @@ steady_state_model;
     
     r_ss = (1+r_ann)^(1/4) - 1.0;
     beta_ss = (1/(1+r_ss))*exp(g_bar)^(gam);
-    delta_ss = I_Y/K_Y - g_bar;
+    delta_ss = I_Y/K_Y + 1 - exp(g_bar);
     alpha_K_ss = (r_ss+delta_ss)*K_Y;
     
     % Growth parameters
@@ -295,7 +293,7 @@ end;
 
 //set shock variances
 shocks;
-    var e_Z=0.0072^2;
+    var e_g=0.0072^2;
     var e_ZI=0.0072^2;
     var e_N = 0.0072^2;
     var e_D = 0.0072^2;
@@ -339,14 +337,15 @@ varobs I_obs, Y_obs, lab_prod_obs, p_I_obs;
 estimation(optim=('MaxIter', 200), 
 datafile=observables_fd, 
 //mode_file=BRS_fd_mode, 
-load_mh_file, 
+//load_mh_file, 
 //mh_recover,
-mcmc_jumping_covariance=prior_variance,
+//mcmc_jumping_covariance=prior_variance,
 
 mode_compute=1,
 presample=0, 
 lik_init=1,
-mh_jscale=0.005, 
+//mh_jscale=0.005, 
+mh_jscale=0.3,
 mode_check, 
 mh_replic=250000, 
 //mh_replic=0,
@@ -380,5 +379,5 @@ collect_latex_files;
 stoch_simul (order=1, nofunctions, irf=100, periods=0,
 conditional_variance_decomposition=[1 4 8 40])
 Y_obs, lab_prod_obs, I_obs, p_I_obs, C_obs,
-log_Y, log_Y_N, log_I, log_p_I, log_C
+log_Y, log_Y_N, log_I, log_p_I, log_C;
 
