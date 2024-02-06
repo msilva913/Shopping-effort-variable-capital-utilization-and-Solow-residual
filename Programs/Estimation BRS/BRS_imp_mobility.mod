@@ -89,7 +89,8 @@ parameters
     K_Y    ${K_Y}$   (long_name = 'Capital-output ratio (quarterly)')
     labor_share    $(labor share)$   (long_name = 'Labor share')
 
-    phi  ${\phi}$ (long_name = 'Shopping matching function elasticity')
+    //phi  ${\phi}$ (long_name = 'Shopping matching function elasticity')
+    m    ${m}$    (long_name = 'Ratio of price dispersion to consumption dispersion')
     eta  ${\eta}$ (long_name = 'Shopping disutility')
     Psi  ${\Psi}$ (long_name = 'Matching utilization')
     zeta ${\zeta}$ (long_name = 'habit stock parameter')
@@ -122,8 +123,9 @@ I_Y = 0.20;
 K_Y = 11;
 labor_share = 0.67;
 
-phi = 0.32;
+m = 0.286;
 eta = 0.20;
+//phi = 0.32;
 Psi = 0.81;
 zeta = 0.0;
 
@@ -154,6 +156,8 @@ model;
 #beta=(1/(1+r))*(exp(g_bar))^(gam);
 
 # sigma_b = r + delta;
+#phi = (eta+1)*m/(1+eta*m);
+
 #alpha_N = (1-phi)*labor_share;
 
 
@@ -333,15 +337,17 @@ steady_state_model;
     N = N_ss;
     Y = 1.0;
     p_I = 1.0;
+    
+    phi_ss = (eta+1)*m/(1+eta*m);
 
     I = I_Y;
     C = 1-I_Y;
-    D = phi^(eta/(1+eta));
+    D = phi_ss^(eta/(1+eta));
     D_C = (1-I_Y)*D;
     D_I = I_Y*D;
     
-    A_C_ss = Psi/D_C^phi;
-    A_I_ss = Psi/D_I^phi;
+    A_C_ss = Psi/D_C^phi_ss;
+    A_I_ss = Psi/D_I^phi_ss;
 
     //K = K_Y;
     K = K_Y*exp(g_bar);
@@ -352,9 +358,9 @@ steady_state_model;
     omega_ss = N_C/N;
     N_comp = (omega_ss^(-theta)*N_C^(1+theta) + (1-omega_ss)^(-theta)*N_I^(1+theta))^(1/(1+theta));
 
-    alpha_N_ss = (1-phi)*labor_share;
-    W = alpha_N_ss*I/N_I*p_I/(1-phi);
-    theta_N_s = (1-phi)*W/(N_comp^(1/nu));
+    alpha_N_ss = (1-phi_ss)*labor_share;
+    W = alpha_N_ss*I/N_I*p_I/(1-phi_ss);
+    theta_N_s = (1-phi_ss)*W/(N_comp^(1/nu));
     Gam = (C - D^(1+1/eta)/(1+1/eta) - theta_N_s*N_comp^(1+1/nu)/(1+1/nu))*(1-zeta);
     ha = (C - D^(1+1/eta)/(1+1/eta) - theta_N_s*N_comp^(1+1/nu)/(1+1/nu));
     
@@ -377,11 +383,11 @@ steady_state_model;
     delta_C_pr = sigma_b_ss;
     delta_I_pr = sigma_b_ss;
 
-    Q = p_I/(1-phi);
+    Q = p_I/(1-phi_ss);
     //x = delta_ss + g_bar;
     x = I_Y/K_Y;
 
-    util = (C/Y)*A_C_ss*D_C^(phi)*h_C^(alpha_K_ss) + (I/Y)*A_I_ss*D_I^(phi)*h_I^(alpha_K_ss);
+    util = (C/Y)*A_C_ss*D_C^(phi_ss)*h_C^(alpha_K_ss) + (I/Y)*A_I_ss*D_I^(phi_ss)*h_I^(alpha_K_ss);
 
     Z_C = 0;
     Z_I = 0;
@@ -441,13 +447,13 @@ check;
 estimated_params;
 //x, init_value, lower bound, upper bound, prior shape, prior mean, prior std
 
-gam, 1.5, 0.5, 4,            GAMMA_PDF, 1.5, 0.25;
+//gam, 1.5, 0.5, 4,            GAMMA_PDF, 1.5, 0.25;
 sigma_a, 0.32, 0.0, 10,        GAMMA_PDF, 0.32, 0.2;
 Psi_K, 1.5, 0.0, 50,           GAMMA_PDF, 1.5, 1.0;
 zeta, 0.5, 0.0, 0.99,          BETA_PDF, 0.5, 0.25;
 
-phi, 0.32, 0.00, 0.999,        BETA_PDF, 0.32, 0.2;
-eta, 0.20, 0.00, 2.0,          GAMMA_PDF, 0.2, 0.1;
+//phi, 0.32, 0.00, 0.999,        BETA_PDF, 0.32, 0.2;
+eta, 0.20, 0.00, 10.0,          GAMMA_PDF, 0.2, 0.15;
 
 theta, 0.1, .00, 100,   GAMMA_PDF, 1/0.1735, 5.0;
 
@@ -481,10 +487,10 @@ mode_file=BRS_imp_mobility_mode,
 //mh_recover,
 mcmc_jumping_covariance=prior_variance,
 
-mode_compute=4,
+mode_compute=5,
 presample=0, 
 lik_init=1,
-mh_jscale=0.0001, 
+mh_jscale=0.0004, 
 mh_init_scale =0.0004,
 //mh_jscale=0.3,
 mode_check, 
