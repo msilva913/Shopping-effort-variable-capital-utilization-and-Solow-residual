@@ -480,29 +480,28 @@ options_.TeX=1;
 varobs I_obs, Y_obs, lab_prod_obs, p_I_obs, util_obs;
 
 
-estimation(optim=('MaxIter', 200), 
+estimation(tex, optim=('MaxIter', 200), 
 datafile=observables_fd, 
 mode_file=BRS_imp_mobility_mode, 
-//load_mh_file, 
+load_mh_file, 
 //mh_recover,
 mcmc_jumping_covariance=prior_variance,
 
-mode_compute=5,
+mode_compute=0,
 presample=0, 
 lik_init=1,
 mh_jscale=0.0004, 
 mh_init_scale =0.0004,
 //mh_jscale=0.3,
 mode_check, 
-mh_replic=250000, 
-//mh_replic=0,
+//mh_replic=250000, 
+mh_replic=0,
 mh_nblocks=2, 
 bayesian_irf,
 irf=100,
 mh_drop=0.3, 
 moments_varendo,
-prior_trunc=0,
-tex)
+prior_trunc=0)
 Y_obs, lab_prod_obs, I_obs, p_I_obs, C_obs, N_obs, util_obs,
 log_Y, log_Y_N, log_I, log_p_I, log_C, log_N, log_NC, log_NI, util;
 
