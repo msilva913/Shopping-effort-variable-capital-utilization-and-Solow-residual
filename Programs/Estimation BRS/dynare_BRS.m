@@ -20,6 +20,9 @@ dynare BRS_fd.mod
 %% BRS with  TFP growth
 dynare BRS_growth.mod
 
+%% BRS growth alt
+dynare BRS_growth_alt.mod
+
 %% BRS first differences with utilization and investment adjustment costs
 dynare BRS_extended_fd.mod
 
@@ -40,6 +43,8 @@ dynare BRS_growth_ext_comovement.mod
 
 %% Intersector labor market friction
 dynare BRS_imp_mobility.mod
+
+dynare BRS_imp_mobility_alt.mod
 
 % save('SR', 'SR_obs')
 % save('SR_util', 'SR_util_obs')

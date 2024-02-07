@@ -153,11 +153,11 @@ if __name__ == "__main__":
     """
     
     cycle_growth = pd.concat([filter_transform(dat[x], init=init, final=final, transform_type='log',
-                                        filter_type="growth") for x in lab], axis=1)
+                                        filter_type="growth", demean=True) for x in lab], axis=1)
     cycle_growth.columns = lab
     
     cycle =  pd.concat([filter_transform(dat[x], init=init, final=final, transform_type='log',
-                                         filter_type="hamilton") for x in lab], axis=1)
+                                         filter_type="hamilton", demean=True) for x in lab], axis=1)
     cycle.columns = lab
     
     " Choose specific variable set "

@@ -187,7 +187,7 @@ def growth_filter(x):
         x = x.to_frame() #convert to dataframe if not already
     
     x = x.diff()
-    x = x-x.mean()
+    #x = x-x.mean()
     return x
 
 
@@ -256,7 +256,7 @@ def cf_filter(x, P_L=6, P_H=32):
 
 def filter_transform(x, init, final, transform_type = None, freq=None,
                      filter_type='hamilton', h=8, lamb=1600, P_L=6,
-                     P_H=32):
+                     P_H=32, demean=False):
     """
     x: input series (pandas series)
     init: first data
@@ -300,7 +300,9 @@ def filter_transform(x, init, final, transform_type = None, freq=None,
     " Subset data range "
     cycle = cycle.loc[init:final]
     " Demean (since using subset of data) "
-    cycle = cycle-cycle.mean()
+    if demean:
+        cycle = cycle-cycle.mean()
+    
     return cycle
 
 
