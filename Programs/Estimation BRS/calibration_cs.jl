@@ -48,7 +48,7 @@ ax.plot(η_space, ϕ_space, lw=2, alpha=0.6, label="(ϕ,η) Locus consistent wit
 ax.set_xlabel("η")
 ax.set_ylabel("ϕ")
 display(fig)
-savefig("shopping_curve.pdf", fontsize=12)
+PyPlot.savefig("shopping_curve.pdf", fontsize=12)
 
 function calibrate(targets)
 @unpack γ, r_ann, g_bar, ν, Y, p_i, N, Ψ_j, I_Y, K_Y, labor_share, ϕ, η, θ = targets

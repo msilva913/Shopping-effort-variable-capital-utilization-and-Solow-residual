@@ -106,7 +106,7 @@ SR_util_pos = find(strcmp(names, 'SR_util_obs'));
 CFEVD = oo_.conditional_variance_decomposition;
 %CFEVD = permute(CFEVD, [2 1 3])
 %C_obs,Y_obs, SR_obs, TI_obs, NE, L ;
-CFEVD = CFEVD(:, :, 1:(end-2));
+%CFEVD = CFEVD(:, :, 1:(end-2));
 save('CFEVD.mat', 'CFEVD');
 
 % FEVD
