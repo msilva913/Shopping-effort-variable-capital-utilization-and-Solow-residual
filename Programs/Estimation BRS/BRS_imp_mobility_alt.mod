@@ -319,8 +319,8 @@ log_util = log(util) - steady_state(log(util));
 % Observation variables: first differences (demeaned) -> link to data in first differences (p. 58 of Pfeifer's Observation Equations)
 C_obs = log_C - log_C(-1) + g - g_bar ;
 I_obs = log_I - log_I(-1) + g - g_bar ;
-LC_obs = log_NC - log_NC(-1) + g - g_bar;
-LI_obs = log_NI - log_NI(-1) + g - g_bar;
+NC_obs = log_NC - log_NC(-1) + g - g_bar;
+NI_obs = log_NI - log_NI(-1) + g - g_bar;
 Y_obs = log_Y - log_Y(-1) + g - g_bar ;
 lab_prod_obs = log_Y_N - log_Y_N(-1) + g - g_bar ;
 % Stationary variables
@@ -502,7 +502,7 @@ irf=100,
 mh_drop=0.3, 
 moments_varendo,
 prior_trunc=0)
-Y_obs, lab_prod_obs, I_obs, p_I_obs, C_obs, N_obs, util_obs,
+Y_obs, Y_N_obs, lab_prod_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_obs,
 log_Y, log_Y_N, log_I, log_p_I, log_C, log_N, log_NC, log_NI, util;
 
 
