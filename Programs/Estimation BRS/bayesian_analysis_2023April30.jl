@@ -15,8 +15,8 @@ using Dates
 
 homedir()
 include("time_series_fun.jl")
-#cd(raw"C:\Users\msilva913\Dropbox\Documents - Copy\Research\Consumption diversity, entry, and goods market frictions\Programs\Estimation_BRS")
-cd(raw"C:\Users\TJSEM\Github\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS")
+cd(raw"C:\Users\msilva913\Dropbox\Documents - Copy\Research\Consumption diversity, entry, and goods market frictions\Programs\Estimation_BRS")
+#cd(raw"C:\Users\TJSEM\Github\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS")
 
 # Conditional forecast error variance decomposition
 function new_2s(a, i)
@@ -27,24 +27,24 @@ end
 #C_obs,Y_obs, SR_obs, TI_obs, NE, L ;
 x = matopen("CFEVD.mat")
 CFEVD = read(x, "CFEVD")
-CFEVD = CFEVD[[8, 9, 10, 11, 12, 13, 16], :, :]
+CFEVD = CFEVD[[8, 9, 10, 11, 12, 16], :, :]
 CFEVD = 100*round.(CFEVD, digits=2)
 #CFEVD = permutedims(CFEVD, [2 1 3])
 # Order follows declaration of stoch_simul
-labels = ["Output", "Labor productivity", "Investment", "Relative investment price", "Consumption", "Labor", "Utilization"]
+labels = ["Output" "Labor productivity" "Investment"; "Relative investment price" "Consumption" "Utilization"]
+shock_labels = [:e_g, :e_ZI, :e_N, :e_D, :e_C]
 
-p = PlotlyJS.make_subplots(rows=2, cols=2, subplot_titles=labels,
-#specs=[
-    #Spec(kind="bar") Spec(kind="bar")
-    #Spec(kind="bar") Spec(kind="bar")
-#]
+p = make_subplots(rows=2, cols=3, subplot_titles=labels,
+specs=[
+    Spec(kind="xy") Spec(kind="xy") Spec(kind="xy") 
+    Spec(kind="xy") Spec(kind="xy") Spec(kind="xy")]
 )
 #labels = ["Consumption", "Output", "Total Investment", "Solow residual", "Labor supply"]
-legend_on = [true false false false]
+legend_on = [true false false false false false]
 periods = ["Q1", "Q4", "Q8", "Q40"]
 
 
-a = rand(2, 2)
+a = rand(2, 3)
 figs = Dict()
 for i = 1:length(labels) 
     CFEVD_i = CFEVD[i, :, 1:length(shock_labels)]
@@ -293,10 +293,9 @@ bayesian_irf_mean, bayesian_irf_high, bayesian_irf_low = vars
 
 # String matching
 # Technology shocks (in levels)
-key_vars_tech = ["Y_obs", "Y_N_obs", "C_obs", "I_obs", "NC_obs", "NI_obs", "p_I_obs", "util_obs"]
+key_vars_tech = ["Y_obs", "lab_prod_obs", "C_obs", "I_obs", "p_I_obs", "util_obs"]
 
-function cumulate_responses(vars; len=80)
-    key_shock = "e_g"
+function cumulate_responses(vars; key_shock="e_g", len=80)
     periods = 1:len
     irf_array = []
     for (i, key) in enumerate(vars)
@@ -305,15 +304,44 @@ function cumulate_responses(vars; len=80)
         high = 100*bayesian_irf_high[str][periods,1]
         low = 100*bayesian_irf_low[str][periods,1]
         irf_growth = [means high low]
-        # Cumulative sum
-        irf_levels = cumsum(irf_growth, dims=2)
+        # cumulative sum
+        irf_levels = cumsum(irf_growth, dims=1)
+        # add initial row of zeros 
         irf_levels = cat(zeros(3)', irf_levels, dims=1)
         push!(irf_array, irf_levels)
     end
     return irf_array
 end
 
+irf_array = cumulate_responses(key_vars_tech, len=80)
 
+
+function bayesian_irf_fun(irf_array; key_vars, key_shock, savefig=true)
+    fig = plt.figure(figsize=(20, 8))
+    periods = 1:length(irf_array[1][:,1])
+    for (i, key) in enumerate(key_vars)
+        means, high, low = columns(irf_array[i])
+        ax = fig.add_subplot(2, 4, i)
+        ax.plot(periods, means, linewidth=2, color="black")
+        ax.plot(periods, high, linewidth=0.5)
+        ax.plot(periods, low, linewidth=0.5)
+        ax.fill_between(periods, low, high, alpha=0.3, facecolor="teal")
+        ax.tick_params(labelsize=12)
+        ax.yaxis.set_major_formatter(matplotlib.ticker.PercentFormatter())
+        ax.set_title(key_vars[i])
+        plt.tight_layout()
+        fig.suptitle("A 1 standard-deviation shock to "*key_shock, fontsize=14)
+    end 
+    display(fig)
+    if savefig
+        figname = "irf_"*key_shock*".pdf"
+    end
+    plt.savefig(figname)
+end
+
+bayesian_irf_fun(irf_array, key_vars=key_vars_tech, key_shock="e_g")
+irf_array = cumulate_responses(key_vars_tech, key_shock="e_D")
+bayesian_irf_fun(irf_array, key_vars=key_vars_tech, key_shock="e_D")
 
 key_vars = ["log_Y", "log_Y_N", "log_C", "log_I", "log_NC", "log_NI", "log_p_I", "util"]
 key_shocks = ["e_ZI", "e_g", "e_N", "e_D", "e_C"]
@@ -324,7 +352,7 @@ key_shocks = ["e_ZI", "e_g", "e_N", "e_D", "e_C"]
 #-- shopping disutility shock (consumption and Solow residual)
 #-- intratemporal preference (consumption and output)
 
-function bayesian_irf_fun(key_shock; len=80, savefig=true)
+function bayesian_irf_fun(key_shock; key_vars=key_vars, len=80, savefig=true)
     # Fix shock type and loop over variables in key_vars
     fig = plt.figure(figsize=(20, 8))
     periods = 1:len
@@ -344,7 +372,6 @@ function bayesian_irf_fun(key_shock; len=80, savefig=true)
         ax.plot(periods0, low, linewidth=0.5)
         ax.fill_between(periods0, low, high, alpha=0.3, facecolor="teal")
         ax.tick_params(labelsize=12)
-        vals = ax.get_yticks()
         ax.yaxis.set_major_formatter(matplotlib.ticker.PercentFormatter())
         ax.set_title(key_vars[i])
         plt.tight_layout()
@@ -550,7 +577,7 @@ fig_hist = make_subplots(rows=3, cols=1, subplot_titles=labels,
      Spec(kind="bar") missing
  ]
 )
-shock_labels = [:e_g, :e_ZI, :e_N, :e_D, :e_C]
+
          
 dem_shock_standard_labels = [:Intratemporal_preference, :Discount_factor, :Gov_expenditure]
 dem_shock_shop_labels = [:Shopping_disutility, :Investment_shopping, :Common_shopping]

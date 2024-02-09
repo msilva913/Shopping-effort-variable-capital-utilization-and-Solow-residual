@@ -61,11 +61,11 @@ var Y           ${Y}$ (long_name='output')
     C_obs
     I_obs
     Y_obs
-    lab_prod_obs
+    Y_N_obs
     p_I_obs
     N_obs
-    LC_obs
-    LI_obs
+    NC_obs
+    NI_obs
     util_obs
   
     ;
@@ -319,10 +319,10 @@ log_util = log(util) - steady_state(log(util));
 % Observation variables: first differences (demeaned) -> link to data in first differences (p. 58 of Pfeifer's Observation Equations)
 C_obs = log_C - log_C(-1) + g - g_bar ;
 I_obs = log_I - log_I(-1) + g - g_bar ;
-LC_obs = log_NC - log_NC(-1) + g - g_bar;
-LI_obs = log_NI - log_NI(-1) + g - g_bar;
+NC_obs = log_NC - log_NC(-1) + g - g_bar;
+NI_obs = log_NI - log_NI(-1) + g - g_bar;
 Y_obs = log_Y - log_Y(-1) + g - g_bar ;
-lab_prod_obs = log_Y_N - log_Y_N(-1) + g - g_bar ;
+Y_N_obs = log_Y_N - log_Y_N(-1) + g - g_bar ;
 % Stationary variables
 p_I_obs = log_p_I - log_p_I(-1);
 N_obs = log_N - log_N(-1);
@@ -415,10 +415,10 @@ steady_state_model;
     C_obs = 0;
     I_obs = 0;
     Y_obs = 0;
-    lab_prod_obs = 0;
+    Y_N_obs = 0;
     N_obs = 0;
-    LC_obs = 0;
-    LI_obs = 0;
+    NC_obs = 0;
+    NI_obs = 0;
     p_I_obs = 0;
     util_obs = 0;
 
@@ -476,8 +476,8 @@ end;
 
 options_.TeX=1;
 
-//varobs I_obs, Y_obs, lab_prod_obs, LC_obs, util_obs;
-varobs I_obs, Y_obs, lab_prod_obs, p_I_obs, util_obs;
+//varobs I_obs, Y_obs, Y_N_obs, LC_obs, util_obs;
+varobs I_obs, Y_obs, Y_N_obs, p_I_obs, util_obs;
 
 
 estimation(tex, optim=('MaxIter', 200), 
@@ -487,22 +487,22 @@ mode_file=BRS_imp_mobility_alt_mode,
 //mh_recover,
 //mcmc_jumping_covariance=prior_variance,
 
-mode_compute=4,
+mode_compute=0,
 presample=0, 
 lik_init=1,
-//mh_jscale=0.0004, 
-//mh_init_scale =0.0004,
-mh_jscale=0.3,
+mh_jscale=0.0008, 
+mh_init_scale =0.0004,
+//mh_jscale=0.3,
 mode_check, 
-mh_replic=250000, 
-//mh_replic=0,
+//mh_replic=250000, 
+mh_replic=0,
 mh_nblocks=2, 
 bayesian_irf,
 irf=100,
 mh_drop=0.3, 
 moments_varendo,
 prior_trunc=0)
-Y_obs, lab_prod_obs, I_obs, p_I_obs, C_obs, N_obs, util_obs,
+Y_obs, Y_N_obs, Y_N_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_obs,
 log_Y, log_Y_N, log_I, log_p_I, log_C, log_N, log_NC, log_NI, util;
 
 
@@ -525,6 +525,6 @@ collect_latex_files;
 % Stochastic simulation 
 stoch_simul (order=1, nofunctions, irf=0, periods=0,
 conditional_variance_decomposition=[1 4 8 40])
-Y_obs, lab_prod_obs, I_obs, p_I_obs, C_obs, N_obs, util_obs,
+Y_obs, Y_N_obs, I_obs, p_I_obs, C_obs, N_obs, util_obs,
 log_Y, log_Y_N, log_I, log_p_I, log_C, log_N, log_NC, log_NI, util;
 

@@ -173,8 +173,8 @@ if __name__ == "__main__":
         " Save relevant objects "
         #save_object(cycle, 'cycle')
         " Save output for estimation using growth filter"
-        lab = ['Y_obs', 'C_obs', 'I_obs', 'LC_obs', 'LI_obs', 'L_obs',
-               'lab_prod_obs', 'p_I_obs', 'SR_obs', 'SR_util_obs', 'util_obs']
+        lab = ['Y_obs', 'C_obs', 'I_obs', 'NC_obs', 'NI_obs', 'N_obs',
+               'Y_N_obs', 'p_I_obs', 'SR_obs', 'SR_util_obs', 'util_obs']
         dic_data = dict(zip(lab, [np.asarray(cycle_growth[x]) for x in cycle_growth.columns]))
         sio.savemat('observables_fd.mat', dic_data)
         
