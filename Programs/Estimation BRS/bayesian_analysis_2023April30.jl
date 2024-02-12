@@ -15,8 +15,93 @@ using Dates
 
 homedir()
 include("time_series_fun.jl")
-cd(raw"C:\Users\msilva913\Dropbox\Documents - Copy\Research\Consumption diversity, entry, and goods market frictions\Programs\Estimation_BRS")
+cd(raw"C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS")
 #cd(raw"C:\Users\TJSEM\Github\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS")
+
+function cumulate(x)
+    irf_levels = 100*cumsum(x)
+    irf_levels =  cat(zeros(1), irf_levels, dims=1)
+end
+
+function irf_fun(vars, irf_dic::Dict; shock, length=80)
+    irf_array = []
+    periods = 1:length
+    for (i, key) in enumerate(vars)
+        str = key*"_"*shock
+        x = extract_series(str, irf_dic)[periods]
+        irf_level = cumulate(x)
+        push!(irf_array, irf_level)
+    end
+return irf_array
+end
+
+
+function irf_fun_plot(irf_array, vars; shock, savefig=true)
+    fig = plt.figure(figsize=(20, 8))
+    periods = 1:length(irf_array[1][:,1])
+    for (i, key) in enumerate(vars)
+        irf = irf_array[i]
+        ax = fig.add_subplot(2, 4, i)
+        ax.plot(periods, irf, linewidth=2, color="black")
+        ax.tick_params(labelsize=12)
+        ax.yaxis.set_major_formatter(matplotlib.ticker.PercentFormatter())
+        ax.set_title(vars[i])
+        plt.tight_layout()
+        fig.suptitle("A 1 standard-deviation shock to "*shock, fontsize=14)
+    end 
+    display(fig)
+    if savefig
+        figname = "irf_"*shock*".pdf"
+    end
+    plt.savefig(figname)
+end
+
+# Standard impulse responses: basic model
+irf_array = irf_fun(vars, irf_dic, shock="e_g" )
+irf_fun_plot(irf_array, vars; shock="e_g")
+
+# Standard impulse responses 
+x = matopen("irf.mat")
+vars = read(x, "irf")
+irf_dic  = vars
+
+
+# String matching
+# Technology shocks (in levels)
+vars = ["Y_obs", "Y_N_obs", "C_obs", "I_obs", "p_I_obs", "util_obs"]
+
+extract_series(str, dic::Dict) = vec(dic[str])
+
+
+irf_array = irf_fun(vars, irf_dic, shock="e_g" )
+irf_fun_plot(irf_array, vars; shock="e_g")
+
+
+# General shopping shock
+irf_e_D = irf_fun(vars, irf_dic, shock="e_D" )
+irf_fun_plot(irf_e_D, vars, shock="e_D")
+
+# Consumption shock
+irf_e_C = irf_fun(vars, irf_dic, shock="e_C" )
+irf_fun_plot(irf_e_C, vars, shock="e_C")
+
+# Labor supply shock
+irf_e_N = irf_fun(vars, irf_dic, shock="e_N" )
+irf_fun_plot(irf_e_N, vars, shock="e_N")
+##############
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Conditional forecast error variance decomposition
 function new_2s(a, i)

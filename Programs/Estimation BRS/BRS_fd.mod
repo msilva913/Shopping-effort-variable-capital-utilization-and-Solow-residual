@@ -39,7 +39,7 @@ var Y           ${Y}$ (long_name='output')
     C_obs
     I_obs
     Y_obs
-    lab_prod_obs
+    Y_N_obs
     p_I_obs
     N_obs
     
@@ -219,7 +219,7 @@ log_p_I = log(p_I) - steady_state(log_p_I);
 C_obs = log_C - log_C(-1);
 I_obs = log_I - log_I(-1);
 Y_obs = log_Y - log_Y(-1);
-lab_prod_obs = log_Y_N - log_Y_N(-1);
+Y_N_obs = log_Y_N - log_Y_N(-1);
 p_I_obs = log_p_I - log_p_I(-1);
 N_obs = log_N - log_N(-1);
 
@@ -277,7 +277,7 @@ steady_state_model;
     C_obs = 0;
     I_obs = 0;
     Y_obs = 0;
-    lab_prod_obs = 0;
+    Y_N_obs = 0;
     N_obs = 0;
     p_I_obs = 0;
 
@@ -323,7 +323,7 @@ end;
 
 options_.TeX=1;
 
-varobs I_obs, Y_obs, lab_prod_obs, p_I_obs;
+varobs I_obs, Y_obs, Y_N_obs, p_I_obs;
 
 
 estimation(optim=('MaxIter', 200), 
@@ -341,13 +341,13 @@ mode_check,
 //mh_replic=250000, 
 mh_replic=0,
 mh_nblocks=2, 
-bayesian_irf,
-irf=100,
+//bayesian_irf,
+//irf=100,
 mh_drop=0.3, 
 moments_varendo,
 prior_trunc=0,
 tex)
-I_obs, C_obs, Y_obs, lab_prod_obs, p_I_obs, 
+I_obs, C_obs, Y_obs, Y_N_obs, p_I_obs, 
 log_I, log_C, log_Y, log_Y_N, log_p_I;
 
 
@@ -367,7 +367,8 @@ collect_latex_files;
 
 %*/
 % Stochastic simulation 
-stoch_simul (order=1, nofunctions, irf=100, periods=0,
+stoch_simul (order=1, nofunctions, irf=400, periods=0,
 conditional_variance_decomposition=[1 4 8 40])
-I_obs, C_obs, Y_obs, lab_prod_obs, p_I_obs, log_D, log_N; 
+//I_obs, C_obs, Y_obs, Y_N_obs, p_I_obs, log_D, log_N; 
+log_Y, log_Y_N, log_I, log_p_I, log_C, log_D;
 

@@ -23,6 +23,9 @@ dynare BRS_growth.mod
 %% BRS growth alt
 dynare BRS_growth_alt.mod
 
+irf_basic = oo_.irfs
+save('irf_basic.mat', 'irf_basic')
+
 %% BRS first differences with utilization and investment adjustment costs
 dynare BRS_extended_fd.mod
 
