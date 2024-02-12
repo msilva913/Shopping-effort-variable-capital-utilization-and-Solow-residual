@@ -92,12 +92,12 @@ posterior_std_shocks = oo_.posterior_std.shocks_std;
 save('posterior_std.mat', 'posterior_std')
 save('posterior_std_shocks.mat', 'posterior_std_shocks')
 
-shock_names = M_.exo_names;
-names = M_.endo_names;
-Y_pos = find(strcmp(names, 'Y_obs'));
-SR_pos = find(strcmp(names, 'SR_obs'));
-SR_util_pos = find(strcmp(names, 'SR_util_obs'));
-% Endogenous variables x shocks x time
+%shock_names = M_.exo_names;
+%names = M_.endo_names;
+%Y_pos = find(strcmp(names, 'Y_obs'));
+%SR_pos = find(strcmp(names, 'SR_obs'));
+%SR_util_pos = find(strcmp(names, 'SR_util_obs'));
+%Endogenous variables x shocks x time
 % hist_dec = oo_.shock_decomposition;
 % hist_dec = hist_dec([Y_pos, SR_pos, SR_util_pos], :, :);
 % save('hist_dec.mat', 'hist_dec')
@@ -109,6 +109,9 @@ CFEVD = oo_.conditional_variance_decomposition;
 %CFEVD = CFEVD(:, :, 1:(end-2));
 save('CFEVD.mat', 'CFEVD');
 
+% Impulse responses stoch_sim
+irf = oo_.irfs
+save('irf.mat', 'irf')
 % FEVD
 FEVD = oo_.variance_decomposition;
 save('FEVD.mat', 'FEVD')

@@ -27,11 +27,11 @@ end
 #C_obs,Y_obs, SR_obs, TI_obs, NE, L ;
 x = matopen("CFEVD.mat")
 CFEVD = read(x, "CFEVD")
-CFEVD = CFEVD[[8, 9, 10, 11, 12, 16], :, :]
+CFEVD = CFEVD[[10, 11, 12, 13, 14, 18], :, :]
 CFEVD = 100*round.(CFEVD, digits=2)
 #CFEVD = permutedims(CFEVD, [2 1 3])
 # Order follows declaration of stoch_simul
-labels = ["Output" "Labor productivity" "Investment"; "Relative investment price" "Consumption" "Utilization"]
+labels = ["Output" "Labor productivity" "Investment" "Relative investment price" "Consumption" "Utilization"]
 shock_labels = [:e_g, :e_ZI, :e_N, :e_D, :e_C]
 
 p = make_subplots(rows=2, cols=3, subplot_titles=labels,
@@ -44,7 +44,7 @@ legend_on = [true false false false false false]
 periods = ["Q1", "Q4", "Q8", "Q40"]
 
 
-a = rand(2, 3)
+a = rand(3, 2)
 figs = Dict()
 for i = 1:length(labels) 
     CFEVD_i = CFEVD[i, :, 1:length(shock_labels)]
@@ -58,7 +58,7 @@ for i = 1:length(labels)
     for tr in figs[i].data 
         tr.fields[:showlegend] = legend_on[i]
         index = new_2s(a, i)
-        add_trace!(p, tr, row=index[1], col=index[2])
+        add_trace!(p, tr, row=index[2], col=index[1])
     end
 end
 

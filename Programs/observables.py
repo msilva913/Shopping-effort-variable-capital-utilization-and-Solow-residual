@@ -126,11 +126,11 @@ def construct_data(init, final, freq):
 
 if __name__ == "__main__":
     # Baseline
-    #init= '1964-01-01'
-    #final = '2023-12-30'
+    init= '1964-01-01'
+    final = '2023-12-30'
     # Comparison to earlier BRS
-    init = '1967-01-01'
-    final = '2019-12-30'
+    #init = '1967-01-01'
+    #final = '2019-12-30'
     load = False
     #filter_type = 'hamilton'
     filter_type = 'growth'
@@ -164,6 +164,7 @@ if __name__ == "__main__":
     #cycle_red = cycle[["Y", "I", "lab_prod", "SR", "p_I", "SR_util", "cu"]]
 
     mom_data = moments(100*cycle, lab=['Y', 'L'])
+    mom_data = mom_data.style.format(precision=2)
     print(mom_data.to_latex())
     " Save moments "
     # Moments from data in growth rates and Hamilton-filtered data
@@ -263,7 +264,7 @@ if __name__ == "__main__":
     " Two types of Solow residual "
     fig, ax = plt.subplots(figsize=(11, 4))
     ax.plot(100*cycle.SR, linestyle[1], label="Solow residual", lw=2, alpha=0.7, color="blue")
-    ax.plot(100*cycle.SR_util, linestyle[2], label="Utilization-adjusted Solow residual", lw=2, alpha=0.7, color="green")
+    ax.plot(100*cycle.SR_util, linestyle[2], label="Fernald utilization-adjusted Solow residual", lw=2, alpha=0.7, color="green")
     ax.xaxis.set_major_locator(years)
     ax.xaxis.set_major_formatter(years_fmt)
     ax.set_ylabel("%")

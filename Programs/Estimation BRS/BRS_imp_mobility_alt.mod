@@ -319,13 +319,13 @@ log_util = log(util) - steady_state(log(util));
 % Observation variables: first differences (demeaned) -> link to data in first differences (p. 58 of Pfeifer's Observation Equations)
 C_obs = log_C - log_C(-1) + g - g_bar ;
 I_obs = log_I - log_I(-1) + g - g_bar ;
-NC_obs = log_NC - log_NC(-1) + g - g_bar;
-NI_obs = log_NI - log_NI(-1) + g - g_bar;
 Y_obs = log_Y - log_Y(-1) + g - g_bar ;
 Y_N_obs = log_Y_N - log_Y_N(-1) + g - g_bar ;
 % Stationary variables
 p_I_obs = log_p_I - log_p_I(-1);
 N_obs = log_N - log_N(-1);
+NC_obs = log_NC - log_NC(-1);
+NI_obs = log_NI - log_NI(-1);
 util_obs = log_util - log_util(-1);
 
 
@@ -483,22 +483,23 @@ varobs I_obs, Y_obs, Y_N_obs, p_I_obs, util_obs;
 estimation(tex, optim=('MaxIter', 200), 
 datafile=observables_fd, 
 mode_file=BRS_imp_mobility_alt_mode, 
-//load_mh_file, 
+//nograph,
+load_mh_file, 
 //mh_recover,
-//mcmc_jumping_covariance=prior_variance,
+mcmc_jumping_covariance=prior_variance,
 
 mode_compute=0,
 presample=0, 
-lik_init=1,
-mh_jscale=0.0008, 
+lik_init=2,
+mh_jscale=0.0015, 
 mh_init_scale =0.0004,
 //mh_jscale=0.3,
 mode_check, 
 //mh_replic=250000, 
 mh_replic=0,
 mh_nblocks=2, 
-bayesian_irf,
-irf=100,
+//bayesian_irf,
+//irf=100,
 mh_drop=0.3, 
 moments_varendo,
 prior_trunc=0)
@@ -523,8 +524,8 @@ collect_latex_files;
 
 %*/
 % Stochastic simulation 
-stoch_simul (order=1, nofunctions, irf=0, periods=0,
+stoch_simul (order=1, nofunctions, irf=100, periods=0,
 conditional_variance_decomposition=[1 4 8 40])
-Y_obs, Y_N_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, N_obs, util_obs,
-log_Y, log_Y_N, log_I, log_p_I, log_C, log_N, log_NC, log_NI, util;
+Y_obs, Y_N_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_obs,
+log_Y, log_Y_N, log_I, log_p_I, log_C, log_N, log_NC, log_NI, log_util;
 
