@@ -167,6 +167,8 @@ if __name__ == "__main__":
     
     cycle =  pd.concat([filter_transform(dat[x], init=init, final=final, transform_type='log',
                                          filter_type="hamilton", demean=True) for x in lab], axis=1)
+    #cycle =  pd.concat([filter_transform(dat[x], init=init, final=final, transform_type='log',
+                                     #    filter_type="hp_filter", demean=True) for x in lab], axis=1)
     cycle.columns = lab
     
     " Choose specific variable set "
@@ -175,6 +177,11 @@ if __name__ == "__main__":
     mom_data = moments(100*cycle, lab=['Y', 'L'])
     mom_data = mom_data.style.format(precision=2)
     print(mom_data.to_latex())
+    
+    # Moments in growth rates 
+    mom_growth_data = moments(100*cycle_growth, lab=['Y', 'L'])
+    mom_growth_data = mom_growth_data.style.format(precision=2)
+    print(mom_growth_data.to_latex())
     " Save moments "
     # Moments from data in growth rates and Hamilton-filtered data
     save_object(mom_data, 'mom_data')
