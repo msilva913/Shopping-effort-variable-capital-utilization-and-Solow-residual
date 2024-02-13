@@ -11,6 +11,9 @@ var Y           ${Y}$ (long_name='output')
     N           ${N}$   (long_name='Hours')
     N_C         ${N_C}$ (long_name='Hours:C')
     N_I         ${N_I}$ (long_name='Hours:I')
+
+    Z_C         ${Z_C}$ (long_name='Tech:C')
+    u_ZI
     Z_I         ${Z_I}$ (long_name='Tech:I')
     theta_N     ${\theta_N}$ (long_name='Labor disutility')
     theta_D     ${\theta_D}$ (long_name='Shopping disutility')
@@ -26,8 +29,7 @@ var Y           ${Y}$ (long_name='output')
 
     p_I        ${p_I}$ (long_name = 'Relative investment price')
     
-    g          ${g}$ (long_name = 'Output growth rate due to technology')
-    g_z        ${g_z}$ (long_name = 'Growth rate of technology')
+    g          ${g}$ (long_name = 'Output growth rate (labor-augmenting technology)')
     
     log_Y
     log_C
@@ -40,15 +42,15 @@ var Y           ${Y}$ (long_name='output')
     C_obs
     I_obs
     Y_obs
-    lab_prod_obs
+    Y_N_obs
     p_I_obs
     N_obs
-    
     ;
 
 varexo e_g ${e_g}$ (long_name= 'TFP shock')
-       e_ZI ${e_ZI}$ (long_name= 'Investment-specific tech shock')
-       e_N ${e_N}$ (long_name= 'Labor supply shock')
+       e_Z ${e_Z}$ (long_name= 'TFP shock')
+       e_ZI ${e_{ZI}}$ (long_name= 'Investment-specific tech shock')
+       e_N ${e_N}$ (long_name = 'Labor supply shock')
        e_D ${e_D}$ (long_name = 'Shopping disutility shock')
     ;
     
@@ -66,7 +68,8 @@ parameters
     eta  $(\eta)$ (long_name = 'Shopping disutility')
     Psi  $(\Psi)$ (long_name = 'Matching utilization')
 
-    rho_g    ${\rho_Z}$  (long_name='persistence TFP shock')
+    rho_g   ${\rho_g}$ (long_name='persistence shock to labor-augmenting technology growth rate')
+    rho_Z   ${\rho_Z}$  (long_name='persistence TFP shock')
     rho_ZI    ${\rho_{ZI}}$  (long_name='persistence I-specific shock')
     rho_N    ${\rho_N}$  (long_name='persistence labor supply shock')
     rho_D    ${\rho_D}$  (long_name='persistence shopping effort shock')
@@ -94,7 +97,8 @@ Psi = 0.81;
 p_I_ss = 1.0;
 N_ss = 0.30;
 
-rho_g = 0.9;
+rho_g = 0.1;
+rho_Z = 0.9;
 rho_ZI = 0.9;
 rho_N = 0.9;
 rho_D = 0.9;
@@ -112,7 +116,6 @@ model;
 
 #alpha_N = (1-phi)*labor_share;
 #alpha_K = (r+delta)*K_Y;
-#g_z_bar = g_bar*(1-alpha_K);
 
 #D_ss = phi^(eta/(1+eta));
 #D_C_ss = (1-I_Y)*D_ss;
@@ -155,7 +158,7 @@ Gam^(-gam)*p_I = beta*((1-phi)*R_C(+1) + p_I(+1)*(1-delta))*Gam(+1)^(-gam)*exp(g
 R_I(+1) = R_C(+1);
 
 [name = 'Consumption production']
-C = A_C*(D_C)^phi*Z_C_ss*exp(g)^(-alpha_K)*(K_C(-1))^alpha_K*(N_C)^alpha_N;
+C = A_C*(D_C)^phi*Z_C_ss*exp(Z_C)*exp(g)^(-alpha_K)*(K_C(-1))^alpha_K*(N_C)^alpha_N;
 
 [name = 'Investment production']
 I = A_I*(D_I)^phi*Z_I_ss*exp(Z_I)*exp(g)^(-alpha_K)*(K_I(-1))^alpha_K*(N_I)^alpha_N;
@@ -188,15 +191,17 @@ D = D_C + D_I;
 Y = C + p_I_ss*I;
 
 % Exogenous processes
-[name='exogenous TFP growth process']
-g_z = (1-rho_g)*g_z_bar + rho_g*g_z(-1) + e_g;
+[name='exogenous labor-augmenting growth process']
+g = (1-rho_g)*g_bar + rho_g*g(-1) + e_g;
 
-[name = 'output growth related to TFP growth']
-g = g_z/(1-alpha_K); % implies exp(g) = exp(g_z)^(1/(1-alpha_K));
+[name='Stationary TFP process']
+Z_C = rho_Z*Z_C(-1) + e_Z;
 
+[name='Independent component of I-specific tech']
+u_ZI = rho_ZI*Z_I(-1) + e_ZI;
 
-[name ='investment-specific TFP process']
-Z_I = rho_ZI*Z_I(-1) + e_ZI;
+[name ='Investment-specific TFP process']
+Z_I = Z_C + u_ZI;
 
 [name ='Labor supply process']
 theta_N = rho_N*theta_N(-1) - e_N;
@@ -221,10 +226,12 @@ log_D = log(D) - steady_state(log(D));
 log_p_I = log(p_I) - steady_state(log_p_I);
 
 % Observation variables: first differences (demeaned) -> link to data in first differences
-C_obs = log_C - log_C(-1);
-I_obs = log_I - log_I(-1);
-Y_obs = log_Y - log_Y(-1);
-lab_prod_obs = log_Y_N - log_Y_N(-1);
+C_obs = log_C - log_C(-1) + g - g_bar;
+I_obs = log_I - log_I(-1) + g - g_bar;
+Y_obs = log_Y - log_Y(-1) + g - g_bar;
+Y_N_obs = log_Y_N - log_Y_N(-1) + g - g_bar;
+
+% Stationary
 p_I_obs = log_p_I - log_p_I(-1);
 N_obs = log_N - log_N(-1);
 
@@ -268,7 +275,6 @@ steady_state_model;
     
     % Growth parameters
     g = g_bar;
-    g_z = g_bar*(1-alpha_K_ss);
 
     R_C = W*exp(g)*(alpha_K_ss/alpha_N_ss)*N_I/K_I;
     R_I = R_C;
@@ -293,7 +299,8 @@ end;
 
 //set shock variances
 shocks;
-    var e_g=0.0072^2;
+    var e_g=0.001^2;
+    var e_Z = 0.0072^2;
     var e_ZI=0.0072^2;
     var e_N = 0.0072^2;
     var e_D = 0.0072^2;
@@ -317,13 +324,16 @@ estimated_params;
 
 % Persistence parameters
 rho_g,  0.1, 0.0001, 0.9,        BETA_PDF, 0.1, 0.05;
+rho_Z, 0.95, 0.01, 0.999999,     BETA_PDF, 0.6, 0.2;
 rho_ZI,  0.95, 0.01, 0.999999,    BETA_PDF, 0.6, 0.2;
-rho_N,  0.6, 0.01, 0.9999,        BETA_PDF, 0.6, 0.2;
+
+rho_N,  0.6, 0.01, 0.9999999,        BETA_PDF, 0.6, 0.2;
 rho_D,  0.9, 0.01, 0.9999,        BETA_PDF, 0.6, 0.2;
 
 % Standard errors
-stderr e_ZI, 0.01, 0.0001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
 stderr e_g, 0.01, 0.00001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
+stderr e_ZI, 0.01, 0.0001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
+stderr e_Z, 0.01, 0.00001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
 stderr e_N, 0.01, 0.0001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
 stderr e_D, 0.01, 0.0001, 0.4,  INV_GAMMA_PDF, 0.01, 0.1;
 
@@ -331,7 +341,7 @@ end;
 
 options_.TeX=1;
 
-varobs I_obs, Y_obs, lab_prod_obs, p_I_obs;
+varobs I_obs, Y_obs, Y_N_obs, p_I_obs;
 
 
 estimation(optim=('MaxIter', 200), 
@@ -339,24 +349,24 @@ datafile=observables_fd,
 mode_file=BRS_growth_mode, 
 load_mh_file, 
 //mh_recover,
-//mcmc_jumping_covariance=prior_variance,
+mcmc_jumping_covariance=prior_variance,
 
 mode_compute=0,
 presample=0, 
-lik_init=1,
-//mh_jscale=0.005, 
-mh_jscale=0.3,
+lik_init=2,
+mh_jscale=0.005, 
+//mh_jscale=0.3,
 mode_check, 
 //mh_replic=250000, 
 mh_replic=0,
 mh_nblocks=2, 
-bayesian_irf,
-irf=100,
+//bayesian_irf,
+//irf=100,
 mh_drop=0.3, 
 moments_varendo,
 prior_trunc=0,
 tex)
-Y_obs, lab_prod_obs, I_obs, p_I_obs, C_obs,
+Y_obs, Y_N_obs, I_obs, p_I_obs, C_obs,
 log_I, log_C, log_Y, log_Y_N, log_p_I;
 
 
@@ -378,6 +388,6 @@ collect_latex_files;
 % Stochastic simulation 
 stoch_simul (order=1, nofunctions, irf=100, periods=0,
 conditional_variance_decomposition=[1 4 8 40])
-Y_obs, lab_prod_obs, I_obs, p_I_obs, C_obs,
+Y_obs, Y_N_obs, I_obs, p_I_obs, C_obs,
 log_Y, log_Y_N, log_I, log_p_I, log_C;
 

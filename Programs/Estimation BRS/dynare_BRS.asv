@@ -3,15 +3,7 @@ clear;
 %% 
 addpath c:\dynare\5.4\matlab
 
-%% BRS in levels (Hamilton regression filter)
-dynare BRS.mod
 
-%% BRS in levels (estimate shopping parameters)
-dynare BRS_est_shopping.mod
-
-
-%% BRS: target LC, LI, C, I
-dynare BRS_comovement.mod
 
 
 %% BRS in first differences (demeaned) -> closest correspondence to paper
@@ -23,8 +15,8 @@ dynare BRS_growth.mod
 %% BRS growth alt
 dynare BRS_growth_alt.mod
 
-irf = oo_.irfs
-save('irf.mat', 'irf')
+irf_basic = oo_.irfs
+save('irf_basic.mat', 'irf_basic')
 
 %% BRS first differences with utilization and investment adjustment costs
 dynare BRS_extended_fd.mod

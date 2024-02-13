@@ -12,8 +12,9 @@ var Y           ${Y}$ (long_name='output')
     N_C         ${N_C}$ (long_name='Hours:C')
     N_I         ${N_I}$ (long_name='Hours:I')
     N_comp           ${N}$ (long_name= 'Labor CES aggregate')
-    //Z_C         ${Z_C}$ (long_name='Tech:C')
-    //u_ZI
+
+    Z_C         ${Z_C}$ (long_name='Tech:C')
+    u_ZI
     Z_I         ${Z_I}$ (long_name='Tech:I')
     theta_N     ${\theta_N}$ (long_name='Labor disutility')
     theta_D     ${\theta_D}$ (long_name='Shopping disutility')
@@ -44,8 +45,7 @@ var Y           ${Y}$ (long_name='output')
     
     util       ${util}$ (long_name = 'Capacity utilization:')
 
-    g          ${g}$ (long_name = 'Output growth rate due to technology')
-    g_z        ${g_z}$ (long_name = 'Growth rate of technology')
+    g          ${g}$ (long_name = 'Output growth rate (labor-augmenting technology)')
     
     log_Y
     log_C
@@ -61,16 +61,17 @@ var Y           ${Y}$ (long_name='output')
     C_obs
     I_obs
     Y_obs
-    lab_prod_obs
+    Y_N_obs
     p_I_obs
     N_obs
-    LC_obs
-    LI_obs
+    NC_obs
+    NI_obs
     util_obs
   
     ;
 
-varexo e_g ${e_g}$ (long_name= 'TFP growth shock')
+varexo e_g ${e_g}$ (long_name= 'Labor-augmenting-technology growth shock')
+       e_Z ${e_Z}$ (long_name= 'TFP shock')
        e_ZI ${e_{ZI}}$ (long_name= 'Investment-specific tech shock')
        e_N ${e_N}$ (long_name= 'Labor supply shock')
        e_D ${e_D}$ (long_name = 'Shopping disutility shock')
@@ -99,6 +100,7 @@ parameters
     theta ${\theta}$ (long_name = 'Inverse intersectoral elasticity of labor supply')
 
     rho_g    ${\rho_g}$  (long_name='persistence TFP growth shock')
+    rho_Z   ${\rho_Z}$  (long_name='persistence TFP shock')
     rho_ZI    ${\rho_{ZI}}$  (long_name='persistence I-specific shock')
     rho_N    ${\rho_N}$  (long_name='persistence labor supply shock')
     rho_D    ${\rho_D}$  (long_name='persistence shopping effort shock')
@@ -135,6 +137,7 @@ p_I_ss = 1.0;
 N_ss = 0.30;
 
 rho_g = 0.2;
+rho_Z = 0.9;
 rho_ZI = 0.9;
 rho_N = 0.9;
 rho_D = 0.9;
@@ -151,7 +154,6 @@ model;
 %#delta = I_K - g_bar;
 #delta = I_K + 1 - exp(g_bar);
 #alpha_K = (r+delta)*K_Y;
-#g_z_bar = g_bar*(1-alpha_K);
 %#beta = (1/(1+r))*(1+g_bar)^(gam);
 #beta=(1/(1+r))*(exp(g_bar))^(gam);
 
@@ -235,7 +237,7 @@ delta_C_pr = sigma_b + sigma_a*sigma_b*(h_C-1);
 delta_I_pr = sigma_b + sigma_a*sigma_b*(h_I-1);
 
 [name = 'Consumption production']
-C = A_C*(D_C)^phi*Z_C_ss*exp(g)^(-alpha_K)*(h_C*K_C(-1))^alpha_K*(N_C)^alpha_N;
+C = A_C*(D_C)^phi*Z_C_ss*exp(Z_C)*exp(g)^(-alpha_K)*(h_C*K_C(-1))^alpha_K*(N_C)^alpha_N;
 //C = A_C*(D_C)^phi*exp(g)^(-alpha_K)*(h_C*K_C(-1))^alpha_K*(N_C)^alpha_N;
 
 [name = 'Investment production']
@@ -276,16 +278,17 @@ Y = C + p_I_ss*I;
 util = (C/Y)*A_C*D_C^(phi)*h_C^(alpha_K) + (I/Y)*A_I*D_I^(phi)*h_I^(alpha_K);
 
 % Exogenous processes
-[name='exogenous TFP growth process']
-//Z_C = rho_Z*Z_C(-1)+e_Z;
-g_z = (1-rho_g)*g_z_bar + rho_g*g_z(-1) + e_g;
+[name='exogenous labor-augmenting growth process']
+g = (1-rho_g)*g_bar + rho_g*g(-1) + e_g;
 
-[name = 'output growth related to TFP growth']
-g = g_z/(1-alpha_K); % implies exp(g) = exp(g_z)^(1/(1-alpha_K));
+[name='Stationary TFP process']
+Z_C = rho_Z*Z_C(-1) + e_Z;
 
+[name='Independent component of I-specific tech']
+u_ZI = rho_ZI*Z_I(-1) + e_ZI;
 
-[name ='investment-specific TFP process']
-Z_I = rho_ZI*Z_I(-1) + e_ZI;
+[name ='Investment-specific TFP process']
+Z_I = Z_C + u_ZI;
 
 [name ='Labor supply process']
 theta_N = rho_N*theta_N(-1) - e_N;
@@ -317,15 +320,16 @@ log_p_I = log(p_I) - steady_state(log_p_I);
 log_util = log(util) - steady_state(log(util));
 
 % Observation variables: first differences (demeaned) -> link to data in first differences (p. 58 of Pfeifer's Observation Equations)
-C_obs = log_C - log_C(-1) ;
-I_obs = log_I - log_I(-1) ;
-LC_obs = log_NC - log_NC(-1);
-LI_obs = log_NI - log_NI(-1);
-Y_obs = log_Y - log_Y(-1) ;
-lab_prod_obs = log_Y_N - log_Y_N(-1) ;
+C_obs = log_C - log_C(-1) + g - g_bar ;
+I_obs = log_I - log_I(-1) + g - g_bar ;
+Y_obs = log_Y - log_Y(-1) + g - g_bar ;
+Y_N_obs = log_Y_N - log_Y_N(-1) + g - g_bar ;
+
 % Stationary variables
 p_I_obs = log_p_I - log_p_I(-1);
 N_obs = log_N - log_N(-1);
+NC_obs = log_NC - log_NC(-1);
+NI_obs = log_NI - log_NI(-1);
 util_obs = log_util - log_util(-1);
 
 
@@ -372,7 +376,6 @@ steady_state_model;
     alpha_K_ss = (r_ss+delta_ss)*K_Y;
 
     g = g_bar;
-    g_z = g_bar*(1-alpha_K_ss);
 
     % Utilization variables
     h_C = 1;
@@ -415,10 +418,10 @@ steady_state_model;
     C_obs = 0;
     I_obs = 0;
     Y_obs = 0;
-    lab_prod_obs = 0;
+    Y_N_obs = 0;
     N_obs = 0;
-    LC_obs = 0;
-    LI_obs = 0;
+    NC_obs = 0;
+    NI_obs = 0;
     p_I_obs = 0;
     util_obs = 0;
 
@@ -427,6 +430,7 @@ end;
 //set shock variances
 shocks;
     var e_g=0.0072^2;
+    var e_Z = 0.0072^2;
     var e_ZI=0.0072^2;
     var e_N = 0.0072^2;
     var e_D = 0.0072^2;
@@ -455,19 +459,22 @@ zeta, 0.5, 0.0, 0.99,          BETA_PDF, 0.5, 0.25;
 //phi, 0.32, 0.00, 0.999,        BETA_PDF, 0.32, 0.2;
 eta, 0.20, 0.00, 10.0,          GAMMA_PDF, 0.2, 0.15;
 
-theta, 0.1, .00, 100,   GAMMA_PDF, 1/0.1735, 5.0;
+theta, 1.5, .00, 100,   GAMMA_PDF, 1/0.1735, 5.0;
+//theta, 1.5, 0.0, 100,     UNIFORM_PDF, , ,0, 10;
 
 
 % Persistence parameters
 rho_g,  0.1, 0.0001, 0.9,        BETA_PDF, 0.1, 0.05;
+rho_Z, 0.95, 0.01, 0.999999,     BETA_PDF, 0.6, 0.2;
 rho_ZI,  0.95, 0.01, 0.999999,    BETA_PDF, 0.6, 0.2;
 rho_N,  0.6, 0.01, 0.9999,        BETA_PDF, 0.6, 0.2;
 rho_D,  0.9, 0.01, 0.9999,        BETA_PDF, 0.6, 0.2;
 rho_C,  0.9, 0.01, 0.99999999,        BETA_PDF, 0.6, 0.2;
 
 % Standard errors
-stderr e_ZI, 0.01, 0.0001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
 stderr e_g, 0.01, 0.00001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
+stderr e_Z, 0.01, 0.00001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
+stderr e_ZI, 0.01, 0.0001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
 stderr e_N, 0.01, 0.0001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
 stderr e_D, 0.01, 0.0001, 0.4,  INV_GAMMA_PDF, 0.01, 0.1;
 stderr e_C, 0.01, 0.0001, 0.4,  INV_GAMMA_PDF, 0.01, 0.1;
@@ -476,34 +483,35 @@ end;
 
 options_.TeX=1;
 
-//varobs I_obs, Y_obs, lab_prod_obs, LC_obs, util_obs;
-varobs I_obs, Y_obs, lab_prod_obs, p_I_obs, util_obs;
+//varobs I_obs, Y_obs, Y_N_obs, LC_obs, util_obs;
+varobs I_obs, Y_obs, Y_N_obs, p_I_obs, util_obs;
 
 
 estimation(tex, optim=('MaxIter', 200), 
 datafile=observables_fd, 
 mode_file=BRS_imp_mobility_mode, 
+//nograph,
 load_mh_file, 
 //mh_recover,
 mcmc_jumping_covariance=prior_variance,
 
 mode_compute=0,
 presample=0, 
-lik_init=1,
-mh_jscale=0.0004, 
+lik_init=2,
+mh_jscale=0.0015, 
 mh_init_scale =0.0004,
 //mh_jscale=0.3,
 mode_check, 
-//mh_replic=250000, 
+//mh_replic=150000, 
 mh_replic=0,
 mh_nblocks=2, 
-bayesian_irf,
-irf=100,
+//bayesian_irf,
+//irf=100,
 mh_drop=0.3, 
 moments_varendo,
 prior_trunc=0)
-Y_obs, lab_prod_obs, I_obs, p_I_obs, C_obs, N_obs, util_obs,
-log_Y, log_Y_N, log_I, log_p_I, log_C, log_N, log_NC, log_NI, util;
+Y_obs, Y_N_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_obs;
+//log_Y, log_Y_N, log_I, log_p_I, log_C, log_N, log_NC, log_NI, util;
 
 
 
@@ -515,16 +523,16 @@ write_latex_dynamic_model;
 write_latex_parameter_table;
 write_latex_definitions;
 write_latex_prior_table;
-generate_trace_plots(1);
+//generate_trace_plots(1);
 collect_latex_files;
 % if system(['pdflatex -halt-on-error -interaction=batchmode ' M_.fname '_TeX_binder.tex'])
 %     error('TeX-File did not compile.')
 % end
 
 %*/
-% Stochastic simulation 
-stoch_simul (order=1, nofunctions, irf=0, periods=0,
+% Stochastic simulation -> for conditional FEVD and IRF
+stoch_simul (order=1, nofunctions, irf=100, periods=0,
 conditional_variance_decomposition=[1 4 8 40])
-Y_obs, lab_prod_obs, I_obs, p_I_obs, C_obs, N_obs, util_obs,
-log_Y, log_Y_N, log_I, log_p_I, log_C, log_N, log_NC, log_NI, util;
+Y_obs, Y_N_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_obs,
+log_Y, log_Y_N, log_I, log_p_I, log_C, log_N, log_NC, log_NI, log_util;
 

@@ -17,9 +17,6 @@ alpha\_N = \left(1-{(\phi)}\right)\, {(labor share)}
 alpha\_K = {(K_Y)}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{(I_Y)}}{{(K_Y)}}-\exp\left({{\overline{g}}}\right)\right)
 \end{dmath*}
 \begin{dmath*}
-g\_z\_bar = {{\overline{g}}}\, \left(1-{(K_Y)}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{(I_Y)}}{{(K_Y)}}-\exp\left({{\overline{g}}}\right)\right)\right)
-\end{dmath*}
-\begin{dmath*}
 D\_ss = {(\phi)}^{\frac{{(\eta)}}{1+{(\eta)}}}
 \end{dmath*}
 \begin{dmath*}
@@ -93,7 +90,7 @@ theta\_N\_ss = \frac{\left(1-{(\phi)}\right)\, \frac{{(I_Y)}\, \left(1-{(\phi)}\
 \end{dmath}
 % Equation 7
 \begin{dmath}
-{{C}}_{t}={{N_C}}_{t}^{\left(1-{(\phi)}\right)\, {(labor share)}}\, \frac{1-{(I_Y)}}{{(\Psi)}\, \exp\left({{\overline{g}}}\right)^{\left(-\left({(K_Y)}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{(I_Y)}}{{(K_Y)}}-\exp\left({{\overline{g}}}\right)\right)\right)\right)}\, \left(\left(1-{(I_Y)}\right)\, {(K_Y)}\, \exp\left({{\overline{g}}}\right)\right)^{{(K_Y)}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{(I_Y)}}{{(K_Y)}}-\exp\left({{\overline{g}}}\right)\right)}\, \left(\left(1-{(I_Y)}\right)\, {N\_ss}\right)^{\left(1-{(\phi)}\right)\, {(labor share)}}}\, {{D}}_{t}^{{(\phi)}}\, \frac{{(\Psi)}}{\left({(\phi)}^{\frac{{(\eta)}}{1+{(\eta)}}}\, \left(1-{(I_Y)}\right)\right)^{{(\phi)}}}\, \exp\left({{g}}_{t}\right)^{\left(-\left({(K_Y)}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{(I_Y)}}{{(K_Y)}}-\exp\left({{\overline{g}}}\right)\right)\right)\right)}\, {{K_C}}_{t-1}^{{(K_Y)}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{(I_Y)}}{{(K_Y)}}-\exp\left({{\overline{g}}}\right)\right)}
+{{C}}_{t}={{N_C}}_{t}^{\left(1-{(\phi)}\right)\, {(labor share)}}\, \exp\left({{Z_C}}_{t}\right)\, \frac{1-{(I_Y)}}{{(\Psi)}\, \exp\left({{\overline{g}}}\right)^{\left(-\left({(K_Y)}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{(I_Y)}}{{(K_Y)}}-\exp\left({{\overline{g}}}\right)\right)\right)\right)}\, \left(\left(1-{(I_Y)}\right)\, {(K_Y)}\, \exp\left({{\overline{g}}}\right)\right)^{{(K_Y)}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{(I_Y)}}{{(K_Y)}}-\exp\left({{\overline{g}}}\right)\right)}\, \left(\left(1-{(I_Y)}\right)\, {N\_ss}\right)^{\left(1-{(\phi)}\right)\, {(labor share)}}}\, {{D}}_{t}^{{(\phi)}}\, \frac{{(\Psi)}}{\left({(\phi)}^{\frac{{(\eta)}}{1+{(\eta)}}}\, \left(1-{(I_Y)}\right)\right)^{{(\phi)}}}\, \exp\left({{g}}_{t}\right)^{\left(-\left({(K_Y)}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{(I_Y)}}{{(K_Y)}}-\exp\left({{\overline{g}}}\right)\right)\right)\right)}\, {{K_C}}_{t-1}^{{(K_Y)}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{(I_Y)}}{{(K_Y)}}-\exp\left({{\overline{g}}}\right)\right)}
 \end{dmath}
 % Equation 8
 \begin{dmath}
@@ -137,73 +134,77 @@ theta\_N\_ss = \frac{\left(1-{(\phi)}\right)\, \frac{{(I_Y)}\, \left(1-{(\phi)}\
 \end{dmath}
 % Equation 18
 \begin{dmath}
-{{g_z}}_{t}={{e_g}}_{t}+{{\rho_Z}}\, {{g_z}}_{t-1}+\left(1-{{\rho_Z}}\right)\, {{\overline{g}}}\, \left(1-{(K_Y)}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{(I_Y)}}{{(K_Y)}}-\exp\left({{\overline{g}}}\right)\right)\right)
+{{g}}_{t}={{\overline{g}}}\, \left(1-{{\rho_g}}\right)+{{\rho_g}}\, {{g}}_{t-1}+{{e_g}}_{t}
 \end{dmath}
 % Equation 19
 \begin{dmath}
-{{g}}_{t}=\frac{{{g_z}}_{t}}{1-{(K_Y)}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{(I_Y)}}{{(K_Y)}}-\exp\left({{\overline{g}}}\right)\right)}
+{{Z_C}}_{t}={{\rho_Z}}\, {{Z_C}}_{t-1}+{{e_Z}}_{t}
 \end{dmath}
 % Equation 20
 \begin{dmath}
-{{Z_I}}_{t}={{\rho_{ZI}}}\, {{Z_I}}_{t-1}+{{e_ZI}}_{t}
+{u\_ZI}_{t}={{\rho_{ZI}}}\, {{Z_I}}_{t-1}+{{e_{ZI}}}_{t}
 \end{dmath}
 % Equation 21
 \begin{dmath}
-{{\theta_N}}_{t}={{\rho_N}}\, {{\theta_N}}_{t-1}-{{e_N}}_{t}
+{{Z_I}}_{t}={{Z_C}}_{t}+{u\_ZI}_{t}
 \end{dmath}
 % Equation 22
 \begin{dmath}
-{{\theta_D}}_{t}={{\rho_D}}\, {{\theta_D}}_{t-1}-{{e_D}}_{t}
+{{\theta_N}}_{t}={{\rho_N}}\, {{\theta_N}}_{t-1}-{{e_N}}_{t}
 \end{dmath}
 % Equation 23
 \begin{dmath}
-{log\_Y}_{t}=\log\left({{Y}}_{t}\right)-(\log\left(\bar{{Y}}\right))
+{{\theta_D}}_{t}={{\rho_D}}\, {{\theta_D}}_{t-1}-{{e_D}}_{t}
 \end{dmath}
 % Equation 24
 \begin{dmath}
-{log\_C}_{t}=\log\left({{C}}_{t}\right)-(\log\left(\bar{{C}}\right))
+{log\_Y}_{t}=\log\left({{Y}}_{t}\right)-(\log\left(\bar{{Y}}\right))
 \end{dmath}
 % Equation 25
 \begin{dmath}
-{log\_I}_{t}=\log\left({{I}}_{t}\right)-(\log\left(\bar{{I}}\right))
+{log\_C}_{t}=\log\left({{C}}_{t}\right)-(\log\left(\bar{{C}}\right))
 \end{dmath}
 % Equation 26
 \begin{dmath}
-{log\_N}_{t}=\log\left({{N}}_{t}\right)-(\log\left(\bar{{N}}\right))
+{log\_I}_{t}=\log\left({{I}}_{t}\right)-(\log\left(\bar{{I}}\right))
 \end{dmath}
 % Equation 27
 \begin{dmath}
-{log\_Y\_N}_{t}={log\_Y}_{t}-{log\_N}_{t}
+{log\_N}_{t}=\log\left({{N}}_{t}\right)-(\log\left(\bar{{N}}\right))
 \end{dmath}
 % Equation 28
 \begin{dmath}
-{log\_D}_{t}=\log\left({{D}}_{t}\right)-(\log\left(\bar{{D}}\right))
+{log\_Y\_N}_{t}={log\_Y}_{t}-{log\_N}_{t}
 \end{dmath}
 % Equation 29
 \begin{dmath}
-{log\_p\_I}_{t}=\log\left({{p_I}}_{t}\right)-(\bar{log\_p\_I})
+{log\_D}_{t}=\log\left({{D}}_{t}\right)-(\log\left(\bar{{D}}\right))
 \end{dmath}
 % Equation 30
 \begin{dmath}
-{C\_obs}_{t}={log\_C}_{t}-{log\_C}_{t-1}
+{log\_p\_I}_{t}=\log\left({{p_I}}_{t}\right)-(\bar{log\_p\_I})
 \end{dmath}
 % Equation 31
 \begin{dmath}
-{I\_obs}_{t}={log\_I}_{t}-{log\_I}_{t-1}
+{C\_obs}_{t}={{g}}_{t}+{log\_C}_{t}-{log\_C}_{t-1}-{{\overline{g}}}
 \end{dmath}
 % Equation 32
 \begin{dmath}
-{Y\_obs}_{t}={log\_Y}_{t}-{log\_Y}_{t-1}
+{I\_obs}_{t}={{g}}_{t}+{log\_I}_{t}-{log\_I}_{t-1}-{{\overline{g}}}
 \end{dmath}
 % Equation 33
 \begin{dmath}
-{lab\_prod\_obs}_{t}={log\_Y\_N}_{t}-{log\_Y\_N}_{t-1}
+{Y\_obs}_{t}={{g}}_{t}+{log\_Y}_{t}-{log\_Y}_{t-1}-{{\overline{g}}}
 \end{dmath}
 % Equation 34
 \begin{dmath}
-{p\_I\_obs}_{t}={log\_p\_I}_{t}-{log\_p\_I}_{t-1}
+{Y\_N\_obs}_{t}={{g}}_{t}+{log\_Y\_N}_{t}-{log\_Y\_N}_{t-1}-{{\overline{g}}}
 \end{dmath}
 % Equation 35
+\begin{dmath}
+{p\_I\_obs}_{t}={log\_p\_I}_{t}-{log\_p\_I}_{t-1}
+\end{dmath}
+% Equation 36
 \begin{dmath}
 {N\_obs}_{t}={log\_N}_{t}-{log\_N}_{t-1}
 \end{dmath}
