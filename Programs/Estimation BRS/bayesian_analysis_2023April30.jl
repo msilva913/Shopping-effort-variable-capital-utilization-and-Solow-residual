@@ -23,10 +23,10 @@ function cumulate(x)
     irf_levels =  cat(zeros(1), irf_levels, dims=1)
 end
 
-function irf_fun(vars, irf_dic::Dict; shock, length=80)
+function irf_fun(vars_list, irf_dic::Dict; shock, length=80)
     irf_array = []
     periods = 1:length
-    for (i, key) in enumerate(vars)
+    for (i, key) in enumerate(vars_list)
         str = key*"_"*shock
         x = extract_series(str, irf_dic)[periods]
         irf_level = cumulate(x)
@@ -36,16 +36,16 @@ return irf_array
 end
 
 
-function irf_fun_plot(irf_array, vars; shock, savefig=true)
+function irf_fun_plot(irf_array, vars_list; shock, savefig=true)
     fig = plt.figure(figsize=(20, 8))
     periods = 1:length(irf_array[1][:,1])
-    for (i, key) in enumerate(vars)
+    for (i, key) in enumerate(vars_list)
         irf = irf_array[i]
-        ax = fig.add_subplot(2, 4, i)
+        ax = fig.add_subplot(2, 3, i)
         ax.plot(periods, irf, linewidth=2, color="black")
         ax.tick_params(labelsize=12)
         ax.yaxis.set_major_formatter(matplotlib.ticker.PercentFormatter())
-        ax.set_title(vars[i])
+        ax.set_title(vars_list[i])
         plt.tight_layout()
         fig.suptitle("A 1 standard-deviation shock to "*shock, fontsize=14)
     end 
@@ -57,8 +57,14 @@ function irf_fun_plot(irf_array, vars; shock, savefig=true)
 end
 
 # Standard impulse responses: basic model
-irf_array = irf_fun(vars, irf_dic, shock="e_g" )
-irf_fun_plot(irf_array, vars; shock="e_g")
+vars_list = ["Y_obs", "Y_N_obs", "C_obs", "I_obs", "p_I_obs"]
+x = matopen("irf_basic.mat")
+vars = read(x, "irf_basic")
+irf_dic  = vars
+
+irf_array = irf_fun(vars_list, irf_dic, shock="e_g" )
+irf_fun_plot(irf_array, vars_list; shock="e_g")
+
 
 # Standard impulse responses 
 x = matopen("irf.mat")
@@ -68,7 +74,6 @@ irf_dic  = vars
 
 # String matching
 # Technology shocks (in levels)
-vars = ["Y_obs", "Y_N_obs", "C_obs", "I_obs", "p_I_obs", "util_obs"]
 
 extract_series(str, dic::Dict) = vec(dic[str])
 
