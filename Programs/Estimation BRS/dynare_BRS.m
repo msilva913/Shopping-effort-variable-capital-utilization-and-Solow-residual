@@ -17,12 +17,16 @@ dynare BRS_growth_res.mod
 
 %% BRS with TFP growth: add capacity utilization
 dynare BRS_growth_util.mod 
-
+% Far too low volatility of capacity utilization
 %% Intersector labor market friction
 dynare BRS_imp_mobility.mod
 
 %% Estimate intersectoral labor market friction with new g. Estimate gam
 dynare BRS_imp_mobility_est.mod
+% Too high volatility
+
+%% Diagnose volatility issue by removing capacity utilization from observables
+dynare BRS_imp_mobility_red.mod 
 
 % save('SR', 'SR_obs')
 % save('SR_util', 'SR_util_obs')

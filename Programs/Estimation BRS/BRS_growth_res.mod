@@ -56,6 +56,7 @@ varexo e_g ${e_g}$ (long_name= 'TFP shock')
     
 parameters 
     gam    ${\gamma}$   (long_name= 'Risk aversion')
+    gam_max ${\gamma_{max}}$ (long_name= 'Upper bound on risk aversion')
     r_ann  ${r_ann}$    (long_name='Annual interest rate')
     g_bar  ${\overline{g}}$ (long_name = 'Quarterly growth rate')
     nu     $(\nu)$       (long_name = 'Frisch elasticity')
@@ -84,7 +85,8 @@ parameters
 %----------------------------------------------------------------
 gam = 1.0; % risk aversion
 r_ann = 0.04; % annual interest rate 
-g_bar = 0.0074; % quarterly growth rate
+g_bar = 0.00451; % quarterly growth rate
+gam_max = (1/4)*log(1+r_ann)/g_bar;
 nu = 0.72; % Frisch
 
 I_Y = 0.20;
@@ -326,6 +328,7 @@ estimated_params;
 //x, init_value, lower bound, upper bound, prior shape, prior mean, prior std
 
 //gam, 1.5, 0.5, 4,            GAMMA_PDF, 1.5, 0.25;
+gam, 1.5, 1.0, gam_max,       BETA_PDF, 1.5, 0.25, 1.0, gam_max;
 eta, 0.20, 0.00, 10.0,          GAMMA_PDF, 0.2, 0.15;
 
 % Persistence parameters
@@ -352,24 +355,24 @@ varobs I_obs, Y_obs, Y_N_obs, p_I_obs;
 
 estimation(optim=('MaxIter', 200), 
 datafile=observables_fd, 
-mode_file=BRS_growth_res_mode, 
+//mode_file=BRS_growth_res_mode, 
 //load_mh_file, 
 //mh_recover,
 mcmc_jumping_covariance=prior_variance,
 
-mode_compute=1,
+mode_compute=4,
 presample=0, 
 lik_init=2,
 mh_jscale=0.002, 
 //mh_jscale=0.3,
 mode_check, 
-mh_replic=150000, 
+mh_replic=100000, 
 //mh_replic=0,
 mh_nblocks=2, 
 //bayesian_irf,
 //irf=100,
 mh_drop=0.3, 
-moments_varendo,
+//moments_varendo,
 prior_trunc=0,
 tex)
 Y_obs, Y_N_obs, I_obs, p_I_obs, C_obs,

@@ -27,3 +27,14 @@ Programs/Estimation/+directed_search/dynamic_g2.m
 *.m
 *.m
 Programs/Estimation BRS/BRS_growth.asv
+*.tex
+*.mat
+Programs/Estimation BRS/BRS_growth_res/checksum
+Programs/Estimation BRS/BRS_growth_res/graphs/BRS_growth_res_CheckPlots.tex
+Programs/Estimation BRS/BRS_growth_res/graphs/BRS_growth_res_CheckPlots1.eps
+Programs/Estimation BRS/BRS_growth_res/graphs/BRS_growth_res_CheckPlots2.eps
+Programs/Estimation BRS/BRS_growth_res/graphs/BRS_growth_res_HistoricalAndSmoothedVariables.tex
+Programs/Estimation BRS/BRS_growth_res/graphs/BRS_growth_res_HistoricalAndSmoothedVariables1.eps
+Programs/Estimation BRS/BRS_growth_res/graphs/BRS_growth_res_IRF.tex
+Programs/Estimation BRS/BRS_growth_res/graphs/BRS_growth_res_IRF_e_D1.eps
+*.xlsx
