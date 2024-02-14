@@ -10,9 +10,9 @@ cd(@__DIR__)
 
 @with_kw mutable struct Targets
     # Parameters set exogenously
-    γ::Float64 = 2.0 #Risk aversion
+    γ::Float64 = 1.5 #Risk aversion
     r_ann::Float64 = 0.04
-    g_bar::Float64 = 0.0074
+    g_bar::Float64 = 0.00451
     ν::Float64 = 0.72 # Frisch elasticity
 
     # Normalizations
@@ -52,82 +52,82 @@ display(fig)
 PyPlot.savefig("shopping_curve.pdf")
 
 function calibrate(targets)
-@unpack γ, r_ann, g_bar, ν, Y, p_i, N, Ψ_j, I_Y, K_Y, labor_share, ϕ, η, θ = targets
+    @unpack γ, r_ann, g_bar, ν, Y, p_i, N, Ψ_j, I_Y, K_Y, labor_share, ϕ, η, θ = targets
 
-# Discount factor
-#β*(1+g_bar)^(-γ) = 1/(1+r)
-G = exp(g_bar)
-r = (1+r_ann)^(1/4) - 1.0
-β = (1/(1+r))*G^(γ)
-# upper bound on γ
-#γ = log(1+r)/log(G)
-# Capital accumulation
-# (1+g_bar)K' = (1-δ)K + I 
-# δ = p_I I_Y/(p_I K_Y) - g_bar
-#δ = I_Y/K_Y - g_bar
-# discrete time
-δ = I_Y/K_Y +1 - G
-σ_b = r + δ
+    # Discount factor
+    #β*(1+g_bar)^(-γ) = 1/(1+r)
+    G = exp(g_bar)
+    r = (1+r_ann)^(1/4) - 1.0
+    β = (1/(1+r))*G^(γ)
+    # upper bound on γ
+    #γ = log(1+r)/log(G)
+    # Capital accumulation
+    # (1+g_bar)K' = (1-δ)K + I 
+    # δ = p_I I_Y/(p_I K_Y) - g_bar
+    #δ = I_Y/K_Y - g_bar
+    # discrete time
+    δ = I_Y/K_Y +1 - G
+    σ_b = r + δ
 
-# Labor share 
-α_N = (1-ϕ)*labor_share
-α_K = (r+δ)*K_Y
-# Capital share 
-# R_c=R_i=R in steady state 
-#R_pi = (1-β*(1+g_bar)^(-γ)*(1-δ))/(β*(1+g_bar)^(-γ))
-#R_pi = r + delta
-#α_K = R_pi *K_Y
+    # Labor share 
+    α_N = (1-ϕ)*labor_share
+    α_K = (r+δ)*K_Y
+    # Capital share 
+    # R_c=R_i=R in steady state 
+    #R_pi = (1-β*(1+g_bar)^(-γ)*(1-δ))/(β*(1+g_bar)^(-γ))
+    #R_pi = r + delta
+    #α_K = R_pi *K_Y
 
-# Search efficiency A_c and A_i
-#Ψ_{Tj}(D_j) = A_jD_j^{ϕ}
+    # Search efficiency A_c and A_i
+    #Ψ_{Tj}(D_j) = A_jD_j^{ϕ}
 
-#HH factor
-# D_c/D_i = C/(p_I*I)
-# D_c = (1-I_Y)D 
-# HH search FOC and GHH imply
-# ϕ*C/D_c = D^(1/η) ⇒
-# (1-I_Y)D^(1+1/η) = ϕ*C = ϕ(1-I_Y)
+    #HH factor
+    # D_c/D_i = C/(p_I*I)
+    # D_c = (1-I_Y)D 
+    # HH search FOC and GHH imply
+    # ϕ*C/D_c = D^(1/η) ⇒
+    # (1-I_Y)D^(1+1/η) = ϕ*C = ϕ(1-I_Y)
 
- D = ϕ^(η/(1+η))
- D_c = (1-I_Y)*D
- D_i = I_Y*D
-A_c = Ψ_j/D_c^(ϕ)
-A_i = Ψ_j/D_i^(ϕ)
+    D = ϕ^(η/(1+η))
+    D_c = (1-I_Y)*D
+    D_i = I_Y*D
+    A_c = Ψ_j/D_c^(ϕ)
+    A_i = Ψ_j/D_i^(ϕ)
 
 
 
-# Mean TFP 
-# N_i/N_c = I_Y/(1-I_Y)
-# K_i/K_c = I_Y/(1-I_Y) 
-I = I_Y*Y
-C = Y - I
-K = K_Y*Y*G # transformation of variables
-K_i = I_Y*K
-K_c = (1-I_Y)*K
-N_i = I_Y*N 
-N_c = (1-I_Y)*N
+    # Mean TFP 
+    # N_i/N_c = I_Y/(1-I_Y)
+    # K_i/K_c = I_Y/(1-I_Y) 
+    I = I_Y*Y
+    C = Y - I
+    K = K_Y*Y*G # transformation of variables
+    K_i = I_Y*K
+    K_c = (1-I_Y)*K
+    N_i = I_Y*N 
+    N_c = (1-I_Y)*N
 
-Q = p_i/(1-ϕ);
+    Q = p_i/(1-ϕ);
 
-# TFP parameter
-z_c = (1-I_Y)/(Ψ_j*G^(-α_K)*K_c^(α_K)*N_c^(α_N))
-z_i = (I_Y)/(Ψ_j*G^(-α_K)*K_i^(α_K)*N_i^(α_N))
+    # TFP parameter
+    z_c = (1-I_Y)/(Ψ_j*G^(-α_K)*K_c^(α_K)*N_c^(α_N))
+    z_i = (I_Y)/(Ψ_j*G^(-α_K)*K_i^(α_K)*N_i^(α_N))
 
-#
-# Weight on labor aggregator
-ω = N_c/N
-# Labor composite 
-N_a = (ω^(-θ)*N_c^(1+θ)+(1-ω)^(-θ)*N_i^(1+θ))^(1/(1+θ))
-# Implied wage
-W = α_N*(I/N_i)*p_i/(1-ϕ)
-# Level parameter on labor supply
-θ_n = (1-ϕ)*W/(N_a^(1/ν))
+    #
+    # Weight on labor aggregator
+    ω = N_c/N
+    # Labor composite 
+    N_a = (ω^(-θ)*N_c^(1+θ)+(1-ω)^(-θ)*N_i^(1+θ))^(1/(1+θ))
+    # Implied wage
+    W = α_N*(I/N_i)*p_i/(1-ϕ)
+    # Level parameter on labor supply
+    θ_n = (1-ϕ)*W/(N_a^(1/ν))
 
-return (γ=γ, β=β, δ=δ, α_N=α_N, α_K=α_K, A_c=A_c, A_i=A_i, z_c=z_c, z_i=z_i, σ_b, ω, θ_n,
- C=C, I=I, Y=Y, K=K, N=N, N_c=N_c, N_i=N_i, N_a, D=D, D_c=D_c, D_i=D_i, Q=Q)
+    return (γ=γ, β=β, δ=δ, α_N=α_N, α_K=α_K, A_c=A_c, A_i=A_i, z_c=z_c, z_i=z_i, σ_b, ω, θ_n,
+    C=C, I=I, Y=Y, K=K, N=N, N_c=N_c, N_i=N_i, N_a, D=D, D_c=D_c, D_i=D_i, Q=Q)
 end
 
-targets = Targets(g_bar = 0.0074, γ=1.0, r_ann=0.04)
+targets = Targets(g_bar = 0.00451, γ=2.0, r_ann=0.04)
 cal = calibrate(targets)
 
 #targets_ng = Targets(g_bar = 0.0, γ=1.0)
