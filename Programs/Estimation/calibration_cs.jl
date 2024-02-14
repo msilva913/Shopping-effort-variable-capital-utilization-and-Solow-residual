@@ -34,7 +34,7 @@ cd(@__DIR__)
     θ::Float64 = 1/0.1735
 end
 
-function ϕ_fun(η, m)
+function ϕ_fun(η, m=0.286)
     return (η+1)*m/(1+η*m)
 end
 

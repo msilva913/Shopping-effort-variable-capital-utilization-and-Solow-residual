@@ -10,6 +10,13 @@ dynare BRS_growth.mod
 irf_basic = oo_.irfs
 save('irf_basic.mat', 'irf_basic')
 
+%% BRS with TFP growth and restriction
+dynare BRS_growth_res.mod 
+% results hold up nicely-> reasonable moments, captures contribution of
+% demand shocks to lab_prod
+
+%% BRS with TFP growth: add capacity utilization
+dynare BRS_growth_util.mod 
 
 %% Intersector labor market friction
 dynare BRS_imp_mobility.mod
