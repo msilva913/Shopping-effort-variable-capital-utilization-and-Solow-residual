@@ -135,7 +135,7 @@ if __name__ == "__main__":
     #filter_type = 'hamilton'
     filter_type = 'growth'
     freq = 'Q'
-    save_observables = True
+    save_observables = False
     
     if load:
         var_load_list = pickle.load(open("var_load_list", "rb"))
@@ -153,8 +153,10 @@ if __name__ == "__main__":
     """
     
     cycle_growth = pd.concat([filter_transform(dat[x], init=init, final=final, transform_type='log',
-                                        filter_type="growth", demean=True) for x in lab], axis=1)
+                                        filter_type="growth", demean=False) for x in lab], axis=1)
     cycle_growth.columns = lab
+    print(cycle_growth.mean())
+    cycle_growth = cycle_growth - cycle_growth.mean()
     
     if save_observables:
         " Save relevant objects "

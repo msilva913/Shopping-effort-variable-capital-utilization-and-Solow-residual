@@ -21,6 +21,9 @@ dynare BRS_growth_util.mod
 %% Intersector labor market friction
 dynare BRS_imp_mobility.mod
 
+%% Estimate intersectoral labor market friction with new g. Estimate gam
+dynare BRS_imp_mobility_est.mod
+
 % save('SR', 'SR_obs')
 % save('SR_util', 'SR_util_obs')
 % save('Y', 'Y_obs')

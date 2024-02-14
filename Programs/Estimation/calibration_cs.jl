@@ -123,12 +123,17 @@ function calibrate(targets)
     # Level parameter on labor supply
     θ_n = (1-ϕ)*W/(N_a^(1/ν))
 
-    return (γ=γ, β=β, δ=δ, α_N=α_N, α_K=α_K, A_c=A_c, A_i=A_i, z_c=z_c, z_i=z_i, σ_b, ω, θ_n,
+    return (γ=γ, r=r, β=β, δ=δ, α_N=α_N, α_K=α_K, A_c=A_c, A_i=A_i, z_c=z_c, z_i=z_i, σ_b, ω, θ_n,
     C=C, I=I, Y=Y, K=K, N=N, N_c=N_c, N_i=N_i, N_a, D=D, D_c=D_c, D_i=D_i, Q=Q)
 end
 
-targets = Targets(g_bar = 0.00451, γ=2.0, r_ann=0.04)
-cal = calibrate(targets)
+# Back out max on γ
+
+targets = Targets(g_bar = 0.00451, γ=1.5, r_ann=0.04)
+@show cal = calibrate(targets)
+@unpack r = cal
+@unpack g_bar = targets
+γ_max = log(1+r)/g_bar
 
 #targets_ng = Targets(g_bar = 0.0, γ=1.0)
 # cal_ng = calibrate(targets_ng)
