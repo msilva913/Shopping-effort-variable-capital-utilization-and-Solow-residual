@@ -25,6 +25,8 @@ dynare BRS_growth_util_shock.mod
 %% Analyze erroneous mapping to capacity utilization
 dynare BRS_growth_util_shock_err.mod 
 
+%% Estimate with sectoral data
+dynare BRS_growth_util_sectoral.mod
 %% Intersector labor market friction
 dynare BRS_imp_mobility.mod
 

@@ -267,8 +267,7 @@ D = D_C + D_I;
 Y = C + p_I_ss*I;
 
 [name = 'Capacity utilization']
-//util = (C/Y)*A_C*D_C^(phi)*h_C^(alpha_K) + (I/Y)*A_I*D_I^(phi)*h_I^(alpha_K);
-util = (C)h_C + (I/Y)h_I;
+util = (C/Y)*A_C*D_C^(phi)*h_C^(alpha_K) + (I/Y)*A_I*D_I^(phi)*h_I^(alpha_K);
 
 % Exogenous processes
 [name='exogenous labor-augmenting growth process']
@@ -382,8 +381,7 @@ steady_state_model;
     //x = delta_ss + g_bar;
     //x = I_Y/K_Y;
 
-    //util = (C/Y)*A_C_ss*D_C^(phi_ss)*h_C^(alpha_K_ss) + (I/Y)*A_I_ss*D_I^(phi_ss)*h_I^(alpha_K_ss);
-    util = (C_Y)h_C + (I/Y)h_I;
+    util = (C/Y)*A_C_ss*D_C^(phi_ss)*h_C^(alpha_K_ss) + (I/Y)*A_I_ss*D_I^(phi_ss)*h_I^(alpha_K_ss);
 
     Z_C = 0;
     Z_I = 0;
@@ -474,9 +472,8 @@ end;
 
 options_.TeX=1;
 
-//varobs I_obs, Y_obs, Y_N_obs, LC_obs, util_obs;
-varobs I_obs, Y_obs, Y_N_obs, p_I_obs, util_obs;
-
+//varobs I_obs, Y_obs, Y_N_obs, p_I_obs, util_obs;
+varobs NC_obs, NI_obs, C_obs, I_obs, util_obs;
 
 estimation(tex, optim=('MaxIter', 200), 
 datafile=observables_fd, 
