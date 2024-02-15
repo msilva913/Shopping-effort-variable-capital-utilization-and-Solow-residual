@@ -215,6 +215,7 @@ if __name__ == "__main__":
             ax.plot(cycle[z], label=f"{z}", lw=2, alpha=0.6, linestyle=next(lsty_cycler))
             ax.legend(loc='upper right')
             ax.xaxis.set_major_locator(years)
+            #ax.set_ylim(-0.15, 0.15)
             ax.xaxis.set_major_formatter(years_fmt)
             ax.grid(True)
         plt.savefig('output_comovement_simp.pdf')
@@ -223,6 +224,7 @@ if __name__ == "__main__":
     
     " Restricted set of variables: includes variables in estimation "
     cycle_red = cycle[["Y", "C", "I", "LC", "LI", "p_I", "SR"]]
+    #cycle_red = cycle_growth[["Y", "C", "I", "LC", "LI", "p_I", "SR"]]
     plot_cycle(cycle_red)
     
     linestyle = ['-', ':', '-.']
