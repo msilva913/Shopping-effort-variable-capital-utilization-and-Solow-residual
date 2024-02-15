@@ -15,9 +15,9 @@ dynare BRS_growth_res.mod
 % results hold up nicely-> reasonable moments, captures contribution of
 % demand shocks to lab_prod
 
-%% BRS with TFP growth: add capacity utilization and vcu in model (and capacity utilization as an observable)
+%% BRS with TFP growth: add capacity utilization and vcu in model
 dynare BRS_growth_util.mod 
-% 
+% Far too low volatility of capacity utilization
 %% Intersector labor market friction
 dynare BRS_imp_mobility.mod
 

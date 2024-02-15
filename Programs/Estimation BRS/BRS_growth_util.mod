@@ -21,6 +21,15 @@ var Y           ${Y}$ (long_name='output')
     R_I         ${R_I}$ (long_name='Capital rental rate:I')
     W           ${W}$ (long_name='Real wage')
 
+    h_C         ${h_C}$ (long_name= 'Capital utilization rate:C')
+    h_I         ${h_I}$ (long_name= 'Capital utilization rate:I')
+
+    delta_C    ${\delta_C}$ (long_name= 'Capital depreciation rate:C')
+    delta_I    ${\delta_I}$ (long_name= 'Capital depreciation rate:I')
+
+    delta_C_pr    ${\delta_C}$ (long_name= 'Capital depreciation rate derivative:C')
+    delta_I_pr    ${\delta_I}$ (long_name= 'Capital depreciation rate derivative:I')
+
     D           ${D}$ (long_name='Shopping effort')
     D_C           ${D}$ (long_name='Shopping effort:C')
     D_I           ${D}$ (long_name='Shopping effort:I')
@@ -28,14 +37,19 @@ var Y           ${Y}$ (long_name='output')
     Gam        ${\Gamma}$ (long_name = 'Composite utility term')
 
     p_I        ${p_I}$ (long_name = 'Relative investment price')
-    util       ${util}$ (long_name = 'Capacity utilization:')
+    Q          ${Q}$ (long_name = 'Relative price of capital')
+    //x          ${x}$ (long_name = 'Investment-capital ratio')
     
+    util       ${util}$ (long_name = 'Capacity utilization:')
+
     g          ${g}$ (long_name = 'Output growth rate (labor-augmenting technology)')
     
     log_Y
     log_C
     log_I
     log_N
+    log_NC
+    log_NI
     log_Y_N
     log_D
     log_p_I
@@ -45,35 +59,41 @@ var Y           ${Y}$ (long_name='output')
     I_obs
     Y_obs
     Y_N_obs
-    D_obs
     p_I_obs
     N_obs
+    NC_obs
+    NI_obs
     util_obs
+    D_obs
+  
     ;
 
-varexo e_g ${e_g}$ (long_name= 'TFP shock')
+varexo e_g ${e_g}$ (long_name= 'Labor-augmenting-technology growth shock')
        e_Z ${e_Z}$ (long_name= 'TFP shock')
        e_ZI ${e_{ZI}}$ (long_name= 'Investment-specific tech shock')
-       e_N ${e_N}$ (long_name = 'Labor supply shock')
+       e_N ${e_N}$ (long_name= 'Labor supply shock')
        e_D ${e_D}$ (long_name = 'Shopping disutility shock')
     ;
     
 parameters 
     gam    ${\gamma}$   (long_name= 'Risk aversion')
+    gam_max ${\gamma_{max}}$ (long_name= 'Upper bound on risk aversion')
     r_ann  ${r_ann}$    (long_name='Annual interest rate')
-    g_bar  ${\overline{g}}$ (long_name = 'Quarterly growth rate')
-    nu     $(\nu)$       (long_name = 'Frisch elasticity')
+    g_bar  ${\overline{g}}$ (long_name = 'Quarterly trend growth rate')
+    nu     $\nu$       (long_name = 'Frisch elasticity')
+    sigma_a ${\sigma_a}$ (long_name = 'Inverse elasticity of marginal utilization cost wrt rental rate')
+    Psi_K ${\Psi_K}$ (long_name = 'Investment adjustment cost parameter')
    
-    I_Y    $(I_Y)$   (long_name = 'Investment-output ratio')
-    K_Y    $(K_Y)$   (long_name = 'Capital-output ratio (quarterly)')
+    I_Y    ${I_Y}$   (long_name = 'Investment-output ratio')
+    K_Y    ${K_Y}$   (long_name = 'Capital-output ratio (quarterly)')
     labor_share    $(labor share)$   (long_name = 'Labor share')
 
-    //phi  $(\phi)$ (long_name = 'Shopping matching function elasticity')
+    //phi  ${\phi}$ (long_name = 'Shopping matching function elasticity')
     m    ${m}$    (long_name = 'Ratio of price dispersion to consumption dispersion')
-    eta  $(\eta)$ (long_name = 'Shopping disutility')
-    Psi  $(\Psi)$ (long_name = 'Matching utilization')
+    eta  ${\eta}$ (long_name = 'Shopping disutility')
+    Psi  ${\Psi}$ (long_name = 'Matching utilization')
 
-    rho_g   ${\rho_g}$ (long_name='persistence shock to labor-augmenting technology growth rate')
+    rho_g    ${\rho_g}$  (long_name='persistence TFP growth shock')
     rho_Z   ${\rho_Z}$  (long_name='persistence TFP shock')
     rho_ZI    ${\rho_{ZI}}$  (long_name='persistence I-specific shock')
     rho_N    ${\rho_N}$  (long_name='persistence labor supply shock')
@@ -86,10 +106,13 @@ parameters
 %----------------------------------------------------------------
 % set parameter values 
 %----------------------------------------------------------------
-gam = 1.0; % risk aversion
+gam = 2.0; % risk aversion
 r_ann = 0.04; % annual interest rate 
-g_bar = 0.0074; % quarterly growth rate
+g_bar = 0.00451; % quarterly growth rate
+gam_max = (1/4)*log(1+r_ann)/g_bar;
 nu = 0.72; % Frisch
+sigma_a = 0.32; % inverse of elasticity of capital utilization wrt rental rate
+//Psi_K = 1.5;
 
 I_Y = 0.20;
 K_Y = 11;
@@ -100,10 +123,12 @@ eta = 0.20;
 //phi = 0.32;
 Psi = 0.81;
 
+theta = 1/0.1735;
+
 p_I_ss = 1.0;
 N_ss = 0.30;
 
-rho_g = 0.1;
+rho_g = 0.2;
 rho_Z = 0.9;
 rho_ZI = 0.9;
 rho_N = 0.9;
@@ -117,13 +142,17 @@ model;
 % Dependent parameters
 #r = (1+r_ann)^(1/4) - 1.0;
 #I_K = I_Y/K_Y;
-#beta=(1/(1+r))*(exp(g_bar))^(gam);
+%#delta = I_K - g_bar;
 #delta = I_K + 1 - exp(g_bar);
+#alpha_K = (r+delta)*K_Y;
+%#beta = (1/(1+r))*(1+g_bar)^(gam);
+#beta=(1/(1+r))*(exp(g_bar))^(gam);
 
+# sigma_b = r + delta;
 #phi = (eta+1)*m/(1+eta*m);
 
 #alpha_N = (1-phi)*labor_share;
-#alpha_K = (r+delta)*K_Y;
+
 
 #D_ss = phi^(eta/(1+eta));
 #D_C_ss = (1-I_Y)*D_ss;
@@ -138,14 +167,14 @@ model;
 #K_C_ss = (1-I_Y)*K_ss;
 #N_I_ss = I_Y*N_ss;
 #N_C_ss = (1-I_Y)*N_ss;
+#omega = N_C_ss/N_ss;
 
 #W_ss = (p_I_ss/(1-phi))*alpha_N*I_ss/N_I_ss;
 
 #Z_C_ss = (1-I_Y)/(Psi*exp(g_bar)^(-alpha_K)*K_C_ss^(alpha_K)*N_C_ss^(alpha_N));
 #Z_I_ss = (I_Y)/(Psi*exp(g_bar)^(-alpha_K)*K_I_ss^(alpha_K)*N_I_ss^(alpha_N));
 
-#theta_N_ss = (1-phi)*W_ss/(N_ss^(1/nu));
-
+#theta_N_ss = (1-phi)*W_ss/(N^(1/nu));
 
 [name='Labor leisure']
 theta_N_ss*exp(theta_N)*N^(1/nu) = (1-phi)*W;
@@ -157,34 +186,68 @@ exp(theta_D)*D^(1/eta) = phi*C/D_C;
 exp(theta_D)*D^(1/eta) = phi*p_I*I/D_I;
 
 [name = 'Composite utility term']
-Gam = (C - exp(theta_D)*D^(1+1/eta)/(1+1/eta) - theta_N_ss*exp(theta_N)*N^(1+1/nu)/(1+1/nu));
+Gam = C - exp(theta_D)*D^(1+1/eta)/(1+1/eta) - theta_N_ss*exp(theta_N)*N^(1+1/nu)/(1+1/nu);
+
+
+[name = 'Tobins Q']
+Q = p_I/(1-phi);
+//Q = p_I/(1-phi)*(1-Psi_K*(x-I_K))^(-1);
 
 [name= 'Euler equation: C']
-Gam^(-gam)*p_I = beta*((1-phi)*R_C(+1) + p_I(+1)*(1-delta))*Gam(+1)^(-gam)*exp(g(+1))^(-gam);
+Q = beta*(Gam(+1)/Gam)^(-gam)*exp(g(+1))^(-gam)*(R_C(+1)*h_C(+1) + (1-delta_C(+1))*Q(+1));
+//Q = beta*(Gam(+1)/Gam)^(-gam)*exp(g(+1))^(-gam)*(R_C(+1)*h_C(+1) + (1-delta_C(+1) + Psi_K*(x(+1)-I_K)*x(+1) - Psi_K/2*(x(+1)-I_K)^2)*Q(+1));
 
 [name = 'Euler equation: I']
-R_I(+1) = R_C(+1);
+Q = beta*(Gam(+1)/Gam)^(-gam)*exp(g(+1))^(-gam)*(R_I(+1)*h_I(+1) + (1-delta_I(+1))*Q(+1));
+//Q = beta*(Gam(+1)/Gam)^(-gam)*exp(g(+1))^(-gam)*(R_I(+1)*h_I(+1) + (1-delta_I(+1) + Psi_K*(x(+1)-I_K)*x(+1) - Psi_K/2*(x(+1)-I_K)^2)*Q(+1));
+
+//[name = 'Investment-capital ratio: x']
+//x = I/K(-1)*exp(g);
+
+[name = 'Utilization: C']
+delta_C_pr*Q = R_C;
+
+[name = 'Utilization: I']
+delta_I_pr*Q = R_I;
+
+[name = 'Depreciation rate: C']
+delta_C = delta + sigma_b*(h_C-1) + sigma_a*sigma_b/2*(h_C-1)^2;
+
+[name = 'Depreciation rate: I']
+delta_I = delta + sigma_b*(h_I-1) + sigma_a*sigma_b/2*(h_I-1)^2;
+
+[name = 'Depreciation rate derivative: C']
+delta_C_pr = sigma_b + sigma_a*sigma_b*(h_C-1);
+
+[name = 'Depreciation rate derivative: I']
+delta_I_pr = sigma_b + sigma_a*sigma_b*(h_I-1);
 
 [name = 'Consumption production']
-C = A_C*(D_C)^phi*Z_C_ss*exp(Z_C)*exp(g)^(-alpha_K)*(K_C(-1))^alpha_K*(N_C)^alpha_N;
+C = A_C*(D_C)^phi*Z_C_ss*exp(Z_C)*exp(g)^(-alpha_K)*(h_C*K_C(-1))^alpha_K*(N_C)^alpha_N;
+//C = A_C*(D_C)^phi*exp(g)^(-alpha_K)*(h_C*K_C(-1))^alpha_K*(N_C)^alpha_N;
 
 [name = 'Investment production']
-I = A_I*(D_I)^phi*Z_I_ss*exp(Z_I)*exp(g)^(-alpha_K)*(K_I(-1))^alpha_K*(N_I)^alpha_N;
+I = A_I*(D_I)^phi*Z_I_ss*exp(Z_I)*exp(g)^(-alpha_K)*(h_I*K_I(-1))^alpha_K*(N_I)^alpha_N;
+//I = A_I*(D_I)^phi*exp(g)^(-alpha_K)*(h_I*K_I(-1))^alpha_K*(N_I)^alpha_N;
 
 [name = 'Capital law of motion']
-I*exp(g) = (K_C + K_I)*exp(g) - (1-delta)*(K_C(-1)+K_I(-1));
+//I = K_C + K_I - (1-delta)*(K_C(-1)+K_I(-1));
+//I*exp(g) = (K_C + K_I)*exp(g) - (1-delta_C)*K_C(-1) - (1-delta_I)*K_I(-1) +Psi_K/2*(x-I_K)^2;
+I*exp(g) = (K_C + K_I)*exp(g) - (1-delta_C)*K_C(-1) - (1-delta_I)*K_I(-1);
 
 [name = 'Labor demand:C']
 (1-phi)*W = alpha_N*C/N_C;
 
-[name = 'Capital demand:C']
-(1-phi)*R_C = alpha_K*C/(K_C(-1))*exp(g);
 
 [name = 'Labor demand:I']
 (1-phi)*W/p_I = alpha_N*I/N_I;
 
+[name = 'Capital demand:C']
+(1-phi)*R_C = alpha_K*C/(h_C*K_C(-1))*exp(g);
+
+
 [name = 'Capital demand:I']
-(1-phi)*R_I/p_I = alpha_K*I/(K_I(-1))*exp(g);
+(1-phi)*R_I/p_I = alpha_K*I/(h_I*K_I(-1))*exp(g);
 
 [name = 'Labor composition']
 N = N_C + N_I;
@@ -199,7 +262,7 @@ D = D_C + D_I;
 Y = C + p_I_ss*I;
 
 [name = 'Capacity utilization']
-util = (C/Y)*A_C*D_C^(phi) + (I/Y)*A_I*D_I^(phi);
+util = (C/Y)*A_C*D_C^(phi)*h_C^(alpha_K) + (I/Y)*A_I*D_I^(phi)*h_I^(alpha_K);
 
 % Exogenous processes
 [name='exogenous labor-augmenting growth process']
@@ -230,6 +293,8 @@ log_I = log(I) - steady_state(log(I));
 [name='Definition log hours']
 log_N = log(N) - steady_state(log(N));
 [name='Definition log labor productivity']
+log_NC = log(N_C) - steady_state(log(N_C));
+log_NI = log(N_I) - steady_state(log(N_I));
 log_Y_N = log_Y - log_N;
 [name = 'Definition log shopping effort']
 log_D = log(D) - steady_state(log(D));
@@ -238,41 +303,77 @@ log_p_I = log(p_I) - steady_state(log_p_I);
 [name = 'Definition of log capacity utilization']
 log_util = log(util) - steady_state(log(util));
 
-% Observation variables: first differences (demeaned) -> link to data in first differences
-C_obs = log_C - log_C(-1) + g - g_bar;
-I_obs = log_I - log_I(-1) + g - g_bar;
-Y_obs = log_Y - log_Y(-1) + g - g_bar;
-Y_N_obs = log_Y_N - log_Y_N(-1) + g - g_bar;
+% Observation variables: first differences (demeaned) -> link to data in first differences (p. 58 of Pfeifer's Observation Equations)
+C_obs = log_C - log_C(-1) + g - g_bar ;
+I_obs = log_I - log_I(-1) + g - g_bar ;
+Y_obs = log_Y - log_Y(-1) + g - g_bar ;
+Y_N_obs = log_Y_N - log_Y_N(-1) + g - g_bar ;
 
-% Stationary
+% Stationary variables
 p_I_obs = log_p_I - log_p_I(-1);
 N_obs = log_N - log_N(-1);
+NC_obs = log_NC - log_NC(-1);
+NI_obs = log_NI - log_NI(-1);
 util_obs = log_util - log_util(-1);
 D_obs = log_D - log_D(-1);
+
+
 end;
 
 steady_state_model;
     //Do Calibration
     //Calibrate the model to N=0.3, annual interest rate, and normalizations
-    phi_ss = (eta+1)*m/(1+eta*m);
-
     N = N_ss;
     Y = 1.0;
     p_I = 1.0;
+    
+    phi_ss = (eta+1)*m/(1+eta*m);
+
     I = I_Y;
     C = 1-I_Y;
     D = phi_ss^(eta/(1+eta));
     D_C = (1-I_Y)*D;
     D_I = I_Y*D;
-
+    
     A_C_ss = Psi/D_C^phi_ss;
     A_I_ss = Psi/D_I^phi_ss;
 
+    //K = K_Y;
     K = K_Y*exp(g_bar);
     K_I = I_Y*K;
     K_C = (1-I_Y)*K;
     N_I = I_Y*N;
     N_C = (1-I_Y)*N;
+   
+
+    alpha_N_ss = (1-phi_ss)*labor_share;
+    W = alpha_N_ss*I/N_I*p_I/(1-phi_ss);
+    theta_N_s = (1-phi_ss)*W/(N^(1/nu));
+    Gam = (C - D^(1+1/eta)/(1+1/eta) - theta_N_s*N^(1+1/nu)/(1+1/nu));
+   
+    r_ss = (1+r_ann)^(1/4) - 1.0;
+    beta_ss = (1/(1+r_ss))*exp(g_bar)^(gam);
+    //delta_ss = I_Y/K_Y*(1+g_bar) - g_bar;
+    delta_ss = I_Y/K_Y + 1 - exp(g_bar);
+    sigma_b_ss = r_ss + delta_ss;
+    alpha_K_ss = (r_ss+delta_ss)*K_Y;
+
+    g = g_bar;
+
+    % Utilization variables
+    h_C = 1;
+    h_I = 1;
+    delta_C = delta_ss;
+    delta_I = delta_ss;
+
+    delta_C_pr = sigma_b_ss;
+    delta_I_pr = sigma_b_ss;
+
+    Q = p_I/(1-phi_ss);
+    //x = delta_ss + g_bar;
+    //x = I_Y/K_Y;
+
+    util = (C/Y)*A_C_ss*D_C^(phi_ss)*h_C^(alpha_K_ss) + (I/Y)*A_I_ss*D_I^(phi_ss)*h_I^(alpha_K_ss);
 
     Z_C = 0;
     Z_I = 0;
@@ -280,29 +381,17 @@ steady_state_model;
     theta_N = 0;
     theta_D = 0;
 
-    alpha_N_ss = (1-phi_ss)*labor_share;
-    W = alpha_N_ss*I/N_I*p_I/(1-phi_ss);
-    theta_N_s = (1-phi_ss)*W/(N^(1/nu));
-    Gam = C - D^(1+1/eta)/(1+1/eta) - theta_N_s*N^(1+1/nu)/(1+1/nu);
-    
-    r_ss = (1+r_ann)^(1/4) - 1.0;
-    beta_ss = (1/(1+r_ss))*exp(g_bar)^(gam);
-    delta_ss = I_Y/K_Y + 1 - exp(g_bar);
-    alpha_K_ss = (r_ss+delta_ss)*K_Y;
-    
-    % Growth parameters
-    g = g_bar;
-
-    R_C = W*exp(g)*(alpha_K_ss/alpha_N_ss)*N_I/K_I;
+   
+    R_C = W*exp(g)*(alpha_K_ss/alpha_N_ss)*N_C/K_C;
     R_I = R_C;
-
-    util = (C/Y)*A_C_ss*D_C^(phi_ss) + (I/Y)*A_I_ss*D_I^(phi_ss);
     
     % Logged versions of variables
     log_Y = 0;
     log_C = 0;
     log_I = 0;
     log_N = 0;
+    log_NC = 0;
+    log_NI = 0;
     log_Y_N = 0;
     log_D = 0;
     log_p_I = 0;
@@ -312,16 +401,18 @@ steady_state_model;
     I_obs = 0;
     Y_obs = 0;
     Y_N_obs = 0;
-    D_obs = 0;
     N_obs = 0;
+    NC_obs = 0;
+    NI_obs = 0;
     p_I_obs = 0;
     util_obs = 0;
+    D_obs = 0;
 
 end;
 
 //set shock variances
 shocks;
-    var e_g=0.001^2;
+    var e_g=0.0072^2;
     var e_Z = 0.0072^2;
     var e_ZI=0.0072^2;
     var e_N = 0.0072^2;
@@ -343,20 +434,25 @@ estimated_params;
 //x, init_value, lower bound, upper bound, prior shape, prior mean, prior std
 
 //gam, 1.5, 0.5, 4,            GAMMA_PDF, 1.5, 0.25;
+gam, 1.5, 1.0, gam_max,       BETA_PDF, 1.5, 0.25, 1.0, gam_max;
+sigma_a, 0.32, 0.0, 10,        GAMMA_PDF, 0.32, 0.2;
+//Psi_K, 1.5, 0.0, 50,           GAMMA_PDF, 1.5, 1.0;
+
+//phi, 0.32, 0.00, 0.999,        BETA_PDF, 0.32, 0.2;
 eta, 0.20, 0.00, 10.0,          GAMMA_PDF, 0.2, 0.15;
+
 
 % Persistence parameters
 rho_g,  0.1, 0.0001, 0.9,        BETA_PDF, 0.1, 0.05;
 rho_Z, 0.95, 0.01, 0.999999,     BETA_PDF, 0.6, 0.2;
 rho_ZI,  0.95, 0.01, 0.999999,    BETA_PDF, 0.6, 0.2;
-
-rho_N,  0.6, 0.01, 0.9999999,        BETA_PDF, 0.6, 0.2;
+rho_N,  0.6, 0.01, 0.9999,        BETA_PDF, 0.6, 0.2;
 rho_D,  0.9, 0.01, 0.9999,        BETA_PDF, 0.6, 0.2;
 
 % Standard errors
 stderr e_g, 0.01, 0.00001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
-stderr e_ZI, 0.01, 0.0001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
 stderr e_Z, 0.01, 0.00001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
+stderr e_ZI, 0.01, 0.0001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
 stderr e_N, 0.01, 0.0001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
 stderr e_D, 0.01, 0.0001, 0.4,  INV_GAMMA_PDF, 0.01, 0.1;
 
@@ -364,33 +460,36 @@ end;
 
 options_.TeX=1;
 
+//varobs I_obs, Y_obs, Y_N_obs, LC_obs, util_obs;
 varobs I_obs, Y_obs, Y_N_obs, p_I_obs, util_obs;
 
 
-estimation(optim=('MaxIter', 200), 
+estimation(tex, optim=('MaxIter', 200), 
 datafile=observables_fd, 
 //mode_file=BRS_growth_util_mode, 
-load_mh_file, 
+//nograph,
+//load_mh_file, 
 //mh_recover,
-//mcmc_jumping_covariance=prior_variance,
+mcmc_jumping_covariance=prior_variance,
 
-mode_compute=0,
+mode_compute=9,
 presample=0, 
 lik_init=2,
-mh_jscale=0.002, 
+mh_jscale=0.0015, 
+mh_init_scale =0.0004,
 //mh_jscale=0.3,
 mode_check, 
-//mh_replic=150000, 
-mh_replic=0,
+mh_replic=100000, 
+//mh_replic=0,
 mh_nblocks=2, 
 //bayesian_irf,
 //irf=100,
 mh_drop=0.3, 
 //moments_varendo,
-prior_trunc=0,
-tex)
-Y_obs, Y_N_obs, I_obs, p_I_obs, C_obs,
-log_I, log_C, log_Y, log_Y_N, log_p_I;
+prior_trunc=0)
+Y_obs, Y_N_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_obs;
+//log_Y, log_Y_N, log_I, log_p_I, log_C, log_N, log_NC, log_NI, util;
+
 
 
 %----------------------------------------------------------------
@@ -408,9 +507,9 @@ collect_latex_files;
 % end
 
 %*/
-% Stochastic simulation 
+% Stochastic simulation -> for conditional FEVD and IRF
 stoch_simul (order=1, nofunctions, irf=100, periods=0,
 conditional_variance_decomposition=[1 4 8 40])
-Y_obs, Y_N_obs, I_obs, p_I_obs, C_obs, util_obs, D_obs,
-log_Y, log_Y_N, log_I, log_p_I, log_C, log_util, log_D;
+Y_obs, Y_N_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_obs, D_obs,
+log_Y, log_Y_N, log_I, log_p_I, log_C, log_N, log_NC, log_NI, log_util, log_D;
 
