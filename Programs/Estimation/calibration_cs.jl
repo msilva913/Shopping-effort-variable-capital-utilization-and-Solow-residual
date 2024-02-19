@@ -26,6 +26,9 @@ cd(@__DIR__)
     K_Y::Float64 = 11 #quarterly
     labor_share::Float64 = 0.67
 
+    # Fixed cost share of output
+    ν_R::Float64 = 0.20
+
     # Targets specific to this economy
     ϕ::Float64 = 0.32
     η::Float64 = 0.20
@@ -68,10 +71,11 @@ function calibrate(targets)
     # discrete time
     δ = I_Y/K_Y +1 - G
     σ_b = r + δ
+    ν_R = 0.2
 
     # Labor share 
-    α_N = (1-ϕ)*labor_share
-    α_K = (r+δ)*K_Y
+    α_N = (1-ϕ)*labor_share/(1+ν_R)
+    α_K = (r+δ)*K_Y/(1+ν_R)
     # Capital share 
     # R_c=R_i=R in steady state 
     #R_pi = (1-β*(1+g_bar)^(-γ)*(1-δ))/(β*(1+g_bar)^(-γ))
@@ -95,7 +99,6 @@ function calibrate(targets)
     A_i = Ψ_j/D_i^(ϕ)
 
 
-
     # Mean TFP 
     # N_i/N_c = I_Y/(1-I_Y)
     # K_i/K_c = I_Y/(1-I_Y) 
@@ -107,41 +110,50 @@ function calibrate(targets)
     N_i = I_Y*N 
     N_c = (1-I_Y)*N
 
+    # Solve for fixed cost parameter
+    ν_c= ν_R*C/(Ψ_j)
+    ν_i = ν_R*I/(Ψ_j)
+
     Q = p_i/(1-ϕ);
 
     # TFP parameter
-    z_c = (1-I_Y)/(Ψ_j*G^(-α_K)*K_c^(α_K)*N_c^(α_N))
-    z_i = (I_Y)/(Ψ_j*G^(-α_K)*K_i^(α_K)*N_i^(α_N))
-
+    #z_c = (1-I_Y)/(Ψ_j*G^(-α_K)*K_c^(α_K)*N_c^(α_N))
+    #z_i = (I_Y)/(Ψ_j*G^(-α_K)*K_i^(α_K)*N_i^(α_N))
+    z_c = ((1-I_Y)/Ψ_j + ν_c)/(G^(-α_K)*K_c^(α_K)*N_c^(α_N))
+    z_i = (I_Y/Ψ_j+ ν_i)/(G^(-α_K)*K_i^(α_K)*N_i^(α_N))
     #
     # Weight on labor aggregator
     ω = N_c/N
     # Labor composite 
     N_a = (ω^(-θ)*N_c^(1+θ)+(1-ω)^(-θ)*N_i^(1+θ))^(1/(1+θ))
     # Implied wage
-    W = α_N*(I/N_i)*p_i/(1-ϕ)
+    W = α_N*(I/N_i)*p_i/(1-ϕ)*(1+ν_R)
     # Level parameter on labor supply
     θ_n = (1-ϕ)*W/(N_a^(1/ν))
 
     return (γ=γ, r=r, β=β, δ=δ, α_N=α_N, α_K=α_K, A_c=A_c, A_i=A_i, z_c=z_c, z_i=z_i, σ_b, ω, θ_n,
-    C=C, I=I, Y=Y, K=K, N=N, N_c=N_c, N_i=N_i, N_a, D=D, D_c=D_c, D_i=D_i, Q=Q)
+    C=C, I=I, Y=Y, K=K, N=N, N_c=N_c, N_i=N_i, W=W, N_a, D=D, D_c=D_c, D_i=D_i, Q=Q, ν_c=ν_c, ν_i=ν_i)
 end
 
 # Back out max on γ
 
-targets = Targets(g_bar = 0.00451, γ=1.5, r_ann=0.04)
+targets = Targets(g_bar = 0.00451, γ=2.0, r_ann=0.04)
 @show cal = calibrate(targets)
-@unpack r = cal
-@unpack g_bar = targets
+@unpack W, N, C, I, Y, r, ν_c, ν_i = cal
+@unpack g_bar, labor_share, ν_R, Ψ_j, ν_R = targets
 γ_max = log(1+r)/g_bar
 
+# Tests 
+@show W*N/Y - labor_share
+@show Ψ_j*ν_c/C - ν_R
+@show Ψ_j*ν_i/I - ν_R
 #targets_ng = Targets(g_bar = 0.0, γ=1.0)
 # cal_ng = calibrate(targets_ng)
 
 # To be modified #
 function table(cal, targets)
-    @unpack γ, β, δ, α_N, α_K, A_c, A_i, z_c, z_i, σ_b, ω, θ_n, C, I, Y, K, N, N_c, N_i = cal
-    @unpack γ, r_ann, g_bar, ν, Y, p_i, N, Ψ_j, I_Y, K_Y, labor_share, θ = targets
+    @unpack γ, β, δ, α_N, α_K, A_c, A_i, z_c, z_i, σ_b, ω, θ_n, C, I, Y, K, N, N_c, N_i, ν_c, ν_i = cal
+    @unpack γ, r_ann, g_bar, ν, Y, p_i, N, Ψ_j, I_Y, K_Y, labor_share, ν_R, θ = targets
     r = (1-β)/β
   
     t = PlotlyJS.plot(
@@ -167,13 +179,15 @@ function table(cal, targets)
         "Physical capital to output ratio",
         "Labor share of output",
         "Labor share in consumption ",
+        "Fixed costs in consumption",
+        "Fixed costs in investment",
                        ],
         # Values
-        round.([γ, r_ann, exp(g_bar*4), ν, Y, p_i, N, Ψ_j, Ψ_j, 1, I_Y, K_Y/4, labor_share, ω], digits=2),
+        round.([γ, r_ann, exp(g_bar*4), ν, Y, p_i, N, Ψ_j, Ψ_j, 1, I_Y, K_Y/4, labor_share, ω, ν_R, ν_R], digits=2),
         # Parameter
-        [:γ, :β, :g_bar, :ν, :z_c, :z_i, :θ_n, :A_c, :A_i, :σ_b, :δ, :α_k, :α_n, :ω], 
+        [:γ, :β, :g_bar, :ν, :z_c, :z_i, :θ_n, :A_c, :A_i, :σ_b, :δ, :α_k, :α_n, :ω, :ν_c, :ν_i], 
         # Calibration
-        round.([γ, β, g_bar, ν, z_c, z_i, θ_n, A_c, A_i, σ_b, δ, α_K, α_N, ω], digits=3)
+        round.([γ, β, g_bar, ν, z_c, z_i, θ_n, A_c, A_i, σ_b, δ, α_K, α_N, ω, ν_c, ν_i], digits=3)
         ]
         )
     )
