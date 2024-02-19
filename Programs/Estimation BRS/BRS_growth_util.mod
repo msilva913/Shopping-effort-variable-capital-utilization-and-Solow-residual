@@ -42,7 +42,7 @@ var Y           ${Y}$ (long_name='output')
     
     util       ${util}$ (long_name = 'Capacity utilization:')
 
-    g          ${g}$ (long_name = 'Output growth rate (labor-augmenting technology)')
+    g          ${g}$ (long_name = 'Growth rate of stochastic trend')
     
     log_Y
     log_C
@@ -82,11 +82,12 @@ parameters
     g_bar  ${\overline{g}}$ (long_name = 'Quarterly trend growth rate')
     nu     $\nu$       (long_name = 'Frisch elasticity')
     sigma_a ${\sigma_a}$ (long_name = 'Inverse elasticity of marginal utilization cost wrt rental rate')
-    Psi_K ${\Psi_K}$ (long_name = 'Investment adjustment cost parameter')
+    //Psi_K ${\Psi_K}$ (long_name = 'Investment adjustment cost parameter')
    
     I_Y    ${I_Y}$   (long_name = 'Investment-output ratio')
     K_Y    ${K_Y}$   (long_name = 'Capital-output ratio (quarterly)')
     labor_share    $(labor share)$   (long_name = 'Labor share')
+    nu_R   ${\nu_R}$ (long_name = 'Fixed cost share')
 
     //phi  ${\phi}$ (long_name = 'Shopping matching function elasticity')
     m    ${m}$    (long_name = 'Ratio of price dispersion to consumption dispersion')
@@ -117,6 +118,7 @@ sigma_a = 0.32; % inverse of elasticity of capital utilization wrt rental rate
 I_Y = 0.20;
 K_Y = 11;
 labor_share = 0.67;
+nu_R = 0.2;
 
 m = 0.286;
 eta = 0.20;
@@ -128,7 +130,7 @@ theta = 1/0.1735;
 p_I_ss = 1.0;
 N_ss = 0.30;
 
-rho_g = 0.2;
+rho_g = 0.1;
 rho_Z = 0.9;
 rho_ZI = 0.9;
 rho_N = 0.9;
@@ -142,16 +144,14 @@ model;
 % Dependent parameters
 #r = (1+r_ann)^(1/4) - 1.0;
 #I_K = I_Y/K_Y;
-%#delta = I_K - g_bar;
 #delta = I_K + 1 - exp(g_bar);
-#alpha_K = (r+delta)*K_Y;
-%#beta = (1/(1+r))*(1+g_bar)^(gam);
 #beta=(1/(1+r))*(exp(g_bar))^(gam);
 
 # sigma_b = r + delta;
 #phi = (eta+1)*m/(1+eta*m);
 
-#alpha_N = (1-phi)*labor_share;
+#alpha_K = (r+delta)*K_Y/(1+nu_R);
+#alpha_N = (1-phi)*labor_share/(1+nu_R);
 
 
 #D_ss = phi^(eta/(1+eta));
@@ -169,10 +169,13 @@ model;
 #N_C_ss = (1-I_Y)*N_ss;
 #omega = N_C_ss/N_ss;
 
-#W_ss = (p_I_ss/(1-phi))*alpha_N*I_ss/N_I_ss;
+#W_ss = labor_share/N_ss;
 
-#Z_C_ss = (1-I_Y)/(Psi*exp(g_bar)^(-alpha_K)*K_C_ss^(alpha_K)*N_C_ss^(alpha_N));
-#Z_I_ss = (I_Y)/(Psi*exp(g_bar)^(-alpha_K)*K_I_ss^(alpha_K)*N_I_ss^(alpha_N));
+#nu_C = nu_R*C_ss/Psi;
+#nu_I = nu_R*I_ss/Psi;
+
+#Z_C_ss = (C_ss/(Psi) + nu_C)/(exp(g_bar)^(-alpha_K)*K_C_ss^(alpha_K)*N_C_ss^(alpha_N));
+#Z_I_ss = (I_ss/Psi+nu_I)/(exp(g_bar)^(-alpha_K)*K_I_ss^(alpha_K)*N_I_ss^(alpha_N));
 
 #theta_N_ss = (1-phi)*W_ss/(N^(1/nu));
 
@@ -187,7 +190,6 @@ exp(theta_D)*D^(1/eta) = phi*p_I*I/D_I;
 
 [name = 'Composite utility term']
 Gam = C - exp(theta_D)*D^(1+1/eta)/(1+1/eta) - theta_N_ss*exp(theta_N)*N^(1+1/nu)/(1+1/nu);
-
 
 [name = 'Tobins Q']
 Q = p_I/(1-phi);
@@ -223,31 +225,26 @@ delta_C_pr = sigma_b + sigma_a*sigma_b*(h_C-1);
 delta_I_pr = sigma_b + sigma_a*sigma_b*(h_I-1);
 
 [name = 'Consumption production']
-C = A_C*(D_C)^phi*Z_C_ss*exp(Z_C)*exp(g)^(-alpha_K)*(h_C*K_C(-1))^alpha_K*(N_C)^alpha_N;
-//C = A_C*(D_C)^phi*exp(g)^(-alpha_K)*(h_C*K_C(-1))^alpha_K*(N_C)^alpha_N;
+C = A_C*(D_C)^phi*(Z_C_ss*exp(g)^(-alpha_K)*exp(Z_C)*(h_C*K_C(-1))^alpha_K*(N_C)^alpha_N-nu_C);
 
 [name = 'Investment production']
-I = A_I*(D_I)^phi*Z_I_ss*exp(Z_I)*exp(g)^(-alpha_K)*(h_I*K_I(-1))^alpha_K*(N_I)^alpha_N;
-//I = A_I*(D_I)^phi*exp(g)^(-alpha_K)*(h_I*K_I(-1))^alpha_K*(N_I)^alpha_N;
+I = A_I*(D_I)^phi*(Z_I_ss*exp(g)^(-alpha_K)*exp(Z_I)*(h_I*K_I(-1))^alpha_K*(N_I)^alpha_N-nu_I);
 
 [name = 'Capital law of motion']
-//I = K_C + K_I - (1-delta)*(K_C(-1)+K_I(-1));
 //I*exp(g) = (K_C + K_I)*exp(g) - (1-delta_C)*K_C(-1) - (1-delta_I)*K_I(-1) +Psi_K/2*(x-I_K)^2;
 I*exp(g) = (K_C + K_I)*exp(g) - (1-delta_C)*K_C(-1) - (1-delta_I)*K_I(-1);
 
 [name = 'Labor demand:C']
-(1-phi)*W = alpha_N*C/N_C;
-
+(1-phi)*W = alpha_N*(C+A_C*D_C^phi*nu_C)/N_C;
 
 [name = 'Labor demand:I']
-(1-phi)*W/p_I = alpha_N*I/N_I;
+(1-phi)*W/p_I = alpha_N*(I+A_I*D_I^phi*nu_I)/N_I;
 
 [name = 'Capital demand:C']
-(1-phi)*R_C = alpha_K*C/(h_C*K_C(-1))*exp(g);
-
+(1-phi)*R_C = exp(g)*alpha_K*(C+A_C*D_C^phi*nu_C)/(h_C*K_C(-1));
 
 [name = 'Capital demand:I']
-(1-phi)*R_I/p_I = alpha_K*I/(h_I*K_I(-1))*exp(g);
+(1-phi)*R_I/p_I = exp(g)*alpha_K*(I+A_I*D_I^phi*nu_I)/(h_I*K_I(-1));
 
 [name = 'Labor composition']
 N = N_C + N_I;
@@ -262,10 +259,11 @@ D = D_C + D_I;
 Y = C + p_I_ss*I;
 
 [name = 'Capacity utilization']
-util = (C/Y)*A_C*D_C^(phi)*h_C^(alpha_K) + (I/Y)*A_I*D_I^(phi)*h_I^(alpha_K);
-
+util = (C/Y)*A_C*D_C^phi*((h_C*K_C)^alpha_K*N_C^alpha_N-nu_C)/(K_C^alpha_K*N_C^alpha_N-nu_C) + 
+(I/Y)*A_I*D_I^phi*((h_I*K_I)^alpha_K*N_I^alpha_N-nu_I)/(K_I^alpha_K*N_I^alpha_N-nu_I);
+ 
 % Exogenous processes
-[name='exogenous labor-augmenting growth process']
+[name='stochastic trend process process']
 g = (1-rho_g)*g_bar + rho_g*g(-1) + e_g;
 
 [name='Stationary TFP process']
@@ -344,10 +342,13 @@ steady_state_model;
     K_C = (1-I_Y)*K;
     N_I = I_Y*N;
     N_C = (1-I_Y)*N;
+
+    nu_C_ss = nu_R*C/Psi;
+    nu_I_ss = nu_R*I/Psi;
    
 
-    alpha_N_ss = (1-phi_ss)*labor_share;
-    W = alpha_N_ss*I/N_I*p_I/(1-phi_ss);
+    alpha_N_ss = (1-phi_ss)*labor_share/(1+nu_R);
+    W = labor_share*Y/N;
     theta_N_s = (1-phi_ss)*W/(N^(1/nu));
     Gam = (C - D^(1+1/eta)/(1+1/eta) - theta_N_s*N^(1+1/nu)/(1+1/nu));
    
@@ -356,7 +357,7 @@ steady_state_model;
     //delta_ss = I_Y/K_Y*(1+g_bar) - g_bar;
     delta_ss = I_Y/K_Y + 1 - exp(g_bar);
     sigma_b_ss = r_ss + delta_ss;
-    alpha_K_ss = (r_ss+delta_ss)*K_Y;
+    alpha_K_ss = (r_ss+delta_ss)*K_Y/(1+nu_R);
 
     g = g_bar;
 
@@ -372,8 +373,11 @@ steady_state_model;
     Q = p_I/(1-phi_ss);
     //x = delta_ss + g_bar;
     //x = I_Y/K_Y;
+    
 
-    util = (C/Y)*A_C_ss*D_C^(phi_ss)*h_C^(alpha_K_ss) + (I/Y)*A_I_ss*D_I^(phi_ss)*h_I^(alpha_K_ss);
+    util_C = A_C_ss*D_C^phi_ss*((h_C*K_C)^alpha_K_ss*N_C^alpha_N_ss-nu_C_ss)/(K_C^alpha_K_ss*N_C^alpha_N_ss-nu_C_ss);
+    util_I = A_I_ss*D_I^phi_ss*((h_I*K_I)^alpha_K_ss*N_I^alpha_N_ss-nu_I_ss)/(K_I^alpha_K_ss*N_I^alpha_N_ss-nu_I_ss);
+    util = (C/Y)*util_C + (I/Y)*util_I;
 
     Z_C = 0;
     Z_I = 0;

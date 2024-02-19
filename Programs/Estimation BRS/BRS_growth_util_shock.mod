@@ -150,7 +150,6 @@ model;
 %#delta = I_K - g_bar;
 #delta = I_K + 1 - exp(g_bar);
 #alpha_K = (r+delta)*K_Y;
-%#beta = (1/(1+r))*(1+g_bar)^(gam);
 #beta=(1/(1+r))*(exp(g_bar))^(gam);
 
 # sigma_b = r + delta;

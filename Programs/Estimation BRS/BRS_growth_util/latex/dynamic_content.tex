@@ -8,9 +8,6 @@ I\_K = \frac{{{I_Y}}}{{{K_Y}}}
 delta = 1+\frac{{{I_Y}}}{{{K_Y}}}-\exp\left({{\overline{g}}}\right)
 \end{dmath*}
 \begin{dmath*}
-alpha\_K = {{K_Y}}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{{I_Y}}}{{{K_Y}}}-\exp\left({{\overline{g}}}\right)\right)
-\end{dmath*}
-\begin{dmath*}
 beta = \exp\left({{\overline{g}}}\right)^{{{\gamma}}}\, \frac{1}{1+\left(1+{{r_ann}}\right)^{0.25}-1.0}
 \end{dmath*}
 \begin{dmath*}
@@ -20,7 +17,10 @@ sigma\_b = \left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{{I_Y}}}{{{K_Y}}}-\exp\le
 phi = \frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}
 \end{dmath*}
 \begin{dmath*}
-alpha\_N = {(labor share)}\, \left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)
+alpha\_K = \frac{{{K_Y}}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{{I_Y}}}{{{K_Y}}}-\exp\left({{\overline{g}}}\right)\right)}{1+{{\nu_R}}}
+\end{dmath*}
+\begin{dmath*}
+alpha\_N = \frac{{(labor share)}\, \left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)}{1+{{\nu_R}}}
 \end{dmath*}
 \begin{dmath*}
 D\_ss = \left(\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)^{\frac{{{\eta}}}{1+{{\eta}}}}
@@ -62,20 +62,26 @@ N\_C\_ss = \left(1-{{I_Y}}\right)\, {N\_ss}
 omega = 1-{{I_Y}}
 \end{dmath*}
 \begin{dmath*}
-W\_ss = \frac{{{I_Y}}\, {(labor share)}\, \left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)\, \frac{{p\_I\_ss}}{1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}}}{{{I_Y}}\, {N\_ss}}
+W\_ss = \frac{{(labor share)}}{{N\_ss}}
 \end{dmath*}
 \begin{dmath*}
-Z\_C\_ss = \frac{1-{{I_Y}}}{{{\Psi}}\, \exp\left({{\overline{g}}}\right)^{\left(-\left({{K_Y}}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{{I_Y}}}{{{K_Y}}}-\exp\left({{\overline{g}}}\right)\right)\right)\right)}\, \left(\left(1-{{I_Y}}\right)\, {{K_Y}}\, \exp\left({{\overline{g}}}\right)\right)^{{{K_Y}}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{{I_Y}}}{{{K_Y}}}-\exp\left({{\overline{g}}}\right)\right)}\, \left(\left(1-{{I_Y}}\right)\, {N\_ss}\right)^{{(labor share)}\, \left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)}}
+nu\_C = \frac{{{\nu_R}}\, \left(1-{{I_Y}}\right)}{{{\Psi}}}
 \end{dmath*}
 \begin{dmath*}
-Z\_I\_ss = \frac{{{I_Y}}}{{{\Psi}}\, \exp\left({{\overline{g}}}\right)^{\left(-\left({{K_Y}}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{{I_Y}}}{{{K_Y}}}-\exp\left({{\overline{g}}}\right)\right)\right)\right)}\, \left({{I_Y}}\, {{K_Y}}\, \exp\left({{\overline{g}}}\right)\right)^{{{K_Y}}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{{I_Y}}}{{{K_Y}}}-\exp\left({{\overline{g}}}\right)\right)}\, \left({{I_Y}}\, {N\_ss}\right)^{{(labor share)}\, \left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)}}
+nu\_I = \frac{{{I_Y}}\, {{\nu_R}}}{{{\Psi}}}
 \end{dmath*}
 \begin{dmath*}
-theta\_N\_ss = \frac{\left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)\, \frac{{{I_Y}}\, {(labor share)}\, \left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)\, \frac{{p\_I\_ss}}{1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}}}{{{I_Y}}\, {N\_ss}}}{{{N}}_{t}^{\frac{1}{{\nu}}}}
+Z\_C\_ss = \frac{\frac{{{\nu_R}}\, \left(1-{{I_Y}}\right)}{{{\Psi}}}+\frac{1-{{I_Y}}}{{{\Psi}}}}{\exp\left({{\overline{g}}}\right)^{\left(-\left(\frac{{{K_Y}}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{{I_Y}}}{{{K_Y}}}-\exp\left({{\overline{g}}}\right)\right)}{1+{{\nu_R}}}\right)\right)}\, \left(\left(1-{{I_Y}}\right)\, {{K_Y}}\, \exp\left({{\overline{g}}}\right)\right)^{\frac{{{K_Y}}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{{I_Y}}}{{{K_Y}}}-\exp\left({{\overline{g}}}\right)\right)}{1+{{\nu_R}}}}\, \left(\left(1-{{I_Y}}\right)\, {N\_ss}\right)^{\frac{{(labor share)}\, \left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)}{1+{{\nu_R}}}}}
+\end{dmath*}
+\begin{dmath*}
+Z\_I\_ss = \frac{\frac{{{I_Y}}\, {{\nu_R}}}{{{\Psi}}}+\frac{{{I_Y}}}{{{\Psi}}}}{\exp\left({{\overline{g}}}\right)^{\left(-\left(\frac{{{K_Y}}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{{I_Y}}}{{{K_Y}}}-\exp\left({{\overline{g}}}\right)\right)}{1+{{\nu_R}}}\right)\right)}\, \left({{I_Y}}\, {{K_Y}}\, \exp\left({{\overline{g}}}\right)\right)^{\frac{{{K_Y}}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{{I_Y}}}{{{K_Y}}}-\exp\left({{\overline{g}}}\right)\right)}{1+{{\nu_R}}}}\, \left({{I_Y}}\, {N\_ss}\right)^{\frac{{(labor share)}\, \left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)}{1+{{\nu_R}}}}}
+\end{dmath*}
+\begin{dmath*}
+theta\_N\_ss = \frac{\frac{{(labor share)}}{{N\_ss}}\, \left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)}{{{N}}_{t}^{\frac{1}{{\nu}}}}
 \end{dmath*}
 % Equation 1
 \begin{dmath}
-{{N}}_{t}^{\frac{1}{{\nu}}}\, \exp\left({{\theta_N}}_{t}\right)\, \frac{\left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)\, \frac{{{I_Y}}\, {(labor share)}\, \left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)\, \frac{{p\_I\_ss}}{1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}}}{{{I_Y}}\, {N\_ss}}}{{{N}}_{t}^{\frac{1}{{\nu}}}}={{W}}_{t}\, \left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)
+{{N}}_{t}^{\frac{1}{{\nu}}}\, \exp\left({{\theta_N}}_{t}\right)\, \frac{\frac{{(labor share)}}{{N\_ss}}\, \left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)}{{{N}}_{t}^{\frac{1}{{\nu}}}}={{W}}_{t}\, \left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)
 \end{dmath}
 % Equation 2
 \begin{dmath}
@@ -87,7 +93,7 @@ theta\_N\_ss = \frac{\left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\,
 \end{dmath}
 % Equation 4
 \begin{dmath}
-{{\Gamma}}_{t}={{C}}_{t}-\frac{\exp\left({{\theta_D}}_{t}\right)\, {{D}}_{t}^{1+\frac{1}{{{\eta}}}}}{1+\frac{1}{{{\eta}}}}-\frac{{{N}}_{t}^{1+\frac{1}{{\nu}}}\, \exp\left({{\theta_N}}_{t}\right)\, \frac{\left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)\, \frac{{{I_Y}}\, {(labor share)}\, \left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)\, \frac{{p\_I\_ss}}{1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}}}{{{I_Y}}\, {N\_ss}}}{{{N}}_{t}^{\frac{1}{{\nu}}}}}{1+\frac{1}{{\nu}}}
+{{\Gamma}}_{t}={{C}}_{t}-\frac{\exp\left({{\theta_D}}_{t}\right)\, {{D}}_{t}^{1+\frac{1}{{{\eta}}}}}{1+\frac{1}{{{\eta}}}}-\frac{{{N}}_{t}^{1+\frac{1}{{\nu}}}\, \exp\left({{\theta_N}}_{t}\right)\, \frac{\frac{{(labor share)}}{{N\_ss}}\, \left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)}{{{N}}_{t}^{\frac{1}{{\nu}}}}}{1+\frac{1}{{\nu}}}
 \end{dmath}
 % Equation 5
 \begin{dmath}
@@ -127,11 +133,11 @@ theta\_N\_ss = \frac{\left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\,
 \end{dmath}
 % Equation 14
 \begin{dmath}
-{{C}}_{t}=\exp\left({{Z_C}}_{t}\right)\, \frac{1-{{I_Y}}}{{{\Psi}}\, \exp\left({{\overline{g}}}\right)^{\left(-\left({{K_Y}}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{{I_Y}}}{{{K_Y}}}-\exp\left({{\overline{g}}}\right)\right)\right)\right)}\, \left(\left(1-{{I_Y}}\right)\, {{K_Y}}\, \exp\left({{\overline{g}}}\right)\right)^{{{K_Y}}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{{I_Y}}}{{{K_Y}}}-\exp\left({{\overline{g}}}\right)\right)}\, \left(\left(1-{{I_Y}}\right)\, {N\_ss}\right)^{{(labor share)}\, \left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)}}\, {{D}}_{t}^{\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}}\, \frac{{{\Psi}}}{\left(\left(1-{{I_Y}}\right)\, \left(\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)^{\frac{{{\eta}}}{1+{{\eta}}}}\right)^{\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}}}\, \exp\left({{g}}_{t}\right)^{\left(-\left({{K_Y}}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{{I_Y}}}{{{K_Y}}}-\exp\left({{\overline{g}}}\right)\right)\right)\right)}\, \left({{h_C}}_{t}\, {{K_C}}_{t-1}\right)^{{{K_Y}}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{{I_Y}}}{{{K_Y}}}-\exp\left({{\overline{g}}}\right)\right)}\, {{N_C}}_{t}^{{(labor share)}\, \left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)}
+{{C}}_{t}={{D}}_{t}^{\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}}\, \frac{{{\Psi}}}{\left(\left(1-{{I_Y}}\right)\, \left(\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)^{\frac{{{\eta}}}{1+{{\eta}}}}\right)^{\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}}}\, \left(\exp\left({{Z_C}}_{t}\right)\, \frac{\frac{{{\nu_R}}\, \left(1-{{I_Y}}\right)}{{{\Psi}}}+\frac{1-{{I_Y}}}{{{\Psi}}}}{\exp\left({{\overline{g}}}\right)^{\left(-\left(\frac{{{K_Y}}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{{I_Y}}}{{{K_Y}}}-\exp\left({{\overline{g}}}\right)\right)}{1+{{\nu_R}}}\right)\right)}\, \left(\left(1-{{I_Y}}\right)\, {{K_Y}}\, \exp\left({{\overline{g}}}\right)\right)^{\frac{{{K_Y}}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{{I_Y}}}{{{K_Y}}}-\exp\left({{\overline{g}}}\right)\right)}{1+{{\nu_R}}}}\, \left(\left(1-{{I_Y}}\right)\, {N\_ss}\right)^{\frac{{(labor share)}\, \left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)}{1+{{\nu_R}}}}}\, \exp\left({{g}}_{t}\right)^{\left(-\left(\frac{{{K_Y}}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{{I_Y}}}{{{K_Y}}}-\exp\left({{\overline{g}}}\right)\right)}{1+{{\nu_R}}}\right)\right)}\, \left({{h_C}}_{t}\, {{K_C}}_{t-1}\right)^{\frac{{{K_Y}}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{{I_Y}}}{{{K_Y}}}-\exp\left({{\overline{g}}}\right)\right)}{1+{{\nu_R}}}}\, {{N_C}}_{t}^{\frac{{(labor share)}\, \left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)}{1+{{\nu_R}}}}-\frac{{{\nu_R}}\, \left(1-{{I_Y}}\right)}{{{\Psi}}}\right)
 \end{dmath}
 % Equation 15
 \begin{dmath}
-{{I}}_{t}=\exp\left({{g}}_{t}\right)^{\left(-\left({{K_Y}}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{{I_Y}}}{{{K_Y}}}-\exp\left({{\overline{g}}}\right)\right)\right)\right)}\, \exp\left({{Z_I}}_{t}\right)\, \frac{{{I_Y}}}{{{\Psi}}\, \exp\left({{\overline{g}}}\right)^{\left(-\left({{K_Y}}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{{I_Y}}}{{{K_Y}}}-\exp\left({{\overline{g}}}\right)\right)\right)\right)}\, \left({{I_Y}}\, {{K_Y}}\, \exp\left({{\overline{g}}}\right)\right)^{{{K_Y}}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{{I_Y}}}{{{K_Y}}}-\exp\left({{\overline{g}}}\right)\right)}\, \left({{I_Y}}\, {N\_ss}\right)^{{(labor share)}\, \left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)}}\, {{D}}_{t}^{\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}}\, \frac{{{\Psi}}}{\left({{I_Y}}\, \left(\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)^{\frac{{{\eta}}}{1+{{\eta}}}}\right)^{\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}}}\, \left({{h_I}}_{t}\, {{K_I}}_{t-1}\right)^{{{K_Y}}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{{I_Y}}}{{{K_Y}}}-\exp\left({{\overline{g}}}\right)\right)}\, {{N_I}}_{t}^{{(labor share)}\, \left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)}
+{{I}}_{t}={{D}}_{t}^{\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}}\, \frac{{{\Psi}}}{\left({{I_Y}}\, \left(\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)^{\frac{{{\eta}}}{1+{{\eta}}}}\right)^{\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}}}\, \left(\exp\left({{Z_I}}_{t}\right)\, \frac{\frac{{{I_Y}}\, {{\nu_R}}}{{{\Psi}}}+\frac{{{I_Y}}}{{{\Psi}}}}{\exp\left({{\overline{g}}}\right)^{\left(-\left(\frac{{{K_Y}}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{{I_Y}}}{{{K_Y}}}-\exp\left({{\overline{g}}}\right)\right)}{1+{{\nu_R}}}\right)\right)}\, \left({{I_Y}}\, {{K_Y}}\, \exp\left({{\overline{g}}}\right)\right)^{\frac{{{K_Y}}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{{I_Y}}}{{{K_Y}}}-\exp\left({{\overline{g}}}\right)\right)}{1+{{\nu_R}}}}\, \left({{I_Y}}\, {N\_ss}\right)^{\frac{{(labor share)}\, \left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)}{1+{{\nu_R}}}}}\, \exp\left({{g}}_{t}\right)^{\left(-\left(\frac{{{K_Y}}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{{I_Y}}}{{{K_Y}}}-\exp\left({{\overline{g}}}\right)\right)}{1+{{\nu_R}}}\right)\right)}\, \left({{h_I}}_{t}\, {{K_I}}_{t-1}\right)^{\frac{{{K_Y}}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{{I_Y}}}{{{K_Y}}}-\exp\left({{\overline{g}}}\right)\right)}{1+{{\nu_R}}}}\, {{N_I}}_{t}^{\frac{{(labor share)}\, \left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)}{1+{{\nu_R}}}}-\frac{{{I_Y}}\, {{\nu_R}}}{{{\Psi}}}\right)
 \end{dmath}
 % Equation 16
 \begin{dmath}
@@ -139,19 +145,19 @@ theta\_N\_ss = \frac{\left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\,
 \end{dmath}
 % Equation 17
 \begin{dmath}
-{{W}}_{t}\, \left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)=\frac{{{C}}_{t}\, {(labor share)}\, \left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)}{{{N_C}}_{t}}
+{{W}}_{t}\, \left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)=\frac{\frac{{(labor share)}\, \left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)}{1+{{\nu_R}}}\, \left({{C}}_{t}+\frac{{{\nu_R}}\, \left(1-{{I_Y}}\right)}{{{\Psi}}}\, {{D}}_{t}^{\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}}\, \frac{{{\Psi}}}{\left(\left(1-{{I_Y}}\right)\, \left(\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)^{\frac{{{\eta}}}{1+{{\eta}}}}\right)^{\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}}}\right)}{{{N_C}}_{t}}
 \end{dmath}
 % Equation 18
 \begin{dmath}
-\frac{{{W}}_{t}\, \left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)}{{{p_I}}_{t}}=\frac{{{I}}_{t}\, {(labor share)}\, \left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)}{{{N_I}}_{t}}
+\frac{{{W}}_{t}\, \left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)}{{{p_I}}_{t}}=\frac{\frac{{(labor share)}\, \left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)}{1+{{\nu_R}}}\, \left({{I}}_{t}+\frac{{{I_Y}}\, {{\nu_R}}}{{{\Psi}}}\, {{D}}_{t}^{\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}}\, \frac{{{\Psi}}}{\left({{I_Y}}\, \left(\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)^{\frac{{{\eta}}}{1+{{\eta}}}}\right)^{\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}}}\right)}{{{N_I}}_{t}}
 \end{dmath}
 % Equation 19
 \begin{dmath}
-{{R_C}}_{t}\, \left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)=\exp\left({{g}}_{t}\right)\, \frac{{{C}}_{t}\, {{K_Y}}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{{I_Y}}}{{{K_Y}}}-\exp\left({{\overline{g}}}\right)\right)}{{{h_C}}_{t}\, {{K_C}}_{t-1}}
+{{R_C}}_{t}\, \left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)=\frac{\left({{C}}_{t}+\frac{{{\nu_R}}\, \left(1-{{I_Y}}\right)}{{{\Psi}}}\, {{D}}_{t}^{\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}}\, \frac{{{\Psi}}}{\left(\left(1-{{I_Y}}\right)\, \left(\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)^{\frac{{{\eta}}}{1+{{\eta}}}}\right)^{\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}}}\right)\, \exp\left({{g}}_{t}\right)\, \frac{{{K_Y}}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{{I_Y}}}{{{K_Y}}}-\exp\left({{\overline{g}}}\right)\right)}{1+{{\nu_R}}}}{{{h_C}}_{t}\, {{K_C}}_{t-1}}
 \end{dmath}
 % Equation 20
 \begin{dmath}
-\frac{{{R_I}}_{t}\, \left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)}{{{p_I}}_{t}}=\exp\left({{g}}_{t}\right)\, \frac{{{I}}_{t}\, {{K_Y}}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{{I_Y}}}{{{K_Y}}}-\exp\left({{\overline{g}}}\right)\right)}{{{h_I}}_{t}\, {{K_I}}_{t-1}}
+\frac{{{R_I}}_{t}\, \left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)}{{{p_I}}_{t}}=\frac{\left({{I}}_{t}+\frac{{{I_Y}}\, {{\nu_R}}}{{{\Psi}}}\, {{D}}_{t}^{\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}}\, \frac{{{\Psi}}}{\left({{I_Y}}\, \left(\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)^{\frac{{{\eta}}}{1+{{\eta}}}}\right)^{\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}}}\right)\, \exp\left({{g}}_{t}\right)\, \frac{{{K_Y}}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{{I_Y}}}{{{K_Y}}}-\exp\left({{\overline{g}}}\right)\right)}{1+{{\nu_R}}}}{{{h_I}}_{t}\, {{K_I}}_{t-1}}
 \end{dmath}
 % Equation 21
 \begin{dmath}
@@ -167,11 +173,11 @@ theta\_N\_ss = \frac{\left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\,
 \end{dmath}
 % Equation 24
 \begin{dmath}
-{{Y}}_{t}={{C}}_{t}+{p\_I\_ss}\, {{I}}_{t}
+{{Y}}_{t}={{C}}_{t}+{{I}}_{t}\, {p\_I\_ss}
 \end{dmath}
 % Equation 25
 \begin{dmath}
-{{util}}_{t}={{D}}_{t}^{\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}}\, \frac{{{C}}_{t}}{{{Y}}_{t}}\, \frac{{{\Psi}}}{\left(\left(1-{{I_Y}}\right)\, \left(\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)^{\frac{{{\eta}}}{1+{{\eta}}}}\right)^{\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}}}\, {{h_C}}_{t}^{{{K_Y}}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{{I_Y}}}{{{K_Y}}}-\exp\left({{\overline{g}}}\right)\right)}+{{D}}_{t}^{\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}}\, \frac{{{I}}_{t}}{{{Y}}_{t}}\, \frac{{{\Psi}}}{\left({{I_Y}}\, \left(\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)^{\frac{{{\eta}}}{1+{{\eta}}}}\right)^{\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}}}\, {{h_I}}_{t}^{{{K_Y}}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{{I_Y}}}{{{K_Y}}}-\exp\left({{\overline{g}}}\right)\right)}
+{{util}}_{t}=\frac{{{D}}_{t}^{\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}}\, \frac{{{C}}_{t}}{{{Y}}_{t}}\, \frac{{{\Psi}}}{\left(\left(1-{{I_Y}}\right)\, \left(\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)^{\frac{{{\eta}}}{1+{{\eta}}}}\right)^{\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}}}\, \left({{N_C}}_{t}^{\frac{{(labor share)}\, \left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)}{1+{{\nu_R}}}}\, \left({{h_C}}_{t}\, {{K_C}}_{t}\right)^{\frac{{{K_Y}}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{{I_Y}}}{{{K_Y}}}-\exp\left({{\overline{g}}}\right)\right)}{1+{{\nu_R}}}}-\frac{{{\nu_R}}\, \left(1-{{I_Y}}\right)}{{{\Psi}}}\right)}{{{N_C}}_{t}^{\frac{{(labor share)}\, \left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)}{1+{{\nu_R}}}}\, {{K_C}}_{t}^{\frac{{{K_Y}}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{{I_Y}}}{{{K_Y}}}-\exp\left({{\overline{g}}}\right)\right)}{1+{{\nu_R}}}}-\frac{{{\nu_R}}\, \left(1-{{I_Y}}\right)}{{{\Psi}}}}+\frac{{{D}}_{t}^{\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}}\, \frac{{{I}}_{t}}{{{Y}}_{t}}\, \frac{{{\Psi}}}{\left({{I_Y}}\, \left(\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)^{\frac{{{\eta}}}{1+{{\eta}}}}\right)^{\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}}}\, \left({{N_I}}_{t}^{\frac{{(labor share)}\, \left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)}{1+{{\nu_R}}}}\, \left({{h_I}}_{t}\, {{K_I}}_{t}\right)^{\frac{{{K_Y}}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{{I_Y}}}{{{K_Y}}}-\exp\left({{\overline{g}}}\right)\right)}{1+{{\nu_R}}}}-\frac{{{I_Y}}\, {{\nu_R}}}{{{\Psi}}}\right)}{{{N_I}}_{t}^{\frac{{(labor share)}\, \left(1-\frac{\left(1+{{\eta}}\right)\, {{m}}}{1+{{\eta}}\, {{m}}}\right)}{1+{{\nu_R}}}}\, {{K_I}}_{t}^{\frac{{{K_Y}}\, \left(\left(1+{{r_ann}}\right)^{0.25}-1.0+1+\frac{{{I_Y}}}{{{K_Y}}}-\exp\left({{\overline{g}}}\right)\right)}{1+{{\nu_R}}}}-\frac{{{I_Y}}\, {{\nu_R}}}{{{\Psi}}}}
 \end{dmath}
 % Equation 26
 \begin{dmath}

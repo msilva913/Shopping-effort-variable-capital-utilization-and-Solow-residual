@@ -29,7 +29,7 @@ var Y           ${Y}$ (long_name='output')
 
     p_I        ${p_I}$ (long_name = 'Relative investment price')
     
-    g          ${g}$ (long_name = 'Output growth rate (labor-augmenting technology)')
+    g          ${g}$ (long_name = 'Growth rate of stochastic trend')
     
     log_Y
     log_C
@@ -84,7 +84,7 @@ parameters
 %----------------------------------------------------------------
 % set parameter values 
 %----------------------------------------------------------------
-gam = 1.0; % risk aversion
+gam = 2.0; % risk aversion
 r_ann = 0.04; % annual interest rate 
 g_bar = 0.00451; % quarterly growth rate
 gam_max = (1/4)*log(1+r_ann)/g_bar;
@@ -139,13 +139,15 @@ model;
 #N_I_ss = I_Y*N_ss;
 #N_C_ss = (1-I_Y)*N_ss;
 
-#W_ss = (p_I_ss/(1-phi))*alpha_N*I_ss/N_I_ss;
-
-#Z_C_ss = (1-I_Y)/(Psi*exp(g_bar)^(-alpha_K)*K_C_ss^(alpha_K)*N_C_ss^(alpha_N)) + nu_R/(1+nu_R);
-#Z_I_ss = (I_Y)/(Psi*exp(g_bar)^(-alpha_K)*K_I_ss^(alpha_K)*N_I_ss^(alpha_N)) + nu_R/(1+nu_R);
+#W_ss = labor_share/N_ss;
 
 #nu_C = nu_R*C_ss/Psi;
 #nu_I = nu_R*I_ss/Psi;
+
+#Z_C_ss = (C_ss/(Psi) + nu_C)/(exp(g_bar)^(-alpha_K)*K_C_ss^(alpha_K)*N_C_ss^(alpha_N));
+#Z_I_ss = (I_ss/Psi+nu_I)/(exp(g_bar)^(-alpha_K)*K_I_ss^(alpha_K)*N_I_ss^(alpha_N));
+
+
 
 #theta_N_ss = (1-phi)*W_ss/(N_ss^(1/nu));
 
@@ -169,25 +171,25 @@ Gam^(-gam)*p_I = beta*((1-phi)*R_C(+1) + p_I(+1)*(1-delta))*Gam(+1)^(-gam)*exp(g
 R_I(+1) = R_C(+1);
 
 [name = 'Consumption production']
-C = A_C*(D_C)^phi*Z_C_ss*exp(g)^(-alpha_K)*(exp(Z_C)*K_C(-1))^alpha_K*(N_C)^alpha_N-nu_C);
+C = A_C*(D_C)^phi*(Z_C_ss*exp(g)^(-alpha_K)*exp(Z_C)*(K_C(-1))^alpha_K*(N_C)^alpha_N-nu_C);
 
 [name = 'Investment production']
-I = A_I*(D_I)^phi*Z_I_ss*exp(g)^(-alpha_K)*(exp(Z_I)*K_I(-1))^alpha_K*(N_I)^alpha_N-nu_I);
+I = A_I*(D_I)^phi*(Z_I_ss*exp(g)^(-alpha_K)*exp(Z_I)*(K_I(-1))^alpha_K*(N_I)^alpha_N-nu_I);
 
 [name = 'Capital law of motion']
 I*exp(g) = (K_C + K_I)*exp(g) - (1-delta)*(K_C(-1)+K_I(-1));
 
 [name = 'Labor demand:C']
-(1-phi)*W = alpha_N*C/N_C;
+(1-phi)*W = alpha_N*(C+A_C*D_C^phi*nu_C)/N_C;
 
 [name = 'Capital demand:C']
-(1-phi)*R_C = alpha_K*C/(K_C(-1))*exp(g);
+(1-phi)*R_C = exp(g)*alpha_K*(C+A_C*D_C^phi*nu_C)/(K_C(-1));
 
 [name = 'Labor demand:I']
-(1-phi)*W/p_I = alpha_N*I/N_I;
+(1-phi)*W/p_I = alpha_N*(I+A_I*D_I^phi*nu_I)/N_I;
 
 [name = 'Capital demand:I']
-(1-phi)*R_I/p_I = alpha_K*I/(K_I(-1))*exp(g);
+(1-phi)*R_I/p_I = exp(g)*alpha_K*(I+A_I*D_I^phi*nu_I)/(K_I(-1));
 
 [name = 'Labor composition']
 N = N_C + N_I;
@@ -202,7 +204,7 @@ D = D_C + D_I;
 Y = C + p_I_ss*I;
 
 % Exogenous processes
-[name='exogenous labor-augmenting growth process']
+[name='stochastic trend process process']
 g = (1-rho_g)*g_bar + rho_g*g(-1) + e_g;
 
 [name='Stationary TFP process']
@@ -275,15 +277,15 @@ steady_state_model;
     theta_N = 0;
     theta_D = 0;
 
-    alpha_N_ss = (1-phi_ss)*labor_share;
-    W = alpha_N_ss*I/N_I*p_I/(1-phi_ss);
+    alpha_N_ss = (1-phi_ss)*labor_share/(1+nu_R);
+    W = labor_share*Y/N;
     theta_N_s = (1-phi_ss)*W/(N^(1/nu));
     Gam = C - D^(1+1/eta)/(1+1/eta) - theta_N_s*N^(1+1/nu)/(1+1/nu);
     
     r_ss = (1+r_ann)^(1/4) - 1.0;
     beta_ss = (1/(1+r_ss))*exp(g_bar)^(gam);
     delta_ss = I_Y/K_Y + 1 - exp(g_bar);
-    alpha_K_ss = (r_ss+delta_ss)*K_Y;
+    alpha_K_ss = (r_ss+delta_ss)*K_Y/(1+nu_R);
     
     % Growth parameters
     g = g_bar;
@@ -402,6 +404,6 @@ collect_latex_files;
 % Stochastic simulation 
 stoch_simul (order=1, nofunctions, irf=100, periods=0,
 conditional_variance_decomposition=[1 4 8 40])
-Y_obs, Y_N_obs, I_obs, p_I_obs, C_obs,
-log_Y, log_Y_N, log_I, log_p_I, log_C;
+Y_obs, Y_N_obs, I_obs, p_I_obs, C_obs, N_obs,
+log_Y, log_Y_N, log_I, log_p_I, log_C, log_N;
 

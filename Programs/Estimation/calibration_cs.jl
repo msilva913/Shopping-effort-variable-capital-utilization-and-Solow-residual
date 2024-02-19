@@ -127,7 +127,8 @@ function calibrate(targets)
     # Labor composite 
     N_a = (ω^(-θ)*N_c^(1+θ)+(1-ω)^(-θ)*N_i^(1+θ))^(1/(1+θ))
     # Implied wage
-    W = α_N*(I/N_i)*p_i/(1-ϕ)*(1+ν_R)
+    #W = α_N*(I/N_i)*p_i/(1-ϕ)*(1+ν_R)
+    W = labor_share*Y/N
     # Level parameter on labor supply
     θ_n = (1-ϕ)*W/(N_a^(1/ν))
 
