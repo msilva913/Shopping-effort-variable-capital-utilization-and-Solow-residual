@@ -140,14 +140,15 @@ end
 
 targets = Targets(g_bar = 0.00451, γ=2.0, r_ann=0.04)
 @show cal = calibrate(targets)
-@unpack W, N, C, I, Y, r, ν_c, ν_i = cal
-@unpack g_bar, labor_share, ν_R, Ψ_j, ν_R = targets
+@unpack W, N, C, I, Y, r, ν_c, ν_i, N_c, N_i = cal
+@unpack g_bar, labor_share, ν_R, Ψ_j, ν_R, p_i = targets
 γ_max = log(1+r)/g_bar
 
 # Tests 
 @show W*N/Y - labor_share
 @show Ψ_j*ν_c/C - ν_R
 @show Ψ_j*ν_i/I - ν_R
+@show (C/N_c)/(I/N_i) - p_i
 #targets_ng = Targets(g_bar = 0.0, γ=1.0)
 # cal_ng = calibrate(targets_ng)
 
