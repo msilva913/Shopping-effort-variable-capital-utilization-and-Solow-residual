@@ -17,6 +17,7 @@ var Y           ${Y}$ (long_name='output')
     Z_I         ${Z_I}$ (long_name='Tech:I')
     theta_N     ${\theta_N}$ (long_name='Labor disutility')
     theta_D     ${\theta_D}$ (long_name='Shopping disutility')
+    theta_C 
     R_C         ${R_C}$ (long_name='Capital rental rate:C')
     R_I         ${R_I}$ (long_name='Capital rental rate:I')
     W           ${W}$ (long_name='Real wage')
@@ -321,7 +322,8 @@ C_obs = log_C - log_C(-1) + g - g_bar ;
 I_obs = log_I - log_I(-1) + g - g_bar ;
 Y_obs = log_Y - log_Y(-1) + g - g_bar ;
 Y_N_obs = log_Y_N - log_Y_N(-1) + g - g_bar ;
-SR_obs = log_SR - log_SR(-1) + g - g_bar;
+K_obs = log_K - log_K(-1) + g - g_bar;
+SR_obs = Y_obs - labor_share*N_obs - (1-labor_share)*K_obs;
 
 % Stationary variables
 p_I_obs = log_p_I - log_p_I(-1);
@@ -400,6 +402,7 @@ steady_state_model;
     u_ZI = 0;
     theta_N = 0;
     theta_D = 0;
+    theta_C = 0;
 
    
     R_C = W*exp(g)*(alpha_K_ss/alpha_N_ss)*N_C/K_C;
@@ -437,6 +440,7 @@ shocks;
     var e_ZI=0.0072^2;
     var e_N = 0.0072^2;
     var e_D = 0.0072^2;
+    var e_C = 0.0072^2;
 end;
 
 // local identification
@@ -468,6 +472,7 @@ rho_Z, 0.95, 0.01, 0.999999,     BETA_PDF, 0.6, 0.2;
 rho_ZI,  0.95, 0.01, 0.999999,    BETA_PDF, 0.6, 0.2;
 rho_N,  0.6, 0.01, 0.9999,        BETA_PDF, 0.6, 0.2;
 rho_D,  0.9, 0.01, 0.9999,        BETA_PDF, 0.6, 0.2;
+rho_C,  0.9, 0.01, 0.99999999,        BETA_PDF, 0.6, 0.2;
 
 % Standard errors
 stderr e_g, 0.01, 0.00001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
@@ -475,6 +480,7 @@ stderr e_Z, 0.01, 0.00001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
 stderr e_ZI, 0.01, 0.0001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
 stderr e_N, 0.01, 0.0001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
 stderr e_D, 0.01, 0.0001, 0.4,  INV_GAMMA_PDF, 0.01, 0.1;
+stderr e_C, 0.01, 0.0001, 0.4,  INV_GAMMA_PDF, 0.01, 0.1;
 
 end;
 

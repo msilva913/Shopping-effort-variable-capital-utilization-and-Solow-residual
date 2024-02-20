@@ -17,6 +17,7 @@ var Y           ${Y}$ (long_name='output')
     Z_I         ${Z_I}$ (long_name='Tech:I')
     theta_N     ${\theta_N}$ (long_name='Labor disutility')
     theta_D     ${\theta_D}$ (long_name='Shopping disutility')
+    theta_C     ${\theta_C}$ (long_name='Consumption preference shock')
     R_C         ${R_C}$ (long_name='Capital rental rate:C')
     R_I         ${R_I}$ (long_name='Capital rental rate:I')
     W           ${W}$ (long_name='Real wage')
@@ -68,6 +69,7 @@ var Y           ${Y}$ (long_name='output')
     NI_obs
     util_obs
     D_obs
+    K_obs
     SR_obs
   
     ;
