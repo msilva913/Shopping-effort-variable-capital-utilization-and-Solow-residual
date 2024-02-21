@@ -37,16 +37,30 @@ def construct_data(init, final, freq):
 		- Nonfarm Nominal Hourly Wage: BLS PRS85006103
 		- GDP Deflator: A191RD
 		- Fed Funds rate: Fed Board H.15 (TB3MS for early sample)
+    
+    Sectoral data Tables B6 and B7
+    B6: number of nonsupervisory employees
+    B7: average weekly hours
     """
     
     sectoral = pd.read_csv("sectoral_labor_data.csv", sep= ",", header=0)
     date = pd.date_range(start='1/1947', periods=sectoral.shape[0], freq='MS')
     sectoral.index = date
-    sectoral = sectoral[['Durable TH', 'Construction TH', 'Nondurable TH', 'Services TH']]
+    
+    # Construct total hours
+    sectoral["Durable_TH"] = sectoral["Durable Emp"]*sectoral["Durable Hours"]
+    sectoral["Construction_TH"] = sectoral["Construction Emp"]*sectoral["Construction Hours"]
+    sectoral["Nondurable_TH"] = sectoral["Nondurable goods Emp"]*sectoral["Nondurable Hours"]
+    sectoral["Services_TH"] = sectoral["Services Emp"]*sectoral["Services Hours"]
+    
+    sectoral = sectoral[['Durable_TH', 'Construction_TH', 'Nondurable_TH', 'Services_TH']]
+    
     " Consumption: nondurable plus services "
     sectoral["L_C"] = sectoral["Nondurable TH"] + sectoral["Services TH"]
+    
     " Investment: construction plus durables "
     sectoral["L_I"] = sectoral["Construction TH"] + sectoral["Durable TH"]
+    
     # Total hours
     " Aggregate to quarterly "
     sectoral = sectoral.resample(freq).mean()
@@ -74,7 +88,7 @@ def construct_data(init, final, freq):
     #C = fred.get_series('PCEC').resample(freq).mean()# monthly, nominal
     
     " Gross Private Domestic Investment (BEA code A006RC) "
-    #Equivalent to FPI (BEA A007RC) and change in business inentories (BEA CBI)
+    #Equivalent to FPI (BEA A007RC) and change in business inventories (BEA CBI)
     I = fred.get_series("GPDI").resample(freq).mean().dropna()
     
     " Non-institutional population "

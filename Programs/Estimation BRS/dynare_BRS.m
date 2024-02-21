@@ -19,11 +19,11 @@ dynare BRS_growth_res.mod
 dynare BRS_growth_util.mod 
 
 %% Now add shocks to capacity utilization
-dynare BRS_growth_util_shock.mod
-% 
+%dynare BRS_growth_util_shock.mod
 
-%% Analyze erroneous mapping to capacity utilization
-dynare BRS_growth_util_shock_err.mod 
+
+% Analyze erroneous mapping to capacity utilization
+%dynare BRS_growth_util_shock_err.mod 
 
 %% Estimate with sectoral data
 dynare BRS_growth_util_sectoral.mod
