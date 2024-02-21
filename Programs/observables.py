@@ -101,11 +101,18 @@ def construct_data(init, final, freq):
     p_C = fred.get_series("DPCERD3Q086SBEA").resample(freq).mean().dropna()
     p_I = p_I/p_C
     
-    " Real GDP "
-    # Labor productivity
+    " Labor productivity for consumption and investment"
     lab_prod = (C+I)/(L*deflator)
     #lab_prod = fred.get_series("OPHNFB").resample(freq).mean().dropna()
-   
+    
+    " Labor share "
+    # Real GDP: 
+    # Y_agg = fred.get_series("GDP").resample(freq).mean().dropna()
+    # #Y_agg = Y_agg/deflator
+    # #non-farm weekly hours: BLS PRS85006023
+    # H = fred.get_series("PRS85006023").resample(freq).mean().dropna()
+    # w = fred.get_series('CES0500000003').resample(freq).mean().dropna()
+    # w/(Y_agg/H)
 
     " Scale by population and GDP deflator "
     c = C/(pop*deflator)
@@ -133,7 +140,6 @@ if __name__ == "__main__":
     #final = '2019-12-30'
     load = False
     #filter_type = 'hamilton'
-    filter_type = 'growth'
     freq = 'Q'
     save_observables = False
     
@@ -156,6 +162,7 @@ if __name__ == "__main__":
                                         filter_type="growth", demean=False) for x in lab], axis=1)
     cycle_growth.columns = lab
     print(cycle_growth.mean())
+    mom_growth_data = moments(100*cycle_growth, lab=['Y', 'L'])
     cycle_growth = cycle_growth - cycle_growth.mean()
     
     if save_observables:

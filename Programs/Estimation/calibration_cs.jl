@@ -74,8 +74,8 @@ function calibrate(targets)
     ν_R = 0.2
 
     # Labor share 
-    α_N = (1-ϕ)*labor_share/(1+ν_R)
-    α_K = (r+δ)*K_Y/(1+ν_R)
+    α_n = (1-ϕ)*labor_share/(1+ν_R)
+    α_k = (r+δ)*K_Y/(1+ν_R)
     # Capital share 
     # R_c=R_i=R in steady state 
     #R_pi = (1-β*(1+g_bar)^(-γ)*(1-δ))/(β*(1+g_bar)^(-γ))
@@ -119,8 +119,8 @@ function calibrate(targets)
     # TFP parameter
     #z_c = (1-I_Y)/(Ψ_j*G^(-α_K)*K_c^(α_K)*N_c^(α_N))
     #z_i = (I_Y)/(Ψ_j*G^(-α_K)*K_i^(α_K)*N_i^(α_N))
-    z_c = ((1-I_Y)/Ψ_j + ν_c)/(G^(-α_K)*K_c^(α_K)*N_c^(α_N))
-    z_i = (I_Y/Ψ_j+ ν_i)/(G^(-α_K)*K_i^(α_K)*N_i^(α_N))
+    z_c = ((1-I_Y)/Ψ_j + ν_c)/(G^(-α_k)*K_c^(α_k)*N_c^(α_n))
+    z_i = (I_Y/Ψ_j+ ν_i)/(G^(-α_k)*K_i^(α_k)*N_i^(α_n))
     #
     # Weight on labor aggregator
     ω = N_c/N
@@ -132,15 +132,19 @@ function calibrate(targets)
     # Level parameter on labor supply
     θ_n = (1-ϕ)*W/(N_a^(1/ν))
 
+    # Profits 
+    #Π = C + p_i*I -K_c*R_c - K_i*R_i - n*W
+    Π = C + p_i*I - N*W*(α_n+α_k)/α_n
+    Π_Y = 1 - labor_share*(1+α_k/α_n)
     return (γ=γ, r=r, β=β, δ=δ, α_N=α_N, α_K=α_K, A_c=A_c, A_i=A_i, z_c=z_c, z_i=z_i, σ_b, ω, θ_n,
-    C=C, I=I, Y=Y, K=K, N=N, N_c=N_c, N_i=N_i, W=W, N_a, D=D, D_c=D_c, D_i=D_i, Q=Q, ν_c=ν_c, ν_i=ν_i)
+    C=C, I=I, Y=Y, K=K, N=N, N_c=N_c, N_i=N_i, W=W, N_a, D=D, D_c=D_c, D_i=D_i, Q=Q, ν_c=ν_c, ν_i=ν_i, Π=Π)
 end
 
 # Back out max on γ
 
 targets = Targets(g_bar = 0.00451, γ=2.0, r_ann=0.04)
 @show cal = calibrate(targets)
-@unpack W, N, C, I, Y, r, ν_c, ν_i, N_c, N_i = cal
+@unpack W, N, C, I, Y, r, ν_c, ν_i, N_c, N_i, Π_Y = cal
 @unpack g_bar, labor_share, ν_R, Ψ_j, ν_R, p_i = targets
 γ_max = log(1+r)/g_bar
 
@@ -149,6 +153,7 @@ targets = Targets(g_bar = 0.00451, γ=2.0, r_ann=0.04)
 @show Ψ_j*ν_c/C - ν_R
 @show Ψ_j*ν_i/I - ν_R
 @show (C/N_c)/(I/N_i) - p_i
+@show Π -  ( 1 - labor_share - (r+δ)*K_Y/(1-ϕ))
 #targets_ng = Targets(g_bar = 0.0, γ=1.0)
 # cal_ng = calibrate(targets_ng)
 
@@ -189,7 +194,7 @@ function table(cal, targets)
         # Parameter
         [:γ, :β, :g_bar, :ν, :z_c, :z_i, :θ_n, :A_c, :A_i, :σ_b, :δ, :α_k, :α_n, :ω, :ν_c, :ν_i], 
         # Calibration
-        round.([γ, β, g_bar, ν, z_c, z_i, θ_n, A_c, A_i, σ_b, δ, α_K, α_N, ω, ν_c, ν_i], digits=3)
+        round.([γ, β, g_bar, ν, z_c, z_i, θ_n, A_c, A_i, σ_b, δ, α_k, α_n, ω, ν_c, ν_i], digits=3)
         ]
         )
     )
