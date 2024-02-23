@@ -197,8 +197,8 @@ model;
 
 [name='Labor leisure']
 //theta_N_ss*exp(theta_N)*N^(1/nu) = exp(theta_C)*(1-phi)*W;
-theta_N_ss*exp(theta_N(+1))*N(+1)^(1/nu) = exp(theta_C(+1))*(1-phi)*W_C(+1);
-theta_N_ss*exp(theta_N(+1))*N(+1)^(1/nu) = exp(theta_C(+1))*(1-phi)*W_I(+1);
+theta_N_ss*exp(theta_N(+1))*N^(1/nu) = exp(theta_C(+1))*(1-phi)*W_C(+1);
+theta_N_ss*exp(theta_N(+1))*N^(1/nu) = exp(theta_C(+1))*(1-phi)*W_I(+1);
 
 [name='Shopping:C']
 exp(theta_D)*D^(1/eta) = exp(theta_C)*phi*C/D_C;
@@ -221,7 +221,7 @@ x = I/I(-1)*exp(g);
 
 [name = 'Tobins Q']
 p_I/(1-phi) = Q*(1-S_pr*x-S) + 
-    beta*exp(theta_C(+1))/exp(theta_C)*(Gam(+1)/Gam)^(-gam)*exp(g(+1))^(-gam)*Q(+1)*S_pr(+1)*x(+1)*x(+1)^2;
+    beta*exp(theta_C(+1))/exp(theta_C)*(Gam(+1)/Gam)^(-gam)*exp(g(+1))^(-gam)*Q(+1)*S_pr(+1)*x(+1)^2;
 
 [name= 'Euler equation: C']
 //Q = beta*(Gam(+1)/Gam)^(-gam)*exp(g(+1))^(-gam)*(R_C(+1)*h_C(+1) + (1-delta_C(+1))*Q(+1));
@@ -567,5 +567,5 @@ collect_latex_files;
 stoch_simul (order=1, nofunctions, irf=100, periods=0,
 conditional_variance_decomposition=[1 4 8 40])
 Y_obs, Y_N_obs, SR_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_obs, D_obs,
-log_Y, log_Y_N, log_SR, log_I, log_p_I, log_C, log_N, log_NC, log_NI, log_util, log_D;
+log_Y, log_Y_N, log_SR, log_K, log_I, log_p_I, log_C, log_N, log_NC, log_NI, log_util, log_D;
 
