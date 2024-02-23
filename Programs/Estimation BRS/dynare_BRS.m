@@ -20,7 +20,7 @@ dynare BRS_growth_util.mod
 
 %% Now add shocks to capacity utilization
 %dynare BRS_growth_util_shock.mod
-
+dynare BRS_pred_labor.mod
 
 % Analyze erroneous mapping to capacity utilization
 %dynare BRS_growth_util_shock_err.mod 
