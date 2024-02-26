@@ -78,7 +78,7 @@ var Y           ${Y}$ (long_name='output')
   
     ;
 
-varexo e_g ${e_g}$ (long_name= 'Labor-augmenting-technology growth shock')
+varexo e_g ${e_g}$ (long_name= 'Stochastic trend shock')
        e_Z ${e_Z}$ (long_name= 'TFP shock')
        e_ZI ${e_{ZI}}$ (long_name= 'Investment-specific tech shock')
        e_N ${e_N}$ (long_name= 'Labor supply shock')
