@@ -523,7 +523,7 @@ end;
 options_.TeX=1;
 
 //varobs I_obs, Y_obs, Y_N_obs, LC_obs, util_obs;
-varobs NC_obs, NI_obs, C_obs, I_obs, p_I_obs, util_obs;
+varobs NC_obs, NI_obs, C_obs, I_obs, util_obs;
 
 
 estimation(tex, optim=('MaxIter', 200), 
@@ -570,7 +570,7 @@ collect_latex_files;
 
 %*/
 % Stochastic simulation -> for conditional FEVD and IRF
-stoch_simul (order=1, nofunctions, irf=500, periods=0,
+stoch_simul (order=1, nofunctions, irf=50000, periods=0,
 conditional_variance_decomposition=[1 4 8 40])
 Y_obs, Y_N_obs, SR_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_obs, D_obs,
 log_Y, log_Y_N, log_SR, log_I, log_p_I, log_C, log_N, log_NC, log_NI, log_util, log_D;
