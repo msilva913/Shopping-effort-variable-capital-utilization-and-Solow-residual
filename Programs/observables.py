@@ -9,8 +9,8 @@ from fredapi import Fred
 import pickle
 fred = Fred(api_key = 'd35aabd7dc07cd94481af3d1e2f0ecf3	')
 #from statsmodels.tsa.arima_model import ARMA
-pd.set_option('display.precision', 3)
-pd.options.display.float_format = '{:5,.3g}'.format
+pd.set_option('display.precision', 4)
+pd.options.display.float_format = '{:5,.4g}'.format
 
 from time_series_functions import (moments, filter_transform, crosscorr)
 #import statsmodels
@@ -56,10 +56,10 @@ def construct_data(init, final, freq):
     sectoral = sectoral[['Durable_TH', 'Construction_TH', 'Nondurable_TH', 'Services_TH']]
     
     " Consumption: nondurable plus services "
-    sectoral["L_C"] = sectoral["Nondurable TH"] + sectoral["Services TH"]
+    sectoral["L_C"] = sectoral["Nondurable_TH"] + sectoral["Services_TH"]
     
     " Investment: construction plus durables "
-    sectoral["L_I"] = sectoral["Construction TH"] + sectoral["Durable TH"]
+    sectoral["L_I"] = sectoral["Construction_TH"] + sectoral["Durable_TH"]
     
     # Total hours
     " Aggregate to quarterly "
@@ -81,14 +81,15 @@ def construct_data(init, final, freq):
     
     " Nominal consumption (BEA codes DNDGRC + DDURRC + DSERRC) "
     # Personal consumption non-durables: BEA DNDGRC
-    C1 = fred.get_series('PCEND').resample(freq).mean()# monthly, nominal
+    C_ND = fred.get_series('PCEND').resample(freq).mean()# monthly, nominal
     # Personal consumption expenditure services: BEA DSERRC
-    C2 = fred.get_series('PCESV').resample(freq).mean()
-    C = C1 + C2
+    C_S = fred.get_series('PCESV').resample(freq).mean()
+    C = C_ND + C_S
     #C = fred.get_series('PCEC').resample(freq).mean()# monthly, nominal
     
     " Gross Private Domestic Investment (BEA code A006RC) "
     #Equivalent to FPI (BEA A007RC) and change in business inventories (BEA CBI)
+    #https://apps.bea.gov/iTable/?reqid=19&step=2&isuri=1&categories=underlying#eyJhcHBpZCI6MTksInN0ZXBzIjpbMSwyLDNdLCJkYXRhIjpbWyJjYXRlZ29yaWVzIiwiU3VydmV5Il0sWyJOSVBBX1RhYmxlX0xpc3QiLCIyMDcxIl1dfQ==
     I = fred.get_series("GPDI").resample(freq).mean().dropna()
     
     " Non-institutional population "
@@ -112,12 +113,19 @@ def construct_data(init, final, freq):
     " Relative price of investment goods "
     #p_I = fred.get_series('PIRIC').resample('Q').mean()
     p_I = fred.get_series("A006RD3Q086SBEA").resample(freq).mean().dropna()
-    p_C = fred.get_series("DPCERD3Q086SBEA").resample(freq).mean().dropna()
+    #p_C = fred.get_series("DPCERD3Q086SBEA").resample(freq).mean().dropna()
+    #Personal consumption expenditures: services
+    p_S = fred.get_series("DSERRG3M086SBEA").resample(freq).mean().dropna()
+    # Non-durable goods
+    p_ND = fred.get_series("DNDGRG3M086SBEA").resample(freq).mean().dropna()
+    p_C = p_S*C_S/C + p_ND*C_ND/C
     p_I = p_I/p_C
     
     " Labor productivity for consumption and investment"
     lab_prod = (C+I)/(L*deflator)
     #lab_prod = fred.get_series("OPHNFB").resample(freq).mean().dropna()
+    lab_prod_C = C/(LC*deflator)
+    lab_prod_I = I/(LI*deflator)
     
     " Labor share "
     # Real GDP: 
@@ -140,7 +148,7 @@ def construct_data(init, final, freq):
    
     " Note: these series imply labor productivity in each sector "
     " List of data series "
-    var_load_list = [y, c, i, lc, li, l, lab_prod, p_I, SR, SR_util, util] 
+    var_load_list = [y, c, i, lc, li, l, lab_prod, p_I, SR, SR_util, util, lab_prod_C, lab_prod_I] 
     return var_load_list
 
 
@@ -164,7 +172,7 @@ if __name__ == "__main__":
         save_object(var_load_list, 'var_load_list')
     
     dat = pd.concat(var_load_list, axis=1)
-    lab = ['Y', 'C', 'I', 'LC', 'LI', 'L', "lab_prod", 'p_I', 'SR', 'SR_util', 'util']
+    lab = ['Y', 'C', 'I', 'LC', 'LI', 'L', "lab_prod", 'p_I', 'SR', 'SR_util', 'util', 'lab_prod_C', 'lab_prod_I']
     dat.columns = lab
     """
     Create cycles
@@ -177,7 +185,25 @@ if __name__ == "__main__":
     cycle_growth.columns = lab
     print(cycle_growth.mean())
     mom_growth_data = moments(100*cycle_growth, lab=['Y', 'L'])
+    
+    " Compare growth rates "
+    fig, ax = plt.subplots(figsize=(14, 8))
+    ax.plot(cycle_growth.lab_prod, label="Labor productivity growth:agg")
+    ax.plot(cycle_growth.lab_prod_C, label="Labor productivity growth:C")
+    ax.plot(cycle_growth.lab_prod_I, label="Labor productivity growth:I")
+    ax.legend()
+    plt.show()
+    
+    lab_prod_diff = cycle_growth.lab_prod_C - cycle_growth.lab_prod_I
+    
+    fig, ax = plt.subplots(figsize=(14, 8)) 
+    ax.plot(cycle_growth.p_I, label="Relative price of investment")
+    ax.plot(lab_prod_diff, label="Difference in growth rates")
+    ax.legend()
+    plt.show()
+    
     cycle_growth = cycle_growth - cycle_growth.mean()
+
     
     if save_observables:
         " Save relevant objects "

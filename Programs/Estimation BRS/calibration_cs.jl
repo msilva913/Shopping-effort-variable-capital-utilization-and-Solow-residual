@@ -136,7 +136,7 @@ function calibrate(targets)
     #Π = C + p_i*I -K_c*R_c - K_i*R_i - n*W
     Π = C + p_i*I - N*W*(α_n+α_k)/α_n
     Π_Y = 1 - labor_share*(1+α_k/α_n)
-    return (γ=γ, r=r, β=β, δ=δ, α_N=α_N, α_K=α_K, A_c=A_c, A_i=A_i, z_c=z_c, z_i=z_i, σ_b, ω, θ_n,
+    return (γ=γ, r=r, β=β, δ=δ, α_n=α_n, α_k=α_k, A_c=A_c, A_i=A_i, z_c=z_c, z_i=z_i, σ_b, ω, θ_n,
     C=C, I=I, Y=Y, K=K, N=N, N_c=N_c, N_i=N_i, W=W, N_a, D=D, D_c=D_c, D_i=D_i, Q=Q, ν_c=ν_c, ν_i=ν_i, Π=Π, Π_Y=Π_Y)
 end
 

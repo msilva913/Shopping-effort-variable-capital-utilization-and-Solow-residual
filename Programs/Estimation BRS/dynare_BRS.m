@@ -28,7 +28,7 @@ dynare BRS_pred_labor.mod
 %% Estimate with sectoral data
 dynare BRS_growth_util_sectoral.mod
 
-dynare BRS_growth_util_sectoral_exc.mod
+%dynare BRS_growth_util_sectoral_exc.mod
 %% Intersector labor market friction
 dynare BRS_imp_mobility.mod
 

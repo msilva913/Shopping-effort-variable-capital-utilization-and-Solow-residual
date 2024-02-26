@@ -300,7 +300,7 @@ resid;
 // compute steady state given the starting values
 steady;
 // check Blanchard-Kahn-conditions
-check;
+//check;
 
 %/*
 estimated_params;
@@ -345,7 +345,7 @@ mh_nblocks=2,
 //bayesian_irf,
 //irf=100,
 mh_drop=0.3, 
-moments_varendo,
+//moments_varendo,
 prior_trunc=0,
 tex)
 I_obs, C_obs, Y_obs, Y_N_obs, p_I_obs, 
@@ -368,7 +368,7 @@ collect_latex_files;
 
 %*/
 % Stochastic simulation 
-stoch_simul (order=1, nofunctions, irf=400, periods=0,
+stoch_simul (order=1, nofunctions, irf=8000, periods=0,
 conditional_variance_decomposition=[1 4 8 40])
 //I_obs, C_obs, Y_obs, Y_N_obs, p_I_obs, log_D, log_N; 
 log_Y, log_Y_N, log_I, log_p_I, log_C, log_D;
