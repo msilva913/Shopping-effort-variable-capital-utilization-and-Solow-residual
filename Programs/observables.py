@@ -186,21 +186,21 @@ if __name__ == "__main__":
     print(cycle_growth.mean())
     mom_growth_data = moments(100*cycle_growth, lab=['Y', 'L'])
     
-    " Compare growth rates "
-    fig, ax = plt.subplots(figsize=(14, 8))
-    ax.plot(cycle_growth.lab_prod, label="Labor productivity growth:agg")
-    ax.plot(cycle_growth.lab_prod_C, label="Labor productivity growth:C")
-    ax.plot(cycle_growth.lab_prod_I, label="Labor productivity growth:I")
-    ax.legend()
-    plt.show()
+    # " Compare growth rates "
+    # fig, ax = plt.subplots(figsize=(14, 8))
+    # ax.plot(cycle_growth.lab_prod, label="Labor productivity growth:agg")
+    # ax.plot(cycle_growth.lab_prod_C, label="Labor productivity growth:C")
+    # ax.plot(cycle_growth.lab_prod_I, label="Labor productivity growth:I")
+    # ax.legend()
+    # plt.show()
     
-    lab_prod_diff = cycle_growth.lab_prod_C - cycle_growth.lab_prod_I
+    # lab_prod_diff = cycle_growth.lab_prod_C - cycle_growth.lab_prod_I
     
-    fig, ax = plt.subplots(figsize=(14, 8)) 
-    ax.plot(cycle_growth.p_I, label="Relative price of investment")
-    ax.plot(lab_prod_diff, label="Difference in growth rates")
-    ax.legend()
-    plt.show()
+    # fig, ax = plt.subplots(figsize=(14, 8)) 
+    # ax.plot(cycle_growth.p_I, label="Relative price of investment")
+    # ax.plot(lab_prod_diff, label="Difference in growth rates")
+    # ax.legend()
+    # plt.show()
     
     cycle_growth = cycle_growth - cycle_growth.mean()
 
