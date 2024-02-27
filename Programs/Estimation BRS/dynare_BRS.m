@@ -5,10 +5,6 @@ addpath c:\dynare\5.4\matlab
 
 %% BRS in first differences (demeaned) -> closest correspondence to paper
 dynare BRS_fd.mod
-%% BRS with  TFP growth
-dynare BRS_growth.mod
-irf_basic = oo_.irfs
-save('irf_basic.mat', 'irf_basic')
 
 %% BRS with TFP growth and restriction
 dynare BRS_growth_res.mod 
@@ -24,6 +20,7 @@ dynare BRS_pred_labor.mod
 
 % Analyze erroneous mapping to capacity utilization
 %dynare BRS_growth_util_shock_err.mod 
+dynare BRS_growth_sep.mod 
 
 %% Estimate with sectoral data
 dynare BRS_growth_util_sectoral.mod

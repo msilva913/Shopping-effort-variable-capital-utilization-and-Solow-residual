@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import scipy.io as sio
+import statsmodels.api as sm
 #import statsmodels.api as sm
 from itertools import cycle as cycler
 from fredapi import Fred
@@ -25,6 +26,43 @@ def save_object(obj, filename):
     with open(filename, 'wb') as output:
         pickle.dump(obj, output, pickle.HIGHEST_PROTOCOL)  
 
+def La_index(p, q):
+    
+
+    T = p.shape[0]
+    nitems = p.shape[1]
+    num = np.zeros(T)
+    res = np.zeros_like(num)
+    den = 0.0
+    
+    for i in range(nitems):
+        den += p.iloc[0,i]*q.iloc[0,i]
+    
+    for t in range(T):
+        num[t] = sum([p.iloc[t, i]*q.iloc[0, i] for i in range(nitems)])
+    
+    res = pd.Series(num/den)
+    res.index = p.index
+    return res
+
+def Pa_index(p, q):
+    T = p.shape[0]
+    nitems = p.shape[1]
+    num = np.zeros(T)
+    res = np.zeros_like(num)
+    den = np.zeros_like(num)
+    
+    for t in range(T):
+        num[t] = sum(p.iloc[t,i]*q.iloc[t,i] for i in range(nitems))
+        den[t] = sum(p.iloc[0, i]*q.iloc[t, i] for i in range(nitems))
+    
+    res = pd.Series(num/den)
+    res.index = p.index
+    return res
+
+def Fisher_index(p,q):
+    res = np.sqrt(La_index(p,q)*Pa_index(p,q))
+    return res
 
 def construct_data(init, final, freq):
     """
@@ -71,7 +109,7 @@ def construct_data(init, final, freq):
     L = LC + LI
     
     " GDP Deflator BEA code A191RD"
-    deflator =  fred.get_series('GDPDEF').resample(freq).mean()
+    #deflator =  fred.get_series('GDPDEF').resample(freq).mean()
     #Y = fred.get_series('GDPC1').resample(freq).mean().dropna() #real, quarterly
     
     " Investment goods deflator "
@@ -81,20 +119,47 @@ def construct_data(init, final, freq):
     
     " Nominal consumption (BEA codes DNDGRC + DDURRC + DSERRC) "
     # Personal consumption non-durables: BEA DNDGRC
-    C_ND = fred.get_series('PCEND').resample(freq).mean()# monthly, nominal
+    C_ND = fred.get_series('PCND').resample(freq).mean().dropna()# monthly, nominal
     # Personal consumption expenditure services: BEA DSERRC
-    C_S = fred.get_series('PCESV').resample(freq).mean()
+    C_S = fred.get_series('PCESV').resample(freq).mean().dropna()
     C = C_ND + C_S
+    
+    " Nominal investment: durables (PCDG), non-residential investment (PNFI), residential investment (PRFI) "
+    PCDF = fred.get_series("PCDG").resample(freq).mean().dropna()
+    PNFI = fred.get_series("PNFI").resample(freq).mean().dropna()
+    PRFI = fred.get_series("PRFI").resample(freq).mean().dropna()
+    I = PCDF + PNFI + PRFI
+    
+    " Price index of consumption goods "
+    # non-durables
+    p_ND = fred.get_series('DNDGRG3Q086SBEA').resample(freq).mean().dropna()
+    # Services 
+    p_S = fred.get_series("DSERRG3Q086SBEA").resample(freq).mean().dropna()
+    # Combine using Tornquist index
+    p_C = p_S*C_S/C + p_ND*C_ND/C
+    
+    p_C_alt = fred.get_series("PCEPI").resample(freq).mean().dropna()
+    plt.plot(p_C.pct_change(), label="weighted measure")
+    plt.plot(p_C_alt.pct_change(), label="import")
+    plt.legend()
+    #p = pd.concat([p_S, p_ND], axis=1)
+    #q = pd.concat([C_S, C_ND], axis=1)
+  
+    #p_C = Fisher_index(p, q)
     #C = fred.get_series('PCEC').resample(freq).mean()# monthly, nominal
     
-    " Gross Private Domestic Investment (BEA code A006RC) "
+    " Price index for investment goods "
+    p_I = fred.get_series("A006RD3Q086SBEA").resample(freq).mean().dropna()
+    
+   
     #Equivalent to FPI (BEA A007RC) and change in business inventories (BEA CBI)
     #https://apps.bea.gov/iTable/?reqid=19&step=2&isuri=1&categories=underlying#eyJhcHBpZCI6MTksInN0ZXBzIjpbMSwyLDNdLCJkYXRhIjpbWyJjYXRlZ29yaWVzIiwiU3VydmV5Il0sWyJOSVBBX1RhYmxlX0xpc3QiLCIyMDcxIl1dfQ==
-    I = fred.get_series("GPDI").resample(freq).mean().dropna()
+    #I = fred.get_series("GPDI").resample(freq).mean().dropna()
     
     " Non-institutional population "
     pop = fred.get_series('CNP16OV').resample(freq).mean()
-    
+    # Use HP-filtered trend for population
+    pop = sm.tsa.filters.hpfilter(pop, lamb=10_000)[1]
     " Capacity utilization "
     util = fred.get_series('TCU').resample(freq).mean().dropna()
     
@@ -112,20 +177,14 @@ def construct_data(init, final, freq):
     
     " Relative price of investment goods "
     #p_I = fred.get_series('PIRIC').resample('Q').mean()
-    p_I = fred.get_series("A006RD3Q086SBEA").resample(freq).mean().dropna()
+  
     #p_C = fred.get_series("DPCERD3Q086SBEA").resample(freq).mean().dropna()
     #Personal consumption expenditures: services
-    p_S = fred.get_series("DSERRG3M086SBEA").resample(freq).mean().dropna()
-    # Non-durable goods
-    p_ND = fred.get_series("DNDGRG3M086SBEA").resample(freq).mean().dropna()
-    p_C = p_S*C_S/C + p_ND*C_ND/C
-    p_I = p_I/p_C
     
     " Labor productivity for consumption and investment"
-    lab_prod = (C+I)/(L*deflator)
+    lab_prod = (C/p_C+I/p_I)/(L)
     #lab_prod = fred.get_series("OPHNFB").resample(freq).mean().dropna()
-    lab_prod_C = C/(LC*deflator)
-    lab_prod_I = I/(LI*deflator)
+  
     
     " Labor share "
     # Real GDP: 
@@ -136,22 +195,26 @@ def construct_data(init, final, freq):
     # w = fred.get_series('CES0500000003').resample(freq).mean().dropna()
     # w/(Y_agg/H)
 
-    " Scale by population and GDP deflator "
-    c = C/(pop*deflator)
-    i = I/(pop*deflator)
+    " Scale by population and price index "
+    c = C/(pop*p_C)
+    i = I/(pop*p_I)
+    
     #y = Y/(pop*deflator)
     " Construct output from consumption and investment "
     y = c + i
     lc = LC/pop
     li = LI/pop
     l = L/pop
+    " Relative price of investment: divide price indices"
+    p_I = p_I/p_C
    
     " Note: these series imply labor productivity in each sector "
     " List of data series "
-    var_load_list = [y, c, i, lc, li, l, lab_prod, p_I, SR, SR_util, util, lab_prod_C, lab_prod_I] 
+    var_load_list = [y, c, i, lc, li, l, lab_prod, p_I, SR, SR_util, util] 
     return var_load_list
 
-
+        
+        
 
 if __name__ == "__main__":
     # Baseline
@@ -172,7 +235,7 @@ if __name__ == "__main__":
         save_object(var_load_list, 'var_load_list')
     
     dat = pd.concat(var_load_list, axis=1)
-    lab = ['Y', 'C', 'I', 'LC', 'LI', 'L', "lab_prod", 'p_I', 'SR', 'SR_util', 'util', 'lab_prod_C', 'lab_prod_I']
+    lab = ['Y', 'C', 'I', 'LC', 'LI', 'L', "lab_prod", 'p_I', 'SR', 'SR_util', 'util']
     dat.columns = lab
     """
     Create cycles
@@ -223,21 +286,16 @@ if __name__ == "__main__":
     " Choose specific variable set "
     #cycle_red = cycle[["Y", "I", "lab_prod", "SR", "p_I", "SR_util", "cu"]]
 
-    mom_data = moments(100*cycle, lab=['Y', 'L'])
-    mom_data = mom_data.style.format(precision=2)
-    print(mom_data.to_latex())
+    mom_data = moments(100*cycle, lab=['Y', 'L']) 
+    print(mom_data.style.format(precision=2).to_latex())
     
     # Moments in growth rates 
     mom_growth_data = moments(100*cycle_growth, lab=['Y', 'L'])
-    mom_growth_data = mom_growth_data.style.format(precision=2)
-    print(mom_growth_data.to_latex())
+    print(mom_growth_data.style.format(precision=2).to_latex())
     " Save moments "
     # Moments from data in growth rates and Hamilton-filtered data
     save_object(mom_data, 'mom_data')
     
-   
-        
-
     # Do plots
     
     import matplotlib.dates as mdates
