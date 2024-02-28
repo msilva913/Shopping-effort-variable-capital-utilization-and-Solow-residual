@@ -152,7 +152,7 @@ rho_Z = 0.9;
 rho_ZI = 0.9;
 rho_N = 0.9;
 rho_D = 0.9;
-rho_DI = 0.9;
+rho_DI = 0.0;
 rho_C = 0.9;
 
 %----------------------------------------------------------------
@@ -478,7 +478,7 @@ shocks;
     var e_N = 0.0072^2;
     var e_D = 0.0072^2;
     var e_C = 0.0072^2;
-    var e_DI = 0.0072^2;
+    var e_DI = 0.0;
 end;
 
 // local identification
@@ -497,13 +497,13 @@ estimated_params;
 
 //gam, 1.5, 0.5, 4,            GAMMA_PDF, 1.5, 0.25;
 gam, 1.5, 1.0, gam_max,       BETA_PDF, 1.5, 0.25, 1.0, gam_max;
-sigma_a, 0.32, 0.0, 10,       INV_GAMMA_PDF, 1, 1;
-Psi_K, 1.5, 0.0, 50,           GAMMA_PDF, 4, 1.0; % Schmitt-Grohe and Uribe (2010), Katayama and Kim 2018, 
+sigma_a, 0.32, 0.0, 10,        GAMMA_PDF, 0.32, 0.2;
+Psi_K, 1.5, 0.0, 50,           GAMMA_PDF, 1.5, 1.0;
 
 //phi, 0.32, 0.00, 0.999,        BETA_PDF, 0.32, 0.2;
 eta, 0.20, 0.00, 10.0,          GAMMA_PDF, 0.2, 0.15;
 
-theta, 0.5, .00, 10,   GAMMA_PDF, 1, 0.5; %Katayama and Kim 2018, based on Horvath (2000)
+theta, 1.5, .00, 100,   GAMMA_PDF, , 5.0;
 
 
 % Persistence parameters
@@ -512,7 +512,7 @@ rho_Z, 0.95, 0.01, 0.999999,     BETA_PDF, 0.6, 0.2;
 rho_ZI,  0.95, 0.01, 0.999999,    BETA_PDF, 0.6, 0.2;
 rho_N,  0.6, 0.01, 0.9999,        BETA_PDF, 0.6, 0.2;
 rho_D,  0.9, 0.01, 0.9999,        BETA_PDF, 0.6, 0.2;
-rho_DI, 0.9, 0.01, 0.9999,          BETA_PDF, 0.6, 0.2;
+//rho_DI, 0.9, 0.01, 0.9999,          BETA_PDF, 0.6, 0.2;
 rho_C,  0.95, 0.01, 0.99999999,        BETA_PDF, 0.6, 0.2;
 
 % Standard errors
@@ -521,7 +521,7 @@ stderr e_Z, 0.01, 0.00001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
 stderr e_ZI, 0.01, 0.0001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
 stderr e_N, 0.01, 0.0001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
 stderr e_D, 0.01, 0.0001, 0.4,  INV_GAMMA_PDF, 0.01, 0.1;
-stderr e_DI, 0.01, 0.0001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
+//stderr e_DI, 0.01, 0.0001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
 stderr e_C, 0.01, 0.0001, 0.4,  INV_GAMMA_PDF, 0.01, 0.1;
 
 end;
@@ -536,11 +536,11 @@ estimation(tex, optim=('MaxIter', 200),
 datafile=observables_sectoral, 
 mode_file=BRS_growth_util_sectoral_mode, 
 //nograph,
-//load_mh_file, 
+load_mh_file, 
 //mh_recover,
-mcmc_jumping_covariance=prior_variance,
+//mcmc_jumping_covariance=prior_variance,
 
-mode_compute=9,
+mode_compute=0,
 presample=0, 
 lik_init=2,
 mh_jscale=0.0015, 

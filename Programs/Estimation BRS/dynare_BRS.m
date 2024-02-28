@@ -14,14 +14,6 @@ dynare BRS_growth_res.mod
 %% BRS with TFP growth: add capacity utilization and vcu in model (and capacity utilization as an observable)
 dynare BRS_growth_util.mod 
 
-%% Now add shocks to capacity utilization
-%dynare BRS_growth_util_shock.mod
-dynare BRS_pred_labor.mod
-
-% Analyze erroneous mapping to capacity utilization
-%dynare BRS_growth_util_shock_err.mod 
-dynare BRS_growth_sep.mod 
-
 %% Estimate with sectoral data
 dynare BRS_growth_util_sectoral.mod
 

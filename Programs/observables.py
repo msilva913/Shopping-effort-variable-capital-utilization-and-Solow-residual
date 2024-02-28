@@ -26,43 +26,7 @@ def save_object(obj, filename):
     with open(filename, 'wb') as output:
         pickle.dump(obj, output, pickle.HIGHEST_PROTOCOL)  
 
-def La_index(p, q):
-    
 
-    T = p.shape[0]
-    nitems = p.shape[1]
-    num = np.zeros(T)
-    res = np.zeros_like(num)
-    den = 0.0
-    
-    for i in range(nitems):
-        den += p.iloc[0,i]*q.iloc[0,i]
-    
-    for t in range(T):
-        num[t] = sum([p.iloc[t, i]*q.iloc[0, i] for i in range(nitems)])
-    
-    res = pd.Series(num/den)
-    res.index = p.index
-    return res
-
-def Pa_index(p, q):
-    T = p.shape[0]
-    nitems = p.shape[1]
-    num = np.zeros(T)
-    res = np.zeros_like(num)
-    den = np.zeros_like(num)
-    
-    for t in range(T):
-        num[t] = sum(p.iloc[t,i]*q.iloc[t,i] for i in range(nitems))
-        den[t] = sum(p.iloc[0, i]*q.iloc[t, i] for i in range(nitems))
-    
-    res = pd.Series(num/den)
-    res.index = p.index
-    return res
-
-def Fisher_index(p,q):
-    res = np.sqrt(La_index(p,q)*Pa_index(p,q))
-    return res
 
 def construct_data(init, final, freq):
     """
@@ -79,9 +43,24 @@ def construct_data(init, final, freq):
     Sectoral data Tables B6 and B7
     B6: number of nonsupervisory employees
     B7: average weekly hours
+    https://www.bls.gov/ces/data/employment-situation-table-download.htm
+
+    Table B6
+    https://data.bls.gov/pdq/SurveyOutputServlet
+    Employment
+    CES2000000006
+    CES3100000006
+    CES3200000006
+    CES0800000006
+    
+    Average weekly hours
+    CES2000000007
+    CES3100000007
+    CES3200000007
+    CES0800000007
     """
     
-    sectoral = pd.read_csv("sectoral_labor_data.csv", sep= ",", header=0)
+    sectoral = pd.read_csv("sectoral_labor.csv", sep= ",", header=0)
     date = pd.date_range(start='1/1947', periods=sectoral.shape[0], freq='MS')
     sectoral.index = date
     
@@ -109,7 +88,7 @@ def construct_data(init, final, freq):
     L = LC + LI
     
     " GDP Deflator BEA code A191RD"
-    #deflator =  fred.get_series('GDPDEF').resample(freq).mean()
+    deflator =  fred.get_series('GDPDEF').resample(freq).mean()
     #Y = fred.get_series('GDPC1').resample(freq).mean().dropna() #real, quarterly
     
     " Investment goods deflator "
@@ -125,10 +104,10 @@ def construct_data(init, final, freq):
     C = C_ND + C_S
     
     " Nominal investment: durables (PCDG), non-residential investment (PNFI), residential investment (PRFI) "
-    PCDF = fred.get_series("PCDG").resample(freq).mean().dropna()
+    PCDG = fred.get_series("PCDG").resample(freq).mean().dropna()
     PNFI = fred.get_series("PNFI").resample(freq).mean().dropna()
     PRFI = fred.get_series("PRFI").resample(freq).mean().dropna()
-    I = PCDF + PNFI + PRFI
+    I = PCDG + PNFI + PRFI
     
     " Price index of consumption goods "
     # non-durables
@@ -138,10 +117,10 @@ def construct_data(init, final, freq):
     # Combine using Tornquist index
     p_C = p_S*C_S/C + p_ND*C_ND/C
     
-    p_C_alt = fred.get_series("PCEPI").resample(freq).mean().dropna()
-    plt.plot(p_C.pct_change(), label="weighted measure")
-    plt.plot(p_C_alt.pct_change(), label="import")
-    plt.legend()
+    # p_C_alt = fred.get_series("PCEPI").resample(freq).mean().dropna()
+    # plt.plot(p_C.pct_change(), label="weighted measure")
+    # plt.plot(p_C_alt.pct_change(), label="import")
+    # plt.legend()
     #p = pd.concat([p_S, p_ND], axis=1)
     #q = pd.concat([C_S, C_ND], axis=1)
   
@@ -199,9 +178,10 @@ def construct_data(init, final, freq):
     c = C/(pop*p_C)
     i = I/(pop*p_I)
     
-    #y = Y/(pop*deflator)
+    Y = C + I
+    y = Y/(pop*deflator)
     " Construct output from consumption and investment "
-    y = c + i
+    #y = c + i
     lc = LC/pop
     li = LI/pop
     l = L/pop
@@ -275,7 +255,7 @@ if __name__ == "__main__":
         lab = ['Y_obs', 'C_obs', 'I_obs', 'NC_obs', 'NI_obs', 'N_obs',
                'Y_N_obs', 'p_I_obs', 'SR_obs', 'SR_util_obs', 'util_obs']
         dic_data = dict(zip(lab, [np.asarray(cycle_growth[x]) for x in cycle_growth.columns]))
-        sio.savemat('observables_fd.mat', dic_data)
+        sio.savemat('observables_sectoral.mat', dic_data)
     
     cycle =  pd.concat([filter_transform(dat[x], init=init, final=final, transform_type='log',
                                          filter_type="hamilton", demean=True) for x in lab], axis=1)
