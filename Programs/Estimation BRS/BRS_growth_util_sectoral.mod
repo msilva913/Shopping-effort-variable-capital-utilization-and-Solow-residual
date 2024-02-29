@@ -529,18 +529,18 @@ end;
 options_.TeX=1;
 
 //varobs I_obs, Y_obs, Y_N_obs, LC_obs, util_obs;
-varobs NC_obs, NI_obs, C_obs, I_obs, p_I_obs, util_obs;
+varobs NC_obs, NI_obs, C_obs, I_obs, p_I_obs;
 
 
 estimation(tex, optim=('MaxIter', 200), 
 datafile=observables_sectoral, 
-mode_file=BRS_growth_util_sectoral_mode, 
+//mode_file=BRS_growth_util_sectoral_mode, 
 //nograph,
 //load_mh_file, 
 //mh_recover,
 mcmc_jumping_covariance=prior_variance,
 
-mode_compute=9,
+mode_compute=4,
 presample=0, 
 lik_init=2,
 mh_jscale=0.0015, 
