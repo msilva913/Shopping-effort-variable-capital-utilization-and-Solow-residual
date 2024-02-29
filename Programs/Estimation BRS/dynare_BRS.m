@@ -16,7 +16,15 @@ dynare BRS_growth_util.mod
 
 %% Estimate with sectoral data
 dynare BRS_growth_util_sectoral.mod
+%%
+dynare BRS_growth_util_sectoral_alt.mod
 
+dynare BRS_growth_util_sectoral_alt_habits.mod
+
+dynare BRS_growth_util_sectoral_alt_habits_unr.mod
+
+%% Estimate sectoral data, separable preferences
+dynare BRS_growth_util_sectoral_separable_alt.mod
 %dynare BRS_growth_util_sectoral_exc.mod
 %% Intersector labor market friction
 dynare BRS_imp_mobility.mod

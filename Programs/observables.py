@@ -203,7 +203,6 @@ if __name__ == "__main__":
     final = '2019-12-30'
     # Comparison to earlier BRS
     #init = '1967-01-01'
-    #final = '2019-12-30'
     load = False
     #filter_type = 'hamilton'
     freq = 'Q'
