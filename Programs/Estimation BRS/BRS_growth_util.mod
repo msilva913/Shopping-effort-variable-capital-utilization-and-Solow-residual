@@ -517,7 +517,7 @@ varobs I_obs, Y_obs, Y_N_obs, p_I_obs, util_obs;
 
 
 estimation(tex, optim=('MaxIter', 200), 
-datafile=observables_fd, 
+datafile=observables_sectoral, 
 mode_file=BRS_growth_util_mode, 
 //nograph,
 load_mh_file, 

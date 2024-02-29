@@ -115,8 +115,8 @@ def construct_data(init, final, freq):
     # Services 
     p_S = fred.get_series("DSERRG3Q086SBEA").resample(freq).mean().dropna()
     # Combine using Tornquist index
-    p_C = p_S*C_S/C + p_ND*C_ND/C
-    
+    #p_C = p_S*C_S/C + p_ND*C_ND/C
+    p_C = fred.get_series("PCEPI").resample(freq).mean().dropna()
     # p_C_alt = fred.get_series("PCEPI").resample(freq).mean().dropna()
     # plt.plot(p_C.pct_change(), label="weighted measure")
     # plt.plot(p_C_alt.pct_change(), label="import")
@@ -128,8 +128,8 @@ def construct_data(init, final, freq):
     #C = fred.get_series('PCEC').resample(freq).mean()# monthly, nominal
     
     " Price index for investment goods "
-    p_I = fred.get_series("A006RD3Q086SBEA").resample(freq).mean().dropna()
-    
+    #p_I = fred.get_series("A006RD3Q086SBEA").resample(freq).mean().dropna()
+    p_I = fred.get_series("INVDEF").resample(freq).mean().dropna()
    
     #Equivalent to FPI (BEA A007RC) and change in business inventories (BEA CBI)
     #https://apps.bea.gov/iTable/?reqid=19&step=2&isuri=1&categories=underlying#eyJhcHBpZCI6MTksInN0ZXBzIjpbMSwyLDNdLCJkYXRhIjpbWyJjYXRlZ29yaWVzIiwiU3VydmV5Il0sWyJOSVBBX1RhYmxlX0xpc3QiLCIyMDcxIl1dfQ==
@@ -161,7 +161,7 @@ def construct_data(init, final, freq):
     #Personal consumption expenditures: services
     
     " Labor productivity for consumption and investment"
-    lab_prod = (C/p_C+I/p_I)/(L)
+    #lab_prod = (C/p_C+I/p_I)/(L)
     #lab_prod = fred.get_series("OPHNFB").resample(freq).mean().dropna()
   
     
@@ -179,6 +179,7 @@ def construct_data(init, final, freq):
     i = I/(pop*p_I)
     
     Y = C + I
+    lab_prod = Y/(deflator*L)
     y = Y/(pop*deflator)
     " Construct output from consumption and investment "
     #y = c + i
@@ -199,7 +200,7 @@ def construct_data(init, final, freq):
 if __name__ == "__main__":
     # Baseline
     init= '1964-01-01'
-    final = '2023-12-30'
+    final = '2019-12-30'
     # Comparison to earlier BRS
     #init = '1967-01-01'
     #final = '2019-12-30'

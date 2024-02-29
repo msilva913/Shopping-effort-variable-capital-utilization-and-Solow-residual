@@ -269,7 +269,7 @@ def filter_transform(x, init, final, transform_type = None, freq=None,
         x = x.resample(freq).mean()
     " Return non-null entries "
     x = x[x.notnull()]
-    
+    x = x[init:final]
     #Normalizing transformation of data (log, proportional deviations, or identity)
     if transform_type == 'log':
         transform = np.log
@@ -279,7 +279,6 @@ def filter_transform(x, init, final, transform_type = None, freq=None,
         transform = lambda x: x
     
     z = transform(x)
-    #z = z[init:final]
     " Choice of filter "
     if filter_type == 'hamilton':
         cycle = hamilton_filter(z, h=h)
