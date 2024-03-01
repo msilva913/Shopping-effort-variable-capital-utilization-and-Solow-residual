@@ -111,9 +111,9 @@ def construct_data(init, final, freq):
     
     " Price index of consumption goods "
     # non-durables
-    p_ND = fred.get_series('DNDGRG3Q086SBEA').resample(freq).mean().dropna()
+    #p_ND = fred.get_series('DNDGRG3Q086SBEA').resample(freq).mean().dropna()
     # Services 
-    p_S = fred.get_series("DSERRG3Q086SBEA").resample(freq).mean().dropna()
+    #p_S = fred.get_series("DSERRG3Q086SBEA").resample(freq).mean().dropna()
     # Combine using Tornquist index
     #p_C = p_S*C_S/C + p_ND*C_ND/C
     p_C = fred.get_series("PCEPI").resample(freq).mean().dropna()
@@ -227,23 +227,25 @@ if __name__ == "__main__":
                                         filter_type="growth", demean=False) for x in lab], axis=1)
     cycle_growth.columns = lab
     print(cycle_growth.mean())
-    mom_growth_data = moments(100*cycle_growth, lab=['I', 'LI'])
+    mom_growth_data = moments(100*cycle_growth, lab=['I', 'LI'], lags=[1])
+    print(mom_growth_data.style.format(precision=2).to_latex())
     
     # Stacked moments
     stds = cycle_growth.std(axis=0)
     stds = 100*stds[["C", "I", "LC", "LI", "p_I", "util"]]
     stds = pd.DataFrame(stds)
     stds.index = ["std(C)", "std(I)", "std(LC)", "std(LI)", "std(p_I)", "std(util)"]
-    corrs = np.zeros((5, 1))
+    corrs = np.zeros((6, 1))
     corr_mat = cycle_growth.corr()
     corrs[0] = corr_mat['C']['I']
-    corrs[1] = corr_mat['LC']['LI']
-    corrs[2] = corr_mat['C']['util']
-    corrs[3] = corr_mat['C']['lab_prod']
-    corrs[4] = corr_mat['p_I']['I']
+    corrs[1] = corr_mat['C']['LI']
+    corrs[2] = corr_mat['C']['lab_prod']
+    corrs[3] = corr_mat['C']['util']
+    corrs[4] = corr_mat['LC']['LI']
+    corrs[5] = corr_mat['p_I']['I']
     cor_dat = pd.DataFrame(corrs)
-    cor_dat.index = ["Cor(C, I)", "Cor(L_C, L_I)", "Cor(C, util)",
-                       "Cor(C, lab_prod)", "Cor(p_I, I)"]
+    cor_dat.index = ["Cor(C, I)", "Cor(C, L_I)",  "Cor(C, lab_prod)", "Cor(C, util)",
+                     "Cor(L_C, L_I)" , "Cor(p_I, I)"]
     summ = pd.concat([stds, cor_dat])
     print(summ.style.format(precision=2).to_latex())
     # " Compare growth rates "
@@ -286,9 +288,6 @@ if __name__ == "__main__":
     mom_data = moments(100*cycle, lab=['Y', 'L']) 
     print(mom_data.style.format(precision=2).to_latex())
     
-    # Moments in growth rates 
-    mom_growth_data = moments(100*cycle_growth, lab=['Y', 'L'])
-    print(mom_growth_data.style.format(precision=2).to_latex())
     " Save moments "
     # Moments from data in growth rates and Hamilton-filtered data
     save_object(mom_data, 'mom_data')

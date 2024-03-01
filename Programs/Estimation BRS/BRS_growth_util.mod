@@ -540,21 +540,21 @@ varobs I_obs, Y_obs, Y_N_obs, p_I_obs;
 
 estimation(tex, optim=('MaxIter', 200), 
 datafile=observables_sectoral, 
-//mode_file=BRS_growth_util_sectoral_mode, 
+mode_file=BRS_growth_util_mode, 
 //nograph,
-//load_mh_file, 
+load_mh_file, 
 //mh_recover,
 mcmc_jumping_covariance=prior_variance,
 
-mode_compute=4,
+mode_compute=0,
 presample=0, 
 lik_init=2,
 mh_jscale=0.0015, 
 mh_init_scale =0.0004,
 //mh_jscale=0.3,
 mode_check, 
-mh_replic=100000, 
-//mh_replic=0,
+//mh_replic=150000, 
+mh_replic=0,
 mh_nblocks=2, 
 //bayesian_irf,
 //irf=100,
@@ -574,7 +574,7 @@ write_latex_dynamic_model;
 write_latex_parameter_table;
 write_latex_definitions;
 write_latex_prior_table;
-//generate_trace_plots(1);
+generate_trace_plots(1);
 collect_latex_files;
 % if system(['pdflatex -halt-on-error -interaction=batchmode ' M_.fname '_TeX_binder.tex'])
 %     error('TeX-File did not compile.')

@@ -3,16 +3,10 @@ clear;
 %% 
 addpath c:\dynare\5.4\matlab
 
-%% BRS in first differences (demeaned) -> closest correspondence to paper
-dynare BRS_fd.mod
 
-%% BRS with TFP growth and restriction
-dynare BRS_growth_res.mod 
-% results hold up nicely-> reasonable moments, captures contribution of
-% demand shocks to lab_prod
-
-%% BRS with TFP growth: add capacity utilization and vcu in model (and capacity utilization as an observable)
+%% BRS with TFP growth: estimate on BRS observable series with additional ingredients and shocks
 dynare BRS_growth_util.mod 
+
 
 %% Estimate with sectoral data
 dynare BRS_growth_util_sectoral.mod
