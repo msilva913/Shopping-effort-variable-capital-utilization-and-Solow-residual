@@ -227,8 +227,25 @@ if __name__ == "__main__":
                                         filter_type="growth", demean=False) for x in lab], axis=1)
     cycle_growth.columns = lab
     print(cycle_growth.mean())
-    mom_growth_data = moments(100*cycle_growth, lab=['Y', 'L'])
+    mom_growth_data = moments(100*cycle_growth, lab=['I', 'LI'])
     
+    # Stacked moments
+    stds = cycle_growth.std(axis=0)
+    stds = 100*stds[["C", "I", "LC", "LI", "p_I", "util"]]
+    stds = pd.DataFrame(stds)
+    stds.index = ["std(C)", "std(I)", "std(LC)", "std(LI)", "std(p_I)", "std(util)"]
+    corrs = np.zeros((5, 1))
+    corr_mat = cycle_growth.corr()
+    corrs[0] = corr_mat['C']['I']
+    corrs[1] = corr_mat['LC']['LI']
+    corrs[2] = corr_mat['C']['util']
+    corrs[3] = corr_mat['C']['lab_prod']
+    corrs[4] = corr_mat['p_I']['I']
+    cor_dat = pd.DataFrame(corrs)
+    cor_dat.index = ["Cor(C, I)", "Cor(L_C, L_I)", "Cor(C, util)",
+                       "Cor(C, lab_prod)", "Cor(p_I, I)"]
+    summ = pd.concat([stds, cor_dat])
+    print(summ.style.format(precision=2).to_latex())
     # " Compare growth rates "
     # fig, ax = plt.subplots(figsize=(14, 8))
     # ax.plot(cycle_growth.lab_prod, label="Labor productivity growth:agg")

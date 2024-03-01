@@ -23,6 +23,10 @@ dynare BRS_growth_util_sectoral_alt_habits.mod
 
 dynare BRS_growth_util_sectoral_alt_habits_unr.mod
 
+dynare BRS_sectoral_unr_lim.mod
+
+dynare BRS_sectoral_unr_rel.mod
+
 %% Estimate sectoral data, separable preferences
 dynare BRS_growth_util_sectoral_separable_alt.mod
 %dynare BRS_growth_util_sectoral_exc.mod
