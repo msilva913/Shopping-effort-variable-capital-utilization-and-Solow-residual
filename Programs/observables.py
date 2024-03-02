@@ -10,8 +10,8 @@ from fredapi import Fred
 import pickle
 fred = Fred(api_key = 'd35aabd7dc07cd94481af3d1e2f0ecf3	')
 #from statsmodels.tsa.arima_model import ARMA
-pd.set_option('display.precision', 4)
-pd.options.display.float_format = '{:5,.4g}'.format
+pd.set_option('display.precision', 2)
+#pd.options.display.float_format = '{:5,.4g}'.format
 
 from time_series_functions import (moments, filter_transform, crosscorr)
 #import statsmodels
@@ -248,21 +248,6 @@ if __name__ == "__main__":
                      "Cor(L_C, L_I)" , "Cor(p_I, I)"]
     summ = pd.concat([stds, cor_dat])
     print(summ.style.format(precision=2).to_latex())
-    # " Compare growth rates "
-    # fig, ax = plt.subplots(figsize=(14, 8))
-    # ax.plot(cycle_growth.lab_prod, label="Labor productivity growth:agg")
-    # ax.plot(cycle_growth.lab_prod_C, label="Labor productivity growth:C")
-    # ax.plot(cycle_growth.lab_prod_I, label="Labor productivity growth:I")
-    # ax.legend()
-    # plt.show()
-    
-    # lab_prod_diff = cycle_growth.lab_prod_C - cycle_growth.lab_prod_I
-    
-    # fig, ax = plt.subplots(figsize=(14, 8)) 
-    # ax.plot(cycle_growth.p_I, label="Relative price of investment")
-    # ax.plot(lab_prod_diff, label="Difference in growth rates")
-    # ax.legend()
-    # plt.show()
     
     cycle_growth = cycle_growth - cycle_growth.mean()
 
@@ -285,7 +270,7 @@ if __name__ == "__main__":
     " Choose specific variable set "
     #cycle_red = cycle[["Y", "I", "lab_prod", "SR", "p_I", "SR_util", "cu"]]
 
-    mom_data = moments(100*cycle, lab=['Y', 'L']) 
+    mom_data = moments(100*cycle, lab=['I', 'LI']) 
     print(mom_data.style.format(precision=2).to_latex())
     
     " Save moments "
@@ -301,7 +286,7 @@ if __name__ == "__main__":
  
     
     " Plot "
-    def plot_cycle(cycle):
+    def plot_cycle(cycle, comp_variable="LI"):
         " Plots cycle for a given decomposition "
         nvars = cycle.shape[1]
         linestyles = ['-', '--']
@@ -312,7 +297,7 @@ if __name__ == "__main__":
         for n in range(nvars-1):
             ax = fig.add_subplot(3, 2, n+1)
             z = next(col_cycle)
-            ax.plot(cycle.Y, label='Y', lw=2, alpha=0.6, linestyle=next(lsty_cycler))
+            ax.plot(cycle[comp_variable], label=comp_variable, lw=2, alpha=0.6, linestyle=next(lsty_cycler))
             ax.plot(cycle[z], label=f"{z}", lw=2, alpha=0.6, linestyle=next(lsty_cycler))
             ax.legend(loc='upper right')
             ax.xaxis.set_major_locator(years)
@@ -324,8 +309,8 @@ if __name__ == "__main__":
         plt.show()
     
     " Restricted set of variables: includes variables in estimation "
-    cycle_red = cycle[["Y", "C", "I", "LC", "LI", "p_I", "SR"]]
-    #cycle_red = cycle_growth[["Y", "C", "I", "LC", "LI", "p_I", "SR"]]
+    #cycle_red = cycle[["Y", "C", "I", "LC", "LI", "p_I", "SR"]]
+    cycle_red = cycle_growth[["LI", "C", "I", "LC", "p_I", "util", "lab_prod"]]
     plot_cycle(cycle_red)
     
     linestyle = ['-', ':', '-.']
@@ -406,46 +391,6 @@ if __name__ == "__main__":
     util_series = cycle[["util_Fern", "util", "Y"]]
     mom_util = moments(100*util_series)
     print(mom_util.to_latex())
-    #mom_util.style.to_latex()
-    # extract_array = np.zeros((10, 3))
-    # filters = ['hamilton', 'quadratic', 'hp_filter', 'bkfilter', 'growth']
-    # for (i, filter_type) in enumerate(filters):
-    #       cycle = construct_cycle(init, final, freq, filter_type, load)
-    #       mom_data = moments(100*cycle, lab=['Y'])
-    #       extract_array[2*i:(2*i+2), :] = mom_data.values[5:7, 0:3]
-    # index = ('SR', 'SR_{util}')*5
-    # columns=('SD(x)', 'RSD', 'Cor(x, Y)')   
-    # mom_comp = pd.DataFrame(extract_array, columns=columns, index=index)
-    # mom_comp.T
-    
-    " Analyze productivity data "
-    # cycle_prod = cycle[["Y", "SR", "SR_util", "SR_I", "SR_C", 
-    #                     "SR_util_I", "SR_util_C"]]
-    # fig, ax = plt.subplots(ncols=2, figsize=(16, 6))
-    # ax[0].plot(cycle_prod.SR, label="SR")
-    # ax[0].plot(cycle_prod.SR_C, label=r"SR$_{C}$")
-    # ax[0].plot(cycle_prod.SR_I, label=r"SR$_{I}$")
-    # ax[0].legend(loc="best")
-    # ax[0].set_title('Solow residuals')
-    
-    # ax[1].plot(cycle_prod.SR_util, label=r"SR$_{util}$")
-    # ax[1].plot(cycle_prod.SR_util_C, label=r"SR$_{util,C}$")
-    # ax[1].plot(cycle_prod.SR_util_I, label=r"SR$_{util,I}$")
-    # ax[1].legend(loc="best")
-    # ax[1].set_title('Utilization-adjusted Solow residuals')
-    # plt.tight_layout()
-    
-    # Moments of productivity data
-    #moments(100*cycle_prod, lab=['SR'])
-    # Correlation matrix
-    #cycle_prod.corr()
-    
-    """
-    Stylized facts
-    1) corr(SR_I, SR_C) = 0.74
-    2) Both sectoral SR fairly procyclical
-    3) corr(SR_util_I, SR_util_C) = 0.28 (only mild)
-    4) SR_util_C slightly procyclical, SR_util_I slightly countercyclical
-    """
+   
 
 

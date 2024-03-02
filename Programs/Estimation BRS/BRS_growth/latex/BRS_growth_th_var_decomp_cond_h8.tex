@@ -1,23 +1,39 @@
-% 13-Feb-2024 18:59:20, created by display_conditional_variance_decomposition.m 
+% 02-Mar-2024 14:26:25, created by display_conditional_variance_decomposition.m 
  
 \begin{center}
-\begin{longtable}{lccccc} 
+\begin{longtable}{lccccccc} 
 \caption{CONDITIONAL VARIANCE DECOMPOSITION (in percent); Period 8}\\
  \label{Table:th_var_decomp_cond_h8}\\
 \toprule 
-$         $	 & 	 $       {e_g}$	 & 	 $       {e_Z}$	 & 	 $    {e_{ZI}}$	 & 	 $       {e_N}$	 & 	 $       {e_D}$\\
+$          $	 & 	 $       {e_g}$	 & 	 $       {e_Z}$	 & 	 $    {e_{ZI}}$	 & 	 $       {e_N}$	 & 	 $       {e_D}$	 & 	 $      {e_DI}$	 & 	 $       {e_C}$\\
 \midrule \endfirsthead 
 \caption{(continued)}\\
  \toprule \\ 
-$         $	 & 	 $       {e_g}$	 & 	 $       {e_Z}$	 & 	 $    {e_{ZI}}$	 & 	 $       {e_N}$	 & 	 $       {e_D}$\\
+$          $	 & 	 $       {e_g}$	 & 	 $       {e_Z}$	 & 	 $    {e_{ZI}}$	 & 	 $       {e_N}$	 & 	 $       {e_D}$	 & 	 $      {e_DI}$	 & 	 $       {e_C}$\\
 \midrule \endhead 
-\midrule \multicolumn{6}{r}{(Continued on next page)} \\ \bottomrule \endfoot 
+\midrule \multicolumn{8}{r}{(Continued on next page)} \\ \bottomrule \endfoot 
 \bottomrule \endlastfoot 
-$log_Y    $	 & 	        0.61	 & 	        7.18	 & 	       10.01	 & 	       25.65	 & 	       56.54 \\ 
-$log_Y_N  $	 & 	        0.37	 & 	        6.88	 & 	       13.64	 & 	       46.40	 & 	       32.72 \\ 
-$log_I    $	 & 	        0.05	 & 	        4.45	 & 	       67.73	 & 	        5.15	 & 	       22.62 \\ 
-$log_p_I  $	 & 	        0.01	 & 	       17.24	 & 	       81.81	 & 	        0.08	 & 	        0.87 \\ 
-$log_C    $	 & 	        1.71	 & 	       28.60	 & 	       31.36	 & 	       17.21	 & 	       21.13 \\ 
+$Y_obs     $	 & 	       16.97	 & 	       19.32	 & 	        2.14	 & 	        1.41	 & 	       53.58	 & 	        0.34	 & 	        6.24 \\ 
+$Y_N_obs   $	 & 	       37.80	 & 	        2.87	 & 	        1.63	 & 	       20.84	 & 	        0.75	 & 	        0.34	 & 	       35.78 \\ 
+$SR_obs    $	 & 	       47.96	 & 	       10.60	 & 	        2.92	 & 	        9.42	 & 	       15.44	 & 	        0.57	 & 	       13.10 \\ 
+$I_obs     $	 & 	        1.64	 & 	       14.94	 & 	        4.23	 & 	        1.85	 & 	       71.59	 & 	        1.19	 & 	        4.56 \\ 
+$p_I_obs   $	 & 	        0.02	 & 	       48.84	 & 	       36.27	 & 	        0.08	 & 	        3.15	 & 	       11.50	 & 	        0.13 \\ 
+$C_obs     $	 & 	       43.59	 & 	       19.66	 & 	        0.48	 & 	        0.77	 & 	       28.46	 & 	        0.00	 & 	        7.03 \\ 
+$NC_obs    $	 & 	        0.27	 & 	        8.62	 & 	        0.21	 & 	       20.42	 & 	       23.10	 & 	        0.00	 & 	       47.38 \\ 
+$NI_obs    $	 & 	        0.96	 & 	        9.82	 & 	        0.52	 & 	        8.08	 & 	       63.17	 & 	        0.19	 & 	       17.27 \\ 
+$util_obs  $	 & 	        1.31	 & 	        8.07	 & 	        1.11	 & 	        0.44	 & 	       85.80	 & 	        0.86	 & 	        2.41 \\ 
+$D_obs     $	 & 	        0.02	 & 	        0.54	 & 	        0.02	 & 	        0.04	 & 	       97.71	 & 	        0.00	 & 	        1.66 \\ 
+$log_Y     $	 & 	        0.41	 & 	       29.63	 & 	        3.12	 & 	        1.63	 & 	       56.69	 & 	        0.15	 & 	        8.37 \\ 
+$log_Y_N   $	 & 	        0.03	 & 	       16.41	 & 	        3.40	 & 	       24.55	 & 	        1.51	 & 	        0.18	 & 	       53.92 \\ 
+$log_SR    $	 & 	        6.75	 & 	       40.16	 & 	        5.77	 & 	        7.50	 & 	       28.35	 & 	        0.27	 & 	       11.18 \\ 
+$log_I     $	 & 	        0.19	 & 	       28.05	 & 	        5.77	 & 	        1.71	 & 	       60.31	 & 	        0.52	 & 	        3.45 \\ 
+$log_p_I   $	 & 	        0.01	 & 	       76.15	 & 	       21.54	 & 	        0.02	 & 	        0.56	 & 	        1.72	 & 	        0.01 \\ 
+$log_C     $	 & 	        1.92	 & 	       29.80	 & 	        1.09	 & 	        1.47	 & 	       50.29	 & 	        0.00	 & 	       15.43 \\ 
+$log_N     $	 & 	        0.26	 & 	       10.34	 & 	        0.63	 & 	       11.78	 & 	       40.82	 & 	        0.03	 & 	       36.15 \\ 
+$log_NC    $	 & 	        0.58	 & 	       10.73	 & 	        0.44	 & 	       13.68	 & 	       28.18	 & 	        0.00	 & 	       46.39 \\ 
+$log_NI    $	 & 	        0.17	 & 	        8.54	 & 	        1.00	 & 	        7.35	 & 	       65.80	 & 	        0.15	 & 	       16.99 \\ 
+$log_util  $	 & 	        1.45	 & 	       12.58	 & 	        1.82	 & 	        0.24	 & 	       79.96	 & 	        0.28	 & 	        3.68 \\ 
+$log_D     $	 & 	        0.02	 & 	        1.07	 & 	        0.07	 & 	        0.09	 & 	       96.02	 & 	        0.00	 & 	        2.72 \\ 
 \end{longtable}
  \end{center}
 % End of TeX file.

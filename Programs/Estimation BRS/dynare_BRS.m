@@ -2,12 +2,10 @@ clc;
 clear;
 %% 
 addpath c:\dynare\5.4\matlab
-
-
+%dynare RBC_growth.mod
+dynare BRS_growth.mod
 %% BRS with TFP growth: estimate on BRS observable series with additional ingredients and shocks
 dynare BRS_growth_util.mod 
-
-
 %% Estimate with sectoral data
 dynare BRS_growth_util_sectoral.mod
 %%

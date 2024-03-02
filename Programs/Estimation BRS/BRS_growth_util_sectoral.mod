@@ -101,6 +101,7 @@ parameters
     K_Y    ${K_Y}$   (long_name = 'Capital-output ratio (quarterly)')
     labor_share    $(labor share)$   (long_name = 'Labor share')
     nu_R   ${\nu_R}$ (long_name = 'Fixed cost share')
+    ha     ${ha}$ (long_name = 'Habit persistence')
 
     //phi  ${\phi}$ (long_name = 'Shopping matching function elasticity')
     m    ${m}$    (long_name = 'Ratio of price dispersion to consumption dispersion')
@@ -126,11 +127,12 @@ parameters
 %----------------------------------------------------------------
 gam = 2.0; % risk aversion
 r_ann = 0.04; % annual interest rate 
-g_bar = 0.004612; % quarterly growth rate
+g_bar = 0.0045; % quarterly growth rate
 gam_max = (1/4)*log(1+r_ann)/g_bar;
 nu = 0.72; % Frisch
 sigma_a = 0.32; % inverse of elasticity of capital utilization wrt rental rate
 Psi_K = 1.5;
+ha = 0.1;
 
 I_Y = 0.20;
 K_Y = 11;
@@ -211,17 +213,16 @@ theta_N_ss*exp(theta_N)*(N_comp)^(1/nu)*(N_I/N_comp)^theta*(1-omega)^(-theta)  =
 exp(theta_D)*D^(1/eta) = exp(theta_C)*phi*C/D_C;
 
 [name = 'Shopping:I']
-//exp(theta_D)*D^(1/eta) = phi*exp(theta_C)*p_I*I/D_I;
 exp(theta_D)*D^(1/eta)*exp(theta_I) = phi*exp(theta_C)*p_I*I/D_I;
 
 [name = 'Composite utility term']
-Gam = exp(theta_C)*C - exp(theta_D)*D^(1+1/eta)/(1+1/eta) - theta_N_ss*exp(theta_N)*N_comp^(1+1/nu)/(1+1/nu);
+Gam = exp(theta_C)*(C-ha*C(-1)) - exp(theta_D)*D^(1+1/eta)/(1+1/eta) - theta_N_ss*exp(theta_N)*N_comp^(1+1/nu)/(1+1/nu);
 
 [name = 'Investment adjustment cost function']
 S =Psi_K/2*(x-exp(g_bar))^2;
 
 [name = 'Investment adjustment cost function: derivative']
-S_pr = Psi*(x-exp(g_bar));
+S_pr = Psi_K*(x-exp(g_bar));
 
 [name = 'Investment growth']
 x = I/I(-1)*exp(g);
@@ -265,7 +266,6 @@ I = A_I*(D_I)^phi*(Z_I_ss*exp(g)^(-alpha_K)*exp(Z_I)*(h_I*K_I(-1))^alpha_K*(N_I)
 
 [name = 'Capital law of motion']
 (1-S)*I*exp(g) = (K_C + K_I)*exp(g) - (1-delta_C)*K_C(-1) - (1-delta_I)*K_I(-1);
-//I*exp(g) = (K_C + K_I)*exp(g) - (1-delta_C)*K_C(-1) - (1-delta_I)*K_I(-1);
 
 [name = 'Labor demand:C']
 (1-phi)*W_C = alpha_N*(C+A_C*D_C^phi*nu_C)/N_C;
@@ -286,7 +286,7 @@ N = N_C + N_I;
 K = K_C + K_I;
 
 [name = 'Shopping composition']
-D = D_C + D_I;
+D = D_C + exp(theta_I)*D_I;
 
 [name = 'Output (base-year prices)']
 Y = C + p_I_ss*I;
@@ -399,7 +399,7 @@ steady_state_model;
     W_C = labor_share*Y/N;
     W_I = W_C;
     theta_N_s = (1-phi_ss)*W_C/(N_comp^(1/nu));
-    Gam = (C - D^(1+1/eta)/(1+1/eta) - theta_N_s*N_comp^(1+1/nu)/(1+1/nu));
+    Gam = (C*(1-ha) - D^(1+1/eta)/(1+1/eta) - theta_N_s*N_comp^(1+1/nu)/(1+1/nu));
    
     r_ss = (1+r_ann)^(1/4) - 1.0;
     beta_ss = (1/(1+r_ss))*exp(g_bar)^(gam);
@@ -497,6 +497,10 @@ estimated_params;
 
 //gam, 1.5, 0.5, 4,            GAMMA_PDF, 1.5, 0.25;
 gam, 1.5, 1.0, gam_max,       BETA_PDF, 1.5, 0.25, 1.0, gam_max;
+ha, 0.5, 0.0, 0.95,           BETA_PDF, 0.5, 0.2;
+m, 0.286, 0.0, 0.95,          GAMMA_PDF, 0.286, 0.2;
+nu, 0.72, 0.4, 2.0,           GAMMA_PDF, 0.72, 0.25;
+
 sigma_a, 0.32, 0.0, 10,       INV_GAMMA_PDF, 1, 1;
 Psi_K, 1.5, 0.0, 50,           GAMMA_PDF, 4, 1.0; % Schmitt-Grohe and Uribe (2010), Katayama and Kim 2018, 
 
@@ -528,8 +532,9 @@ end;
 
 options_.TeX=1;
 
-//varobs I_obs, Y_obs, Y_N_obs, LC_obs, util_obs;
+//varobs I_obs, Y_obs, Y_N_obs, p_I_obs;
 varobs NC_obs, NI_obs, C_obs, I_obs, p_I_obs;
+//varobs I_obs, Y_obs, Y_N_obs, NC_obs, p_I_obs;
 
 
 estimation(tex, optim=('MaxIter', 200), 
@@ -540,7 +545,7 @@ mode_file=BRS_growth_util_sectoral_mode,
 //mh_recover,
 mcmc_jumping_covariance=prior_variance,
 
-mode_compute=9,
+mode_compute=1,
 presample=0, 
 lik_init=2,
 mh_jscale=0.0015, 
@@ -568,7 +573,7 @@ write_latex_dynamic_model;
 write_latex_parameter_table;
 write_latex_definitions;
 write_latex_prior_table;
-//generate_trace_plots(1);
+generate_trace_plots(1);
 collect_latex_files;
 % if system(['pdflatex -halt-on-error -interaction=batchmode ' M_.fname '_TeX_binder.tex'])
 %     error('TeX-File did not compile.')
