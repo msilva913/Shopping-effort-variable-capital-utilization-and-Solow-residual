@@ -534,7 +534,7 @@ options_.TeX=1;
 
 //varobs I_obs, Y_obs, Y_N_obs, p_I_obs;
 varobs NC_obs, NI_obs, C_obs, I_obs, p_I_obs;
-//varobs I_obs, Y_obs, Y_N_obs, NC_obs, p_I_obs;
+
 
 
 estimation(tex, optim=('MaxIter', 200), 
@@ -545,7 +545,7 @@ load_mh_file,
 //mh_recover,
 mcmc_jumping_covariance=prior_variance,
 
-mode_compute=1,
+mode_compute=9,
 presample=0, 
 lik_init=2,
 mh_jscale=0.0015, 
