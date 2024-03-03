@@ -2,22 +2,14 @@ clc;
 clear;
 %% 
 addpath c:\dynare\5.4\matlab
-%dynare RBC_growth.mod
+dynare RBC_growth.mod
 dynare BRS_growth.mod
 %% BRS with TFP growth: estimate on BRS observable series with additional ingredients and shocks
 dynare BRS_growth_util.mod 
 %% Estimate with sectoral data
 dynare BRS_growth_util_sectoral.mod
 %%
-dynare BRS_growth_util_sectoral_alt.mod
 
-dynare BRS_growth_util_sectoral_alt_habits.mod
-
-dynare BRS_growth_util_sectoral_alt_habits_unr.mod
-
-dynare BRS_sectoral_unr_lim.mod
-
-dynare BRS_sectoral_unr_rel.mod
 
 %% Estimate sectoral data, separable preferences
 dynare BRS_growth_util_sectoral_separable_alt.mod
@@ -29,8 +21,7 @@ dynare BRS_imp_mobility.mod
 dynare BRS_imp_mobility_est.mod
 % Too high volatility
 
-%% Diagnose volatility issue by removing capacity utilization from observables
-dynare BRS_imp_mobility_red.mod 
+
 
 % save('SR', 'SR_obs')
 % save('SR_util', 'SR_util_obs')

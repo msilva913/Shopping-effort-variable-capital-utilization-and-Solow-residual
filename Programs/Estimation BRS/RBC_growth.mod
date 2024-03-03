@@ -17,8 +17,6 @@ var Y           ${Y}$ (long_name='output')
     u_ZI
     Z_I         ${Z_I}$ (long_name='Tech:I')
     theta_N     ${\theta_N}$ (long_name='Labor disutility')
-    theta_D     ${\theta_D}$ (long_name='Shopping disutility')
-    theta_I     ${\theta_I}$ (long_name ='Relative shopping disutility')
     theta_C     ${\theta_C}$ (long_name='Consumption preference shock')
     R_C         ${R_C}$ (long_name='Capital rental rate:C')
     R_I         ${R_I}$ (long_name='Capital rental rate:I')
@@ -56,7 +54,6 @@ var Y           ${Y}$ (long_name='output')
     log_NI
     log_K
     log_Y_N
-    log_D
     log_p_I
     log_util
     
@@ -69,7 +66,6 @@ var Y           ${Y}$ (long_name='output')
     NC_obs
     NI_obs
     util_obs
-    D_obs
     K_obs
     SR_obs
   
@@ -192,7 +188,7 @@ Gam = exp(theta_C)*(C-ha*C(-1)) - theta_N_ss*exp(theta_N)*N_comp^(1+1/nu)/(1+1/n
 S =Psi_K/2*(x-exp(g_bar))^2;
 
 [name = 'Investment adjustment cost function: derivative']
-S_pr = Psi*(x-exp(g_bar));
+S_pr = Psi_K*(x-exp(g_bar));
 
 [name = 'Investment growth']
 x = I/I(-1)*exp(g);
@@ -349,6 +345,7 @@ steady_state_model;
     alpha_N_ss = labor_share/(1+nu_R);
     W_C = labor_share*Y/N;
     W_I = W_C;
+    theta_N_s = W_C/(N_comp^(1/nu));
     Gam = (C*(1-ha) - theta_N_s*N_comp^(1+1/nu)/(1+1/nu));
    
     r_ss = (1+r_ann)^(1/4) - 1.0;
@@ -383,9 +380,7 @@ steady_state_model;
     Z_I = 0;
     u_ZI = 0;
     theta_N = 0;
-    theta_D = 0;
     theta_C = 0;
-    theta_I = 0;
 
    
     R_C = W_C*exp(g)*(alpha_K_ss/alpha_N_ss)*N_C/K_C;
@@ -400,7 +395,6 @@ steady_state_model;
     log_NI = 0;
     log_K = 0;
     log_Y_N = 0;
-    log_D = 0;
     log_p_I = 0;
     log_util = 0;
     log_SR = 0;
@@ -415,7 +409,6 @@ steady_state_model;
     K_obs = 0;
     p_I_obs = 0;
     util_obs = 0;
-    D_obs = 0;
     SR_obs = 0;
 
 end;
@@ -479,18 +472,18 @@ varobs I_obs, Y_obs, Y_N_obs, p_I_obs;
 
 estimation(tex, optim=('MaxIter', 200), 
 datafile=observables_sectoral, 
-//mode_file=BRS_growth_util_mode, 
+mode_file=RBC_growth_mode, 
 //nograph,
-//load_mh_file, 
+load_mh_file, 
 //mh_recover,
 mcmc_jumping_covariance=prior_variance,
 
-mode_compute=4,
+mode_compute=9,
 presample=0, 
 lik_init=2,
-//mh_jscale=0.0015, 
-//mh_init_scale =0.0004,
-mh_jscale=0.3,
+mh_jscale=0.0015, 
+mh_init_scale =0.0004,
+//mh_jscale=0.3,
 mode_check, 
 mh_replic=150000, 
 //mh_replic=0,
@@ -524,5 +517,5 @@ collect_latex_files;
 stoch_simul (order=1, nofunctions, irf=400, periods=0,
 conditional_variance_decomposition=[1 4 8 40])
 Y_obs, Y_N_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_obs,
-log_Y, log_Y_N, log_I, log_p_I, log_C, log_N, log_NC, log_NI, log_util, log_D;
+log_Y, log_Y_N, log_I, log_p_I, log_C, log_N, log_NC, log_NI, log_util;
 
