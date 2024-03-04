@@ -501,7 +501,7 @@ estimated_params;
 gam, 1.5, 1.0, gam_max,       BETA_PDF, 1.5, 0.25, 1.0, gam_max;
 ha, 0.5, 0.0, 0.95,           BETA_PDF, 0.5, 0.2;
 m, 0.286, 0.0, 0.95,          GAMMA_PDF, 0.286, 0.2;
-nu, 0.72, 0.2, 2.0,           GAMMA_PDF, 0.72, 0.25;
+nu, 0.72, 0.2, 1.5,           GAMMA_PDF, 0.72, 0.25;
 
 sigma_a, 0.32, 0.0, 10,       INV_GAMMA_PDF, 1, 1;
 Psi_K, 1.5, 0.0, 50,           GAMMA_PDF, 4, 1.0; % Schmitt-Grohe and Uribe (2010), Katayama and Kim 2018, 
@@ -542,15 +542,15 @@ estimation(tex, optim=('MaxIter', 200),
 datafile=observables_sectoral, 
 mode_file=BRS_growth_mode, 
 //nograph,
-//load_mh_file, 
+load_mh_file, 
 //mh_recover,
 mcmc_jumping_covariance=prior_variance,
 
-mode_compute=4,
+mode_compute=9,
 presample=0, 
 lik_init=2,
-mh_jscale=0.001, 
-mh_init_scale =0.0004,
+mh_jscale=0.00075, 
+mh_init_scale =0.0001,
 //mh_jscale=0.3,
 mode_check, 
 mh_replic=150000, 

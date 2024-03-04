@@ -230,6 +230,22 @@ if __name__ == "__main__":
     mom_growth_data = moments(100*cycle_growth, lab=['I', 'LI'], lags=[1])
     print(mom_growth_data.style.format(precision=2).to_latex())
     
+     
+    if save_observables:
+        " Save relevant objects "
+        #save_object(cycle, 'cycle')
+        " Save output for estimation using growth filter"
+        lab = ['Y_obs', 'C_obs', 'I_obs', 'NC_obs', 'NI_obs', 'N_obs',
+               'Y_N_obs', 'p_I_obs', 'SR_obs', 'SR_util_obs', 'util_obs']
+        dic_data = dict(zip(lab, [np.asarray(cycle_growth[x]) for x in cycle_growth.columns]))
+        sio.savemat('observables_sectoral.mat', dic_data)
+    
+    cycle =  pd.concat([filter_transform(dat[x], init=init, final=final, transform_type='log',
+                                         filter_type="hamilton", demean=True) for x in lab], axis=1)
+    #cycle =  pd.concat([filter_transform(dat[x], init=init, final=final, transform_type='log',
+                                     #    filter_type="hp_filter", demean=True) for x in lab], axis=1)
+    cycle.columns = lab
+    
     # Stacked moments
     stds = cycle_growth.std(axis=0)
     stds = 100*stds[["C", "I", "LC", "LI", "p_I", "util"]]
@@ -251,21 +267,7 @@ if __name__ == "__main__":
     
     cycle_growth = cycle_growth - cycle_growth.mean()
 
-    
-    if save_observables:
-        " Save relevant objects "
-        #save_object(cycle, 'cycle')
-        " Save output for estimation using growth filter"
-        lab = ['Y_obs', 'C_obs', 'I_obs', 'NC_obs', 'NI_obs', 'N_obs',
-               'Y_N_obs', 'p_I_obs', 'SR_obs', 'SR_util_obs', 'util_obs']
-        dic_data = dict(zip(lab, [np.asarray(cycle_growth[x]) for x in cycle_growth.columns]))
-        sio.savemat('observables_sectoral.mat', dic_data)
-    
-    cycle =  pd.concat([filter_transform(dat[x], init=init, final=final, transform_type='log',
-                                         filter_type="hamilton", demean=True) for x in lab], axis=1)
-    #cycle =  pd.concat([filter_transform(dat[x], init=init, final=final, transform_type='log',
-                                     #    filter_type="hp_filter", demean=True) for x in lab], axis=1)
-    cycle.columns = lab
+   
     
     " Choose specific variable set "
     #cycle_red = cycle[["Y", "I", "lab_prod", "SR", "p_I", "SR_util", "cu"]]
