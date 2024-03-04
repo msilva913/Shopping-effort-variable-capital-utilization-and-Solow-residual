@@ -198,7 +198,7 @@ model;
 #Z_C_ss = (C_ss/(Psi) + nu_C)/(exp(g_bar)^(-alpha_K)*K_C_ss^(alpha_K)*N_C_ss^(alpha_N));
 #Z_I_ss = (I_ss/Psi+nu_I)/(exp(g_bar)^(-alpha_K)*K_I_ss^(alpha_K)*N_I_ss^(alpha_N));
 
-#theta_N_ss = (1-phi)*W_ss/(N_comp^(1/nu));
+#theta_N_ss = (1-phi)*W_ss/(N_ss^(1/nu));
 
 [name = 'Labor composite']
 N_comp = (omega^(-theta)*N_C^(1+theta) + (1-omega)^(-theta)*N_I^(1+theta))^(1/(1+theta));
@@ -391,7 +391,7 @@ steady_state_model;
     N_I = I_Y*N;
     N_C = (1-I_Y)*N;
     omega_ss = N_C/N;
-    N_comp = (omega_ss^(-theta)*N_C^(1+theta) + (1-omega_ss)^(-theta)*N_I^(1+theta))^(1/(1+theta));
+    N_comp = N;
 
     nu_C_ss = nu_R*C/Psi;
     nu_I_ss = nu_R*I/Psi;
@@ -400,7 +400,7 @@ steady_state_model;
     alpha_N_ss = (1-phi_ss)*labor_share/(1+nu_R);
     W_C = labor_share*Y/N;
     W_I = W_C;
-    theta_N_s = (1-phi_ss)*W_C/(N_comp^(1/nu));
+    theta_N_s = (1-phi_ss)*W_C/(N^(1/nu));
     Gam = (C*(1-ha) - D^(1+1/eta)/(1+1/eta) - theta_N_s*N_comp^(1+1/nu)/(1+1/nu));
    
     r_ss = (1+r_ann)^(1/4) - 1.0;
@@ -501,7 +501,7 @@ estimated_params;
 gam, 1.5, 1.0, gam_max,       BETA_PDF, 1.5, 0.25, 1.0, gam_max;
 ha, 0.5, 0.0, 0.95,           BETA_PDF, 0.5, 0.2;
 m, 0.286, 0.0, 0.95,          GAMMA_PDF, 0.286, 0.2;
-nu, 0.72, 0.4, 2.0,           GAMMA_PDF, 0.72, 0.25;
+nu, 0.72, 0.2, 2.0,           GAMMA_PDF, 0.72, 0.25;
 
 sigma_a, 0.32, 0.0, 10,       INV_GAMMA_PDF, 1, 1;
 Psi_K, 1.5, 0.0, 50,           GAMMA_PDF, 4, 1.0; % Schmitt-Grohe and Uribe (2010), Katayama and Kim 2018, 
@@ -542,18 +542,18 @@ estimation(tex, optim=('MaxIter', 200),
 datafile=observables_sectoral, 
 mode_file=BRS_growth_mode, 
 //nograph,
-load_mh_file, 
+//load_mh_file, 
 //mh_recover,
 mcmc_jumping_covariance=prior_variance,
 
-mode_compute=0,
+mode_compute=4,
 presample=0, 
 lik_init=2,
-mh_jscale=0.0015, 
+mh_jscale=0.001, 
 mh_init_scale =0.0004,
 //mh_jscale=0.3,
 mode_check, 
-mh_replic=0, 
+mh_replic=150000, 
 //mh_replic=0,
 mh_nblocks=2, 
 //bayesian_irf,

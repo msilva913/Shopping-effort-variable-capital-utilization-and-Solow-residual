@@ -34,7 +34,7 @@ cd(@__DIR__)
     η::Float64 = 0.20
 
     # Inverse of MRS of labor supply in each sector 
-    θ::Float64 = 1/0.1735
+    θ::Float64 = 0.5
 end
 
 function ϕ_fun(η, m=0.286)
@@ -54,8 +54,14 @@ ax.legend(fontsize=11)
 display(fig)
 PyPlot.savefig("shopping_curve.pdf")
 
+############
+function na_fun(n_c, n_i, ω=0.8, θ=0.5)
+    return (ω^(-θ)*n_c^(1+θ)+(1-ω)^(-θ)*n_i^(1+θ))^(1/(1+θ))
+end
+
+
 function calibrate(targets)
-    @unpack γ, r_ann, g_bar, ν, Y, p_i, N, Ψ_j, I_Y, K_Y, labor_share, ϕ, η, θ = targets
+    @unpack γ, r_ann, g_bar, ν, Y, p_i, N, Ψ_j, I_Y, K_Y, labor_share, ϕ, η, θ, ν_R = targets
 
     # Discount factor
     #β*(1+g_bar)^(-γ) = 1/(1+r)
@@ -71,7 +77,6 @@ function calibrate(targets)
     # discrete time
     δ = I_Y/K_Y +1 - G
     σ_b = r + δ
-    ν_R = 0.2
 
     # Labor share 
     α_n = (1-ϕ)*labor_share/(1+ν_R)
@@ -137,15 +142,21 @@ function calibrate(targets)
     Π = C + p_i*I - N*W*(α_n+α_k)/α_n
     Π_Y = 1 - labor_share*(1+α_k/α_n)
     return (γ=γ, r=r, β=β, δ=δ, α_n=α_n, α_k=α_k, A_c=A_c, A_i=A_i, z_c=z_c, z_i=z_i, σ_b, ω, θ_n,
-    C=C, I=I, Y=Y, K=K, N=N, N_c=N_c, N_i=N_i, W=W, N_a, D=D, D_c=D_c, D_i=D_i, Q=Q, ν_c=ν_c, ν_i=ν_i, Π=Π, Π_Y=Π_Y)
+    C=C, I=I, Y=Y, K=K, K_c=K_c, K_i=K_i, N=N, N_c=N_c, N_i=N_i, W=W, N_a, D=D, D_c=D_c, 
+    D_i=D_i, Q=Q, ν_c=ν_c, ν_i=ν_i, Π=Π, Π_Y=Π_Y)
 end
 
+steady_state = function(par)
+    @unpack Y, C, I, K, K_c, K_i, N, N_c, N_i, z_c, z_i, W, D, D_c, D_i, Q = par
+    return (Y=Y, C=C, I=I, K=K, K_c=K_c, K_i=K_i, N=N, N_c=N_c, N_i=N_i, z_c=z_c, z_i=z_i, 
+    W=W, D=D, Dc=D_c, D_i=D_i, Q=Q)
+end
 # Back out max on γ
 
-targets = Targets(g_bar = 0.00451, γ=2.0, r_ann=0.04)
+targets = Targets(g_bar = 0.0045, γ=2.0, r_ann=0.04)
 @show cal = calibrate(targets)
-@unpack W, N, C, I, Y, r, ν_c, ν_i, N_c, N_i, Π_Y = cal
-@unpack g_bar, labor_share, ν_R, Ψ_j, ν_R, p_i = targets
+@unpack W, N, C, I, Y, r, ν_c, ν_i, N_c, N_i, Π, Π_Y, δ = cal
+@unpack g_bar, labor_share, ν_R, Ψ_j, ν_R, p_i, K_Y, ϕ = targets
 γ_max = log(1+r)/g_bar
 
 # Tests 
@@ -154,17 +165,19 @@ targets = Targets(g_bar = 0.00451, γ=2.0, r_ann=0.04)
 @show Ψ_j*ν_i/I - ν_R
 @show (C/N_c)/(I/N_i) - p_i
 @show Π -  ( 1 - labor_share - (r+δ)*K_Y/(1-ϕ))
+@show Π - Π_Y
 #targets_ng = Targets(g_bar = 0.0, γ=1.0)
 # cal_ng = calibrate(targets_ng)
+@show ss = steady_state(par)
+
 
 # To be modified #
 function table(cal, targets)
-    @unpack γ, β, δ, α_N, α_K, A_c, A_i, z_c, z_i, σ_b, ω, θ_n, C, I, Y, K, N, N_c, N_i, ν_c, ν_i = cal
+    @unpack γ, β, δ, α_n, α_k, A_c, A_i, z_c, z_i, σ_b, ω, θ_n, C, I, Y, K, N, N_c, N_i, ν_c, ν_i = cal
     @unpack γ, r_ann, g_bar, ν, Y, p_i, N, Ψ_j, I_Y, K_Y, labor_share, ν_R, θ = targets
     r = (1-β)/β
   
-    t = PlotlyJS.plot(
-        PlotlyJS.table(
+     t=   PlotlyJS.table(
         header_values=["Targets", "Value", "Parameter", "Calibration"],
         cells_values = [
         # Targets
@@ -197,8 +210,8 @@ function table(cal, targets)
         round.([γ, β, g_bar, ν, z_c, z_i, θ_n, A_c, A_i, σ_b, δ, α_k, α_n, ω, ν_c, ν_i], digits=3)
         ]
         )
-    )
-    return t
+        p = PlotlyJS.plot(t)
+    return p
 end
 
 # Para = @with_kw (ϕ=0.1, A=0.8, α_2 = 0.0, α_1=0.7, β=0.99, δ_K = 0.025, ρ=2.0,
