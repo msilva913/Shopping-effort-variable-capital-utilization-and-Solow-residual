@@ -15,8 +15,8 @@ using Dates
 
 homedir()
 include("time_series_fun.jl")
-#cd(raw"C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS")
-cd(raw"C:\Users\TJSEM\Github\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS")
+cd(raw"C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS")
+#cd(raw"C:\Users\TJSEM\Github\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS")
 
 function cumulate(x)
     irf_levels = 100*cumsum(x)
@@ -42,7 +42,7 @@ return irf_array
 end
 
 
-function irf_fun_plot(irf_array, vars_list; shock, savefig=true)
+function irf_fun_plot(irf_array, vars_list, vars_list_label; shock, savefig=true)
     fig = plt.figure(figsize=(20, 8))
     periods = 1:length(irf_array[1][:,1])
     for (i, key) in enumerate(vars_list)
@@ -51,7 +51,7 @@ function irf_fun_plot(irf_array, vars_list; shock, savefig=true)
         ax.plot(periods, irf, linewidth=3, color="teal")
         ax.tick_params(labelsize=12)
         ax.yaxis.set_major_formatter(matplotlib.ticker.PercentFormatter())
-        ax.set_title(vars_list[i])
+        ax.set_title(vars_list_label[i])
         plt.tight_layout()
         fig.suptitle("A 1 standard-deviation shock to "*shock, fontsize=14)
     end 
@@ -64,15 +64,23 @@ end
 
 # Standard impulse responses: basic model
 vars_list = ["log_C", "log_I", "log_Y_N", "log_p_I", "log_NC", "log_NI"]
+vars_list_label=[:C, :I, :Y_N, :p_I, :N_C, :N_I]
+
 x = matopen("irf.mat")
 vars = read(x, "irf")
 irf_dic  = vars
 # Shopping preference shock
 irf_array = irf_fun(vars_list, irf_dic, shock="e_D" )
-irf_fun_plot(irf_array, vars_list; shock="e_D")
+irf_fun_plot(irf_array, vars_list, vars_list_label; shock="e_D")
+# Consumption pref shock
+irf_array = irf_fun(vars_list, irf_dic, shock="e_C" )
+irf_fun_plot(irf_array, vars_list, vars_list_label; shock="e_C")
 # Stationary technology shock
 irf_array = irf_fun(vars_list, irf_dic, shock="e_Z" )
-irf_fun_plot(irf_array, vars_list; shock="e_Z")
+irf_fun_plot(irf_array, vars_list, vars_list_label; shock="e_Z")
+# Labor supply shock 
+irf_array = irf_fun(vars_list, irf_dic, shock="e_N" )
+irf_fun_plot(irf_array, vars_list, vars_list_label; shock="e_N")
 
 # Standard impulse responses 
 x = matopen("irf.mat")

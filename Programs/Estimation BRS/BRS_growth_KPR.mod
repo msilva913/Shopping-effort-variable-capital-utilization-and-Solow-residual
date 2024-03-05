@@ -93,7 +93,7 @@ parameters
     gam_max ${\gamma_{max}}$ (long_name= 'Upper bound on risk aversion')
     r_ann  ${r_ann}$    (long_name='Annual interest rate')
     g_bar  ${\overline{g}}$ (long_name = 'Quarterly trend growth rate')
-    xi     $\nu$       (long_name = 'Frisch elasticity parameter')
+    xi     $\xi$       (long_name = 'Frisch elasticity parameter')
     sigma_a ${\sigma_a}$ (long_name = 'Inverse elasticity of marginal utilization cost wrt rental rate')
     Psi_K ${\Psi_K}$ (long_name = 'Investment adjustment cost parameter')
    
@@ -219,7 +219,7 @@ exp(theta_D)*D^(1/eta) = exp(theta_C)*phi*C/D_C;
 
 [name = 'Shopping:I']
 //exp(theta_D)*D^(1/eta) = phi*exp(theta_C)*p_I*I/D_I;
-exp(theta_D)*D^(1/eta)*exp(theta_I) = phi*exp(theta_C)*p_I*I/D_I;
+exp(theta_D)*D^(1/eta)*exp(theta_I) = exp(theta_C)*phi*p_I*I/D_I;
 
 
 [name = 'Investment adjustment cost function']
@@ -546,15 +546,15 @@ load_mh_file,
 //mh_recover,
 mcmc_jumping_covariance=prior_variance,
 
-mode_compute=4,
+mode_compute=0,
 presample=0, 
 lik_init=2,
 mh_jscale=0.002, 
 mh_init_scale =0.0004,
 //mh_jscale=0.3,
 mode_check, 
-mh_replic=100000, 
-//mh_replic=0,
+//mh_replic=100000, 
+mh_replic=0,
 mh_nblocks=2, 
 //bayesian_irf,
 //irf=100,
@@ -574,7 +574,7 @@ write_latex_dynamic_model;
 write_latex_parameter_table;
 write_latex_definitions;
 write_latex_prior_table;
-generate_trace_plots(1);
+//generate_trace_plots(1);
 collect_latex_files;
 % if system(['pdflatex -halt-on-error -interaction=batchmode ' M_.fname '_TeX_binder.tex'])
 %     error('TeX-File did not compile.')
@@ -582,8 +582,8 @@ collect_latex_files;
 
 %*/
 % Stochastic simulation -> for conditional FEVD and IRF
-stoch_simul (order=1, nofunctions, irf=100, periods=0,
-conditional_variance_decomposition=[1 4 8 40])
+stoch_simul (order=1, nofunctions, irf=100, periods=0
+)
 Y_obs, Y_N_obs, SR_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_obs, D_obs,
 log_Y, log_Y_N, log_SR, log_I, log_p_I, log_C, log_N, log_NC, log_NI, log_util, log_D;
 

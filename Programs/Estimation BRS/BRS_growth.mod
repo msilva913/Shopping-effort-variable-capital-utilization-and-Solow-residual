@@ -390,7 +390,6 @@ steady_state_model;
     K_C = (1-I_Y)*K;
     N_I = I_Y*N;
     N_C = (1-I_Y)*N;
-    omega_ss = N_C/N;
     N_comp = N;
 
     nu_C_ss = nu_R*C/Psi;
@@ -546,15 +545,15 @@ load_mh_file,
 //mh_recover,
 mcmc_jumping_covariance=prior_variance,
 
-mode_compute=4,
+mode_compute=0,
 presample=0, 
 lik_init=2,
 mh_jscale=0.00075, 
 mh_init_scale =0.0001,
 //mh_jscale=0.3,
 mode_check, 
-mh_replic=100000, 
-//mh_replic=0,
+//mh_replic=100000, 
+mh_replic=0,
 mh_nblocks=2, 
 //bayesian_irf,
 //irf=100,

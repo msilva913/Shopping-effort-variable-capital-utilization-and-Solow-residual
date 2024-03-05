@@ -192,37 +192,6 @@ The rank condition is verified.
 
 
 Initial value of the log posterior (or likelihood): 3115.5346
------------------
-f at the beginning of new iteration,     -3115.5346101205
-Predicted improvement:        0.040486230
-lambda =          1; f =        -3080.6025858
-lambda =    0.33333; f =        -3105.6728865
-lambda =    0.11111; f =        -3113.3220820
-lambda =   0.037037; f =        -3115.1933140
-lambda =   0.012346; f =        -3115.4916427
-lambda =  0.0041152; f =        -3115.5295622
-lambda =  0.0013717; f =        -3115.5340166
-lambda = 0.00045725; f =        -3115.5345355
-lambda = 0.00015242; f =        -3115.5345990
-lambda = 5.0805e-05; f =        -3115.5346080
-lambda = 1.6935e-05; f =        -3115.5346096
-lambda =  5.645e-06; f =        -3115.5346100
-lambda = 1.8817e-06; f =        -3115.5346101
-lambda = 6.2723e-07; f =        -3115.5346101
-lambda = 2.0908e-07; f =        -3115.5346101
-lambda = 6.9692e-08; f =        -3115.5346101
-lambda = 2.3231e-08; f =        -3115.5346101
-lambda = 7.7435e-09; f =        -3115.5346101
-lambda = 2.5812e-09; f =        -3115.5346101
-lambda =
-  -6.2723e-07
-lambda = -6.2723e-07; f =        -3115.5346101
-Norm of dx  0.0028456
-----
-Improvement on iteration 1 =        0.000000017
-improvement < crit termination
-
-Final value of minus the log posterior (or likelihood):-3115.534610 
 
 POSTERIOR KERNEL OPTIMIZATION PROBLEM!
  (minus) the hessian matrix at the "mode" is not positive definite!
@@ -279,18 +248,6 @@ e_C         0.0100   0.0115     NaN   invg 0.1000
 
 Log data density [Laplace approximation] is NaN.
 
-Estimation::mcmc: I am loading past Metropolis-Hastings simulations...
-Estimation::mcmc: Recovering the previous proposal density.
-Estimation::mcmc: I am writing a new mh-history file... Done.
-Estimation::mcmc: Ok. I have loaded 300000 simulations.
-
-
-Estimation::mcmc: Number of mh files: 1 per block.
-Estimation::mcmc: Total number of generated files: 2.
-Estimation::mcmc: Total number of iterations: 400000.
-Estimation::mcmc: Current acceptance ratio per chain: 
-                                                       Chain  1: 43.708%
-                                                       Chain  2: 47.074%
 Estimation::mcmc: Total number of MH draws per chain: 400000.
 Estimation::mcmc: Total number of generated MH files: 1.
 Estimation::mcmc: I'll use mh-files 1 to 1.
@@ -602,5 +559,5 @@ log_NC       0.9996   0.9991   0.9987   0.9981   0.9976
 log_NI       0.9987   0.9968   0.9946   0.9924   0.9902
 log_util     0.9929   0.9797   0.9640   0.9475   0.9310
 log_D        0.9886   0.9770   0.9656   0.9545   0.9438
-Total computing time : 0h21m32s
+Total computing time : 0h03m50s
 Note: warning(s) encountered in MATLAB/Octave code
