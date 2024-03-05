@@ -221,3 +221,60 @@ end
 #para = calibrate(targets)
 #ss = steady_state(para)
 tab = table(cal, targets)
+
+function calibrate_rbc(targets)
+    @unpack γ, r_ann, g_bar, ν, Y, p_i, N, Ψ_j, I_Y, K_Y, labor_share, ϕ, η, θ, ν_R = targets
+
+    # Discount factor
+    #β*(1+g_bar)^(-γ) = 1/(1+r)
+    G = exp(g_bar)
+    r = (1+r_ann)^(1/4) - 1.0
+    β = (1/(1+r))*G^(γ)
+    # upper bound on γ
+    δ = I_Y/K_Y +1 - G
+    σ_b = r + δ
+
+    # Labor share 
+    α_n = labor_share/(1+ν_R)
+    α_k = (r+δ)*K_Y/(1+ν_R)
+   
+    I = I_Y*Y
+    C = Y - I
+    K = K_Y*Y*G # transformation of variables
+    K_i = I_Y*K
+    K_c = (1-I_Y)*K
+    N_i = I_Y*N 
+    N_c = (1-I_Y)*N
+
+    # Solve for fixed cost parameter
+    ν_c= ν_R*C
+    ν_i = ν_R*I
+
+    Q = p_i
+
+    # TFP parameter
+    #z_c = (1-I_Y)/(Ψ_j*G^(-α_K)*K_c^(α_K)*N_c^(α_N))
+    #z_i = (I_Y)/(Ψ_j*G^(-α_K)*K_i^(α_K)*N_i^(α_N))
+    z_c = ((1-I_Y) + ν_c)/(G^(-α_k)*K_c^(α_k)*N_c^(α_n))
+    z_i = (I_Y+ ν_i)/(G^(-α_k)*K_i^(α_k)*N_i^(α_n))
+    #
+    # Weight on labor aggregator
+    ω = N_c/N
+    # Labor composite 
+    N_a = (ω^(-θ)*N_c^(1+θ)+(1-ω)^(-θ)*N_i^(1+θ))^(1/(1+θ))
+    @assert abs(N_a - N) < 1e-12
+    # Implied wage
+    #W = α_N*(I/N_i)*p_i/(1-ϕ)*(1+ν_R)
+    W = labor_share*Y/N
+    # Level parameter on labor supply
+    θ_n = (1-ϕ)*W/(N_a^(1/ν))
+
+    # Profits 
+    #Π = C + p_i*I -K_c*R_c - K_i*R_i - n*W
+    Π = C + p_i*I - N*W*(α_n+α_k)/α_n
+    Π_Y = 1 - labor_share*(1+α_k/α_n)
+    return (γ=γ, r=r, β=β, δ=δ, α_n=α_n, α_k=α_k, z_c=z_c, z_i=z_i, σ_b, ω, θ_n,
+    C=C, I=I, Y=Y, K=K, K_c=K_c, K_i=K_i, N=N, N_c=N_c, N_i=N_i, W=W, N_a, 
+    Q=Q, ν_c=ν_c, ν_i=ν_i, Π=Π, Π_Y=Π_Y)
+end
+@show cal_rbc = calibrate_rbc(targets)

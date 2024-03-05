@@ -213,6 +213,7 @@ theta_N_ss*exp(theta_N)*(N_comp)^(1/nu)*(N_I/N_comp)^theta*(1-omega)^(-theta)  =
 exp(theta_D)*D^(1/eta) = exp(theta_C)*phi*C/D_C;
 
 [name = 'Shopping:I']
+//exp(theta_D)*D^(1/eta) = phi*exp(theta_C)*p_I*I/D_I;
 exp(theta_D)*D^(1/eta)*exp(theta_I) = phi*exp(theta_C)*p_I*I/D_I;
 
 [name = 'Composite utility term']
@@ -266,6 +267,7 @@ I = A_I*(D_I)^phi*(Z_I_ss*exp(g)^(-alpha_K)*exp(Z_I)*(h_I*K_I(-1))^alpha_K*(N_I)
 
 [name = 'Capital law of motion']
 (1-S)*I*exp(g) = (K_C + K_I)*exp(g) - (1-delta_C)*K_C(-1) - (1-delta_I)*K_I(-1);
+//I*exp(g) = (K_C + K_I)*exp(g) - (1-delta_C)*K_C(-1) - (1-delta_I)*K_I(-1);
 
 [name = 'Labor demand:C']
 (1-phi)*W_C = alpha_N*(C+A_C*D_C^phi*nu_C)/N_C;
@@ -389,7 +391,6 @@ steady_state_model;
     N_I = I_Y*N;
     N_C = (1-I_Y)*N;
     omega_ss = N_C/N;
-    //N_comp = (omega_ss^(-theta)*N_C^(1+theta) + (1-omega_ss)^(-theta)*N_I^(1+theta))^(1/(1+theta));
     N_comp = N;
 
     nu_C_ss = nu_R*C/Psi;
@@ -399,7 +400,7 @@ steady_state_model;
     alpha_N_ss = (1-phi_ss)*labor_share/(1+nu_R);
     W_C = labor_share*Y/N;
     W_I = W_C;
-    theta_N_s = (1-phi_ss)*W_C/(N_comp^(1/nu));
+    theta_N_s = (1-phi_ss)*W_C/(N^(1/nu));
     Gam = (C*(1-ha) - D^(1+1/eta)/(1+1/eta) - theta_N_s*N_comp^(1+1/nu)/(1+1/nu));
    
     r_ss = (1+r_ann)^(1/4) - 1.0;
@@ -500,7 +501,7 @@ estimated_params;
 gam, 1.5, 1.0, gam_max,       BETA_PDF, 1.5, 0.25, 1.0, gam_max;
 ha, 0.5, 0.0, 0.95,           BETA_PDF, 0.5, 0.2;
 m, 0.286, 0.0, 0.95,          GAMMA_PDF, 0.286, 0.2;
-nu, 0.72, 0.4, 2.0,           GAMMA_PDF, 0.72, 0.25;
+nu, 0.72, 0.2, 2.0,           GAMMA_PDF, 0.72, 0.25;
 
 sigma_a, 0.32, 0.0, 10,       INV_GAMMA_PDF, 1, 1;
 Psi_K, 1.5, 0.0, 50,           GAMMA_PDF, 4, 1.0; % Schmitt-Grohe and Uribe (2010), Katayama and Kim 2018, 
@@ -537,7 +538,6 @@ options_.TeX=1;
 varobs NC_obs, NI_obs, C_obs, I_obs, p_I_obs;
 
 
-
 estimation(tex, optim=('MaxIter', 200), 
 datafile=observables_sectoral, 
 mode_file=BRS_growth_util_sectoral_mode, 
@@ -546,14 +546,14 @@ load_mh_file,
 //mh_recover,
 mcmc_jumping_covariance=prior_variance,
 
-mode_compute=4,
+mode_compute=9,
 presample=0, 
 lik_init=2,
-mh_jscale=0.0015, 
-mh_init_scale =0.0004,
+mh_jscale=0.00075, 
+mh_init_scale =0.0001,
 //mh_jscale=0.3,
 mode_check, 
-mh_replic=250000, 
+mh_replic=100000, 
 //mh_replic=0,
 mh_nblocks=2, 
 //bayesian_irf,
@@ -582,7 +582,7 @@ collect_latex_files;
 
 %*/
 % Stochastic simulation -> for conditional FEVD and IRF
-stoch_simul (order=1, nofunctions, irf=400, periods=0,
+stoch_simul (order=1, nofunctions, irf=100, periods=0,
 conditional_variance_decomposition=[1 4 8 40])
 Y_obs, Y_N_obs, SR_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_obs, D_obs,
 log_Y, log_Y_N, log_SR, log_I, log_p_I, log_C, log_N, log_NC, log_NI, log_util, log_D;

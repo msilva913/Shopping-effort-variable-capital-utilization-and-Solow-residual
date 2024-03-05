@@ -169,7 +169,7 @@ model;
 #Z_C_ss = (C_ss + nu_C)/(exp(g_bar)^(-alpha_K)*K_C_ss^(alpha_K)*N_C_ss^(alpha_N));
 #Z_I_ss = (I_ss+nu_I)/(exp(g_bar)^(-alpha_K)*K_I_ss^(alpha_K)*N_I_ss^(alpha_N));
 
-#theta_N_ss = W_ss/(N_comp^(1/nu));
+#theta_N_ss = W_ss/(N_ss^(1/nu));
 
 [name = 'Labor composite']
 N_comp = (omega^(-theta)*N_C^(1+theta) + (1-omega)^(-theta)*N_I^(1+theta))^(1/(1+theta));
@@ -474,18 +474,18 @@ estimation(tex, optim=('MaxIter', 200),
 datafile=observables_sectoral, 
 mode_file=RBC_growth_mode, 
 //nograph,
-load_mh_file, 
+//load_mh_file, 
 //mh_recover,
 mcmc_jumping_covariance=prior_variance,
 
-mode_compute=9,
+mode_compute=4,
 presample=0, 
 lik_init=2,
 mh_jscale=0.0015, 
 mh_init_scale =0.0004,
 //mh_jscale=0.3,
 mode_check, 
-mh_replic=150000, 
+mh_replic=200000, 
 //mh_replic=0,
 mh_nblocks=2, 
 //bayesian_irf,

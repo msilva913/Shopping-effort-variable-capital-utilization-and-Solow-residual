@@ -11,6 +11,7 @@ save('irf.mat', 'irf')
 %% Estimate with sectoral data
 dynare BRS_growth_util_sectoral.mod
 %%
+dynare BRS_growth_KPR.mod
 
 %% Estimate sectoral data, separable preferences
 dynare BRS_growth_util_sectoral_separable_alt.mod
