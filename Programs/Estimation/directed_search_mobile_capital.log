@@ -1,0 +1,13 @@
+Starting Dynare (version 5.4).
+Calling Dynare with arguments: none
+Starting preprocessing of the model file ...
+WARNING: In stoch_simul: labor_share found more than once in symbol list. Removing all but first occurrence.
+Substitution of endo lags >= 2: added 1 auxiliary variables and equations.
+Found 40 equation(s).
+Evaluating expressions...done
+Computing static model derivatives (order 1).
+Computing dynamic model derivatives (order 2).
+Processing outputs ...
+done
+Preprocessing completed.
+

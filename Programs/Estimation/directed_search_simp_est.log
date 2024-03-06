@@ -1,0 +1,170 @@
+Starting Dynare (version 5.4).
+Calling Dynare with arguments: none
+Starting preprocessing of the model file ...
+Found 43 equation(s).
+Evaluating expressions...done
+Computing static model derivatives (order 2).
+Computing static model derivatives w.r.t. parameters (order 2).
+Computing dynamic model derivatives (order 2).
+Computing dynamic model derivatives w.r.t. parameters (order 2).
+Processing outputs ...
+done
+Preprocessing completed.
+
+
+======== Identification Analysis ========
+
+Testing prior mean
+  
+Note that differences in the criteria could be due to numerical settings,
+numerical errors or the method used to find problematic parameter sets.
+Settings:
+    Derivation mode for Jacobians:                         Analytic using sylvester equations
+    Method to find problematic parameters:                 Nullspace and multicorrelation coefficients
+    Normalize Jacobians:                                   Yes
+    Tolerance level for rank computations:                 robust
+    Tolerance level for selecting nonzero columns:         1e-08
+    Tolerance level for selecting nonzero singular values: 1e-03
+
+REDUCED-FORM:
+    All parameters are identified in the Jacobian of steady state and reduced-form solution matrices (rank(Tau) is full with tol = robust).
+
+MINIMAL SYSTEM (KOMUNJER AND NG, 2011):
+    All parameters are identified in the Jacobian of steady state and minimal system (rank(Deltabar) is full with tol = robust).
+
+SPECTRUM (QU AND TKACHENKO, 2012):
+    All parameters are identified in the Jacobian of mean and spectrum (rank(Gbar) is full with tol = robust).
+
+MOMENTS (ISKREV, 2010):
+    All parameters are identified in the Jacobian of first two moments (rank(J) is full with tol = robust).
+
+==== Identification analysis completed ====
+
+
+
+
+
+Residuals of the static equations:
+
+Equation number 1 : 0 : Variety effect: household
+Equation number 2 : 0 : Variety effect (investment)
+Equation number 3 : 0 : Consumption aggregation
+Equation number 4 : 0 : Markup (consumption)
+Equation number 5 : 0 : Markup (investment)
+Equation number 6 : 0 : Labor C
+Equation number 7 : 0 : Labor in I
+Equation number 8 : 0 : Capital in C
+Equation number 9 : 0 : Capital in I
+Equation number 10 : 0 : Labor intratemporal
+Equation number 11 : 0 : Capital accumulation (consumption)
+Equation number 12 : 0 : C shopping
+Equation number 13 : 0 : I shopping
+Equation number 14 : 0 : Consumption multiplier
+Equation number 15 : 0 : Euler equation of capital (C))
+Equation number 16 : 0 : Euler equation of capital (I)
+Equation number 17 : 0 : Capital utilization (C)
+Equation number 18 : 0 : Capital utilization (I)
+Equation number 19 : 0 : Relative price of investment
+Equation number 20 : 0 : Relative price of investment
+Equation number 21 : 0 : C production
+Equation number 22 : 0 : I production
+Equation number 23 : 0 : C_util
+Equation number 24 : 0 : Investment (utilization-adjusted)
+Equation number 25 : 0 : Labor composition
+Equation number 26 : 0 : Capital composition
+Equation number 27 : 0 : Aggregate accounting (income = expenditures)
+Equation number 28 : 0 : Z
+Equation number 29 : 0 : u_ZI
+Equation number 30 : 0 : Z_I
+Equation number 31 : 0 : kappa
+Equation number 32 : 0 : zeta
+Equation number 33 : 0 : C_obs
+Equation number 34 : 0 : TI_obs
+Equation number 35 : 0 : Y_obs
+Equation number 36 : 0 : w_obs
+Equation number 37 : 0 : Y_util_obs
+Equation number 38 : 0 : SR_obs
+Equation number 39 : 0 : SR_util_obs
+Equation number 40 : 0 : lab_prod_obs
+Equation number 41 : 0 : labor_share
+Equation number 42 : 0 : LC_obs
+Equation number 43 : 0 : LI_obs
+
+
+
+STEADY-STATE RESULTS:
+
+p_C          		 0
+p_I          		 0
+P_C          		 0
+q_C          		 0
+q_I          		 0
+Q            		 0
+C            		 0
+I            		 0
+Y            		 0
+Gamma_C      		 0
+Gamma_I      		 0
+c_A          		 0
+C_util       		 0
+I_util       		 0
+r_I          		 0
+r_C          		 0
+w            		 0
+L_C          		 0
+L_I          		 0
+L            		 0
+K_C          		 0
+K_I          		 0
+K            		 0
+lam          		 0
+u_C          		 0
+u_I          		 0
+Z            		 0
+Z_I          		 0
+u_ZI         		 0
+kappa        		 0
+zeta         		 0
+C_obs        		 0
+TI_obs       		 0
+LC_obs       		 0
+LI_obs       		 0
+Y_obs        		 0
+p_I_obs      		 0
+lab_prod_obs 		 0
+labor_share  		 0
+SR_obs       		 0
+w_obs        		 0
+SR_util_obs  		 0
+Y_util_obs   		 0
+
+EIGENVALUES:
+         Modulus             Real        Imaginary
+
+       1.353e-17       -1.353e-17                0
+       9.591e-15        9.591e-15                0
+             0.6              0.6                0
+             0.6              0.6                0
+             0.6              0.6                0
+             0.6              0.6                0
+          0.9083           0.9083                0
+           1.054            1.054                0
+       6.059e+16       -6.059e+16                0
+       3.738e+17        3.738e+17                0
+       1.046e+19       -1.046e+19                0
+
+
+There are 4 eigenvalue(s) larger than 1 in modulus 
+for 4 forward-looking variable(s)
+
+The rank condition is verified.
+
+Error in computing likelihood for initial parameter values
+
+ESTIMATION_CHECKS: There was an error in computing the likelihood for initial parameter values.
+ESTIMATION_CHECKS: If this is not a problem with the setting of options (check the error message below),
+ESTIMATION_CHECKS: you should try using the calibrated version of the model as starting values. To do
+ESTIMATION_CHECKS: this, add an empty estimated_params_init-block with use_calibration option immediately before the estimation
+ESTIMATION_CHECKS: command (and after the estimated_params-block so that it does not get overwritten):
+
+

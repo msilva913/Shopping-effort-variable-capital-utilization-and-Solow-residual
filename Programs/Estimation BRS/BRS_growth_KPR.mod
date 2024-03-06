@@ -93,7 +93,7 @@ parameters
     gam_max ${\gamma_{max}}$ (long_name= 'Upper bound on risk aversion')
     r_ann  ${r_ann}$    (long_name='Annual interest rate')
     g_bar  ${\overline{g}}$ (long_name = 'Quarterly trend growth rate')
-    nu     $\nu$       (long_name = 'Frisch elasticity')
+    xi     $\xi$       (long_name = 'Frisch elasticity parameter')
     sigma_a ${\sigma_a}$ (long_name = 'Inverse elasticity of marginal utilization cost wrt rental rate')
     Psi_K ${\Psi_K}$ (long_name = 'Investment adjustment cost parameter')
    
@@ -129,7 +129,6 @@ gam = 2.0; % risk aversion
 r_ann = 0.04; % annual interest rate 
 g_bar = 0.0045; % quarterly growth rate
 gam_max = (1/4)*log(1+r_ann)/g_bar;
-xi = (1-0.3)/0.3*(1/0.72);
 sigma_a = 0.32; % inverse of elasticity of capital utilization wrt rental rate
 Psi_K = 1.5;
 ha = 0.1;
@@ -148,6 +147,8 @@ theta = 0.5;
 
 p_I_ss = 1.0;
 N_ss = 0.30;
+
+xi = (1-N_ss)/N_ss*(1/0.72);
 
 rho_g = 0.1;
 rho_Z = 0.9;
@@ -218,7 +219,7 @@ exp(theta_D)*D^(1/eta) = exp(theta_C)*phi*C/D_C;
 
 [name = 'Shopping:I']
 //exp(theta_D)*D^(1/eta) = phi*exp(theta_C)*p_I*I/D_I;
-exp(theta_D)*D^(1/eta)*exp(theta_I) = phi*exp(theta_C)*p_I*I/D_I;
+exp(theta_D)*D^(1/eta)*exp(theta_I) = exp(theta_C)*phi*p_I*I/D_I;
 
 
 [name = 'Investment adjustment cost function']
@@ -401,7 +402,6 @@ steady_state_model;
     alpha_N_ss = (1-phi_ss)*labor_share/(1+nu_R);
     W_C = labor_share*Y/N;
     W_I = W_C;
-    theta_N_s = (1-phi_ss)*W_C/(Gam*N_comp^(1/nu));
    
     r_ss = (1+r_ann)^(1/4) - 1.0;
     beta_ss = (1/(1+r_ss))*exp(g_bar)^(gam);
@@ -517,8 +517,8 @@ rho_g,  0.1, 0.0001, 0.9,        BETA_PDF, 0.1, 0.05;
 rho_Z, 0.95, 0.01, 0.999999,     BETA_PDF, 0.6, 0.2;
 rho_ZI,  0.95, 0.01, 0.999999,    BETA_PDF, 0.6, 0.2;
 rho_N,  0.6, 0.01, 0.9999,        BETA_PDF, 0.6, 0.2;
-rho_D,  0.9, 0.01, 0.9999,        BETA_PDF, 0.6, 0.2;
-rho_DI, 0.9, 0.01, 0.9999,          BETA_PDF, 0.6, 0.2;
+rho_D,  0.95, 0.01, 0.9999,        BETA_PDF, 0.6, 0.2;
+rho_DI, 0.95, 0.01, 0.9999,          BETA_PDF, 0.6, 0.2;
 rho_C,  0.95, 0.01, 0.99999999,        BETA_PDF, 0.6, 0.2;
 
 % Standard errors
@@ -540,20 +540,20 @@ varobs I_obs, Y_obs, Y_N_obs, p_I_obs;
 
 estimation(tex, optim=('MaxIter', 200), 
 datafile=observables_sectoral, 
-mode_file=BRS_growth_mode, 
+mode_file=BRS_growth_KPR_mode, 
 //nograph,
-//load_mh_file, 
-mh_recover,
+load_mh_file, 
+//mh_recover,
 mcmc_jumping_covariance=prior_variance,
 
-mode_compute=0,
+mode_compute=4,
 presample=0, 
 lik_init=2,
-mh_jscale=0.0015, 
+mh_jscale=0.002, 
 mh_init_scale =0.0004,
 //mh_jscale=0.3,
 mode_check, 
-mh_replic=0, 
+mh_replic=75000, 
 //mh_replic=0,
 mh_nblocks=2, 
 //bayesian_irf,
@@ -582,8 +582,8 @@ collect_latex_files;
 
 %*/
 % Stochastic simulation -> for conditional FEVD and IRF
-stoch_simul (order=1, nofunctions, irf=100, periods=0,
-conditional_variance_decomposition=[1 4 8 40])
+stoch_simul (order=1, nofunctions, irf=100, periods=0
+)
 Y_obs, Y_N_obs, SR_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_obs, D_obs,
 log_Y, log_Y_N, log_SR, log_I, log_p_I, log_C, log_N, log_NC, log_NI, log_util, log_D;
 

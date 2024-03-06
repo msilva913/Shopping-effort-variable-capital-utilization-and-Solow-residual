@@ -1,0 +1,113 @@
+Starting Dynare (version 5.4).
+Calling Dynare with arguments: none
+Starting preprocessing of the model file ...
+Found 24 equation(s).
+Evaluating expressions...done
+Computing static model derivatives (order 1).
+Computing dynamic model derivatives (order 2).
+Processing outputs ...
+done
+Preprocessing completed.
+
+[Warning: Some of the parameters have no value (var_share) when using stoch_simul. If these parameters are not initialized in a steadystate file or a
+steady_state_model-block, Dynare may not be able to solve the model. Note that simul, perfect_foresight_setup, and perfect_foresight_solver do not automatically
+call the steady state file.] 
+
+MODEL SUMMARY
+
+  Number of variables:         24
+  Number of stochastic shocks: 1
+  Number of state variables:   3
+  Number of jumpers:           2
+  Number of static variables:  19
+
+
+MATRIX OF COVARIANCE OF EXOGENOUS SHOCKS
+Variables         e_Z
+e_Z          0.007200
+
+
+
+THEORETICAL MOMENTS
+VARIABLE             MEAN  STD. DEV.   VARIANCE
+C_obs              0.0000     0.5375     0.2889
+TI_obs             0.0000     0.8849     0.7830
+Y_obs              0.0000     0.5898     0.3479
+lab_prod_obs       0.0000     0.5660     0.3204
+labor_share        0.0000     0.0000     0.0000
+L_C                0.0000     0.0624     0.0039
+L_I                0.0000     0.4534     0.2056
+L                  0.0000     0.0449     0.0020
+p_I_obs            0.0000     0.0000     0.0000
+
+CONDITIONAL VARIANCE DECOMPOSITION (in percent)
+Period 1:
+                   e_Z
+C_obs           100.00
+TI_obs          100.00
+Y_obs           100.00
+lab_prod_obs    100.00
+labor_share     100.00
+L_C             100.00
+L_I             100.00
+L               100.00
+p_I_obs         100.00
+Period 4:
+                   e_Z
+C_obs           100.00
+TI_obs          100.00
+Y_obs           100.00
+lab_prod_obs    100.00
+labor_share     100.00
+L_C             100.00
+L_I             100.00
+L               100.00
+p_I_obs         100.00
+Period 8:
+                   e_Z
+C_obs           100.00
+TI_obs          100.00
+Y_obs           100.00
+lab_prod_obs    100.00
+labor_share     100.00
+L_C             100.00
+L_I             100.00
+L               100.00
+p_I_obs         100.00
+Period 40:
+                   e_Z
+C_obs           100.00
+TI_obs          100.00
+Y_obs           100.00
+lab_prod_obs    100.00
+labor_share     100.00
+L_C             100.00
+L_I             100.00
+L               100.00
+p_I_obs         100.00
+
+
+
+MATRIX OF CORRELATIONS
+Variables              C_obs        TI_obs         Y_obs  lab_prod_obs           L_C           L_I             L
+C_obs                 1.0000        0.8472        0.9861        0.9949       -0.4115        0.4115        0.4115
+TI_obs                0.8472        1.0000        0.9236        0.8963       -0.8328        0.8328        0.8328
+Y_obs                 0.9861        0.9236        1.0000        0.9978       -0.5570        0.5570        0.5570
+lab_prod_obs          0.9949        0.8963        0.9978        1.0000       -0.5010        0.5010        0.5010
+L_C                  -0.4115       -0.8328       -0.5570       -0.5010        1.0000       -1.0000       -1.0000
+L_I                   0.4115        0.8328        0.5570        0.5010       -1.0000        1.0000        1.0000
+L                     0.4115        0.8328        0.5570        0.5010       -1.0000        1.0000        1.0000
+
+
+
+COEFFICIENTS OF AUTOCORRELATION
+Order                1       2       3       4       5
+C_obs           0.9949  0.9887  0.9814  0.9731  0.9640
+TI_obs          0.9507  0.9047  0.8618  0.8218  0.7844
+Y_obs           0.9858  0.9713  0.9567  0.9418  0.9269
+lab_prod_obs    0.9900  0.9793  0.9679  0.9561  0.9438
+L_C             0.9030  0.8142  0.7330  0.6587  0.5908
+L_I             0.9030  0.8142  0.7330  0.6587  0.5908
+L               0.9030  0.8142  0.7330  0.6587  0.5908
+Total computing time : 0h00m01s
+Note: warning(s) encountered in MATLAB/Octave code
