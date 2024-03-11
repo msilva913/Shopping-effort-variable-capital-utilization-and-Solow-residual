@@ -128,15 +128,16 @@ parameters
 gam = 2.0; % risk aversion
 r_ann = 0.04; % annual interest rate 
 g_bar = 0.0045; % quarterly growth rate
-gam_max = (1/4)*log(1+r_ann)/g_bar;
+//gam_max = (1/4)*log(1+r_ann)/g_bar;
 sigma_a = 0.32; % inverse of elasticity of capital utilization wrt rental rate
-Psi_K = 1.5;
-ha = 0.1;
+Psi_K = 4.0;
+ha = 0.5;
 
 I_Y = 0.20;
 K_Y = 11;
 labor_share = 0.67;
-nu_R = 0.2; % share of fixed costs in output
+//nu_R = 0.2;
+nu_R = 0.0; % share of fixed costs in output
 
 m = 0.286;
 eta = 0.20;
@@ -151,10 +152,10 @@ N_ss = 0.30;
 xi = (1-N_ss)/N_ss*(1/0.72);
 
 rho_g = 0.1;
-rho_Z = 0.9;
+rho_Z = 0.979;
 rho_ZI = 0.9;
 rho_N = 0.9;
-rho_D = 0.9;
+rho_D = 0.979;
 rho_DI = 0.9;
 rho_C = 0.9;
 
@@ -474,13 +475,13 @@ end;
 
 //set shock variances
 shocks;
-    var e_g=0.0072^2;
+    var e_g = 0.0;
     var e_Z = 0.0072^2;
-    var e_ZI=0.0072^2;
-    var e_N = 0.0072^2;
+    var e_ZI=0.0;
+    var e_N = 0.0;
     var e_D = 0.0072^2;
-    var e_C = 0.0072^2;
-    var e_DI = 0.0072^2;
+    var e_C = 0.0;
+    var e_DI = 0.0;
 end;
 
 // local identification
@@ -500,6 +501,7 @@ estimated_params;
 //gam, 1.5, 0.5, 4,            GAMMA_PDF, 1.5, 0.25;
 gam, 1.5, 1.0, gam_max,       BETA_PDF, 1.5, 0.25, 1.0, gam_max;
 ha, 0.5, 0.0, 0.95,           BETA_PDF, 0.5, 0.2;
+nu_R, 0.2, 0.0, 0.5,          BE
 m, 0.286, 0.0, 0.95,          GAMMA_PDF, 0.286, 0.2;
 xi, 3.24, 0.1, 10.0,           GAMMA_PDF, 3.24, 0.5;
 
@@ -534,7 +536,7 @@ end;
 
 options_.TeX=1;
 
-varobs I_obs, Y_obs, Y_N_obs, p_I_obs;
+/*varobs I_obs, Y_obs, Y_N_obs, p_I_obs;
 //varobs NC_obs, NI_obs, C_obs, I_obs, p_I_obs;
 
 
@@ -557,7 +559,7 @@ mode_check,
 mh_replic=0,
 mh_nblocks=2, 
 //bayesian_irf,
-//irf=100,
+irf=0,
 mh_drop=0.3, 
 //moments_varendo,
 prior_trunc=0)
@@ -579,8 +581,8 @@ collect_latex_files;
 % if system(['pdflatex -halt-on-error -interaction=batchmode ' M_.fname '_TeX_binder.tex'])
 %     error('TeX-File did not compile.')
 % end
+*/
 
-%*/
 % Stochastic simulation -> for conditional FEVD and IRF
 stoch_simul (order=1, nofunctions, irf=100, periods=0
 )
