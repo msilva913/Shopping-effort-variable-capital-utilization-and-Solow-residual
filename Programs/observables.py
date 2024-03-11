@@ -190,9 +190,9 @@ def construct_data(init, final, freq):
     " Capacity utilization "
     util = fred.get_series('TCU').resample(freq).mean().dropna()
     # Durable manufacturing
-    util_dur = fred.get_series('CAPUTLGMFDS')
+    util_dur = fred.get_series('CAPUTLGMFDS').resample(freq).mean().dropna()
     # nondurable manufacturing
-    util_nondur = fred.get_series('CAPUTLGMFNS')
+    util_nondur = fred.get_series('CAPUTLGMFNS').resample(freq).mean().dropna()
     
     " Note: these series imply labor productivity in each sector "
     " List of data series "
@@ -220,7 +220,7 @@ if __name__ == "__main__":
         save_object(var_load_list, 'var_load_list')
     
     dat = pd.concat(var_load_list, axis=1)
-    lab = ['Y', 'C', 'I', 'LC', 'LI', 'L', "lab_prod", 'p_I', 'SR', 'SR_util', 'util']
+    lab = ['Y', 'C', 'I', 'LC', 'LI', 'L', "lab_prod", 'p_I', 'SR', 'SR_util', 'util', 'util_dur', 'util_nondur']
     dat.columns = lab
     """
     Create cycles
@@ -321,7 +321,7 @@ if __name__ == "__main__":
     plot_cycle(cycle_red)
     
     linestyle = ['-', ':', '-.']
-    
+    # Hours
     fig, ax = plt.subplots(figsize=(11, 4))
     ax.plot(100*cycle.LC, linestyle[0], label= "Hours: consumption", lw=2, alpha=0.7)
     ax.plot(100*cycle.LI, linestyle[1], label= "Hours: investment", lw=2, alpha=0.7)
@@ -334,6 +334,21 @@ if __name__ == "__main__":
     plt.tight_layout()
     plt.savefig("hours_comovement.pdf")
     plt.show()
+    
+    # Utilization
+    fig, ax = plt.subplots(figsize=(11, 4))
+    ax.plot(100*cycle.util_dur, linestyle[0], label= "Utilization: durables", lw=2, alpha=0.7)
+    ax.plot(100*cycle.util_nondur, linestyle[1], label= "Utilization: nondurables", lw=2, alpha=0.7)
+    #ax.plot(100*cycle.util, linestyle[2], label= "Utilization: total industry", lw=2, alpha=0.7)
+    ax.legend(loc="upper right")
+    ax.xaxis.set_major_locator(years)
+    ax.xaxis.set_major_formatter(years_fmt)
+    ax.set_ylabel("%")
+    ax.grid(True)
+    plt.tight_layout()
+    plt.savefig("hours_comovement.pdf")
+    plt.show()
+    
     
     # fig, ax = plt.subplots()
     # ax.plot(cycle.NE, label='NE', lw=2, alpha=0.6)
