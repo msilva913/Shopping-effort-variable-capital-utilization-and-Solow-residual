@@ -139,8 +139,6 @@ def construct_data(init, final, freq):
     pop = fred.get_series('CNP16OV').resample(freq).mean()
     # Use HP-filtered trend for population
     pop = sm.tsa.filters.hpfilter(pop, lamb=10_000)[1]
-    " Capacity utilization "
-    util = fred.get_series('TCU').resample(freq).mean().dropna()
     
     " Total factor productivity "
     dtfp = pd.read_csv('quarterly_tfp.csv', header=0, nrows=304, sep=';' )
@@ -188,10 +186,17 @@ def construct_data(init, final, freq):
     l = L/pop
     " Relative price of investment: divide price indices"
     p_I = p_I/p_C
-   
+    
+    " Capacity utilization "
+    util = fred.get_series('TCU').resample(freq).mean().dropna()
+    # Durable manufacturing
+    util_dur = fred.get_series('CAPUTLGMFDS')
+    # nondurable manufacturing
+    util_nondur = fred.get_series('CAPUTLGMFNS')
+    
     " Note: these series imply labor productivity in each sector "
     " List of data series "
-    var_load_list = [y, c, i, lc, li, l, lab_prod, p_I, SR, SR_util, util] 
+    var_load_list = [y, c, i, lc, li, l, lab_prod, p_I, SR, SR_util, util, util_dur, util_nondur] 
     return var_load_list
 
         
