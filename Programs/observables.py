@@ -102,13 +102,14 @@ def construct_data(init, final, freq):
     # Personal consumption expenditure services: BEA DSERRC
     C_S = fred.get_series('PCESV').resample(freq).mean().dropna()
     C = C_ND + C_S
+    np.mean(C_S/(C))
     
     " Nominal investment: durables (PCDG), non-residential investment (PNFI), residential investment (PRFI) "
     PCDG = fred.get_series("PCDG").resample(freq).mean().dropna()
     PNFI = fred.get_series("PNFI").resample(freq).mean().dropna()
     PRFI = fred.get_series("PRFI").resample(freq).mean().dropna()
     I = PCDG + PNFI + PRFI
-    
+    np.mean(PCDG/I)
     " Price index of consumption goods "
     # non-durables
     #p_ND = fred.get_series('DNDGRG3Q086SBEA').resample(freq).mean().dropna()
