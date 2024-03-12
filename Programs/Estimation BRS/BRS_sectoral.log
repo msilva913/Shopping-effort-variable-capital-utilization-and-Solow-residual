@@ -1,0 +1,793 @@
+Starting Dynare (version 5.4).
+Calling Dynare with arguments: none
+Starting preprocessing of the model file ...
+Found 69 equation(s).
+Evaluating expressions...done
+Computing static model derivatives (order 1).
+Computing dynamic model derivatives (order 1).
+Processing outputs ...
+done
+Preprocessing completed.
+
+
+
+
+
+Residuals of the static equations:
+
+Equation number 1 : 0 : Labor composite
+Equation number 2 : 0 : Labor leisure:C
+Equation number 3 : 0 : Labor leisure:I
+Equation number 4 : 0 : Shopping:C
+Equation number 5 : 0 : Shopping:I
+Equation number 6 : 0 : Composite utility term
+Equation number 7 : 0 : Law of motion of wealth effects variable
+Equation number 8 : 0 : Investment adjustment cost function:C
+Equation number 9 : 0 : Investment adjustment cost function:I
+Equation number 10 : 0 : Investment adjustment cost function: derivative C
+Equation number 11 : 0 : Investment adjustment cost function: derivative I
+Equation number 12 : 0 : Investment growth:C
+Equation number 13 : 0 : Investment growth:I
+Equation number 14 : 0 : Tobins Q: C
+Equation number 15 : 0 : Tobins Q: I
+Equation number 16 : 0 : Euler equation: C
+Equation number 17 : 0 : Euler equation: I
+Equation number 18 : 0 : Utilization: C
+Equation number 19 : 0 : Utilization: I
+Equation number 20 : 0 : Depreciation rate: C
+Equation number 21 : 0 : Depreciation rate: I
+Equation number 22 : 0 : Depreciation rate derivative: C
+Equation number 23 : 0 : Depreciation rate derivative: I
+Equation number 24 : 0 : Consumption production
+Equation number 25 : 0 : Investment production
+Equation number 26 : 0 : Capital law of motion:C
+Equation number 27 : 0 : Capital law of motion:I
+Equation number 28 : 0 : Labor demand:C
+Equation number 29 : 0 : Labor demand:I
+Equation number 30 : 0 : Capital demand:C
+Equation number 31 : 0 : Capital demand:I
+Equation number 32 : 0 : Labor composition
+Equation number 33 : 0 : Capital composition
+Equation number 34 : 0 : Investment composition
+Equation number 35 : 0 : Shopping composition
+Equation number 36 : 0 : Output (base-year prices)
+Equation number 37 : 0 : Capacity utilization
+Equation number 38 : 0 : stochastic trend process
+Equation number 39 : 0 : Stationary TFP process
+Equation number 40 : 0 : Independent component of I-specific tech
+Equation number 41 : 0 : Investment-specific TFP process
+Equation number 42 : 0 : Labor supply process
+Equation number 43 : 0 : Shopping effort process
+Equation number 44 : 0 : Relative shopping effort process
+Equation number 45 : 0 : Consumption preference process
+Equation number 46 : 0 : Definition log output
+Equation number 47 : 0 : Definition log consumption
+Equation number 48 : 0 : Definition log investment
+Equation number 49 : 0 : Definition log hours
+Equation number 50 : 0 : log_NC
+Equation number 51 : 0 : log_NI
+Equation number 52 : 0 : log capital
+Equation number 53 : 0 : Definition log labor productivity
+Equation number 54 : 0 : Definition log shopping effort
+Equation number 55 : 0 : Definition of log relative investment  price
+Equation number 56 : 0 : Definition of log capacity utilization
+Equation number 57 : 0 : Definition of log Solow residual
+Equation number 58 : 0 : C_obs
+Equation number 59 : 0 : I_obs
+Equation number 60 : 0 : Y_obs
+Equation number 61 : 0 : Y_N_obs
+Equation number 62 : 0 : K_obs
+Equation number 63 : 0 : SR_obs
+Equation number 64 : 0 : p_I_obs
+Equation number 65 : 0 : N_obs
+Equation number 66 : 0 : NC_obs
+Equation number 67 : 0 : NI_obs
+Equation number 68 : 0 : util_obs
+Equation number 69 : 0 : D_obs
+
+
+
+STEADY-STATE RESULTS:
+
+Y          		 1
+C          		 0.8
+I          		 0.2
+I_C        		 0.16
+I_I        		 0.04
+K          		 11.0496
+K_C        		 8.83969
+K_I        		 2.20992
+N          		 0.3
+N_C        		 0.24
+N_I        		 0.06
+N_comp     		 0.3
+Z_C        		 0
+u_ZI       		 0
+Z_I        		 0
+theta_N    		 0
+theta_D    		 0
+theta_I    		 0
+theta_C    		 0
+R_C        		 0.0348329
+R_I        		 0.0348329
+W_C        		 2.23333
+W_I        		 2.23333
+h_C        		 1
+h_I        		 1
+delta_C    		 0.0136717
+delta_I    		 0.0136717
+delta_C_pr 		 0.0235251
+delta_I_pr 		 0.0235251
+Sc         		 0
+Si         		 0
+Sc_pr      		 0
+Si_pr      		 0
+D          		 0.82902
+D_C        		 0.663216
+D_I        		 0.165804
+Gam        		 0.476477
+zeta       		 0.665895
+p_I        		 1
+Q_C        		 1.48067
+Q_I        		 1.48067
+x_C        		 1.00451
+x_I        		 1.00451
+log_SR     		 0
+util       		 0.81
+g          		 0.0045
+log_Y      		 0
+log_C      		 0
+log_I      		 0
+log_N      		 0
+log_NC     		 0
+log_NI     		 0
+log_K      		 0
+log_Y_N    		 0
+log_D      		 0
+log_p_I    		 0
+log_util   		 0
+C_obs      		 0
+I_obs      		 0
+Y_obs      		 0
+Y_N_obs    		 0
+p_I_obs    		 0
+N_obs      		 0
+NC_obs     		 0
+NI_obs     		 0
+util_obs   		 0
+D_obs      		 0
+K_obs      		 0
+SR_obs     		 0
+
+EIGENVALUES:
+         Modulus             Real        Imaginary
+
+               0                0                0
+               0                0                0
+       2.338e-18        2.338e-18                0
+       1.287e-17       -1.287e-17                0
+       2.354e-17        2.354e-17                0
+       5.451e-17       -5.451e-17                0
+       1.155e-16        1.155e-16                0
+       5.057e-16       -5.057e-16                0
+        1.09e-15         1.09e-15                0
+       6.461e-15       -6.461e-15                0
+       9.404e-09        6.609e-16        9.404e-09
+       9.404e-09        6.609e-16       -9.404e-09
+         0.06191          0.06191                0
+             0.1              0.1                0
+           0.442            0.442                0
+          0.5529           0.5529                0
+             0.9              0.9                0
+             0.9              0.9                0
+             0.9              0.9                0
+             0.9              0.9                0
+             0.9              0.9                0
+             0.9              0.9                0
+           0.941           0.9391          0.05906
+           0.941           0.9391         -0.05906
+          0.9912           0.9912                0
+           1.013            1.013                0
+           1.068            1.066          0.06712
+           1.068            1.066         -0.06712
+           1.897            1.897                0
+       2.665e+17       -2.665e+17                0
+       3.004e+17        3.004e+17                0
+       3.014e+17       -3.014e+17                0
+       4.304e+17        4.304e+17                0
+       5.158e+17       -5.158e+17                0
+       6.677e+17       -6.677e+17                0
+       7.112e+17       -7.112e+17                0
+       1.287e+18        1.287e+18                0
+       1.879e+18        1.879e+18                0
+       2.058e+46        2.058e+46                0
+             Inf              Inf                0
+
+
+There are 15 eigenvalue(s) larger than 1 in modulus 
+for 15 forward-looking variable(s)
+
+The rank condition is verified.
+
+
+Initial value of the log posterior (or likelihood): 3151.7403
+                                            First-order      Norm of
+ Iter F-count            f(x)  Feasibility   optimality         step
+    0      26   -3.151740e+03    0.000e+00    5.998e+03
+Objective function returned Inf; trying a new point...
+    1      59   -3.160334e+03    0.000e+00    4.916e+02    4.899e-02
+    2      87   -3.161961e+03    0.000e+00    5.633e+03    2.490e-02
+    3     119   -3.163181e+03    0.000e+00    7.946e+03    5.296e-02
+    4     146   -3.164603e+03    0.000e+00    2.035e+03    4.862e-02
+    5     177   -3.166608e+03    0.000e+00    1.186e+03    7.892e-02
+    6     204   -3.167956e+03    0.000e+00    5.250e+03    1.867e-01
+    7     233   -3.168738e+03    0.000e+00    1.899e+03    8.112e-02
+    8     263   -3.172829e+03    0.000e+00    3.578e+03    1.270e-01
+    9     290   -3.172841e+03    0.000e+00    3.549e+03    4.376e-04
+Objective function returned Inf; trying a new point...
+   10     322   -3.173248e+03    0.000e+00    1.765e+03    8.254e-02
+   11     349   -3.173332e+03    0.000e+00    1.799e+03    2.786e-03
+   12     378   -3.174860e+03    0.000e+00    8.827e+03    2.886e-01
+   13     407   -3.175469e+03    0.000e+00    2.880e+03    1.677e-01
+   14     436   -3.176165e+03    0.000e+00    1.327e+04    9.660e-02
+   15     468   -3.176726e+03    0.000e+00    8.648e+03    2.015e-01
+   16     497   -3.177680e+03    0.000e+00    6.209e+03    4.928e-02
+   17     527   -3.182476e+03    0.000e+00    1.693e+03    4.596e-02
+   18     554   -3.183080e+03    0.000e+00    3.541e+03    1.624e-01
+   19     587   -3.186138e+03    0.000e+00    3.191e+02    2.949e-02
+   20     621   -3.187401e+03    0.000e+00    1.133e+03    6.427e-02
+   21     652   -3.188132e+03    0.000e+00    1.007e+03    7.039e-02
+   22     679   -3.188150e+03    0.000e+00    1.396e+03    2.217e-02
+   23     710   -3.188318e+03    0.000e+00    1.290e+03    6.164e-02
+   24     737   -3.189205e+03    0.000e+00    1.370e+03    2.641e-02
+   25     765   -3.189548e+03    0.000e+00    2.065e+03    6.193e-02
+   26     792   -3.189579e+03    0.000e+00    2.646e+03    7.193e-02
+   27     825   -3.190288e+03    0.000e+00    1.141e+03    3.611e-02
+   28     852   -3.190468e+03    0.000e+00    7.133e+02    1.700e-02
+   29     883   -3.190983e+03    0.000e+00    1.326e+03    4.583e-02
+   30     910   -3.191340e+03    0.000e+00    2.189e+03    2.294e-02
+
+                                            First-order      Norm of
+ Iter F-count            f(x)  Feasibility   optimality         step
+   31     943   -3.191784e+03    0.000e+00    4.089e+02    2.286e-02
+   32     970   -3.191799e+03    0.000e+00    7.722e+02    7.211e-03
+   33    1000   -3.192045e+03    0.000e+00    3.600e+03    8.682e-02
+   34    1031   -3.192274e+03    0.000e+00    2.193e+03    5.223e-02
+   35    1058   -3.192994e+03    0.000e+00    7.476e+02    1.068e-02
+   36    1090   -3.193387e+03    0.000e+00    2.213e+03    2.826e-02
+   37    1118   -3.193417e+03    0.000e+00    2.088e+03    4.313e-03
+   38    1147   -3.193630e+03    0.000e+00    1.904e+03    1.066e-02
+   39    1179   -3.193754e+03    0.000e+00    5.520e+02    2.888e-02
+   40    1206   -3.193835e+03    0.000e+00    5.284e+02    7.711e-03
+   41    1237   -3.194055e+03    0.000e+00    1.102e+03    2.350e-02
+   42    1264   -3.194114e+03    0.000e+00    1.027e+03    3.122e-03
+   43    1293   -3.194180e+03    0.000e+00    4.509e+02    1.869e-02
+   44    1325   -3.194264e+03    0.000e+00    5.698e+02    3.303e-02
+   45    1356   -3.194518e+03    0.000e+00    5.719e+02    2.014e-02
+   46    1384   -3.194523e+03    0.000e+00    5.370e+02    5.963e-03
+   47    1414   -3.194920e+03    0.000e+00    1.076e+03    1.467e-02
+   48    1441   -3.194984e+03    0.000e+00    1.355e+03    8.880e-03
+   49    1472   -3.195274e+03    0.000e+00    1.359e+03    3.818e-02
+   50    1499   -3.195285e+03    0.000e+00    1.810e+03    3.513e-02
+   51    1530   -3.195504e+03    0.000e+00    4.661e+02    7.678e-02
+   52    1558   -3.195557e+03    0.000e+00    5.155e+02    9.508e-03
+   53    1587   -3.195732e+03    0.000e+00    1.005e+03    4.073e-03
+   54    1616   -3.195848e+03    0.000e+00    3.766e+03    1.844e-02
+   55    1645   -3.196069e+03    0.000e+00    5.950e+03    1.380e-02
+   56    1674   -3.196079e+03    0.000e+00    6.500e+03    1.667e-02
+   57    1703   -3.196122e+03    0.000e+00    5.785e+03    1.598e-02
+   58    1731   -3.196251e+03    0.000e+00    9.463e+03    4.145e-02
+   59    1759   -3.196780e+03    0.000e+00    8.427e+03    1.336e-02
+   60    1788   -3.197805e+03    0.000e+00    3.653e+03    1.937e-02
+
+                                            First-order      Norm of
+ Iter F-count            f(x)  Feasibility   optimality         step
+   61    1817   -3.197826e+03    0.000e+00    3.773e+03    3.149e-03
+   62    1846   -3.197857e+03    0.000e+00    3.441e+03    3.082e-03
+   63    1875   -3.198056e+03    0.000e+00    1.774e+03    1.156e-02
+   64    1902   -3.198193e+03    0.000e+00    1.532e+03    5.315e-03
+   65    1935   -3.198204e+03    0.000e+00    1.997e+02    7.636e-03
+   66    1962   -3.198235e+03    0.000e+00    8.769e+02    1.919e-03
+   67    1989   -3.198276e+03    0.000e+00    1.047e+03    3.649e-03
+   68    2018   -3.198288e+03    0.000e+00    1.224e+03    8.800e-03
+   69    2046   -3.198345e+03    0.000e+00    7.292e+02    6.520e-03
+   70    2079   -3.198491e+03    0.000e+00    1.583e+03    1.029e-02
+   71    2107   -3.198503e+03    0.000e+00    2.361e+03    1.654e-03
+   72    2136   -3.198549e+03    0.000e+00    2.461e+03    3.410e-03
+   73    2164   -3.198600e+03    0.000e+00    3.000e+03    4.709e-03
+   74    2191   -3.198684e+03    0.000e+00    5.762e+02    4.404e-03
+   75    2220   -3.198727e+03    0.000e+00    1.041e+03    4.120e-03
+   76    2254   -3.198768e+03    0.000e+00    6.496e+02    7.761e-03
+   77    2281   -3.198789e+03    0.000e+00    5.685e+02    1.063e-03
+   78    2310   -3.198812e+03    0.000e+00    1.949e+03    1.254e-02
+   79    2341   -3.198846e+03    0.000e+00    3.309e+03    1.413e-02
+   80    2367   -3.198913e+03    0.000e+00    1.541e+03    6.754e-03
+   81    2393   -3.199210e+03    0.000e+00    5.965e+02    5.800e-03
+   82    2420   -3.199228e+03    0.000e+00    7.946e+02    6.724e-03
+   83    2446   -3.199360e+03    0.000e+00    1.456e+03    1.006e-02
+   84    2473   -3.199378e+03    0.000e+00    1.930e+03    9.550e-03
+   85    2499   -3.199548e+03    0.000e+00    5.129e+02    2.747e-03
+   86    2527   -3.199554e+03    0.000e+00    3.582e+02    3.668e-03
+   87    2555   -3.199556e+03    0.000e+00    3.707e+02    2.404e-03
+   88    2590   -3.199571e+03    0.000e+00    2.612e+02    1.811e-03
+   89    2616   -3.199646e+03    0.000e+00    9.956e+02    1.472e-02
+   90    2645   -3.199650e+03    0.000e+00    1.008e+03    4.444e-03
+
+                                            First-order      Norm of
+ Iter F-count            f(x)  Feasibility   optimality         step
+   91    2671   -3.199797e+03    0.000e+00    1.295e+03    1.348e-02
+   92    2697   -3.199982e+03    0.000e+00    5.625e+02    6.570e-03
+   93    2725   -3.200093e+03    0.000e+00    1.854e+03    2.691e-02
+   94    2751   -3.200326e+03    0.000e+00    2.252e+03    1.294e-02
+   95    2777   -3.200558e+03    0.000e+00    1.226e+03    8.032e-03
+   96    2803   -3.200588e+03    0.000e+00    9.403e+02    6.128e-03
+   97    2841   -3.200593e+03    0.000e+00    8.066e+02    1.444e-03
+   98    2868   -3.200596e+03    0.000e+00    7.251e+02    1.054e-04
+   99    2897   -3.200612e+03    0.000e+00    6.901e+02    3.746e-03
+  100    2923   -3.200639e+03    0.000e+00    1.339e+03    4.700e-03
+  101    2949   -3.200641e+03    0.000e+00    7.604e+02    5.544e-03
+  102    2975   -3.200706e+03    0.000e+00    4.850e+02    4.417e-03
+  103    3001   -3.200692e+03    0.000e+00    6.562e+02    1.369e-03
+  104    3036   -3.200692e+03    0.000e+00    3.664e+02    5.776e-04
+  105    3066   -3.200693e+03    0.000e+00    4.060e+02    4.339e-04
+  106    3093   -3.200693e+03    0.000e+00    3.340e+02    1.365e-05
+  107    3120   -3.200733e+03    0.000e+00    1.681e+02    1.193e-03
+  108    3160   -3.200733e+03    0.000e+00    9.544e+01    3.385e-04
+  109    3187   -3.200733e+03    0.000e+00    1.295e+02    1.249e-05
+  110    3213   -3.200743e+03    0.000e+00    1.101e+02    1.270e-03
+  111    3239   -3.200752e+03    0.000e+00    1.238e+02    7.236e-04
+  112    3266   -3.200753e+03    0.000e+00    1.851e+02    5.093e-04
+  113    3292   -3.200762e+03    0.000e+00    1.624e+02    7.299e-04
+  114    3325   -3.200762e+03    0.000e+00    7.804e+01    7.498e-04
+  115    3351   -3.200777e+03    0.000e+00    2.266e+02    9.211e-04
+  116    3379   -3.200778e+03    0.000e+00    3.992e+02    6.136e-04
+  117    3405   -3.200775e+03    0.000e+00    1.632e+02    5.211e-04
+  118    3431   -3.200794e+03    0.000e+00    5.837e+02    1.486e-03
+  119    3459   -3.200793e+03    0.000e+00    5.716e+02    8.943e-04
+  120    3485   -3.200804e+03    0.000e+00    3.568e+02    1.745e-03
+
+                                            First-order      Norm of
+ Iter F-count            f(x)  Feasibility   optimality         step
+  121    3511   -3.200838e+03    0.000e+00    9.234e+02    3.957e-03
+  122    3537   -3.200875e+03    0.000e+00    7.003e+02    3.433e-03
+  123    3563   -3.200873e+03    0.000e+00    2.587e+02    2.242e-03
+  124    3589   -3.200877e+03    0.000e+00    1.234e+02    6.000e-04
+  125    3618   -3.200878e+03    0.000e+00    2.943e+02    1.683e-04
+  126    3644   -3.200886e+03    0.000e+00    2.621e+02    1.721e-04
+  127    3671   -3.200887e+03    0.000e+00    1.204e+02    4.100e-04
+  128    3706   -3.200887e+03    0.000e+00    1.055e+02    1.931e-04
+  129    3732   -3.200885e+03    0.000e+00    1.117e+02    1.071e-03
+  130    3759   -3.200884e+03    0.000e+00    9.361e+01    2.121e-04
+  131    3795   -3.200885e+03    0.000e+00    1.406e+02    6.012e-04
+  132    3822   -3.200885e+03    0.000e+00    1.656e+02    9.893e-05
+  133    3853   -3.200886e+03    0.000e+00    8.936e+01    4.840e-04
+  134    3880   -3.200886e+03    0.000e+00    8.792e+01    5.876e-06
+  135    3906   -3.200885e+03    0.000e+00    2.203e+02    2.704e-04
+  136    3932   -3.200889e+03    0.000e+00    1.258e+02    2.805e-04
+  137    3959   -3.200890e+03    0.000e+00    1.091e+02    2.573e-04
+  138    3994   -3.200890e+03    0.000e+00    7.938e+01    3.644e-04
+  139    4024   -3.200891e+03    0.000e+00    8.289e+01    2.651e-04
+  140    4054   -3.200893e+03    0.000e+00    1.260e+02    2.420e-04
+  141    4082   -3.200893e+03    0.000e+00    2.179e+02    6.845e-05
+  142    4112   -3.200894e+03    0.000e+00    6.794e+01    2.615e-04
+  143    4138   -3.200893e+03    0.000e+00    1.411e+02    8.605e-05
+  144    4170   -3.200894e+03    0.000e+00    8.851e+01    1.948e-04
+  145    4197   -3.200894e+03    0.000e+00    1.309e+02    1.283e-05
+  146    4225   -3.200893e+03    0.000e+00    3.877e+02    2.992e-04
+  147    4251   -3.200903e+03    0.000e+00    2.071e+02    1.668e-04
+  148    4279   -3.200901e+03    0.000e+00    8.656e+01    1.743e-04
+  149    4305   -3.200900e+03    0.000e+00    8.614e+01    1.724e-04
+  150    4334   -3.200898e+03    0.000e+00    1.379e+02    2.514e-05
+
+                                            First-order      Norm of
+ Iter F-count            f(x)  Feasibility   optimality         step
+  151    4368   -3.200899e+03    0.000e+00    1.457e+02    2.714e-04
+  152    4395   -3.200899e+03    0.000e+00    1.677e+02    2.240e-06
+
+<a href = "matlab: helpview('optim','feasible_better_objective','CSHelpWindow');">Feasible point with lower objective function value found</a>.
+
+
+<a href = "matlab: helpview('optim','local_min_poss_with_constr','CSHelpWindow');">Local minimum possible. Constraints satisfied</a>.
+
+fmincon stopped because the <a href = "matlab: helpview('optim','norm_curr_step_simple_fminconip','CSHelpWindow');">size of the current step</a> is less than
+the value of the <a href = "matlab: helpview('optim','step_size_tol','CSHelpWindow');">step size tolerance</a> and constraints are 
+satisfied to within the value of the <a href = "matlab: helpview('optim','constraint_tolerance','CSHelpWindow');">constraint tolerance</a>.
+
+<<a href = "matlab: createExitMsg({'optimlib:sqpLineSearch:Exit2basic','fmincon'},{'optimlib:sqpLineSearch:Exit2detailed','1.000000e-06','0.000000e+00','1.000000e-06'},true,true);;">stopping criteria details</a>>
+
+Final value of minus the log posterior (or likelihood):-3200.898860 
+
+POSTERIOR KERNEL OPTIMIZATION PROBLEM!
+ (minus) the hessian matrix at the "mode" is not positive definite!
+=> posterior variance of the estimated parameters are not positive.
+You should try to change the initial values of the parameters using
+the estimated_params_init block, or use another optimization routine.
+[Warning: The results below are most likely wrong!] 
+[> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation_1', 'C:\dynare\5.4\matlab\dynare_estimation_1.m', 318)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare_estimation_1.m',318,0)">line 318</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation', 'C:\dynare\5.4\matlab\dynare_estimation.m', 118)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare_estimation.m',118,0)">line 118</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('BRS_sectoral.driver', 'C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_sectoral\driver.m', 753)" style="font-weight:bold">BRS_sectoral.driver</a> (<a href="matlab: opentoline('C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_sectoral\driver.m',753,0)">line 753</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare', 'C:\dynare\5.4\matlab\dynare.m', 278)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare.m',278,0)">line 278</a>)] 
+
+MODE CHECK
+
+Fval obtained by the minimization routine (minus the posterior/likelihood)): -3200.898860
+[Warning: Matrix is singular, close to singular or badly scaled. Results may be inaccurate. RCOND = NaN.] 
+[> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation_1', 'C:\dynare\5.4\matlab\dynare_estimation_1.m', 341)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare_estimation_1.m',341,0)">line 341</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation', 'C:\dynare\5.4\matlab\dynare_estimation.m', 118)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare_estimation.m',118,0)">line 118</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('BRS_sectoral.driver', 'C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_sectoral\driver.m', 753)" style="font-weight:bold">BRS_sectoral.driver</a> (<a href="matlab: opentoline('C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_sectoral\driver.m',753,0)">line 753</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare', 'C:\dynare\5.4\matlab\dynare.m', 278)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare.m',278,0)">line 278</a>)
+] 
+
+RESULTS FROM POSTERIOR ESTIMATION
+parameters
+         prior mean     mode    s.d.  prior pstdev
+
+gam          1.5000   2.1237     NaN   beta 0.2500 
+ha           0.5000   0.6862     NaN   beta 0.2000 
+nu           0.7200   1.4315     NaN   gamm 0.2500 
+sigma_s      0.5000   0.9830     NaN   beta 0.2000 
+m            0.2860   0.9499     NaN   gamm 0.2000 
+sigma_ac     1.0000   0.4972     NaN   invg 1.0000 
+sigma_ai     1.0000   0.5850     NaN   invg 1.0000 
+Psi_C        4.0000   2.0628     NaN   gamm 1.0000 
+Psi_I        4.0000   3.6257     NaN   gamm 1.0000 
+eta          0.2000   0.2406     NaN   gamm 0.1500 
+theta        1.0000   0.3559     NaN   gamm 0.5000 
+rho_g        0.1000   0.1673     NaN   beta 0.0500 
+rho_Z        0.6000   0.7781     NaN   beta 0.2000 
+rho_ZI       0.6000   0.9932     NaN   beta 0.2000 
+rho_N        0.6000   0.9988     NaN   beta 0.2000 
+rho_D        0.6000   0.3666     NaN   beta 0.2000 
+rho_DI       0.6000   0.9904     NaN   beta 0.2000 
+rho_C        0.6000   0.9558     NaN   beta 0.2000 
+
+standard deviation of shocks
+         prior mean     mode    s.d.  prior pstdev
+
+e_g          0.0100   0.0038     NaN   invg 0.1000 
+e_Z          0.0100   0.0014     NaN   invg 0.1000 
+e_ZI         0.0100   0.0812     NaN   invg 0.1000 
+e_N          0.0100   0.0064     NaN   invg 0.1000 
+e_D          0.0100   0.0033     NaN   invg 0.1000 
+e_DI         0.0100   0.1005     NaN   invg 0.1000 
+e_C          0.0100   0.0377     NaN   invg 0.1000 
+
+
+Log data density [Laplace approximation] is NaN.
+
+Estimation::mcmc: Multiple chains mode.
+Estimation::mcmc: Searching for initial values...
+Estimation::mcmc: Initial values found!
+
+Estimation::mcmc: Write details about the MCMC... Ok!
+Estimation::mcmc: Details about the MCMC are available in BRS_sectoral/metropolis\BRS_sectoral_mh_history_0.mat
+
+
+Estimation::mcmc: Number of mh files: 1 per block.
+Estimation::mcmc: Total number of generated files: 2.
+Estimation::mcmc: Total number of iterations: 150000.
+Estimation::mcmc: Current acceptance ratio per chain: 
+                                                       Chain  1: 33.5647%
+                                                       Chain  2: 32.3787%
+Estimation::mcmc: Total number of MH draws per chain: 150000.
+Estimation::mcmc: Total number of generated MH files: 1.
+Estimation::mcmc: I'll use mh-files 1 to 1.
+Estimation::mcmc: In MH-file number 1 I'll start at line 45001.
+Estimation::mcmc: Finally I keep 105000 draws per chain.
+
+
+
+MCMC Inefficiency factors per block
+Parameter       Block 1     Block 2
+SE_e_g           20.740      24.650
+SE_e_Z           36.222      32.526
+SE_e_ZI         684.014     699.424
+SE_e_N          141.628     121.305
+SE_e_D          232.484     235.911
+SE_e_DI         707.283     706.577
+SE_e_C          707.172     615.456
+gam             745.393     744.486
+ha              734.251     730.128
+nu              726.296     742.792
+sigma_s         686.354     702.717
+m               605.809     575.230
+sigma_ac        703.811     733.347
+sigma_ai        723.020     729.985
+Psi_C           743.786     721.249
+Psi_I           733.957     745.640
+eta             740.583     736.720
+theta           734.965     733.286
+rho_g           738.376     746.273
+rho_Z           741.058     735.759
+rho_ZI          335.266     313.736
+rho_N           137.539     139.331
+rho_D           738.338     745.701
+rho_DI          394.419     324.767
+rho_C           726.734     711.044
+
+Estimation::mcmc::diagnostics: Univariate convergence diagnostic, Brooks and Gelman (1998):
+    Parameter 1...  Done! 
+    Parameter 2...  Done! 
+    Parameter 3...  Done! 
+    Parameter 4...  Done! 
+    Parameter 5...  Done! 
+    Parameter 6...  Done! 
+    Parameter 7...  Done! 
+    Parameter 8...  Done! 
+    Parameter 9...  Done! 
+    Parameter 10...  Done! 
+    Parameter 11...  Done! 
+    Parameter 12...  Done! 
+    Parameter 13...  Done! 
+    Parameter 14...  Done! 
+    Parameter 15...  Done! 
+    Parameter 16...  Done! 
+    Parameter 17...  Done! 
+    Parameter 18...  Done! 
+    Parameter 19...  Done! 
+    Parameter 20...  Done! 
+    Parameter 21...  Done! 
+    Parameter 22...  Done! 
+    Parameter 23...  Done! 
+    Parameter 24...  Done! 
+    Parameter 25...  Done! 
+
+Estimation::marginal density: I'm computing the posterior mean and covariance...  Done!
+Estimation::marginal density: I'm computing the posterior log marginal density (modified harmonic mean)... Done!
+
+
+ESTIMATION RESULTS
+
+Log data density is 3102.219231.
+
+parameters
+           prior mean   post. mean        90% HPD interval    prior       pstdev
+
+gam             1.500       2.0606      1.9841      2.1478     beta       0.2500
+ha              0.500       0.6745      0.6439      0.7005     beta       0.2000
+nu              0.720       1.4290      1.3519      1.4966     gamm       0.2500
+sigma_s         0.500       0.9795      0.9652      0.9958     beta       0.2000
+m               0.286       0.9450      0.9386      0.9500     gamm       0.2000
+sigma_ac        1.000       0.4449      0.3234      0.5440     invg       1.0000
+sigma_ai        1.000       0.6113      0.3579      0.8609     invg       1.0000
+Psi_C           4.000       2.7078      2.0703      3.6562     gamm       1.0000
+Psi_I           4.000       4.0439      3.6692      4.4879     gamm       1.0000
+eta             0.200       0.2491      0.2273      0.2790     gamm       0.1500
+theta           1.000       0.3604      0.2689      0.4720     gamm       0.5000
+rho_g           0.100       0.1722      0.1475      0.2062     beta       0.0500
+rho_Z           0.600       0.7424      0.6629      0.8129     beta       0.2000
+rho_ZI          0.600       0.9926      0.9904      0.9947     beta       0.2000
+rho_N           0.600       0.9978      0.9960      0.9996     beta       0.2000
+rho_D           0.600       0.3953      0.2792      0.5049     beta       0.2000
+rho_DI          0.600       0.9894      0.9858      0.9930     beta       0.2000
+rho_C           0.600       0.9423      0.9216      0.9631     beta       0.2000
+
+standard deviation of shocks
+           prior mean   post. mean        90% HPD interval    prior       pstdev
+
+e_g             0.010       0.0038      0.0035      0.0041     invg       0.1000
+e_Z             0.010       0.0015      0.0012      0.0017     invg       0.1000
+e_ZI            0.010       0.0814      0.0736      0.0883     invg       0.1000
+e_N             0.010       0.0066      0.0059      0.0073     invg       0.1000
+e_D             0.010       0.0037      0.0022      0.0050     invg       0.1000
+e_DI            0.010       0.1013      0.0932      0.1104     invg       0.1000
+e_C             0.010       0.0423      0.0352      0.0506     invg       0.1000
+
+MODEL SUMMARY
+
+  Number of variables:         69
+  Number of stochastic shocks: 7
+  Number of state variables:   25
+  Number of jumpers:           15
+  Number of static variables:  31
+
+
+MATRIX OF COVARIANCE OF EXOGENOUS SHOCKS
+Variables         e_g       e_Z      e_ZI       e_N       e_D      e_DI       e_C
+e_g          0.000015  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000
+e_Z          0.000000  0.000002  0.000000  0.000000  0.000000  0.000000  0.000000
+e_ZI         0.000000  0.000000  0.006628  0.000000  0.000000  0.000000  0.000000
+e_N          0.000000  0.000000  0.000000  0.000044  0.000000  0.000000  0.000000
+e_D          0.000000  0.000000  0.000000  0.000000  0.000014  0.000000  0.000000
+e_DI         0.000000  0.000000  0.000000  0.000000  0.000000  0.010255  0.000000
+e_C          0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.001789
+
+
+
+THEORETICAL MOMENTS
+VARIABLE         MEAN  STD. DEV.   VARIANCE
+Y_obs          0.0000     0.0323     0.0010
+Y_N_obs        0.0000     0.0405     0.0016
+SR_obs         0.0000     0.0354     0.0013
+I_obs          0.0000     0.1421     0.0202
+p_I_obs        0.0000     0.1315     0.0173
+C_obs          0.0000     0.0083     0.0001
+NC_obs         0.0000     0.0185     0.0003
+NI_obs         0.0000     0.0727     0.0053
+util_obs       0.0000     0.0258     0.0007
+D_obs          0.0000     0.0102     0.0001
+log_Y          0.0000     0.6045     0.3654
+log_Y_N        0.0000     0.5712     0.3262
+log_SR         0.0000     0.2610     0.0681
+log_I          0.0000     1.7267     2.9816
+log_p_I        0.0000     1.0702     1.1453
+log_C          0.0000     0.3709     0.1376
+log_N          0.0000     0.1946     0.0379
+log_NC         0.0000     0.1355     0.0184
+log_NI         0.0000     0.4483     0.2010
+log_util       0.0000     0.2864     0.0820
+log_D          0.0000     0.0861     0.0074
+
+
+
+VARIANCE DECOMPOSITION (in percent)
+               e_g     e_Z    e_ZI     e_N     e_D    e_DI     e_C
+Y_obs         0.98    0.25   47.03    0.00    0.01   48.05    3.67
+Y_N_obs       0.55    0.39   54.92    0.84    0.05   43.24    0.02
+SR_obs        0.74    0.36   53.31    0.48    0.04   44.71    0.35
+I_obs         0.02    0.13   46.96    0.00    0.00   49.78    3.10
+p_I_obs       0.00    0.04   49.05    0.00    0.00   50.87    0.04
+C_obs        19.41    0.78   39.62    0.01    0.05   34.80    5.34
+NC_obs        0.07    1.30   48.45    4.13    0.15   42.94    2.96
+NI_obs        0.04    0.03   51.45    0.28    0.00   42.10    6.10
+util_obs      0.01    0.17   24.07    0.00    0.02   70.35    5.38
+D_obs         0.01    0.07    6.84    0.00    0.83    7.00   85.25
+log_Y         0.01    0.30   58.38    0.00    0.00   40.86    0.45
+log_Y_N       0.04    0.32   62.68    0.95    0.00   35.88    0.13
+log_SR        0.03    0.32   58.47    2.04    0.00   38.97    0.17
+log_I         0.00    0.27   54.73    0.00    0.00   44.52    0.47
+log_p_I       0.00    0.27   56.38    0.00    0.00   43.34    0.01
+log_C         0.04    0.32   61.51    0.01    0.00   37.63    0.48
+log_N         0.11    0.22   41.99    9.08    0.00   45.38    3.22
+log_NC        0.11    0.23   40.61   18.72    0.00   37.65    2.67
+log_NI        0.11    0.20   41.09    1.71    0.00   53.13    3.76
+log_util      0.03    0.12   23.24    0.00    0.00   75.35    1.25
+log_D         0.01    0.27   51.14    0.00    0.01   34.31   14.25
+
+CONDITIONAL VARIANCE DECOMPOSITION (in percent)
+Period 1:
+               e_g     e_Z    e_ZI     e_N     e_D    e_DI     e_C
+Y_obs         1.60    0.27   46.56    0.00    0.02   47.62    3.93
+Y_N_obs       0.54    0.39   54.97    0.84    0.03   43.21    0.01
+SR_obs        0.75    0.37   53.45    0.49    0.03   44.64    0.27
+I_obs         0.01    0.13   46.99    0.00    0.01   49.59    3.27
+p_I_obs       0.00    0.00   49.10    0.00    0.00   50.86    0.03
+C_obs        78.39    1.94    9.33    0.01    0.17    5.34    4.82
+NC_obs        0.13    1.82   48.99    8.95    0.17   37.19    2.74
+NI_obs        0.06    0.03   63.80    1.08    0.00   19.28   15.74
+util_obs      0.02    0.05    1.20    0.00    0.04   91.29    7.41
+D_obs         0.02    0.07    0.09    0.00    0.72    0.11   99.00
+log_Y         0.08    0.28   47.28    0.00    0.02   48.36    4.00
+log_Y_N       0.05    0.39   55.24    0.85    0.03   43.43    0.01
+log_SR        0.05    0.37   53.83    0.49    0.03   44.95    0.28
+log_I         0.05    0.13   46.97    0.00    0.01   49.57    3.27
+log_p_I       0.00    0.00   49.10    0.00    0.00   50.86    0.03
+log_C         1.31    8.84   42.61    0.04    0.76   24.41   22.02
+log_N         0.01    0.52   57.28    4.86    0.07   30.01    7.25
+log_NC        0.13    1.82   48.99    8.95    0.17   37.19    2.74
+log_NI        0.06    0.03   63.80    1.08    0.00   19.28   15.74
+log_util      0.02    0.05    1.20    0.00    0.04   91.29    7.41
+log_D         0.02    0.07    0.09    0.00    0.72    0.11   99.00
+Period 4:
+               e_g     e_Z    e_ZI     e_N     e_D    e_DI     e_C
+Y_obs         1.02    0.25   47.13    0.00    0.01   48.04    3.55
+Y_N_obs       0.55    0.39   54.92    0.84    0.05   43.24    0.01
+SR_obs        0.75    0.36   53.39    0.48    0.04   44.64    0.33
+I_obs         0.02    0.13   47.16    0.00    0.00   49.76    2.93
+p_I_obs       0.00    0.03   49.09    0.00    0.00   50.84    0.04
+C_obs        27.99    1.10   34.86    0.01    0.06   29.78    6.19
+NC_obs        0.07    1.36   48.60    4.43    0.16   42.65    2.73
+NI_obs        0.03    0.03   51.96    0.29    0.00   41.95    5.73
+util_obs      0.01    0.17   23.60    0.00    0.02   71.01    5.18
+D_obs         0.02    0.07    6.56    0.00    0.86    6.72   85.77
+log_Y         0.03    0.25   47.69    0.00    0.00   48.57    3.46
+log_Y_N       0.09    0.37   55.77    0.95    0.01   42.80    0.01
+log_SR        0.02    0.33   53.56    0.40    0.01   45.23    0.45
+log_I         0.01    0.13   47.27    0.00    0.00   49.88    2.71
+log_p_I       0.00    0.04   49.22    0.00    0.00   50.68    0.06
+log_C         0.48    1.85   48.39    0.01    0.06   38.93   10.27
+log_N         0.07    0.19   31.59    5.01    0.02   41.13   22.00
+log_NC        0.32    0.93   32.66   15.00    0.08   32.33   18.68
+log_NI        0.01    0.12   28.71    0.61    0.00   49.43   21.12
+log_util      0.01    0.05   13.03    0.00    0.01   81.31    5.59
+log_D         0.02    0.11    7.02    0.00    0.20    7.07   85.58
+Period 8:
+               e_g     e_Z    e_ZI     e_N     e_D    e_DI     e_C
+Y_obs         1.00    0.25   47.20    0.00    0.01   48.03    3.51
+Y_N_obs       0.55    0.40   54.92    0.84    0.05   43.24    0.01
+SR_obs        0.75    0.36   53.38    0.48    0.04   44.64    0.33
+I_obs         0.02    0.13   47.12    0.00    0.01   49.72    2.99
+p_I_obs       0.00    0.04   49.08    0.00    0.00   50.84    0.04
+C_obs        20.67    0.82   38.86    0.01    0.05   34.31    5.28
+NC_obs        0.07    1.31   48.68    4.19    0.16   42.95    2.64
+NI_obs        0.04    0.03   51.84    0.29    0.00   41.99    5.81
+util_obs      0.01    0.17   24.15    0.00    0.02   70.49    5.15
+D_obs         0.02    0.07    6.89    0.00    0.84    7.04   85.14
+log_Y         0.02    0.24   48.17    0.00    0.00   48.68    2.89
+log_Y_N       0.11    0.35   56.13    1.00    0.01   42.39    0.01
+log_SR        0.02    0.31   53.71    0.38    0.00   45.17    0.42
+log_I         0.00    0.15   47.63    0.00    0.00   50.05    2.16
+log_p_I       0.00    0.10   49.41    0.00    0.00   50.43    0.05
+log_C         0.28    0.83   49.41    0.01    0.01   42.30    7.16
+log_N         0.06    0.15   33.66    2.67    0.01   49.21   14.25
+log_NC        0.15    0.38   35.91    7.76    0.02   41.52   14.25
+log_NI        0.02    0.10   30.68    0.37    0.00   55.34   13.48
+log_util      0.01    0.08   18.23    0.00    0.00   77.33    4.35
+log_D         0.02    0.13   14.36    0.00    0.09   14.41   70.98
+Period 40:
+               e_g     e_Z    e_ZI     e_N     e_D    e_DI     e_C
+Y_obs         0.99    0.25   47.05    0.00    0.01   48.00    3.70
+Y_N_obs       0.55    0.40   54.92    0.84    0.05   43.24    0.02
+SR_obs        0.75    0.36   53.32    0.48    0.04   44.70    0.35
+I_obs         0.02    0.13   46.98    0.00    0.00   49.73    3.13
+p_I_obs       0.00    0.04   49.06    0.00    0.00   50.86    0.04
+C_obs        19.80    0.79   39.34    0.01    0.05   34.61    5.41
+NC_obs        0.07    1.30   48.47    4.15    0.16   42.88    2.97
+NI_obs        0.04    0.03   51.51    0.29    0.00   42.01    6.12
+util_obs      0.01    0.17   24.04    0.00    0.02   70.31    5.44
+D_obs         0.01    0.07    6.80    0.00    0.83    6.95   85.33
+log_Y         0.01    0.26   50.88    0.00    0.00   47.70    1.15
+log_Y_N       0.09    0.30   56.97    0.90    0.00   41.58    0.16
+log_SR        0.02    0.31   55.97    0.48    0.00   43.07    0.16
+log_I         0.00    0.23   49.87    0.00    0.00   49.08    0.81
+log_p_I       0.00    0.22   51.10    0.00    0.00   48.65    0.02
+log_C         0.13    0.32   52.81    0.01    0.00   44.30    2.43
+log_N         0.09    0.19   37.67    2.76    0.00   53.68    5.61
+log_NC        0.11    0.27   42.05    6.37    0.00   46.02    5.18
+log_NI        0.07    0.14   32.28    0.48    0.00   61.07    5.96
+log_util      0.02    0.11   21.63    0.00    0.00   76.53    1.71
+log_D         0.02    0.18   32.60    0.00    0.03   30.29   36.88
+
+
+
+MATRIX OF CORRELATIONS
+Variables       Y_obs   Y_N_obs    SR_obs     I_obs   p_I_obs     C_obs    NC_obs    NI_obs  util_obs     D_obs     log_Y   log_Y_N    log_SR     log_I   log_p_I     log_C     log_N    log_NC    log_NI  log_util     log_D
+Y_obs          1.0000    0.7099    0.8217    0.9842   -0.7802    0.6480    0.0068    0.2349    0.7952    0.3454    0.0263    0.0288    0.2094    0.1087   -0.1538   -0.0730   -0.0030   -0.0434    0.0460    0.0990   -0.0194
+Y_N_obs        0.7099    1.0000    0.9789    0.7617   -0.9793    0.1894   -0.6901   -0.5078    0.3475   -0.0541    0.0155    0.0351    0.1250    0.0503   -0.1008   -0.0269   -0.0548   -0.0566   -0.0505    0.0359   -0.0256
+SR_obs         0.8217    0.9789    1.0000    0.8673   -0.9873    0.2802   -0.5529   -0.3406    0.4879    0.0489   -0.0391    0.0034    0.0671   -0.0102   -0.0476   -0.0678   -0.1316   -0.1384   -0.1183   -0.0334   -0.0746
+I_obs          0.9842    0.7617    0.8673    1.0000   -0.8385    0.5028   -0.0969    0.1612    0.7749    0.3113   -0.0181    0.0105    0.1342    0.0411   -0.0960   -0.0848   -0.0871   -0.1165   -0.0482    0.0213   -0.0593
+p_I_obs       -0.7802   -0.9793   -0.9873   -0.8385    1.0000   -0.2020    0.5897    0.3963   -0.4731    0.0070    0.0251   -0.0113   -0.0814   -0.0048    0.0615    0.0568    0.1113    0.1154    0.1019    0.0145    0.0643
+C_obs          0.6480    0.1894    0.2802    0.5028   -0.2020    1.0000    0.4495    0.4532    0.5487    0.3469    0.2062    0.0956    0.4447    0.3535   -0.3381    0.0086    0.3600    0.2891    0.4317    0.3915    0.1600
+NC_obs         0.0068   -0.6901   -0.5529   -0.0969    0.5897    0.4495    1.0000    0.9197    0.2793    0.3906    0.0174   -0.0195    0.0626    0.0623   -0.0315   -0.0372    0.1112    0.0682    0.1589    0.0781    0.0266
+NI_obs         0.2349   -0.5078   -0.3406    0.1612    0.3963    0.4532    0.9197    1.0000    0.5126    0.5199   -0.0026   -0.0139    0.0529    0.0377   -0.0286   -0.0493    0.0328   -0.0082    0.0811    0.0404    0.0010
+util_obs       0.7952    0.3475    0.4879    0.7749   -0.4731    0.5487    0.2793    0.5126    1.0000    0.4175   -0.0163   -0.0036    0.1166    0.0443   -0.0779   -0.0847   -0.0399   -0.0802    0.0104    0.0450   -0.0416
+D_obs          0.3454   -0.0541    0.0489    0.3113    0.0070    0.3469    0.3906    0.5199    0.4175    1.0000    0.0271    0.0114    0.0919    0.0667   -0.0657   -0.0223    0.0509    0.0227    0.0829    0.0691    0.0594
+log_Y          0.0263    0.0155   -0.0391   -0.0181    0.0251    0.2062    0.0174   -0.0026   -0.0163    0.0271    1.0000    0.9468    0.8261    0.9500   -0.9656    0.9316    0.3275    0.3003    0.3477    0.7228    0.9398
+log_Y_N        0.0288    0.0351    0.0034    0.0105   -0.0113    0.0956   -0.0195   -0.0139   -0.0036    0.0114    0.9468    1.0000    0.6505    0.8099   -0.8531    0.9863    0.0060   -0.0179    0.0346    0.4950    0.9057
+log_SR         0.2094    0.1250    0.0671    0.1342   -0.0814    0.4447    0.0626    0.0529    0.1166    0.0919    0.8261    0.6505    1.0000    0.9518   -0.9342    0.5752    0.6569    0.5914    0.7104    0.8847    0.7021
+log_I          0.1087    0.0503   -0.0102    0.0411   -0.0048    0.3535    0.0623    0.0377    0.0443    0.0667    0.9500    0.8099    0.9518    1.0000   -0.9932    0.7716    0.5740    0.5302    0.6046    0.8732    0.8571
+log_p_I       -0.1538   -0.1008   -0.0476   -0.0960    0.0615   -0.3381   -0.0315   -0.0286   -0.0779   -0.0657   -0.9656   -0.8531   -0.9342   -0.9932    1.0000   -0.8112   -0.4956   -0.4556   -0.5247   -0.8335   -0.8588
+log_C         -0.0730   -0.0269   -0.0678   -0.0848    0.0568    0.0086   -0.0372   -0.0493   -0.0847   -0.0223    0.9316    0.9863    0.5752    0.7716   -0.8112    1.0000   -0.0008   -0.0053    0.0047    0.4563    0.9170
+log_N         -0.0030   -0.0548   -0.1316   -0.0871    0.1113    0.3600    0.1112    0.0328   -0.0399    0.0509    0.3275    0.0060    0.6569    0.5740   -0.4956   -0.0008    1.0000    0.9854    0.9786    0.7926    0.2609
+log_NC        -0.0434   -0.0566   -0.1384   -0.1165    0.1154    0.2891    0.0682   -0.0082   -0.0802    0.0227    0.3003   -0.0179    0.5914    0.5302   -0.4556   -0.0053    0.9854    1.0000    0.9293    0.7197    0.2371
+log_NI         0.0460   -0.0505   -0.1183   -0.0482    0.1019    0.4317    0.1589    0.0811    0.0104    0.0829    0.3477    0.0346    0.7104    0.6046   -0.5247    0.0047    0.9786    0.9293    1.0000    0.8498    0.2796
+log_util       0.0990    0.0359   -0.0334    0.0213    0.0145    0.3915    0.0781    0.0404    0.0450    0.0691    0.7228    0.4950    0.8847    0.8732   -0.8335    0.4563    0.7926    0.7197    0.8498    1.0000    0.6295
+log_D         -0.0194   -0.0256   -0.0746   -0.0593    0.0643    0.1600    0.0266    0.0010   -0.0416    0.0594    0.9398    0.9057    0.7021    0.8571   -0.8588    0.9170    0.2609    0.2371    0.2796    0.6295    1.0000
+
+
+
+COEFFICIENTS OF AUTOCORRELATION
+Order             1        2        3        4        5
+Y_obs        0.6346   0.3963   0.2411   0.1413   0.0783
+Y_N_obs     -0.0406  -0.0323  -0.0175  -0.0079  -0.0019
+SR_obs       0.1031   0.0533   0.0289   0.0137   0.0043
+I_obs        0.5696   0.3055   0.1477   0.0568   0.0071
+p_I_obs      0.0481   0.0231   0.0085   0.0004  -0.0037
+C_obs        0.7796   0.6522   0.5356   0.4290   0.3373
+NC_obs       0.0812   0.0355   0.0170   0.0059  -0.0008
+NI_obs       0.1256   0.0467   0.0049  -0.0160  -0.0247
+util_obs     0.5517   0.3358   0.1962   0.1074   0.0519
+D_obs        0.1002   0.0538   0.0235   0.0043  -0.0074
+log_Y        0.9986   0.9954   0.9910   0.9860   0.9806
+log_Y_N      0.9975   0.9952   0.9931   0.9910   0.9890
+log_SR       0.9908   0.9798   0.9678   0.9553   0.9425
+log_I        0.9966   0.9894   0.9801   0.9697   0.9590
+log_p_I      0.9924   0.9842   0.9755   0.9668   0.9580
+log_C        0.9998   0.9992   0.9983   0.9971   0.9958
+log_N        0.9891   0.9763   0.9626   0.9486   0.9346
+log_NC       0.9907   0.9799   0.9684   0.9566   0.9447
+log_NI       0.9869   0.9704   0.9527   0.9349   0.9176
+log_util     0.9959   0.9874   0.9762   0.9634   0.9497
+log_D        0.9929   0.9845   0.9753   0.9657   0.9561
+Total computing time : 0h32m12s
+Note: warning(s) encountered in MATLAB/Octave code

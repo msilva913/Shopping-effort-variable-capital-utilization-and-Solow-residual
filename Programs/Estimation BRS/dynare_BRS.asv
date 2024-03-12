@@ -1,23 +1,23 @@
 clc;
 clear;
-%% 
+%% Baseline RBC model comparision
 addpath c:\dynare\5.4\matlab
+dynare RBC_growth.mod
 
-%% BRS in first differences (demeaned) -> closest correspondence to paper
-dynare BRS_fd.mod
-%% BRS with  TFP growth
-dynare BRS_growth.mod
-irf_basic = oo_.irfs
-save('irf_basic.mat', 'irf_basic')
+%% General preferences with parameterized wealth effects
+dynare BRS_gen.mod 
+irf = oo_.irfs;
+save('irf_KPR.mat', 'irf')
+%%
+dynare BRS_growth_uti_sectoral.mod
+%% Estimate with sectoral data
 
-%% BRS with TFP growth and restriction
-dynare BRS_growth_res.mod 
-% results hold up nicely-> reasonable moments, captures contribution of
-% demand shocks to lab_prod
 
-%% BRS with TFP growth: add capacity utilization and vcu in model
-dynare BRS_growth_util.mod 
-% Far too low volatility of capacity utilization
+
+dynare BRS_growth_KPR_sectoral.mod
+%% Estimate sectoral data, separable preferences
+dynare BRS_growth_util_sectoral_separable_alt.mod
+%dynare BRS_growth_util_sectoral_exc.mod
 %% Intersector labor market friction
 dynare BRS_imp_mobility.mod
 
@@ -25,8 +25,7 @@ dynare BRS_imp_mobility.mod
 dynare BRS_imp_mobility_est.mod
 % Too high volatility
 
-%% Diagnose volatility issue by removing capacity utilization from observables
-dynare BRS_imp_mobility_red.mod 
+
 
 % save('SR', 'SR_obs')
 % save('SR_util', 'SR_util_obs')

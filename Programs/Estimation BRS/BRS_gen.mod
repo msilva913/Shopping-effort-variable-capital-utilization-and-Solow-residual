@@ -5,6 +5,8 @@
 var Y           ${Y}$ (long_name='output')
     C           ${C}$ (long_name='consumption')
     I           ${I}$ (long_name = 'investment')
+    I_C         ${I_C}$ (long_name = 'investment:C')
+    I_I         ${I_I}$ (long_name = 'investment:I')
     K           ${K}$ (long_name='Capital')
     K_C         ${K_C}$ (long_name='Capital:C')
     K_I         ${K_I}$ (long_name='Capital:I')
@@ -33,8 +35,10 @@ var Y           ${Y}$ (long_name='output')
 
     delta_C_pr    ${\delta_C}$ (long_name= 'Capital depreciation rate derivative:C')
     delta_I_pr    ${\delta_I}$ (long_name= 'Capital depreciation rate derivative:I')
-    S            $S$ (long_name = 'Investment adjustment cost')
-    S_pr         $S_pr$ (long_name = 'Derivative investment adjustment cost')
+    Sc            $S$ (long_name = 'Investment adjustment cost:C')
+    Si            $S$ (long_name = 'Investment adjustment cost:I')
+    Sc_pr         $S_pr$ (long_name = 'Derivative investment adjustment cost:C')
+    Si_pr         $S_pr$ (long_name = 'Derivative investment adjustment cost:I')
 
     D           ${D}$ (long_name='Shopping effort')
     D_C           ${D}$ (long_name='Shopping effort:C')
@@ -44,8 +48,11 @@ var Y           ${Y}$ (long_name='output')
     zeta       ${\zeta}$ (long_name = 'Wealth effects parameter')
 
     p_I        ${p_I}$ (long_name = 'Relative investment price')
-    Q          ${Q}$ (long_name = 'Relative price of capital')
-    x          ${x}$ (long_name = 'Growth rate of investment')
+    Q_C          ${Q}$ (long_name = 'Relative price of capital:C')
+    Q_I          ${Q}$ (long_name = 'Relative price of capital:I')
+    x_C          ${x}$ (long_name = 'Growth rate of investment:C')
+    x_I          ${x}$ (long_name = 'Growth rate of investment:I')
+
 
     log_SR         (long_name='Solow residual')
     
@@ -97,8 +104,10 @@ parameters
     nu     $\nu$       (long_name = 'Frisch elasticity')
     sigma_s $\sigma_s$ (long_name = 'wealth effect on labor supply')
 
-    sigma_a ${\sigma_a}$ (long_name = 'Inverse elasticity of marginal utilization cost wrt rental rate')
-    Psi_K ${\Psi_K}$ (long_name = 'Investment adjustment cost parameter')
+    sigma_ac ${\sigma_ac}$ (long_name = 'Inverse elasticity of marginal utilization cost wrt rental rate:C')
+    sigma_ai ${\sigma_ai}$ (long_name = 'Inverse elasticity of marginal utilization cost wrt rental rate:I')
+    Psi_C ${\Psi_C}$ (long_name = 'Investment adjustment cost parameter:C')
+    Psi_I ${\Psi_I}$ (long_name = 'Investment adjustment cost parameter:I')
    
     I_Y    ${I_Y}$   (long_name = 'Investment-output ratio')
     K_Y    ${K_Y}$   (long_name = 'Capital-output ratio (quarterly)')
@@ -134,9 +143,14 @@ g_bar = 0.0045; % quarterly growth rate
 gam_max = (1/4)*log(1+r_ann)/g_bar;
 nu = 0.72; % Frisch
 sigma_s = 0.5;
-sigma_a = 0.32; % inverse of elasticity of capital utilization wrt rental rate
-Psi_K = 1.5;
 ha = 0.1;
+
+sigma_ac = 0.32; % inverse of elasticity of capital utilization wrt rental rate
+sigma_ai = 0.32;
+Psi_C = 1.5;
+Psi_I = 1.5;
+
+
 
 I_Y = 0.20;
 K_Y = 11;
@@ -227,45 +241,58 @@ Gam = exp(theta_C)*(C-ha*C(-1)) - exp(theta_D)*D^(1+1/eta)/(1+1/eta) - theta_N_s
 [name = 'Law of motion of wealth effects variable']
 zeta =  (exp(theta_C)*(C-ha*C(-1)) - exp(theta_D)*D^(1+1/eta)/(1+1/eta))^(sigma_s)*zeta(-1)^(1-sigma_s);
 
-[name = 'Investment adjustment cost function']
-S =Psi_K/2*(x-exp(g_bar))^2;
+[name = 'Investment adjustment cost function:C']
+Sc =Psi_C/2*(x_C-exp(g_bar))^2;
 
-[name = 'Investment adjustment cost function: derivative']
-S_pr = Psi_K*(x-exp(g_bar));
+[name = 'Investment adjustment cost function:I']
+Si =Psi_I/2*(x_I-exp(g_bar))^2;
 
-[name = 'Investment growth']
-x = I/I(-1)*exp(g);
+[name = 'Investment adjustment cost function: derivative C']
+Sc_pr = Psi_C*(x_C-exp(g_bar));
 
-[name = 'Tobins Q']
-p_I/(1-phi) = Q*(1-S_pr*x-S) + 
-    beta*exp(theta_C(+1))/exp(theta_C)*(Gam(+1)/Gam)^(-gam)*exp(g(+1))^(-gam)*Q(+1)*S_pr(+1)*x(+1)^2;
+[name = 'Investment adjustment cost function: derivative I']
+Si_pr = Psi_I*(x_I-exp(g_bar));
+
+[name = 'Investment growth:C']
+x_C = I_C/I_C(-1)*exp(g);
+
+[name = 'Investment growth:I']
+x_I = I_I/I_I(-1)*exp(g);
+
+[name = 'Tobins Q: C']
+p_I/(1-phi) = Q_C*(1-Sc_pr*x_C-Sc) + 
+    beta*exp(theta_C(+1))/exp(theta_C)*(Gam(+1)/Gam)^(-gam)*exp(g(+1))^(-gam)*Q_C(+1)*Sc_pr(+1)*x_C(+1)^2;
+
+[name = 'Tobins Q: I']
+p_I/(1-phi) = Q_I*(1-Si_pr*x_I-Si) + 
+    beta*exp(theta_C(+1))/exp(theta_C)*(Gam(+1)/Gam)^(-gam)*exp(g(+1))^(-gam)*Q_I(+1)*Si_pr(+1)*x_I(+1)^2;
 
 [name= 'Euler equation: C']
 //Q = beta*(Gam(+1)/Gam)^(-gam)*exp(g(+1))^(-gam)*(R_C(+1)*h_C(+1) + (1-delta_C(+1))*Q(+1));
-Q = beta*exp(theta_C(+1))/exp(theta_C)*(Gam(+1)/Gam)^(-gam)*exp(g(+1))^(-gam)*(R_C(+1)*h_C(+1) + (1-delta_C(+1))*Q(+1));
+Q_C = beta*exp(theta_C(+1))/exp(theta_C)*(Gam(+1)/Gam)^(-gam)*exp(g(+1))^(-gam)*(R_C(+1)*h_C(+1) + (1-delta_C(+1))*Q_C(+1));
 
 [name = 'Euler equation: I']
 //Q = beta*(Gam(+1)/Gam)^(-gam)*exp(g(+1))^(-gam)*(R_I(+1)*h_I(+1) + (1-delta_I(+1))*Q(+1));
-Q = beta*exp(theta_C(+1))/exp(theta_C)*(Gam(+1)/Gam)^(-gam)*exp(g(+1))^(-gam)*(R_I(+1)*h_I(+1) + (1-delta_I(+1))*Q(+1));
+Q_I = beta*exp(theta_C(+1))/exp(theta_C)*(Gam(+1)/Gam)^(-gam)*exp(g(+1))^(-gam)*(R_I(+1)*h_I(+1) + (1-delta_I(+1))*Q_I(+1));
 
 
 [name = 'Utilization: C']
-delta_C_pr*Q = R_C;
+delta_C_pr*Q_C = R_C;
 
 [name = 'Utilization: I']
-delta_I_pr*Q = R_I;
+delta_I_pr*Q_I = R_I;
 
 [name = 'Depreciation rate: C']
-delta_C = delta + sigma_b*(h_C-1) + sigma_a*sigma_b/2*(h_C-1)^2;
+delta_C = delta + sigma_b*(h_C-1) + sigma_ac*sigma_b/2*(h_C-1)^2;
 
 [name = 'Depreciation rate: I']
-delta_I = delta + sigma_b*(h_I-1) + sigma_a*sigma_b/2*(h_I-1)^2;
+delta_I = delta + sigma_b*(h_I-1) + sigma_ai*sigma_b/2*(h_I-1)^2;
 
 [name = 'Depreciation rate derivative: C']
-delta_C_pr = sigma_b + sigma_a*sigma_b*(h_C-1);
+delta_C_pr = sigma_b + sigma_ac*sigma_b*(h_C-1);
 
 [name = 'Depreciation rate derivative: I']
-delta_I_pr = sigma_b + sigma_a*sigma_b*(h_I-1);
+delta_I_pr = sigma_b + sigma_ai*sigma_b*(h_I-1);
 
 [name = 'Consumption production']
 C = A_C*(D_C)^phi*(Z_C_ss*exp(g)^(-alpha_K)*exp(Z_C)*(h_C*K_C(-1))^alpha_K*(N_C)^alpha_N-nu_C);
@@ -273,9 +300,12 @@ C = A_C*(D_C)^phi*(Z_C_ss*exp(g)^(-alpha_K)*exp(Z_C)*(h_C*K_C(-1))^alpha_K*(N_C)
 [name = 'Investment production']
 I = A_I*(D_I)^phi*(Z_I_ss*exp(g)^(-alpha_K)*exp(Z_I)*(h_I*K_I(-1))^alpha_K*(N_I)^alpha_N-nu_I);
 
-[name = 'Capital law of motion']
-(1-S)*I*exp(g) = (K_C + K_I)*exp(g) - (1-delta_C)*K_C(-1) - (1-delta_I)*K_I(-1);
-//I*exp(g) = (K_C + K_I)*exp(g) - (1-delta_C)*K_C(-1) - (1-delta_I)*K_I(-1);
+[name = 'Capital law of motion:C']
+K_C*exp(g) = (1-Sc)*I_C*exp(g) + (1-delta_C)*K_C(-1);
+
+[name = 'Capital law of motion:I']
+K_I*exp(g) = (1-Si)*I_I*exp(g) + (1-delta_I)*K_I(-1);
+
 
 [name = 'Labor demand:C']
 (1-phi)*W_C = alpha_N*(C+A_C*D_C^phi*nu_C)/N_C;
@@ -294,6 +324,9 @@ N = N_C + N_I;
 
 [name = 'Capital composition']
 K = K_C + K_I;
+
+[name = 'Investment composition']
+I = I_C + I_I;
 
 [name = 'Shopping composition']
 D = D_C + exp(theta_I)*D_I;
@@ -388,6 +421,9 @@ steady_state_model;
     D = phi_ss^(eta/(1+eta));
     D_C = (1-I_Y)*D;
     D_I = I_Y*D;
+
+    I_C = I*C;
+    I_I = I*I_Y;
     
     A_C_ss = Psi/D_C^phi_ss;
     A_I_ss = Psi/D_I^phi_ss;
@@ -430,10 +466,14 @@ steady_state_model;
     delta_C_pr = sigma_b_ss;
     delta_I_pr = sigma_b_ss;
 
-    Q = p_I/(1-phi_ss);
-    x = exp(g_bar);
-    S = 0;
-    S_pr = 0;
+    Q_C = p_I/(1-phi_ss);
+    Q_I = Q_C;
+    x_C = exp(g_bar);
+    x_I = x_C;
+    Sc = 0;
+    Si = 0;
+    Sc_pr = 0;
+    Si_pr = 0;
     
 
     util_C = A_C_ss*D_C^phi_ss*((h_C*K_C)^alpha_K_ss*N_C^alpha_N_ss-nu_C_ss)/(K_C^alpha_K_ss*N_C^alpha_N_ss-nu_C_ss);
@@ -512,8 +552,10 @@ nu, 0.72, 0.05, 2.0,           GAMMA_PDF, 0.72, 0.25;
 sigma_s, 0.5, 0.0, 1.0,        BETA_PDF, 0.5, 0.2; %Born, Peter, and Pfeifer (2013)
 m, 0.286, 0.0, 0.95,          GAMMA_PDF, 0.286, 0.2;
 
-sigma_a, 0.32, 0.0, 10,       INV_GAMMA_PDF, 1, 1;
-Psi_K, 1.5, 0.0, 50,           GAMMA_PDF, 4, 1.0; % Schmitt-Grohe and Uribe (2010), Katayama and Kim 2018, 
+sigma_ac, 0.32, 0.0, 10,       INV_GAMMA_PDF, 1, 1; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
+sigma_ai, 0.32, 0.0, 10,       INV_GAMMA_PDF, 1, 1; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
+Psi_C, 1.5, 0.0, 50,           GAMMA_PDF, 4, 1.0; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
+Psi_I, 1.5, 0.0, 50,           GAMMA_PDF, 4, 1.0; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
 
 //phi, 0.32, 0.00, 0.999,        BETA_PDF, 0.32, 0.2;
 eta, 0.20, 0.00, 10.0,          GAMMA_PDF, 0.2, 0.15;
@@ -551,18 +593,18 @@ estimation(tex, optim=('MaxIter', 200),
 datafile=observables_sectoral, 
 mode_file=BRS_gen_mode, 
 //nograph,
-load_mh_file, 
+//load_mh_file, 
 //mh_recover,
-//mcmc_jumping_covariance=prior_variance,
+mcmc_jumping_covariance=prior_variance,
 
 mode_compute=0,
 presample=0, 
 lik_init=2,
-//mh_jscale=0.00075, 
+mh_jscale=0.002, 
 mh_init_scale =0.0001,
-mh_jscale=0.1,
+//mh_jscale=0.1,
 mode_check, 
-mh_replic=100000, 
+mh_replic=150000, 
 //mh_replic=0,
 mh_nblocks=2, 
 //bayesian_irf,
