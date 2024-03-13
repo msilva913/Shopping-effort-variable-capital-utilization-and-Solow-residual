@@ -18,7 +18,7 @@ function T = dynamic_g2_tt(T, y, x, params, steady_state, it_)
 %   T           [#temp variables by 1]       double  vector of temporary terms
 %
 
-assert(length(T) >= 75);
+assert(length(T) >= 76);
 
 T = BRS_gen.dynamic_g1_tt(T, y, x, params, steady_state, it_);
 

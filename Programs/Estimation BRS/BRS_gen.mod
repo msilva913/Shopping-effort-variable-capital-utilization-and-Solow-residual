@@ -21,7 +21,7 @@ var Y           ${Y}$ (long_name='output')
     theta_N     ${\theta_N}$ (long_name='Labor disutility')
     theta_D     ${\theta_D}$ (long_name='Shopping disutility')
     theta_I     ${\theta_I}$ (long_name ='Relative shopping disutility')
-    theta_C     ${\theta_C}$ (long_name='Consumption preference shock')
+    theta_b     ${\theta_b}$ (long_name='Discount factor shock')
     R_C         ${R_C}$ (long_name='Capital rental rate:C')
     R_I         ${R_I}$ (long_name='Capital rental rate:I')
     W_C           ${W}$ (long_name='Real wage:C')
@@ -93,19 +93,19 @@ varexo e_g ${e_g}$ (long_name= 'Labor-augmenting-technology growth shock')
        e_N ${e_N}$ (long_name= 'Labor supply shock')
        e_D ${e_D}$ (long_name = 'Shopping disutility shock')
        e_DI ${e_DI}$ (long_name = 'Relative investment shopping disutility shock')
-       e_C ${e_C}$ (long_name = 'Consumption preference shock')
+       e_b ${e_b}$ (long_name = 'Discount factor shock')
     ;
     
 parameters 
     gam    ${\gamma}$   (long_name= 'Risk aversion')
     gam_max ${\gamma_{max}}$ (long_name= 'Upper bound on risk aversion')
-    r_ann  ${r_ann}$    (long_name='Annual interest rate')
+    beta  ${\beta}$    (long_name='Discount factor')
     g_bar  ${\overline{g}}$ (long_name = 'Quarterly trend growth rate')
     nu     $\nu$       (long_name = 'Frisch elasticity')
     sigma_s $\sigma_s$ (long_name = 'wealth effect on labor supply')
 
-    sigma_ac ${\sigma_ac}$ (long_name = 'Inverse elasticity of marginal utilization cost wrt rental rate:C')
-    sigma_ai ${\sigma_ai}$ (long_name = 'Inverse elasticity of marginal utilization cost wrt rental rate:I')
+    sigma_ac ${\sigma_{ac}}$ (long_name = 'Inverse elasticity of marginal utilization cost wrt rental rate:C')
+    sigma_ai ${\sigma_{ai}}$ (long_name = 'Inverse elasticity of marginal utilization cost wrt rental rate:I')
     Psi_C ${\Psi_C}$ (long_name = 'Investment adjustment cost parameter:C')
     Psi_I ${\Psi_I}$ (long_name = 'Investment adjustment cost parameter:I')
    
@@ -128,7 +128,7 @@ parameters
     rho_N    ${\rho_N}$  (long_name='persistence labor supply shock')
     rho_D    ${\rho_D}$  (long_name='persistence shopping effort shock')
     rho_DI   ${\rho_{DI}}$ (long_name='persistence relative shopping effort shock')
-    rho_C    ${\rho_C}$  (long_name='persistence consumption preference shock')
+    rho_b    ${\rho_b}$  (long_name='persistence discount factor shock')
 
     p_I_ss
     N_ss
@@ -138,9 +138,10 @@ parameters
 % set parameter values 
 %----------------------------------------------------------------
 gam = 2.0; % risk aversion
-r_ann = 0.04; % annual interest rate 
+beta = 0.99; % discount factor
+//r_ann = 0.04; % annual interest rate 
 g_bar = 0.0045; % quarterly growth rate
-gam_max = (1/4)*log(1+r_ann)/g_bar;
+//gam_max = (1/4)*log(1+r_ann)/g_bar;
 nu = 0.72; % Frisch
 sigma_s = 0.5;
 ha = 0.1;
@@ -149,8 +150,6 @@ sigma_ac = 0.32; % inverse of elasticity of capital utilization wrt rental rate
 sigma_ai = 0.32;
 Psi_C = 1.5;
 Psi_I = 1.5;
-
-
 
 I_Y = 0.20;
 K_Y = 11;
@@ -173,7 +172,7 @@ rho_ZI = 0.9;
 rho_N = 0.9;
 rho_D = 0.9;
 rho_DI = 0.9;
-rho_C = 0.9;
+rho_b = 0.9;
 
 %----------------------------------------------------------------
 % enter model equations
@@ -181,10 +180,11 @@ rho_C = 0.9;
 
 model;
 % Dependent parameters
-#r = (1+r_ann)^(1/4) - 1.0;
 #I_K = I_Y/K_Y;
 #delta = I_K + 1 - exp(g_bar);
-#beta=(1/(1+r))*(exp(g_bar))^(gam);
+//#r = (1+r_ann)^(1/4) - 1.0;
+//#beta=(1/(1+r))*(exp(g_bar))^(gam);
+#r = exp(g_bar)^(gam)/beta - 1;
 
 # sigma_b = r + delta;
 #phi = (eta+1)*m/(1+eta*m);
@@ -223,23 +223,23 @@ model;
 N_comp = (omega^(-theta)*N_C^(1+theta) + (1-omega)^(-theta)*N_I^(1+theta))^(1/(1+theta));
 
 [name='Labor leisure:C']
-theta_N_ss*exp(theta_N)*(N_comp)^(1/nu)*(N_C/N_comp)^theta*omega^(-theta) = exp(theta_C)*(1-phi)*W_C/zeta;
+theta_N_ss*exp(theta_N)*(N_comp)^(1/nu)*(N_C/N_comp)^theta*omega^(-theta) = (1-phi)*W_C/zeta;
 
 [name='Labor leisure:I']
-theta_N_ss*exp(theta_N)*(N_comp)^(1/nu)*(N_I/N_comp)^theta*(1-omega)^(-theta)  = exp(theta_C)*(1-phi)*W_I/zeta;
+theta_N_ss*exp(theta_N)*(N_comp)^(1/nu)*(N_I/N_comp)^theta*(1-omega)^(-theta)  = (1-phi)*W_I/zeta;
 
 [name='Shopping:C']
-exp(theta_D)*D^(1/eta) = exp(theta_C)*phi*C/D_C;
+exp(theta_D)*D^(1/eta) = phi*C/D_C;
 
 [name = 'Shopping:I']
-//exp(theta_D)*D^(1/eta) = phi*exp(theta_C)*p_I*I/D_I;
-exp(theta_D)*D^(1/eta)*exp(theta_I) = exp(theta_C)*phi*p_I*I/D_I;
+//exp(theta_D)*D^(1/eta) = phi*p_I*I/D_I;
+exp(theta_D)*D^(1/eta)*exp(theta_I) = phi*p_I*I/D_I;
 
 [name = 'Composite utility term']
-Gam = exp(theta_C)*(C-ha*C(-1)) - exp(theta_D)*D^(1+1/eta)/(1+1/eta) - theta_N_ss*exp(theta_N)*N_comp^(1+1/nu)/(1+1/nu)*zeta;
+Gam = C-ha*C(-1) - exp(theta_D)*D^(1+1/eta)/(1+1/eta) - theta_N_ss*exp(theta_N)*N_comp^(1+1/nu)/(1+1/nu)*zeta;
 
 [name = 'Law of motion of wealth effects variable']
-zeta =  (exp(theta_C)*(C-ha*C(-1)) - exp(theta_D)*D^(1+1/eta)/(1+1/eta))^(sigma_s)*zeta(-1)^(1-sigma_s);
+zeta =  (C-ha*C(-1) - exp(theta_D)*D^(1+1/eta)/(1+1/eta))^(sigma_s)*zeta(-1)^(1-sigma_s);
 
 [name = 'Investment adjustment cost function:C']
 Sc =Psi_C/2*(x_C-exp(g_bar))^2;
@@ -261,19 +261,17 @@ x_I = I_I/I_I(-1)*exp(g);
 
 [name = 'Tobins Q: C']
 p_I/(1-phi) = Q_C*(1-Sc_pr*x_C-Sc) + 
-    beta*exp(theta_C(+1))/exp(theta_C)*(Gam(+1)/Gam)^(-gam)*exp(g(+1))^(-gam)*Q_C(+1)*Sc_pr(+1)*x_C(+1)^2;
+    beta*exp(theta_b)*(Gam(+1)/Gam)^(-gam)*exp(g(+1))^(-gam)*Q_C(+1)*Sc_pr(+1)*x_C(+1)^2;
 
 [name = 'Tobins Q: I']
 p_I/(1-phi) = Q_I*(1-Si_pr*x_I-Si) + 
-    beta*exp(theta_C(+1))/exp(theta_C)*(Gam(+1)/Gam)^(-gam)*exp(g(+1))^(-gam)*Q_I(+1)*Si_pr(+1)*x_I(+1)^2;
+    beta*exp(theta_b)*(Gam(+1)/Gam)^(-gam)*exp(g(+1))^(-gam)*Q_I(+1)*Si_pr(+1)*x_I(+1)^2;
 
 [name= 'Euler equation: C']
-//Q = beta*(Gam(+1)/Gam)^(-gam)*exp(g(+1))^(-gam)*(R_C(+1)*h_C(+1) + (1-delta_C(+1))*Q(+1));
-Q_C = beta*exp(theta_C(+1))/exp(theta_C)*(Gam(+1)/Gam)^(-gam)*exp(g(+1))^(-gam)*(R_C(+1)*h_C(+1) + (1-delta_C(+1))*Q_C(+1));
+Q_C = beta*exp(theta_b)*(Gam(+1)/Gam)^(-gam)*exp(g(+1))^(-gam)*(R_C(+1)*h_C(+1) + (1-delta_C(+1))*Q_C(+1));
 
 [name = 'Euler equation: I']
-//Q = beta*(Gam(+1)/Gam)^(-gam)*exp(g(+1))^(-gam)*(R_I(+1)*h_I(+1) + (1-delta_I(+1))*Q(+1));
-Q_I = beta*exp(theta_C(+1))/exp(theta_C)*(Gam(+1)/Gam)^(-gam)*exp(g(+1))^(-gam)*(R_I(+1)*h_I(+1) + (1-delta_I(+1))*Q_I(+1));
+Q_I = beta*exp(theta_b)*(Gam(+1)/Gam)^(-gam)*exp(g(+1))^(-gam)*(R_I(+1)*h_I(+1) + (1-delta_I(+1))*Q_I(+1));
 
 
 [name = 'Utilization: C']
@@ -361,7 +359,7 @@ theta_D = rho_D*theta_D(-1) - e_D;
 theta_I = rho_DI*theta_I(-1) - e_DI;
 
 [name='Consumption preference process']
-theta_C = rho_C*theta_C(-1) + e_C;
+theta_b = rho_b*theta_b(-1) + e_b;
 
 
 [name='Definition log output']
@@ -448,9 +446,10 @@ steady_state_model;
     theta_N_s = (1-phi_ss)*W_C/(N^(1/nu)*zeta);
     Gam = (C*(1-ha) - D^(1+1/eta)/(1+1/eta) - theta_N_s*N_comp^(1+1/nu)/(1+1/nu)*zeta);
    
-    r_ss = (1+r_ann)^(1/4) - 1.0;
-    beta_ss = (1/(1+r_ss))*exp(g_bar)^(gam);
+    //r_ss = (1+r_ann)^(1/4) - 1.0;
+    //beta_ss = (1/(1+r_ss))*exp(g_bar)^(gam);
     //delta_ss = I_Y/K_Y*(1+g_bar) - g_bar;
+    r_ss = exp(g_bar)^gam/beta - 1.0;
     delta_ss = I_Y/K_Y + 1 - exp(g_bar);
     sigma_b_ss = r_ss + delta_ss;
     alpha_K_ss = (r_ss+delta_ss)*K_Y/(1+nu_R);
@@ -485,7 +484,7 @@ steady_state_model;
     u_ZI = 0;
     theta_N = 0;
     theta_D = 0;
-    theta_C = 0;
+    theta_b = 0;
     theta_I = 0;
 
    
@@ -528,7 +527,7 @@ shocks;
     var e_ZI=0.0072^2;
     var e_N = 0.0072^2;
     var e_D = 0.0072^2;
-    var e_C = 0.0072^2;
+    var e_b = 0.0072^2;
     var e_DI = 0.0072^2;
 end;
 
@@ -546,7 +545,8 @@ check;
 estimated_params;
 //x, init_value, lower bound, upper bound, prior shape, prior mean, prior std
 
-gam, 1.5, 1.0, gam_max,       BETA_PDF, 1.5, 0.25, 1.0, gam_max;
+//gam, 1.5, 1.0, gam_max,       BETA_PDF, 1.5, 0.25, 1.0, gam_max;
+gam, 1.5, 1.0, 4.0,             BETA_PDF, 1.5, 0.25, 1.0, 4.0;
 ha, 0.5, 0.0, 0.95,           BETA_PDF, 0.5, 0.2;
 nu, 0.72, 0.05, 2.0,           GAMMA_PDF, 0.72, 0.25;
 sigma_s, 0.5, 0.0, 1.0,        BETA_PDF, 0.5, 0.2; %Born, Peter, and Pfeifer (2013)
@@ -570,7 +570,7 @@ rho_ZI,  0.95, 0.01, 0.999999,    BETA_PDF, 0.6, 0.2;
 rho_N,  0.6, 0.01, 0.9999,        BETA_PDF, 0.6, 0.2;
 rho_D,  0.9, 0.01, 0.9999,        BETA_PDF, 0.6, 0.2;
 rho_DI, 0.9, 0.01, 0.9999,          BETA_PDF, 0.6, 0.2;
-rho_C,  0.95, 0.01, 0.99999999,        BETA_PDF, 0.6, 0.2;
+rho_b,  0.95, 0.01, 0.99999999,        BETA_PDF, 0.6, 0.2;
 
 % Standard errors
 stderr e_g, 0.01, 0.00001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
@@ -579,25 +579,23 @@ stderr e_ZI, 0.01, 0.0001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
 stderr e_N, 0.01, 0.0001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
 stderr e_D, 0.01, 0.0001, 0.4,  INV_GAMMA_PDF, 0.01, 0.1;
 stderr e_DI, 0.01, 0.0001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
-stderr e_C, 0.01, 0.0001, 0.4,  INV_GAMMA_PDF, 0.01, 0.1;
+stderr e_b, 0.01, 0.0001, 0.4,  INV_GAMMA_PDF, 0.01, 0.1;
 
 end;
 
 options_.TeX=1;
 
 varobs I_obs, Y_obs, Y_N_obs, p_I_obs;
-//varobs NC_obs, NI_obs, C_obs, I_obs, p_I_obs;
-
 
 estimation(tex, optim=('MaxIter', 200), 
 datafile=observables_sectoral, 
-mode_file=BRS_gen_mode, 
+//mode_file=BRS__mode, 
 //nograph,
 //load_mh_file, 
 //mh_recover,
 mcmc_jumping_covariance=prior_variance,
 
-mode_compute=0,
+mode_compute=4,
 presample=0, 
 lik_init=2,
 mh_jscale=0.002, 
