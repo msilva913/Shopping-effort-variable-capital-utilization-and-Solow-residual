@@ -88,10 +88,19 @@ var Y           ${Y}$ (long_name='output')
     ;
 
 varexo e_g ${e_g}$ (long_name= 'Labor-augmenting-technology growth shock')
+       e_g_news_1 ${e_{g,news, 1}}$ (long_name= 'Labor-augmenting-technology growth shock: news 1')
+       e_g_news_4 ${e_{g,news, 4}}$ (long_name= 'Labor-augmenting-technology growth shock: news 4')
        e_Z ${e_Z}$ (long_name= 'TFP shock')
+       e_Z_news_1 ${e_{Z,news,1}}$ (long_name= 'TFP shock: news 1')
+       e_Z_news_4 ${e_{Z,news,4}}$ (long_name= 'TFP shock: news 4')
        e_ZI ${e_{ZI}}$ (long_name= 'Investment-specific tech shock')
+       e_ZI_news_1 ${e_{ZI,news, 1}}$ (long_name= 'Investment-specific tech shock: news 1')
+       e_ZI_news_4 ${e_{ZI,news, 4}}$ (long_name= 'Investment-specific tech shock: news 4')
+       
        e_N ${e_N}$ (long_name= 'Labor supply shock')
        e_D ${e_D}$ (long_name = 'Shopping disutility shock')
+       e_D_news_1 ${e_{D,news}}$ (long_name = 'Shopping disutility shock: news 1')
+       e_D_news_4 ${e_{D,news}}$ (long_name = 'Shopping disutility shock: news 4')
        e_DI ${e_DI}$ (long_name = 'Relative investment shopping disutility shock')
        e_b ${e_b}$ (long_name = 'Discount factor shock')
     ;
@@ -338,13 +347,13 @@ util = (C/Y)*A_C*D_C^phi*((h_C*K_C(-1))^alpha_K*N_C^alpha_N-nu_C)/(K_C(-1)^alpha
  
 % Exogenous processes
 [name='stochastic trend process']
-g = (1-rho_g)*g_bar + rho_g*g(-1) + e_g;
+g = (1-rho_g)*g_bar + rho_g*g(-1) + e_g + e_g_news_1(-1) + e_g_news_4(-4);
 
 [name='Stationary TFP process']
-Z_C = rho_Z*Z_C(-1) + e_Z;
+Z_C = rho_Z*Z_C(-1) + e_Z + e_Z_news_1(-1) + e_Z_news_4(-4);
 
 [name='Independent component of I-specific tech']
-u_ZI = rho_ZI*Z_I(-1) + e_ZI;
+u_ZI = rho_ZI*Z_I(-1) + e_ZI + e_ZI_news_1(-1) + e_ZI_news_4(-4);
 
 [name ='Investment-specific TFP process']
 Z_I = Z_C + u_ZI;
@@ -353,7 +362,7 @@ Z_I = Z_C + u_ZI;
 theta_N = rho_N*theta_N(-1) - e_N;
 
 [name ='Shopping effort process']
-theta_D = rho_D*theta_D(-1) - e_D;
+theta_D = rho_D*theta_D(-1) - e_D - e_D_news_1(-1) - e_D_news_4(-4);
 
 [name ='Relative shopping effort process']
 theta_I = rho_DI*theta_I(-1) - e_DI;
@@ -574,10 +583,19 @@ rho_b,  0.95, 0.01, 0.99999999,        BETA_PDF, 0.6, 0.2;
 
 % Standard errors
 stderr e_g, 0.01, 0.00001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
+stderr e_g_news_1, 0.01, 0.00001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
+stderr e_g_news_4, 0.01, 0.00001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
 stderr e_Z, 0.01, 0.00001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
+stderr e_Z_news_1, 0.01, 0.00001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
+stderr e_Z_news_4, 0.01, 0.00001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
 stderr e_ZI, 0.01, 0.0001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
+stderr e_ZI_news_1, 0.01, 0.0001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
+stderr e_ZI_news_4, 0.01, 0.0001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
+
 stderr e_N, 0.01, 0.0001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
 stderr e_D, 0.01, 0.0001, 0.4,  INV_GAMMA_PDF, 0.01, 0.1;
+stderr e_D_news_1, 0.01, 0.0001, 0.4,  INV_GAMMA_PDF, 0.01, 0.1;
+stderr e_D_news_4, 0.01, 0.0001, 0.4,  INV_GAMMA_PDF, 0.01, 0.1;
 stderr e_DI, 0.01, 0.0001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
 stderr e_b, 0.01, 0.0001, 0.4,  INV_GAMMA_PDF, 0.01, 0.1;
 
@@ -590,9 +608,9 @@ varobs NC_obs, NI_obs, C_obs, I_obs, p_I_obs;
 
 estimation(tex, optim=('MaxIter', 200), 
 datafile=observables_sectoral, 
-mode_file=BRS_sectoral_mode, 
+//mode_file=BRS_sectoral_mode, 
 //nograph,
-load_mh_file, 
+//load_mh_file, 
 //mh_recover,
 mcmc_jumping_covariance=prior_variance,
 

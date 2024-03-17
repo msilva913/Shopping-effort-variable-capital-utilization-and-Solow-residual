@@ -84,4 +84,24 @@ function [ys_, params, info] = steadystate(ys_, exo_, params)
     ys_(67)=0;
     ys_(69)=0;
     % Auxiliary equations
+ys_(70)=exo_(2);
+ys_(71)=exo_(3);
+ys_(72)=exo_(3);
+ys_(73)=exo_(3);
+ys_(74)=exo_(3);
+ys_(75)=exo_(5);
+ys_(76)=exo_(6);
+ys_(77)=exo_(6);
+ys_(78)=exo_(6);
+ys_(79)=exo_(6);
+ys_(80)=exo_(8);
+ys_(81)=exo_(9);
+ys_(82)=exo_(9);
+ys_(83)=exo_(9);
+ys_(84)=exo_(9);
+ys_(85)=exo_(12);
+ys_(86)=exo_(13);
+ys_(87)=exo_(13);
+ys_(88)=exo_(13);
+ys_(89)=exo_(13);
 end
