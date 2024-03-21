@@ -921,6 +921,7 @@ estim_params_.param_vals = [estim_params_.param_vals; 15, 0.5, 0.0, 0.95, 1, 0.5
 estim_params_.param_vals = [estim_params_.param_vals; 5, 0.72, 0.05, 2.0, 2, 0.72, 0.25, NaN, NaN, NaN ];
 estim_params_.param_vals = [estim_params_.param_vals; 6, 0.5, 0.0, 1.0, 1, 0.5, 0.2, NaN, NaN, NaN ];
 estim_params_.param_vals = [estim_params_.param_vals; 16, 0.286, 0.0, 0.95, 2, 0.286, 0.2, NaN, NaN, NaN ];
+estim_params_.param_vals = [estim_params_.param_vals; 14, 0.20, 0.01, 0.5, 1, 0.2, 0.1, NaN, NaN, NaN ];
 estim_params_.param_vals = [estim_params_.param_vals; 7, 0.32, 0.0, 10, 4, 1, 1, NaN, NaN, NaN ];
 estim_params_.param_vals = [estim_params_.param_vals; 8, 0.32, 0.0, 10, 4, 1, 1, NaN, NaN, NaN ];
 estim_params_.param_vals = [estim_params_.param_vals; 9, 1.5, 0.0, 50, 2, 4, 1.0, NaN, NaN, NaN ];

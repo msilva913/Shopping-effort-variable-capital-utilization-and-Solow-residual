@@ -561,6 +561,8 @@ nu, 0.72, 0.05, 2.0,           GAMMA_PDF, 0.72, 0.25;
 sigma_s, 0.5, 0.0, 1.0,        BETA_PDF, 0.5, 0.2; %Born, Peter, and Pfeifer (2013)
 m, 0.286, 0.0, 0.95,          GAMMA_PDF, 0.286, 0.2;
 
+nu_R, 0.20, 0.01, 0.5,        BETA_PDF, 0.2, 0.1;
+
 sigma_ac, 0.32, 0.0, 10,       INV_GAMMA_PDF, 1, 1; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
 sigma_ai, 0.32, 0.0, 10,       INV_GAMMA_PDF, 1, 1; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
 Psi_C, 1.5, 0.0, 50,           GAMMA_PDF, 4, 1.0; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
