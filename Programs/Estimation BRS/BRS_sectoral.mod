@@ -22,10 +22,12 @@ var Y           ${Y}$ (long_name='output')
     theta_D     ${\theta_D}$ (long_name='Shopping disutility')
     theta_I     ${\theta_I}$ (long_name ='Relative shopping disutility')
     theta_b     ${\theta_b}$ (long_name='Discount factor shock')
+    mu_C        ${\mu_C}$
+    mu_I        $\mu_I}$
     R_C         ${R_C}$ (long_name='Capital rental rate:C')
     R_I         ${R_I}$ (long_name='Capital rental rate:I')
-    W_C           ${W}$ (long_name='Real wage:C')
-    W_I           ${W}$ (long_name='Real wage:C')
+    W_C           ${W_C}$ (long_name='Real wage:C')
+    W_I           ${W_I}$ (long_name='Real wage:C')
 
     h_C         ${h_C}$ (long_name= 'Capital utilization rate:C')
     h_I         ${h_I}$ (long_name= 'Capital utilization rate:I')
@@ -152,7 +154,7 @@ g_bar = 0.0045; % quarterly growth rate
 nu = 0.72; % Frisch
 sigma_s = 0.5;
 ha = 0.1;
-mu_ss = 1.15; # steady-state wage markup
+mu_ss = 1.15; % steady-state wage markup
 
 sigma_ac = 0.32; % inverse of elasticity of capital utilization wrt rental rate
 sigma_ai = 0.32;
@@ -181,6 +183,8 @@ rho_N = 0.9;
 rho_D = 0.9;
 rho_DI = 0.9;
 rho_b = 0.9;
+rho_muC = 0.9;
+rho_muI = 0.9;
 
 %----------------------------------------------------------------
 % enter model equations
@@ -234,7 +238,7 @@ N_comp = (omega^(-theta)*N_C^(1+theta) + (1-omega)^(-theta)*N_I^(1+theta))^(1/(1
 theta_N_ss*exp(theta_N)*(N_comp)^(1/nu)*(N_C/N_comp)^theta*omega^(-theta) = (1-phi)*W_C/(mu_ss*exp(mu_C)*zeta);
 
 [name='Labor leisure:I']
-theta_N_ss*exp(theta_N)*(N_comp)^(1/nu)*(N_I/N_comp)^theta*(1-omega)^(-theta)  = (1-phi)*W_I/(mu_ss*exp(mu_I)*zeta));
+theta_N_ss*exp(theta_N)*(N_comp)^(1/nu)*(N_I/N_comp)^theta*(1-omega)^(-theta)  = (1-phi)*W_I/(mu_ss*exp(mu_I)*zeta);
 
 [name='Shopping:C']
 exp(theta_D)*D^(1/eta) = phi*C/D_C;
@@ -346,13 +350,13 @@ util = (C/Y)*A_C*D_C^phi*((h_C*K_C(-1))^alpha_K*N_C^alpha_N-nu_C)/(K_C(-1)^alpha
  
 % Exogenous processes
 [name='stochastic trend process']
-g = (1-rho_g)*g_bar + rho_g*g(-1) + e_g + e_g_news_1(-1) + e_g_news_4(-4);
+g = (1-rho_g)*g_bar + rho_g*g(-1) + e_g;
 
 [name='Stationary TFP process']
-Z_C = rho_Z*Z_C(-1) + e_Z + e_Z_news_1(-1) + e_Z_news_4(-4);
+Z_C = rho_Z*Z_C(-1) + e_Z;
 
 [name='Independent component of I-specific tech']
-u_ZI = rho_ZI*Z_I(-1) + e_ZI + e_ZI_news_1(-1) + e_ZI_news_4(-4);
+u_ZI = rho_ZI*Z_I(-1) + e_ZI;
 
 [name ='Investment-specific TFP process']
 Z_I = Z_C + u_ZI;
@@ -361,7 +365,7 @@ Z_I = Z_C + u_ZI;
 theta_N = rho_N*theta_N(-1) - e_N;
 
 [name ='Shopping effort process']
-theta_D = rho_D*theta_D(-1) - e_D - e_D_news_1(-1) - e_D_news_4(-4);
+theta_D = rho_D*theta_D(-1) - e_D;
 
 [name ='Relative shopping effort process']
 theta_I = rho_DI*theta_I(-1) - e_DI;
@@ -457,7 +461,7 @@ steady_state_model;
     W_I = W_C;
 
     zeta = C*(1-ha) - D^(1+1/eta)/(1+1/eta);
-    theta_N_s = (1-phi_ss)*W_C/(N^(1/nu)*zeta);
+    theta_N_s = (1-phi_ss)*W_C/(N^(1/nu)*zeta*mu_ss);
     Gam = (C*(1-ha) - D^(1+1/eta)/(1+1/eta) - theta_N_s*N_comp^(1+1/nu)/(1+1/nu)*zeta);
    
     //r_ss = (1+r_ann)^(1/4) - 1.0;
@@ -500,6 +504,8 @@ steady_state_model;
     theta_D = 0;
     theta_b = 0;
     theta_I = 0;
+    mu_C = 0;
+    mu_I = 0;
 
    
     R_C = W_C*exp(g)*(alpha_K_ss/alpha_N_ss)*N_C/K_C;
