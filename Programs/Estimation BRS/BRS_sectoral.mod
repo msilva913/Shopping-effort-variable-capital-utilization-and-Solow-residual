@@ -58,7 +58,9 @@ var Y           ${Y}$ (long_name='output')
 
     log_SR         (long_name='Solow residual')
     
-    util       ${util}$ (long_name = 'Capacity utilization:')
+    util       ${util}$ (long_name = 'Capacity utilization')
+    util_ND    ${util_{ND}}$ (long_name = 'Capacity utilization:ND')
+    util_D     ${util_D}$ (long_name = 'Capacity utilization:D')
 
     g          ${g}$ (long_name = 'Growth rate of stochastic trend')
     
@@ -73,6 +75,8 @@ var Y           ${Y}$ (long_name='output')
     log_D
     log_p_I
     log_util
+    log_util_ND
+    log_util_D
     
     C_obs
     I_obs
@@ -82,6 +86,8 @@ var Y           ${Y}$ (long_name='output')
     N_obs
     NC_obs
     NI_obs
+    util_ND_obs
+    util_D_obs
     util_obs
     D_obs
     K_obs
@@ -345,8 +351,11 @@ D = D_C + exp(theta_I)*D_I;
 Y = C + p_I_ss*I;
 
 [name = 'Capacity utilization']
-util = (C/Y)*A_C*D_C^phi*((h_C*K_C(-1))^alpha_K*N_C^alpha_N-nu_C)/(K_C(-1)^alpha_K*N_C^alpha_N-nu_C) + 
-(I/Y)*A_I*D_I^phi*((h_I*K_I(-1))^alpha_K*N_I^alpha_N-nu_I)/(K_I(-1)^alpha_K*N_I^alpha_N-nu_I);
+util_ND = A_C*D_C^phi*((h_C*K_C(-1))^alpha_K*N_C^alpha_N-nu_C)/(K_C(-1)^alpha_K*N_C^alpha_N-nu_C);
+
+util_D = A_I*D_I^phi*((h_I*K_I(-1))^alpha_K*N_I^alpha_N-nu_I)/(K_I(-1)^alpha_K*N_I^alpha_N-nu_I);
+
+util = (C/Y)*util_ND + (I/Y)*util_D;
  
 % Exogenous processes
 [name='stochastic trend process']
@@ -401,6 +410,9 @@ log_D = log(D) - steady_state(log(D));
 log_p_I = log(p_I) - steady_state(log_p_I);
 [name = 'Definition of log capacity utilization']
 log_util = log(util) - steady_state(log(util));
+log_util_ND = log(util_ND) - steady_state(log(util_ND));
+log_util_D = log(util_D) - steady_state(log(util_D));
+
 [name = 'Definition of log Solow residual']
 log_SR = log_Y - (1-labor_share)*log_K(-1) - labor_share*log_N;
 
@@ -417,6 +429,8 @@ p_I_obs = log_p_I - log_p_I(-1);
 N_obs = log_N - log_N(-1);
 NC_obs = log_NC - log_NC(-1);
 NI_obs = log_NI - log_NI(-1);
+util_ND_obs = log_util_ND - log_util_ND(-1);
+util_D_obs = log_util_D - log_util_D(-1);
 util_obs = log_util - log_util(-1);
 D_obs = log_D - log_D(-1);
 
@@ -493,9 +507,9 @@ steady_state_model;
     Si_pr = 0;
     
 
-    util_C = A_C_ss*D_C^phi_ss*((h_C*K_C)^alpha_K_ss*N_C^alpha_N_ss-nu_C_ss)/(K_C^alpha_K_ss*N_C^alpha_N_ss-nu_C_ss);
-    util_I = A_I_ss*D_I^phi_ss*((h_I*K_I)^alpha_K_ss*N_I^alpha_N_ss-nu_I_ss)/(K_I^alpha_K_ss*N_I^alpha_N_ss-nu_I_ss);
-    util = (C/Y)*util_C + (I/Y)*util_I;
+    util_ND = A_C_ss*D_C^phi_ss*((h_C*K_C)^alpha_K_ss*N_C^alpha_N_ss-nu_C_ss)/(K_C^alpha_K_ss*N_C^alpha_N_ss-nu_C_ss);
+    util_D = A_I_ss*D_I^phi_ss*((h_I*K_I)^alpha_K_ss*N_I^alpha_N_ss-nu_I_ss)/(K_I^alpha_K_ss*N_I^alpha_N_ss-nu_I_ss);
+    util = (C/Y)*util_ND + (I/Y)*util_D;
 
     Z_C = 0;
     Z_I = 0;
@@ -535,6 +549,8 @@ steady_state_model;
     K_obs = 0;
     p_I_obs = 0;
     util_obs = 0;
+    util_ND_obs = 0;
+    util_D_obs = 0;
     D_obs = 0;
     SR_obs = 0;
 
@@ -613,7 +629,7 @@ end;
 
 options_.TeX=1;
 
-varobs NC_obs, NI_obs, C_obs, I_obs, p_I_obs;
+varobs NC_obs, NI_obs, C_obs, I_obs, p_I_obs, util_ND_obs, util_D_obs;
 
 
 estimation(tex, optim=('MaxIter', 200), 
@@ -639,7 +655,7 @@ mh_nblocks=2,
 mh_drop=0.3, 
 //moments_varendo,
 prior_trunc=0)
-Y_obs, Y_N_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_obs;
+Y_obs, Y_N_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_ND_obs, util_D_obs;
 //log_Y, log_Y_N, log_I, log_p_I, log_C, log_N, log_NC, log_NI, util;
 
 
@@ -662,6 +678,6 @@ collect_latex_files;
 % Stochastic simulation -> for conditional FEVD and IRF
 stoch_simul (order=1, nofunctions, irf=100, periods=0,
 conditional_variance_decomposition=[1 4 8 40])
-Y_obs, Y_N_obs, SR_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_obs, D_obs,
-log_Y, log_Y_N, log_SR, log_I, log_p_I, log_C, log_N, log_NC, log_NI, log_util, log_D;
+Y_obs, Y_N_obs, SR_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_ND_obs, util_D_obs,
+log_Y, log_Y_N, log_SR, log_I, log_p_I, log_C, log_N, log_NC, log_NI, log_util_ND, log_util_D;
 
