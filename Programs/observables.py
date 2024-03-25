@@ -191,13 +191,13 @@ def construct_data(init, final, freq):
     " Capacity utilization "
     util = fred.get_series('TCU').resample(freq).mean().dropna()
     # Durable manufacturing
-    util_dur = fred.get_series('CAPUTLGMFDS').resample(freq).mean().dropna()
+    util_D = fred.get_series('CAPUTLGMFDS').resample(freq).mean().dropna()
     # nondurable manufacturing
-    util_nondur = fred.get_series('CAPUTLGMFNS').resample(freq).mean().dropna()
+    util_ND = fred.get_series('CAPUTLGMFNS').resample(freq).mean().dropna()
     
     " Note: these series imply labor productivity in each sector "
     " List of data series "
-    var_load_list = [y, c, i, lc, li, l, lab_prod, p_I, SR, SR_util, util, util_dur, util_nondur] 
+    var_load_list = [y, c, i, lc, li, l, lab_prod, p_I, SR, SR_util, util, util_D, util_ND] 
     return var_load_list
 
         
@@ -221,7 +221,7 @@ if __name__ == "__main__":
         save_object(var_load_list, 'var_load_list')
     
     dat = pd.concat(var_load_list, axis=1)
-    lab = ['Y', 'C', 'I', 'LC', 'LI', 'L', "lab_prod", 'p_I', 'SR', 'SR_util', 'util', 'util_dur', 'util_nondur']
+    lab = ['Y', 'C', 'I', 'LC', 'LI', 'L', "lab_prod", 'p_I', 'SR', 'SR_util', 'util', 'util_D', 'util_ND']
     dat.columns = lab
     """
     Create cycles
@@ -242,7 +242,7 @@ if __name__ == "__main__":
         #save_object(cycle, 'cycle')
         " Save output for estimation using growth filter"
         lab = ['Y_obs', 'C_obs', 'I_obs', 'NC_obs', 'NI_obs', 'N_obs',
-               'Y_N_obs', 'p_I_obs', 'SR_obs', 'SR_util_obs', 'util_obs']
+               'Y_N_obs', 'p_I_obs', 'SR_obs', 'SR_util_obs', 'util_obs', 'util_D_obs', 'util_ND_obs']
         dic_data = dict(zip(lab, [np.asarray(cycle_growth[x]) for x in cycle_growth.columns]))
         sio.savemat('observables_sectoral.mat', dic_data)
     
