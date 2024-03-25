@@ -88,16 +88,21 @@ var Y           ${Y}$ (long_name='output')
     ;
 
 varexo e_g ${e_g}$ (long_name= 'Labor-augmenting-technology growth shock')
+       e_g_news_1 ${e_{g,news, 1}}$ (long_name= 'Labor-augmenting-technology growth shock: news 1')
+       e_g_news_4 ${e_{g,news, 4}}$ (long_name= 'Labor-augmenting-technology growth shock: news 4')
        e_Z ${e_Z}$ (long_name= 'TFP shock')
+       e_Z_news_1 ${e_{Z,news,1}}$ (long_name= 'TFP shock: news 1')
+       e_Z_news_4 ${e_{Z,news,4}}$ (long_name= 'TFP shock: news 4')
        e_ZI ${e_{ZI}}$ (long_name= 'Investment-specific tech shock')
+       e_ZI_news_1 ${e_{ZI,news, 1}}$ (long_name= 'Investment-specific tech shock: news 1')
+       e_ZI_news_4 ${e_{ZI,news, 4}}$ (long_name= 'Investment-specific tech shock: news 4')
        
        e_N ${e_N}$ (long_name= 'Labor supply shock')
        e_D ${e_D}$ (long_name = 'Shopping disutility shock')
+       e_D_news_1 ${e_{D,news}}$ (long_name = 'Shopping disutility shock: news 1')
+       e_D_news_4 ${e_{D,news}}$ (long_name = 'Shopping disutility shock: news 4')
        e_DI ${e_DI}$ (long_name = 'Relative investment shopping disutility shock')
        e_b ${e_b}$ (long_name = 'Discount factor shock')
-
-       e_muC ${e_{muC}}$ (long_name = 'Wage markup shock: C')
-       e_muI ${e_{muI}}$ (long_name = 'Wage markup shock: I')
     ;
     
 parameters 
@@ -107,7 +112,6 @@ parameters
     g_bar  ${\overline{g}}$ (long_name = 'Quarterly trend growth rate')
     nu     $\nu$       (long_name = 'Frisch elasticity')
     sigma_s $\sigma_s$ (long_name = 'wealth effect on labor supply')
-    mu_ss    $\mu_{ss}$ (long_name = 'steady-state wage markup')
 
     sigma_ac ${\sigma_{ac}}$ (long_name = 'Inverse elasticity of marginal utilization cost wrt rental rate:C')
     sigma_ai ${\sigma_{ai}}$ (long_name = 'Inverse elasticity of marginal utilization cost wrt rental rate:I')
@@ -134,8 +138,6 @@ parameters
     rho_D    ${\rho_D}$  (long_name='persistence shopping effort shock')
     rho_DI   ${\rho_{DI}}$ (long_name='persistence relative shopping effort shock')
     rho_b    ${\rho_b}$  (long_name='persistence discount factor shock')
-    rho_muC  ${\rho_{muC}}$ (long_name='persistence wage markup shock:C')
-    rho_muI  ${\rho_{muI}}$ (long_name='persistence wage markup shock:I')
 
     p_I_ss
     N_ss
@@ -370,10 +372,7 @@ theta_I = rho_DI*theta_I(-1) - e_DI;
 theta_b = rho_b*theta_b(-1) + e_b;
 
 [name = 'Wage-markup process: C']
-mu_C = rho_muC*mu_C(-1) + e_muC;
-
-[name = 'Wage-markup process: I']
-mu_I = rho_muI*mu_I(-1) + e_muI;
+mu_C = rho_muC
 
 
 [name='Definition log output']
@@ -587,21 +586,24 @@ rho_N,  0.6, 0.01, 0.9999,        BETA_PDF, 0.6, 0.2;
 rho_D,  0.9, 0.01, 0.9999,        BETA_PDF, 0.6, 0.2;
 rho_DI, 0.9, 0.01, 0.9999,          BETA_PDF, 0.6, 0.2;
 rho_b,  0.95, 0.01, 0.99999999,        BETA_PDF, 0.6, 0.2;
-rho_muC,  0.95, 0.01, 0.99999999,        BETA_PDF, 0.6, 0.2;
-rho_muI,  0.95, 0.01, 0.99999999,        BETA_PDF, 0.6, 0.2;
 
 % Standard errors
 stderr e_g, 0.01, 0.00001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
+stderr e_g_news_1, 0.01, 0.00001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
+stderr e_g_news_4, 0.01, 0.00001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
 stderr e_Z, 0.01, 0.00001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
+stderr e_Z_news_1, 0.01, 0.00001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
+stderr e_Z_news_4, 0.01, 0.00001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
 stderr e_ZI, 0.01, 0.0001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
+stderr e_ZI_news_1, 0.01, 0.0001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
+stderr e_ZI_news_4, 0.01, 0.0001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
 
 stderr e_N, 0.01, 0.0001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
 stderr e_D, 0.01, 0.0001, 0.4,  INV_GAMMA_PDF, 0.01, 0.1;
+stderr e_D_news_1, 0.01, 0.0001, 0.4,  INV_GAMMA_PDF, 0.01, 0.1;
+stderr e_D_news_4, 0.01, 0.0001, 0.4,  INV_GAMMA_PDF, 0.01, 0.1;
 stderr e_DI, 0.01, 0.0001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
 stderr e_b, 0.01, 0.0001, 0.4,  INV_GAMMA_PDF, 0.01, 0.1;
-
-stderr e_muC, 0.01, 0.0001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
-stderr e_muI, 0.01, 0.0001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
 
 end;
 
