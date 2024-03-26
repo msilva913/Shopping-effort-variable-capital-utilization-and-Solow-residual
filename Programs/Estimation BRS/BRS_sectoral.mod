@@ -106,6 +106,17 @@ varexo e_g ${e_g}$ (long_name= 'Labor-augmenting-technology growth shock')
 
        e_muC ${e_{muC}}$ (long_name = 'Wage markup shock: C')
        e_muI ${e_{muI}}$ (long_name = 'Wage markup shock: I')
+
+       % News shocks
+       e_g_news ${e_{g,-4}}$ (long_name= 'Labor-augmenting-technology growth shock: news')
+       e_Z_news ${e_{Z,-4}}$ (long_name= 'TFP shock: news')
+       e_ZI_news ${e_{ZI,-4}}$ (long_name= 'Investment-specific tech shock: news')
+
+       e_D_news ${e_{D,4}}$ (long_name = 'Shopping disutility shock: news')
+       e_DI_news ${e_{DI,-4}}$ (long_name = 'Relative investment shopping disutility shock: news')
+
+       e_muC_news ${e_{muC,-4}}$ (long_name = 'Wage markup shock: C: news')
+       e_muI_news ${e_{muI,-4}}$ (long_name = 'Wage markup shock: I: news')
     ;
     
 parameters 
@@ -359,13 +370,13 @@ util = (C/Y)*util_ND + (I/Y)*util_D;
  
 % Exogenous processes
 [name='stochastic trend process']
-g = (1-rho_g)*g_bar + rho_g*g(-1) + e_g;
+g = (1-rho_g)*g_bar + rho_g*g(-1) + e_g + e_g_news(-4);
 
 [name='Stationary TFP process']
-Z_C = rho_Z*Z_C(-1) + e_Z;
+Z_C = rho_Z*Z_C(-1) + e_Z + e_Z_news(-4);
 
 [name='Independent component of I-specific tech']
-u_ZI = rho_ZI*Z_I(-1) + e_ZI;
+u_ZI = rho_ZI*Z_I(-1) + e_ZI + e_ZI_news(-4);
 
 [name ='Investment-specific TFP process']
 Z_I = Z_C + u_ZI;
@@ -374,19 +385,19 @@ Z_I = Z_C + u_ZI;
 theta_N = rho_N*theta_N(-1) - e_N;
 
 [name ='Shopping effort process']
-theta_D = rho_D*theta_D(-1) - e_D;
+theta_D = rho_D*theta_D(-1) - e_D - e_D_news(-4);
 
 [name ='Relative shopping effort process']
-theta_I = rho_DI*theta_I(-1) - e_DI;
+theta_I = rho_DI*theta_I(-1) - e_DI - e_DI_news(-4);
 
 [name='Consumption preference process']
 theta_b = rho_b*theta_b(-1) + e_b;
 
 [name = 'Wage-markup process: C']
-mu_C = rho_muC*mu_C(-1) + e_muC;
+mu_C = rho_muC*mu_C(-1) + e_muC + e_muC_news(-4);
 
 [name = 'Wage-markup process: I']
-mu_I = rho_muI*mu_I(-1) + e_muI;
+mu_I = rho_muI*mu_I(-1) + e_muI + e_muI_news(-4);
 
 
 [name='Definition log output']
@@ -613,17 +624,29 @@ rho_muC,  0.95, 0.01, 0.99999999,        BETA_PDF, 0.6, 0.2;
 rho_muI,  0.95, 0.01, 0.99999999,        BETA_PDF, 0.6, 0.2;
 
 % Standard errors
-stderr e_g, 0.01, 0.00001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
-stderr e_Z, 0.01, 0.00001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
-stderr e_ZI, 0.01, 0.0001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
+stderr e_g, 0.01, 0.00001, 0.2,  GAMMA_PDF, 0.01, 0.01;
+stderr e_g_news, 0.01, 0.00001, 0.2,  GAMMA_PDF, 0.01, 0.01;
+stderr e_Z, 0.01, 0.00001, 0.2,  GAMMA_PDF, 0.01, 0.01;
+stderr e_Z_news, 0.01, 0.00001, 0.2,  GAMMA_PDF, 0.01, 0.01;
+stderr e_ZI, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
+stderr e_ZI_news, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 
-stderr e_N, 0.01, 0.0001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
-stderr e_D, 0.01, 0.0001, 0.4,  INV_GAMMA_PDF, 0.01, 0.1;
-stderr e_DI, 0.01, 0.0001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
-stderr e_b, 0.01, 0.0001, 0.4,  INV_GAMMA_PDF, 0.01, 0.1;
+stderr e_N, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
+stderr e_D, 0.01, 0.0001, 0.4,  GAMMA_PDF, 0.01, 0.01;
+stderr e_D_news, 0.01, 0.0001, 0.4,  GAMMA_PDF, 0.01, 0.01;
+stderr e_DI, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
+stderr e_DI_news, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 
-stderr e_muC, 0.01, 0.0001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
-stderr e_muI, 0.01, 0.0001, 0.2,  INV_GAMMA_PDF, 0.01, 0.1;
+stderr e_b, 0.01, 0.0001, 0.4,  GAMMA_PDF, 0.01, 0.01;
+
+stderr e_muC, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
+stderr e_muC_news, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
+stderr e_muI, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
+stderr e_muI_news, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
+
+% news
+
+
 
 end;
 
@@ -634,20 +657,20 @@ varobs NC_obs, NI_obs, C_obs, I_obs, p_I_obs, util_ND_obs, util_D_obs;
 
 estimation(tex, optim=('MaxIter', 200), 
 datafile=observables_sectoral, 
-//mode_file=BRS_sectoral_mode, 
+mode_file=BRS_sectoral_mode, 
 //nograph,
 //load_mh_file, 
 //mh_recover,
 mcmc_jumping_covariance=prior_variance,
 
-mode_compute=4,
+mode_compute=0,
 presample=0, 
 lik_init=2,
-mh_jscale=0.002, 
+mh_jscale=0.003, 
 mh_init_scale =0.0001,
 //mh_jscale=0.1,
 mode_check, 
-mh_replic=150000, 
+mh_replic=200000, 
 //mh_replic=0,
 mh_nblocks=2, 
 //bayesian_irf,

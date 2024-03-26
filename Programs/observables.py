@@ -138,7 +138,7 @@ def construct_data(init, final, freq):
     
     " Non-institutional population "
     pop = fred.get_series('CNP16OV').resample(freq).mean()
-    # Use HP-filtered trend for population
+    # Use HP-filtered trend for population to avoid discrete jumps around census dates
     pop = sm.tsa.filters.hpfilter(pop, lamb=10_000)[1]
     
     " Total factor productivity "
@@ -181,6 +181,10 @@ def construct_data(init, final, freq):
     lab_prod = Y/(deflator*L)
     y = Y/(pop*deflator)
     " Construct output from consumption and investment "
+    
+    " Wages "
+    w = fred.get_series("COMPNFB").resample(freq).mean().dropna()
+    w = w/p_C
     #y = c + i
     lc = LC/pop
     li = LI/pop
@@ -195,9 +199,10 @@ def construct_data(init, final, freq):
     # nondurable manufacturing
     util_ND = fred.get_series('CAPUTLGMFNS').resample(freq).mean().dropna()
     
+  
     " Note: these series imply labor productivity in each sector "
     " List of data series "
-    var_load_list = [y, c, i, lc, li, l, lab_prod, p_I, SR, SR_util, util, util_D, util_ND] 
+    var_load_list = [y, c, i, lc, li, l, lab_prod, p_I, SR, SR_util, util, util_D, util_ND, w] 
     return var_load_list
 
         
@@ -221,7 +226,7 @@ if __name__ == "__main__":
         save_object(var_load_list, 'var_load_list')
     
     dat = pd.concat(var_load_list, axis=1)
-    lab = ['Y', 'C', 'I', 'LC', 'LI', 'L', "lab_prod", 'p_I', 'SR', 'SR_util', 'util', 'util_D', 'util_ND']
+    lab = ['Y', 'C', 'I', 'LC', 'LI', 'L', "lab_prod", 'p_I', 'SR', 'SR_util', 'util', 'util_D', 'util_ND', 'w']
     dat.columns = lab
     """
     Create cycles
@@ -242,7 +247,7 @@ if __name__ == "__main__":
         #save_object(cycle, 'cycle')
         " Save output for estimation using growth filter"
         lab = ['Y_obs', 'C_obs', 'I_obs', 'NC_obs', 'NI_obs', 'N_obs',
-               'Y_N_obs', 'p_I_obs', 'SR_obs', 'SR_util_obs', 'util_obs', 'util_D_obs', 'util_ND_obs']
+               'Y_N_obs', 'p_I_obs', 'SR_obs', 'SR_util_obs', 'util_obs', 'util_D_obs', 'util_ND_obs', 'w_obs']
         dic_data = dict(zip(lab, [np.asarray(cycle_growth[x]) for x in cycle_growth.columns]))
         sio.savemat('observables_sectoral.mat', dic_data)
     
@@ -347,7 +352,7 @@ if __name__ == "__main__":
     ax.set_ylabel("%")
     ax.grid(True)
     plt.tight_layout()
-    plt.savefig("hours_comovement.pdf")
+    plt.savefig("utilization_comovement.pdf")
     plt.show()
     
     
