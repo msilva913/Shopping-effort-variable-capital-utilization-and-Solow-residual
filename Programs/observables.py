@@ -217,7 +217,7 @@ if __name__ == "__main__":
     load = False
     #filter_type = 'hamilton'
     freq = 'Q'
-    save_observables = False
+    save_observables = True
     
     if load:
         var_load_list = pickle.load(open("var_load_list", "rb"))
@@ -238,6 +238,7 @@ if __name__ == "__main__":
                                         filter_type="growth", demean=False) for x in lab], axis=1)
     cycle_growth.columns = lab
     print(cycle_growth.mean())
+    cycle_growth = cycle_growth - cycle_growth.mean()
     mom_growth_data = moments(100*cycle_growth, lab=['I', 'LI'], lags=[1])
     print(mom_growth_data.style.format(precision=2).to_latex())
     
@@ -246,9 +247,9 @@ if __name__ == "__main__":
         " Save relevant objects "
         #save_object(cycle, 'cycle')
         " Save output for estimation using growth filter"
-        lab = ['Y_obs', 'C_obs', 'I_obs', 'NC_obs', 'NI_obs', 'N_obs',
+        lab_obs = ['Y_obs', 'C_obs', 'I_obs', 'NC_obs', 'NI_obs', 'N_obs',
                'Y_N_obs', 'p_I_obs', 'SR_obs', 'SR_util_obs', 'util_obs', 'util_D_obs', 'util_ND_obs', 'w_obs']
-        dic_data = dict(zip(lab, [np.asarray(cycle_growth[x]) for x in cycle_growth.columns]))
+        dic_data = dict(zip(lab_obs, [np.asarray(cycle_growth[x]) for x in cycle_growth.columns]))
         sio.savemat('observables_sectoral.mat', dic_data)
     
     cycle =  pd.concat([filter_transform(dat[x], init=init, final=final, transform_type='log',
@@ -276,7 +277,7 @@ if __name__ == "__main__":
     summ = pd.concat([stds, cor_dat])
     print(summ.style.format(precision=2).to_latex())
     
-    cycle_growth = cycle_growth - cycle_growth.mean()
+
 
    
     
@@ -321,10 +322,7 @@ if __name__ == "__main__":
         plt.tight_layout()
         plt.show()
     
-    " Restricted set of variables: includes variables in estimation "
-    #cycle_red = cycle[["Y", "C", "I", "LC", "LI", "p_I", "SR"]]
-    cycle_red = cycle_growth[["LI", "C", "I", "LC", "p_I", "util", "lab_prod"]]
-    plot_cycle(cycle_red)
+ 
     
     linestyle = ['-', ':', '-.']
     # Hours
@@ -343,8 +341,8 @@ if __name__ == "__main__":
     
     # Utilization
     fig, ax = plt.subplots(figsize=(11, 4))
-    ax.plot(100*cycle.util_dur, linestyle[0], label= "Utilization: durables", lw=2, alpha=0.7)
-    ax.plot(100*cycle.util_nondur, linestyle[1], label= "Utilization: nondurables", lw=2, alpha=0.7)
+    ax.plot(100*cycle.util_D, linestyle[0], label= "Utilization: durables", lw=2, alpha=0.7)
+    ax.plot(100*cycle.util_ND, linestyle[1], label= "Utilization: nondurables", lw=2, alpha=0.7)
     #ax.plot(100*cycle.util, linestyle[2], label= "Utilization: total industry", lw=2, alpha=0.7)
     ax.legend(loc="upper right")
     ax.xaxis.set_major_locator(years)

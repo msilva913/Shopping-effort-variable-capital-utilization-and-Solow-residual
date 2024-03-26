@@ -28,6 +28,7 @@ var Y           ${Y}$ (long_name='output')
     R_I         ${R_I}$ (long_name='Capital rental rate:I')
     W_C           ${W_C}$ (long_name='Real wage:C')
     W_I           ${W_I}$ (long_name='Real wage:C')
+    W          ${W}$ (long_name='Real wage')
 
     h_C         ${h_C}$ (long_name= 'Capital utilization rate:C')
     h_I         ${h_I}$ (long_name= 'Capital utilization rate:I')
@@ -77,6 +78,7 @@ var Y           ${Y}$ (long_name='output')
     log_util
     log_util_ND
     log_util_D
+    log_W
     
     C_obs
     I_obs
@@ -88,6 +90,7 @@ var Y           ${Y}$ (long_name='output')
     NI_obs
     util_ND_obs
     util_D_obs
+    w_obs
     util_obs
     D_obs
     K_obs
@@ -358,6 +361,9 @@ I = I_C + I_I;
 [name = 'Shopping composition']
 D = D_C + exp(theta_I)*D_I;
 
+[name = 'Aggregate wage']
+W = (N_C/N)*W_C + (N_I/N)*W_I;
+
 [name = 'Output (base-year prices)']
 Y = C + p_I_ss*I;
 
@@ -419,10 +425,14 @@ log_Y_N = log_Y - log_N;
 log_D = log(D) - steady_state(log(D));
 [name = 'Definition of log relative investment  price']
 log_p_I = log(p_I) - steady_state(log_p_I);
+
 [name = 'Definition of log capacity utilization']
 log_util = log(util) - steady_state(log(util));
 log_util_ND = log(util_ND) - steady_state(log(util_ND));
 log_util_D = log(util_D) - steady_state(log(util_D));
+
+[name = 'Definition of log wages']
+log_W = log(W) - steady_state(log(W));
 
 [name = 'Definition of log Solow residual']
 log_SR = log_Y - (1-labor_share)*log_K(-1) - labor_share*log_N;
@@ -443,6 +453,7 @@ NI_obs = log_NI - log_NI(-1);
 util_ND_obs = log_util_ND - log_util_ND(-1);
 util_D_obs = log_util_D - log_util_D(-1);
 util_obs = log_util - log_util(-1);
+w_obs = log_W - log_W(-1);
 D_obs = log_D - log_D(-1);
 
 
@@ -562,6 +573,7 @@ steady_state_model;
     util_obs = 0;
     util_ND_obs = 0;
     util_D_obs = 0;
+    w_obs = 0;
     D_obs = 0;
     SR_obs = 0;
 
@@ -652,7 +664,7 @@ end;
 
 options_.TeX=1;
 
-varobs NC_obs, NI_obs, C_obs, I_obs, p_I_obs, util_ND_obs, util_D_obs;
+varobs NC_obs, NI_obs, C_obs, I_obs, p_I_obs, util_ND_obs, util_D_obs, w_obs;
 
 
 estimation(tex, optim=('MaxIter', 200), 
