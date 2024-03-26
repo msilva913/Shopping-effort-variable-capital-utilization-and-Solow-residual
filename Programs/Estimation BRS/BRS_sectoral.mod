@@ -443,6 +443,7 @@ I_obs = log_I - log_I(-1) + g - g_bar ;
 Y_obs = log_Y - log_Y(-1) + g - g_bar ;
 Y_N_obs = log_Y_N - log_Y_N(-1) + g - g_bar ;
 K_obs = log_K - log_K(-1) + g - g_bar;
+w_obs = log_W - log_W(-1) +g - g_bar;
 SR_obs = Y_obs - labor_share*N_obs - (1-labor_share)*K_obs(-1);
 
 % Stationary variables
@@ -453,7 +454,7 @@ NI_obs = log_NI - log_NI(-1);
 util_ND_obs = log_util_ND - log_util_ND(-1);
 util_D_obs = log_util_D - log_util_D(-1);
 util_obs = log_util - log_util(-1);
-w_obs = log_W - log_W(-1);
+
 D_obs = log_D - log_D(-1);
 
 
@@ -495,6 +496,7 @@ steady_state_model;
     alpha_N_ss = (1-phi_ss)*labor_share/(1+nu_R);
     W_C = labor_share*Y/N;
     W_I = W_C;
+    W = W_C;
 
     zeta = C*(1-ha) - D^(1+1/eta)/(1+1/eta);
     theta_N_s = (1-phi_ss)*W_C/(N^(1/nu)*zeta*mu_ss);
@@ -560,6 +562,7 @@ steady_state_model;
     log_p_I = 0;
     log_util = 0;
     log_SR = 0;
+    log_W = 0;
     
     C_obs = 0;
     I_obs = 0;
@@ -669,16 +672,16 @@ varobs NC_obs, NI_obs, C_obs, I_obs, p_I_obs, util_ND_obs, util_D_obs, w_obs;
 
 estimation(tex, optim=('MaxIter', 200), 
 datafile=observables_sectoral, 
-mode_file=BRS_sectoral_mode, 
+//mode_file=BRS_sectoral_mode, 
 //nograph,
 //load_mh_file, 
 //mh_recover,
 mcmc_jumping_covariance=prior_variance,
 
-mode_compute=0,
+mode_compute=4,
 presample=0, 
 lik_init=2,
-mh_jscale=0.003, 
+mh_jscale=0.0035, 
 mh_init_scale =0.0001,
 //mh_jscale=0.1,
 mode_check, 
@@ -690,7 +693,7 @@ mh_nblocks=2,
 mh_drop=0.3, 
 //moments_varendo,
 prior_trunc=0)
-Y_obs, Y_N_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_ND_obs, util_D_obs;
+Y_obs, Y_N_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_ND_obs, util_D_obs, w_obs;
 //log_Y, log_Y_N, log_I, log_p_I, log_C, log_N, log_NC, log_NI, util;
 
 
