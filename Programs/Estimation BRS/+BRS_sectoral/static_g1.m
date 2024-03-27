@@ -18,7 +18,7 @@ function g1 = static_g1(T, y, x, params, T_flag)
 if T_flag
     T = BRS_sectoral.static_g1_tt(T, y, x, params);
 end
-g1 = zeros(108, 108);
+g1 = zeros(112, 112);
 g1(1,10)=(-(T(17)*getPowerDeriv(y(10),1+params(20),1)*T(52)));
 g1(1,11)=(-(T(52)*T(18)*getPowerDeriv(y(11),1+params(20),1)));
 g1(1,12)=1;
@@ -277,6 +277,10 @@ g1(105,105)=1;
 g1(106,106)=1;
 g1(107,107)=1;
 g1(108,108)=1;
+g1(109,109)=1;
+g1(110,110)=1;
+g1(111,111)=1;
+g1(112,112)=1;
 if ~isreal(g1)
     g1 = real(g1)+2*imag(g1);
 end

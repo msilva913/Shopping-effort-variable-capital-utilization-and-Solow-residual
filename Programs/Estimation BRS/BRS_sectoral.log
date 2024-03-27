@@ -1,10 +1,8 @@
 Starting Dynare (version 5.4).
 Calling Dynare with arguments: none
 Starting preprocessing of the model file ...
-WARNING: in the 'steady_state_model' block, variable 'log_util_ND' is not assigned a value
-WARNING: in the 'steady_state_model' block, variable 'log_util_D' is not assigned a value
-Substitution of exo lags: added 28 auxiliary variables and equations.
-Found 108 equation(s).
+Substitution of exo lags: added 32 auxiliary variables and equations.
+Found 112 equation(s).
 Evaluating expressions...done
 Computing static model derivatives (order 1).
 Computing dynamic model derivatives (order 1).
@@ -100,8 +98,9 @@ Equation number 79 : 0 : util_obs
 Equation number 80 : 0 : D_obs
 
 
-[Warning: Some of the parameters have no value (gam_max) when using steady. If these parameters are not initialized in a steadystate file or a steady_state_model-block, Dynare may not be able to solve the model.
-Note that simul, perfect_foresight_setup, and perfect_foresight_solver do not automatically call the steady state file.] 
+[Warning: Some of the parameters have no value (gam_max) when using steady. If these parameters are not initialized in a steadystate file
+or a steady_state_model-block, Dynare may not be able to solve the model. Note that simul, perfect_foresight_setup, and
+perfect_foresight_solver do not automatically call the steady state file.] 
 
 STEADY-STATE RESULTS:
 
@@ -191,47 +190,51 @@ EIGENVALUES:
 
                0                0                0
                0                0                0
-       5.758e-21        5.758e-21                0
-       4.117e-20       -4.117e-20                0
-       9.346e-20       -9.346e-20                0
-       9.598e-20       -9.598e-20                0
-       1.774e-19        1.774e-19                0
-       2.997e-19       -2.997e-19                0
-       3.396e-19       -3.396e-19                0
-       4.579e-19       -4.579e-19                0
-       4.909e-19        4.909e-19                0
-       5.129e-19        5.129e-19                0
-       6.113e-19       -6.113e-19                0
-       1.125e-18       -1.125e-18                0
-        1.21e-18        -1.21e-18                0
-       1.416e-18       -1.416e-18                0
-        1.82e-18        -1.82e-18                0
-       1.899e-18        1.899e-18                0
-       2.175e-18        2.175e-18                0
-       2.192e-18       -2.192e-18                0
-        2.43e-18         2.43e-18                0
-       2.962e-18        2.962e-18                0
-       6.054e-18       -6.054e-18                0
-       7.044e-18        7.044e-18                0
-       9.209e-18        9.209e-18                0
-       1.096e-17       -1.096e-17                0
-       1.464e-17        1.464e-17                0
-         1.5e-17          1.5e-17                0
-       1.779e-17        1.779e-17                0
-       1.892e-17        1.892e-17                0
-        3.11e-17        -3.11e-17                0
-       4.091e-17        4.091e-17                0
-       5.368e-17       -5.368e-17                0
-       5.392e-17        5.392e-17                0
-       6.112e-17        6.112e-17                0
-       9.058e-17       -9.058e-17                0
-       1.672e-16        1.672e-16                0
-       3.309e-16       -3.309e-16                0
-       7.478e-16        7.478e-16                0
-       1.205e-15       -1.205e-15                0
-       1.254e-15        1.254e-15                0
-       9.537e-10       -9.537e-10                0
-       9.537e-10        9.537e-10                0
+       7.349e-22       -7.349e-22                0
+       6.038e-21       -6.038e-21                0
+       2.069e-20       -2.069e-20                0
+       3.888e-20       -3.888e-20                0
+       9.333e-20       -9.333e-20                0
+       1.294e-19       -1.294e-19                0
+       1.766e-19        1.766e-19                0
+       2.566e-19       -2.566e-19                0
+       2.919e-19       -2.919e-19                0
+       3.405e-19       -3.405e-19                0
+       4.372e-19       -4.372e-19                0
+       6.957e-19       -6.957e-19                0
+       7.921e-19        7.921e-19                0
+       8.454e-19       -8.454e-19                0
+       9.469e-19        9.469e-19                0
+       1.023e-18        1.023e-18                0
+       1.148e-18       -1.148e-18                0
+       1.157e-18       -1.157e-18                0
+       1.284e-18       -1.284e-18                0
+       1.575e-18       -1.575e-18                0
+       1.641e-18       -1.641e-18                0
+       1.894e-18       -1.894e-18                0
+       2.176e-18       -2.176e-18                0
+       9.782e-18        9.782e-18                0
+       1.172e-17        1.172e-17                0
+       1.275e-17        1.275e-17                0
+       1.719e-17        1.719e-17                0
+       1.886e-17        1.886e-17                0
+       1.983e-17        1.983e-17                0
+       3.095e-17        3.095e-17                0
+       3.413e-17        3.413e-17                0
+       3.531e-17       -3.531e-17                0
+       3.874e-17        3.874e-17                0
+        4.72e-17        -4.72e-17                0
+       6.348e-17        6.348e-17                0
+       6.583e-17        6.583e-17                0
+       6.995e-17       -6.995e-17                0
+        1.15e-16         1.15e-16                0
+       1.579e-16        1.579e-16                0
+       2.679e-16        2.679e-16                0
+       4.361e-16       -4.361e-16                0
+       5.407e-16       -5.407e-16                0
+        1.43e-15         1.43e-15                0
+       2.329e-09       -7.852e-16        2.329e-09
+       2.329e-09       -7.852e-16       -2.329e-09
          0.07392          0.07392                0
              0.1              0.1                0
           0.4527           0.4527                0
@@ -251,16 +254,16 @@ EIGENVALUES:
            1.078            1.076          0.07209
            1.078            1.076         -0.07209
            1.721            1.721                0
-       5.433e+16       -5.433e+16                0
-       8.672e+16       -8.672e+16                0
-       1.349e+17        1.349e+17                0
-       4.232e+17       -4.232e+17                0
-       6.786e+17        6.786e+17                0
-       1.045e+18        1.045e+18                0
-       6.904e+18        6.904e+18                0
-       8.499e+18        8.499e+18                0
-       8.364e+46       -8.364e+46                0
-       2.635e+48        2.635e+48                0
+       3.017e+16       -3.017e+16                0
+       1.392e+17        1.392e+17                0
+       7.891e+17       -7.891e+17                0
+       8.104e+17        8.104e+17                0
+       8.228e+17       -8.228e+17                0
+       8.266e+17        8.266e+17                0
+       1.146e+18        1.146e+18                0
+       1.613e+19        1.613e+19                0
+       2.066e+46        2.066e+46                0
+             Inf             -Inf                0
 
 
 There are 14 eigenvalue(s) larger than 1 in modulus 
@@ -268,292 +271,243 @@ for 14 forward-looking variable(s)
 
 The rank condition is verified.
 
-[Warning: Some of the parameters have no value (gam_max) when using initial_estimation_checks. If these parameters are not initialized in a steadystate file or a steady_state_model-block, Dynare may not be able to
-solve the model. Note that simul, perfect_foresight_setup, and perfect_foresight_solver do not automatically call the steady state file.] 
-Initial value of the log posterior (or likelihood): -4573.3349
+
+The posterior mode file BRS_sectoral_mode has been generated using another specification of the model or another model!
+Your mode file contains estimates for 38 parameters, while you are attempting to estimate 39 parameters:
+--> Estimated parameter w_obs is not present in the loaded mode file (prior mean will be used, if possible).
+
+[Warning: Some of the parameters have no value (gam_max) when using initial_estimation_checks. If these parameters are not initialized
+in a steadystate file or a steady_state_model-block, Dynare may not be able to solve the model. Note that simul,
+perfect_foresight_setup, and perfect_foresight_solver do not automatically call the steady state file.] 
+Initial value of the log posterior (or likelihood): 4249.3445
 -----------------
-f at the beginning of new iteration,      4573.3348937351
-Predicted improvement: 27122979.376753896
-lambda =          1; f =         4573.6835020
-lambda =    0.33333; f =         4573.3353015
-lambda =    0.11111; f =         4573.3348938
-lambda =   0.037037; f =         4578.2778015
-lambda =   0.012346; f =         4573.5599913
-lambda =  0.0041152; f =        -3216.0352289
-lambda =  0.0013717; f =        -3791.6232099
-lambda = 0.00045725; f =        -2784.5904963
-lambda = 0.00015242; f =         -162.1840066
-Norm of dx     73.652
-----
-Improvement on iteration 1 =     8364.958103672
------------------
-f at the beginning of new iteration,     -3791.6232099371
-Predicted improvement:     3362.205390814
-lambda =          1; f =        -3791.5107096
-lambda =    0.33333; f =        -3791.6158564
-lambda =    0.11111; f =        -3791.6228836
-lambda =   0.037037; f =        -3634.9503925
-lambda =   0.012346; f =        -3819.1685540
-Norm of dx    0.82007
-----
-Improvement on iteration 2 =       27.545344093
------------------
-f at the beginning of new iteration,     -3819.1685540300
-Predicted improvement:     1452.533546768
-lambda =          1; f =        -3819.1069211
-lambda =    0.33333; f =        -3819.1668775
-lambda =    0.11111; f =        -3734.9613194
-lambda =   0.037037; f =        -3858.8652710
-Norm of dx    0.64391
-----
-Improvement on iteration 3 =       39.696717008
------------------
-f at the beginning of new iteration,     -3858.8652710375
-Predicted improvement:     3112.155644997
-lambda =          1; f =        -3858.1405733
-lambda =    0.33333; f =        -3858.8055064
-lambda =    0.11111; f =        -3858.8630074
-lambda =   0.037037; f =        -1996.3496554
-lambda =   0.012346; f =        -3916.8139726
-lambda =   0.023866; f =        -3878.2050393
-lambda =    0.01607; f =        -3921.7774308
-Norm of dx     1.5872
-----
-Improvement on iteration 4 =       62.912159808
------------------
-f at the beginning of new iteration,     -3921.7774308460
-Predicted improvement:     2681.070044363
-lambda =          1; f =        -3921.0478092
-lambda =    0.33333; f =        -3921.7127818
-lambda =    0.11111; f =        -3921.7737191
-lambda =   0.037037; f =        -3921.7773387
-lambda =   0.012346; f =        -3921.2849647
-lambda =  0.0041152; f =        -3938.3056663
-lambda =  0.0079555; f =        -3941.0290960
-Norm of dx     1.5532
-----
-Improvement on iteration 5 =       19.251665120
------------------
-f at the beginning of new iteration,     -3941.0290959662
-Predicted improvement:      865.804513675
-lambda =          1; f =        -3941.0048910
-lambda =    0.33333; f =        -3941.0287538
-lambda =    0.11111; f =        -3941.0290941
-lambda =   0.037037; f =        -4001.5203559
-lambda =   0.071599; f =        -4049.2457791
-lambda =    0.13841; f =        -3941.0290887
-lambda =     0.0932; f =        -3941.0290957
-lambda =   0.073512; f =        -4051.5430334
-lambda =   0.084761; f =        -3941.0290960
-lambda =    0.07782; f =        -4056.5562455
-lambda =   0.081913; f =        -4061.1023547
-lambda =   0.086221; f =        -3941.0290959
-lambda =    0.08361; f =        -3941.0290960
-lambda =   0.082081; f =        -4061.2843897
-lambda =   0.082995; f =        -3941.0290960
-Norm of dx    0.65159
+f at the beginning of new iteration,     -4249.3445467272
+Predicted improvement:    20936.341802223
+lambda =          1; f =        -4245.3481982
+lambda =    0.33333; f =        -4248.9207418
+lambda =    0.11111; f =        -4249.3022392
+lambda =   0.037037; f =        -4249.3408138
+lambda =   0.012346; f =        -4249.3443396
+lambda =  0.0041152; f =        -4249.3445464
+lambda =  0.0013717; f =        -4249.3445467
+lambda = 0.00045725; f =        -4249.3445467
+lambda = 0.00015242; f =        -4249.3445467
+lambda = 5.0805e-05; f =        -4249.3445467
+lambda = 1.6935e-05; f =        -4250.0535674
+lambda = 3.2739e-05; f =        -4249.3445467
+lambda = 2.2044e-05; f =        -4250.2674437
+lambda = 2.7948e-05; f =        -4249.3445467
+lambda = 2.4239e-05; f =        -4250.3593225
+lambda = 2.6401e-05; f =        -4250.4498073
+lambda = 2.8756e-05; f =        -4249.3445467
+lambda = 2.7319e-05; f =        -4250.4882210
+lambda = 2.8172e-05; f =        -4249.3445467
+lambda = 2.7657e-05; f =        -4250.5023743
+lambda = 2.7965e-05; f =        -4249.3445467
+Norm of dx     2.0463
 Cliff.  Perturbing search direction.
-Predicted improvement:     1613.260584255
-lambda =          1; f =        -3940.9473592
-lambda =    0.33333; f =        -3941.0260235
-lambda =    0.11111; f =        -4012.7273063
-lambda =   0.037037; f =        -4003.1553068
-Norm of dx    0.82303
-badg2 =
-     0
+Predicted improvement:    39955.388786145
+lambda =          1; f =        -4234.3427517
+lambda =    0.33333; f =        -4247.7155707
+lambda =    0.11111; f =        -4249.1737066
+lambda =   0.037037; f =        -4249.3278134
+lambda =   0.012346; f =        -4249.3432118
+lambda =  0.0041152; f =        -4249.3444950
+lambda =  0.0013717; f =        -4249.3445467
+lambda = 0.00045725; f =        -4249.3445467
+lambda = 0.00015242; f =        -4249.3445467
+lambda = 5.0805e-05; f =        -4249.3445467
+lambda = 1.6935e-05; f =        -4250.6974733
+lambda = 3.2739e-05; f =        -4249.3445467
+lambda = 2.2044e-05; f =        -4249.3445467
+lambda = 1.7388e-05; f =        -4250.7336104
+lambda = 2.0048e-05; f =        -4250.9460926
+lambda = 2.3116e-05; f =        -4249.3445467
+lambda = 2.1223e-05; f =        -4251.0399205
+lambda = 2.2339e-05; f =        -4249.3445467
+lambda = 2.1663e-05; f =        -4251.0750273
+lambda = 2.2066e-05; f =        -4249.3445467
+lambda = 2.1823e-05; f =        -4251.0878428
+Norm of dx      3.923
+Cliff again.  Try traversing
+Predicted improvement: 193395420.358320087
+lambda =          1; f =    384281178.7361010
+lambda =    0.33333; f =     42693498.9120140
+lambda =    0.11111; f =      4739735.8795421
+lambda =   0.037037; f =       522791.9101158
+lambda =   0.012346; f =        54289.3380777
+lambda =  0.0041152; f =         2248.6658111
+lambda =  0.0013717; f =        -3528.8453137
+lambda = 0.00045725; f =        -4169.5314209
+lambda = 0.00015242; f =        -4240.5508660
+lambda = 5.0805e-05; f =        -4248.3904460
+lambda = 1.6935e-05; f =        -4249.2449198
+lambda =  5.645e-06; f =        -4249.3349778
+lambda = 1.8817e-06; f =        -4249.3438515
+lambda = 6.2723e-07; f =        -4249.3445284
+lambda = 2.0908e-07; f =        -4249.3445467
+lambda = 6.9692e-08; f =        -4275.9703349
+lambda = 1.3473e-07; f =        -4299.3416714
+lambda = 2.6045e-07; f =        -4249.3445467
+lambda = 1.7537e-07; f =        -4249.3445467
+lambda = 1.3833e-07; f =        -4300.5605302
+lambda = 1.5949e-07; f =        -4307.5055254
+lambda =  1.839e-07; f =        -4249.3445467
+lambda = 1.6884e-07; f =        -4310.4351883
+lambda = 1.7772e-07; f =        -4249.3445467
+lambda = 1.7234e-07; f =        -4311.5069208
+lambda = 1.7555e-07; f =        -4249.3445467
+lambda = 1.7361e-07; f =        -4249.3445467
+Norm of dx      19667
 ----
-Improvement on iteration 6 =      120.255293695
+Improvement on iteration 1 =       62.162374025
 back and forth on step length never finished
 -----------------
-f at the beginning of new iteration,     -4061.2843896608
-Predicted improvement:      865.804513675
-lambda =          1; f =        -4061.2539901
-lambda =    0.33333; f =        -4061.2833283
-lambda =    0.11111; f =        -4061.2843605
-lambda =   0.037037; f =        -4061.2843866
-lambda =   0.012346; f =        -4061.2843893
-lambda =  0.0041152; f =        -4061.2843896
-lambda =  0.0013717; f =        -4061.2843897
-lambda = 0.00045725; f =        -4061.7775715
-Norm of dx    0.65159
-----
-Improvement on iteration 7 =        0.493181848
------------------
-f at the beginning of new iteration,     -4061.7775715092
-Predicted improvement:      473.533425211
-lambda =          1; f =        -4061.7653391
-lambda =    0.33333; f =        -4061.7771382
-lambda =    0.11111; f =        -4061.7775626
-lambda =   0.037037; f =        -4061.7775707
-lambda =   0.012346; f =        -4061.7775714
-lambda =  0.0041152; f =        -4061.7775715
-lambda =  0.0013717; f =        -4061.7775715
-lambda = 0.00045725; f =        -4061.7775715
-lambda = 0.00015242; f =        -4061.9217943
-lambda = 0.00029465; f =        -4061.7775715
-lambda =  0.0001984; f =        -4061.9652605
-lambda = 0.00025153; f =        -4062.0154616
-lambda =  0.0003189; f =        -4061.7775715
-lambda = 0.00027658; f =        -4062.0391143
-lambda = 0.00030125; f =        -4061.7775715
-lambda = 0.00028619; f =        -4061.7775715
-lambda = 0.00027753; f =        -4062.0400083
-lambda =  0.0002827; f =        -4061.7775715
-lambda = 0.00027958; f =        -4062.0419496
-Norm of dx    0.42885
+f at the beginning of new iteration,     -4311.5069207522
+Predicted improvement:     9592.292095882
+lambda =          1; f =        -4309.3640921
+lambda =    0.33333; f =        -4311.2943160
+lambda =    0.11111; f =        -4311.4900153
+lambda =   0.037037; f =        -4311.5061620
+lambda =   0.012346; f =        -4311.5069108
+lambda =  0.0041152; f =        -4311.5069208
+lambda =  0.0013717; f =        -4311.5069208
+lambda = 0.00045725; f =        -4311.5069208
+lambda = 0.00015242; f =        -4311.5069208
+lambda = 5.0805e-05; f =        -4311.5069208
+lambda = 1.6935e-05; f =        -4311.5069208
+lambda =  5.645e-06; f =        -4311.5069208
+lambda = 1.8817e-06; f =        -4311.5069208
+lambda = 6.2723e-07; f =        -4311.5069208
+lambda = 2.0908e-07; f =        -4311.5069208
+lambda = 6.9692e-08; f =        -4311.5082577
+lambda = 1.3473e-07; f =        -4311.5095052
+lambda = 2.6045e-07; f =        -4311.5069208
+lambda = 1.7537e-07; f =        -4311.5069208
+lambda = 1.3833e-07; f =        -4311.5095743
+lambda = 1.5949e-07; f =        -4311.5099803
+lambda =  1.839e-07; f =        -4311.5069208
+lambda = 1.6884e-07; f =        -4311.5101596
+lambda = 1.7772e-07; f =        -4311.5069208
+lambda = 1.7234e-07; f =        -4311.5069208
+lambda = 1.6919e-07; f =        -4311.5101663
+lambda = 1.7107e-07; f =        -4311.5102024
+lambda = 1.7297e-07; f =        -4311.5069208
+Norm of dx     1.5708
 Cliff.  Perturbing search direction.
-Predicted improvement:      832.413182911
-lambda =          1; f =        -4061.7445809
-lambda =    0.33333; f =        -4061.7767424
-lambda =    0.11111; f =        -4061.7775589
-lambda =   0.037037; f =        -4061.7775702
-lambda =   0.012346; f =        -4061.7775714
-lambda =  0.0041152; f =        -4061.7775715
-lambda =  0.0013717; f =        -4061.7775715
-lambda = 0.00045725; f =        -4061.7775715
-lambda = 0.00015242; f =        -4062.0311162
-lambda = 0.00029465; f =        -4061.7775715
-lambda =  0.0001984; f =        -4062.1075289
-lambda = 0.00025153; f =        -4061.7775715
-lambda = 0.00021815; f =        -4062.1403451
-lambda = 0.00023761; f =        -4061.7775715
-lambda = 0.00022574; f =        -4062.1529406
-lambda = 0.00023279; f =        -4061.7775715
-lambda = 0.00022853; f =        -4062.1575812
-lambda = 0.00023108; f =        -4061.7775715
-Norm of dx    0.59352
+Predicted improvement:    14854.160647201
+lambda =          1; f =        -4307.0489717
+lambda =    0.33333; f =        -4311.0493003
+lambda =    0.11111; f =        -4311.4661055
+lambda =   0.037037; f =        -4311.5043995
+lambda =   0.012346; f =        -4311.5068698
+lambda =  0.0041152; f =        -4311.5069195
+lambda =  0.0013717; f =        -4311.5069208
+lambda = 0.00045725; f =        -4311.5069208
+lambda = 0.00015242; f =        -4311.5069208
+lambda = 5.0805e-05; f =        -4311.5069208
+lambda = 1.6935e-05; f =        -4311.5069208
+lambda =  5.645e-06; f =        -4311.5069208
+lambda = 1.8817e-06; f =        -4311.5069208
+lambda = 6.2723e-07; f =        -4311.5069208
+lambda = 2.0908e-07; f =        -4311.5069208
+lambda = 6.9692e-08; f =        -4311.5089910
+lambda = 1.3473e-07; f =        -4311.5069208
+lambda = 9.0717e-08; f =        -4311.5096156
+lambda = 1.1501e-07; f =        -4311.5103373
+lambda = 1.4582e-07; f =        -4311.5069208
+lambda = 1.2647e-07; f =        -4311.5069208
+lambda = 1.1611e-07; f =        -4311.5103699
+lambda = 1.2222e-07; f =        -4311.5069208
+lambda = 1.1852e-07; f =        -4311.5069208
+lambda = 1.1635e-07; f =        -4311.5069208
+Norm of dx     2.2203
 Cliff again.  Try traversing
-Predicted improvement:  5644799.543635942
-lambda =          1; f =      7407089.3100649
-lambda =    0.33333; f =       819189.4882859
-lambda =    0.11111; f =        87343.6319890
-lambda =   0.037037; f =         6074.9724936
-lambda =   0.012346; f =        -2940.5911855
-lambda =  0.0041152; f =        -3938.6956998
-lambda =  0.0013717; f =        -4048.5802662
-lambda = 0.00045725; f =        -4060.4611232
-lambda = 0.00015242; f =        -4061.6720228
-lambda = 5.0805e-05; f =        -4061.7736301
-lambda = 1.6935e-05; f =        -3614.4495597
-lambda =  5.645e-06; f =        -4073.1385729
-lambda = 1.8817e-06; f =        -4076.3889435
-Norm of dx       3360
+Predicted improvement:  3313468.233290978
+lambda =          1; f =      5114353.8102465
+lambda =    0.33333; f =       564092.7673416
+lambda =    0.11111; f =        58734.9934728
+lambda =   0.037037; f =         2659.6740858
+lambda =   0.012346; f =        -3546.8398978
+lambda =  0.0041152; f =        -4229.2793885
+lambda =  0.0013717; f =        -4302.7441556
+lambda = 0.00045725; f =        -4310.5545602
+lambda = 0.00015242; f =        -4311.4054987
+lambda = 5.0805e-05; f =        -4311.4967933
+lambda = 1.6935e-05; f =        -4311.5061309
+lambda =  5.645e-06; f =        -4311.5069030
+lambda = 1.8817e-06; f =        -4311.5069207
+lambda = 6.2723e-07; f =        -4311.5069208
+lambda = 2.0908e-07; f =        -4311.5069208
+lambda = 6.9692e-08; f =        -4311.5069208
+lambda = 2.3231e-08; f =        -4311.5069208
+lambda = 7.7435e-09; f =        -4311.5069208
+lambda = 2.5812e-09; f =        -4311.5239931
+lambda = 4.9899e-09; f =        -4311.5398631
+lambda = 9.6463e-09; f =        -4311.5069208
+lambda = 6.4953e-09; f =        -4311.5069208
+lambda = 5.1232e-09; f =        -4311.5407397
+lambda = 5.9071e-09; f =        -4311.5069208
+lambda = 5.4234e-09; f =        -4311.5427133
+lambda = 5.7087e-09; f =        -4311.5445874
+lambda = 6.0089e-09; f =        -4311.5069208
+lambda = 5.8269e-09; f =        -4311.5453641
+lambda = 5.9354e-09; f =        -4311.5069208
+lambda = 5.8701e-09; f =        -4311.5456476
+Norm of dx     2574.3
 ----
-Improvement on iteration 8 =       14.611371983
------------------
-f at the beginning of new iteration,     -4076.3889434927
-Predicted improvement:      791.341196895
-lambda =          1; f =        -4076.3453438
-lambda =    0.33333; f =        -4076.3871358
-lambda =    0.11111; f =        -4076.3888946
-lambda =   0.037037; f =        -4076.3889381
-lambda =   0.012346; f =        -4076.3889429
-lambda =  0.0041152; f =        -4076.3889434
-lambda =  0.0013717; f =        -4076.3889435
-lambda = 0.00045725; f =        -4076.3889435
-lambda = 0.00015242; f =        -4076.6299310
-lambda = 0.00029465; f =        -4076.3889435
-lambda =  0.0001984; f =        -4076.3889435
-lambda = 0.00015649; f =        -4076.6363634
-lambda = 0.00018043; f =        -4076.3889435
-lambda = 0.00016566; f =        -4076.3889435
-lambda = 0.00015738; f =        -4076.6377752
-lambda =  0.0001623; f =        -4076.6455390
-lambda = 0.00016737; f =        -4076.3889435
-lambda = 0.00016431; f =        -4076.3889435
-lambda =  0.0001625; f =        -4076.6458546
-Norm of dx    0.62039
-Cliff.  Perturbing search direction.
-Predicted improvement:     1019.082748892
-lambda =          1; f =        -4076.2919226
-lambda =    0.33333; f =        -4076.3839741
-lambda =    0.11111; f =        -4076.3888801
-lambda =   0.037037; f =        -4076.3889377
-lambda =   0.012346; f =        -4076.3889429
-lambda =  0.0041152; f =        -4076.3889434
-lambda =  0.0013717; f =        -4076.3889435
-lambda = 0.00045725; f =        -4076.3889435
-lambda = 0.00015242; f =        -4076.6992301
-lambda = 0.00029465; f =        -4076.3889435
-lambda =  0.0001984; f =        -4076.3889435
-lambda = 0.00015649; f =        -4076.7075107
-lambda = 0.00018043; f =        -4076.3889435
-lambda = 0.00016566; f =        -4076.3889435
-lambda = 0.00015738; f =        -4076.7093281
-lambda =  0.0001623; f =        -4076.3889435
-lambda = 0.00015933; f =        -4076.3889435
-lambda = 0.00015758; f =        -4076.7097220
-Norm of dx     0.7284
-Cliff again.  Try traversing
-Predicted improvement:  3448656.798239439
-lambda =          1; f =      5090437.9522903
-lambda =    0.33333; f =       561729.0767461
-lambda =    0.11111; f =        58708.7127020
-lambda =   0.037037; f =         2873.1837901
-lambda =   0.012346; f =        -3312.4044570
-lambda =  0.0041152; f =        -3993.5852557
-lambda =  0.0013717; f =        -4067.5144161
-lambda = 0.00045725; f =        -4075.4906495
-lambda = 0.00015242; f =        -4076.3117210
-lambda = 5.0805e-05; f =        -4076.3848862
-lambda = 1.6935e-05; f =        -4076.3889069
-lambda =  5.645e-06; f =        -4076.3889435
-lambda = 1.8817e-06; f =        -4088.2383246
-lambda = 3.6376e-06; f =        -4076.3889435
-lambda = 2.4494e-06; f =        -4076.3889435
-lambda = 1.9319e-06; f =        -4088.5217753
-lambda = 2.2276e-06; f =        -4090.1517401
-lambda = 2.5684e-06; f =        -4076.3889435
-lambda = 2.3581e-06; f =        -4076.3889435
-lambda = 2.2403e-06; f =        -4090.2204670
-lambda = 2.3103e-06; f =        -4076.3889435
-lambda =  2.268e-06; f =        -4076.3889435
-lambda =  2.243e-06; f =        -4090.2353479
-Norm of dx     2626.3
-----
-Improvement on iteration 9 =       13.846404366
+Improvement on iteration 2 =        0.038726827
 back and forth on step length never finished
 -----------------
-f at the beginning of new iteration,     -4090.2353478586
-Predicted improvement:      791.341196895
-lambda =          1; f =        -4090.1905127
-lambda =    0.33333; f =        -4090.2333441
-lambda =    0.11111; f =        -4090.2352988
-lambda =   0.037037; f =        -4090.2353424
-lambda =   0.012346; f =        -4090.2353473
-lambda =  0.0041152; f =        -4090.2353478
-lambda =  0.0013717; f =        -4090.2353479
-lambda = 0.00045725; f =        -4090.2353479
-lambda = 0.00015242; f =        -4090.2353479
-lambda = 5.0805e-05; f =        -4090.2353479
-lambda = 1.6935e-05; f =        -4090.2353479
-lambda =  5.645e-06; f =        -4090.2353479
-Norm of dx    0.62039
+f at the beginning of new iteration,     -4311.5456475793
+Predicted improvement:     9592.292095882
+lambda =          1; f =        -4309.4028293
+lambda =    0.33333; f =        -4311.3330461
+lambda =    0.11111; f =        -4311.5287429
+lambda =   0.037037; f =        -4311.5448889
+lambda =   0.012346; f =        -4311.5456376
+lambda =  0.0041152; f =        -4311.5456476
+lambda =  0.0013717; f =        -4311.5456476
+lambda = 0.00045725; f =        -4311.5456476
+lambda = 0.00015242; f =        -4311.5456476
+lambda = 5.0805e-05; f =        -4311.5456476
+Norm of dx     1.5708
 ----
-Improvement on iteration 10 =        0.000000000
+Improvement on iteration 3 =        0.000000000
 improvement < crit termination
 
-Final value of minus the log posterior (or likelihood):-4090.235348 
+Final value of minus the log posterior (or likelihood):-4311.545648 
 
 POSTERIOR KERNEL OPTIMIZATION PROBLEM!
  (minus) the hessian matrix at the "mode" is not positive definite!
 => posterior variance of the estimated parameters are not positive.
 You should try to change the initial values of the parameters using
 the estimated_params_init block, or use another optimization routine.
+
+The following parameters are at the prior bound: SE_e_N
+Some potential solutions are:
+   - Check your model for mistakes.
+   - Check whether model and data are consistent (correct observation equation).
+   - Shut off prior_trunc.
+   - Change the optimization bounds.
+   - Use a different mode_compute like 6 or 9.
+   - Check whether the parameters estimated are identified.
+   - Check prior shape (e.g. Inf density at bound(s)).
+   - Increase the informativeness of the prior.
 [Warning: The results below are most likely wrong!] 
 [> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation_1', 'C:\dynare\5.4\matlab\dynare_estimation_1.m', 318)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare_estimation_1.m',318,0)">line 318</a>)
 In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation', 'C:\dynare\5.4\matlab\dynare_estimation.m', 118)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare_estimation.m',118,0)">line 118</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('BRS_sectoral.driver', 'C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_sectoral\driver.m', 1133)" style="font-weight:bold">BRS_sectoral.driver</a> (<a href="matlab: opentoline('C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_sectoral\driver.m',1133,0)">line 1133</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('BRS_sectoral.driver', 'C:\Users\TJSEM\Github\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_sectoral\driver.m', 1176)" style="font-weight:bold">BRS_sectoral.driver</a> (<a href="matlab: opentoline('C:\Users\TJSEM\Github\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_sectoral\driver.m',1176,0)">line 1176</a>)
 In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare', 'C:\dynare\5.4\matlab\dynare.m', 278)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare.m',278,0)">line 278</a>)] 
 
 MODE CHECK
 
-Fval obtained by the minimization routine (minus the posterior/likelihood)): -4090.235348
-Most negative variance -12918.593737 for parameter 8 (e_D = 0.034890)
+Fval obtained by the minimization routine (minus the posterior/likelihood)): -4311.545648
+Most negative variance -9717.003159 for parameter 8 (e_D = 0.039000)
 [Warning: Matrix is singular, close to singular or badly scaled. Results may be inaccurate. RCOND = NaN.] 
 [> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation_1', 'C:\dynare\5.4\matlab\dynare_estimation_1.m', 341)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare_estimation_1.m',341,0)">line 341</a>)
 In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation', 'C:\dynare\5.4\matlab\dynare_estimation.m', 118)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare_estimation.m',118,0)">line 118</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('BRS_sectoral.driver', 'C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_sectoral\driver.m', 1133)" style="font-weight:bold">BRS_sectoral.driver</a> (<a href="matlab: opentoline('C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_sectoral\driver.m',1133,0)">line 1133</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('BRS_sectoral.driver', 'C:\Users\TJSEM\Github\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_sectoral\driver.m', 1176)" style="font-weight:bold">BRS_sectoral.driver</a> (<a href="matlab: opentoline('C:\Users\TJSEM\Github\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_sectoral\driver.m',1176,0)">line 1176</a>)
 In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare', 'C:\dynare\5.4\matlab\dynare.m', 278)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare.m',278,0)">line 278</a>)
 ] 
 
@@ -562,51 +516,58 @@ parameters
            prior mean     mode    s.d.  prior pstdev
 
 gam            1.5000   1.5005     NaN   beta 0.2500 
-ha             0.5000   0.4659     NaN   beta 0.2000 
-nu             0.7200   0.7221     NaN   gamm 0.2500 
-sigma_s        0.5000   0.4884     NaN   beta 0.2000 
-m              0.2860   0.2886     NaN   gamm 0.2000 
-nu_R           0.2000   0.2863     NaN   beta 0.1000 
-sigma_ac       1.0000   0.3178     NaN   invg 1.0000 
-sigma_ai       1.0000   0.3231     NaN   invg 1.0000 
-Psi_C          4.0000   1.5033     NaN   gamm 1.0000 
-Psi_I          4.0000   1.5011     NaN   gamm 1.0000 
-eta            0.2000   0.1966     NaN   gamm 0.1500 
+ha             0.5000   0.4574     NaN   beta 0.2000 
+nu             0.7200   0.7229     NaN   gamm 0.2500 
+sigma_s        0.5000   0.4878     NaN   beta 0.2000 
+m              0.2860   0.2899     NaN   gamm 0.2000 
+nu_R           0.2000   0.3192     NaN   beta 0.1000 
+sigma_ac       1.0000   0.3173     NaN   invg 1.0000 
+sigma_ai       1.0000   0.3235     NaN   invg 1.0000 
+Psi_C          4.0000   1.5042     NaN   gamm 1.0000 
+Psi_I          4.0000   1.5013     NaN   gamm 1.0000 
+eta            0.2000   0.1977     NaN   gamm 0.1500 
 theta          1.0000   0.5022     NaN   gamm 0.5000 
-rho_g          0.1000   0.0979     NaN   beta 0.0500 
-rho_Z          0.6000   0.9497     NaN   beta 0.2000 
-rho_ZI         0.6000   0.9376     NaN   beta 0.2000 
-rho_N          0.6000   0.6021     NaN   beta 0.2000 
-rho_D          0.6000   0.9077     NaN   beta 0.2000 
-rho_DI         0.6000   0.9205     NaN   beta 0.2000 
-rho_b          0.6000   0.9505     NaN   beta 0.2000 
-rho_muC        0.6000   0.9634     NaN   beta 0.2000 
-rho_muI        0.6000   0.9560     NaN   beta 0.2000 
+rho_g          0.1000   0.0977     NaN   beta 0.0500 
+rho_Z          0.6000   0.9482     NaN   beta 0.2000 
+rho_ZI         0.6000   0.9375     NaN   beta 0.2000 
+rho_N          0.6000   0.6024     NaN   beta 0.2000 
+rho_D          0.6000   0.9087     NaN   beta 0.2000 
+rho_DI         0.6000   0.9227     NaN   beta 0.2000 
+rho_b          0.6000   0.9485     NaN   beta 0.2000 
+rho_muC        0.6000   0.9661     NaN   beta 0.2000 
+rho_muI        0.6000   0.9567     NaN   beta 0.2000 
 
 standard deviation of shocks
            prior mean     mode    s.d.  prior pstdev
 
-e_g            0.0100   0.0180     NaN   gamm 0.0100 
-e_g_news       0.0100   0.0399     NaN   gamm 0.0100 
-e_Z            0.0100   0.0215     NaN   gamm 0.0100 
-e_Z_news       0.0100   0.0173     NaN   gamm 0.0100 
-e_ZI           0.0100   0.0534     NaN   gamm 0.0100 
-e_ZI_news      0.0100   0.0860     NaN   gamm 0.0100 
+e_g            0.0100   0.0123     NaN   gamm 0.0100 
+e_g_news       0.0100   0.0349     NaN   gamm 0.0100 
+e_Z            0.0100   0.0222     NaN   gamm 0.0100 
+e_Z_news       0.0100   0.0157     NaN   gamm 0.0100 
+e_ZI           0.0100   0.0430     NaN   gamm 0.0100 
+e_ZI_news      0.0100   0.0789     NaN   gamm 0.0100 
 e_N            0.0100   0.0001     NaN   gamm 0.0100 
-e_D            0.0100   0.0349     NaN   gamm 0.0100 
-e_D_news       0.0100   0.0404     NaN   gamm 0.0100 
-e_DI           0.0100   0.0202     NaN   gamm 0.0100 
-e_DI_news      0.0100   0.0474     NaN   gamm 0.0100 
-e_b            0.0100   0.0072     NaN   gamm 0.0100 
-e_muC          0.0100   0.0133     NaN   gamm 0.0100 
-e_muC_news     0.0100   0.0038     NaN   gamm 0.0100 
-e_muI          0.0100   0.0122     NaN   gamm 0.0100 
-e_muI_news     0.0100   0.0208     NaN   gamm 0.0100 
+e_D            0.0100   0.0390     NaN   gamm 0.0100 
+e_D_news       0.0100   0.0506     NaN   gamm 0.0100 
+e_DI           0.0100   0.0189     NaN   gamm 0.0100 
+e_DI_news      0.0100   0.0493     NaN   gamm 0.0100 
+e_b            0.0100   0.0033     NaN   gamm 0.0100 
+e_b_news       0.0100   0.0011     NaN   gamm 0.0100 
+e_muC          0.0100   0.0112     NaN   gamm 0.0100 
+e_muC_news     0.0100   0.0079     NaN   gamm 0.0100 
+e_muI          0.0100   0.0066     NaN   gamm 0.0100 
+e_muI_news     0.0100   0.0230     NaN   gamm 0.0100 
+
+standard deviation of measurement errors
+           prior mean     mode    s.d.  prior pstdev
+
+w_obs          0.0100   0.0084     NaN   gamm 0.0100 
 
 
 Log data density [Laplace approximation] is NaN.
 
 Estimation::mcmc: Multiple chains mode.
+Estimation::mcmc: Old mh-files successfully erased!
 Estimation::mcmc: Old metropolis.log file successfully erased!
 Estimation::mcmc: Creation of a new metropolis.log file.
 Estimation::mcmc: Searching for initial values...
@@ -618,57 +579,59 @@ Estimation::mcmc: Details about the MCMC are available in BRS_sectoral/metropoli
 
 Estimation::mcmc: Number of mh files: 1 per block.
 Estimation::mcmc: Total number of generated files: 2.
-Estimation::mcmc: Total number of iterations: 200000.
+Estimation::mcmc: Total number of iterations: 100000.
 Estimation::mcmc: Current acceptance ratio per chain: 
-                                                       Chain  1: 50.7715%
-                                                       Chain  2: 62.7585%
-Estimation::mcmc: Total number of MH draws per chain: 200000.
+                                                       Chain  1: 53.355%
+                                                       Chain  2: 57.584%
+Estimation::mcmc: Total number of MH draws per chain: 100000.
 Estimation::mcmc: Total number of generated MH files: 1.
 Estimation::mcmc: I'll use mh-files 1 to 1.
-Estimation::mcmc: In MH-file number 1 I'll start at line 60001.
-Estimation::mcmc: Finally I keep 140000 draws per chain.
+Estimation::mcmc: In MH-file number 1 I'll start at line 30001.
+Estimation::mcmc: Finally I keep 70000 draws per chain.
 
 
 
 MCMC Inefficiency factors per block
 Parameter           Block 1     Block 2
-SE_e_g              744.244     745.440
-SE_e_g_news         718.224     745.129
-SE_e_Z              672.146     657.102
-SE_e_Z_news         708.261     655.803
-SE_e_ZI             744.549     709.202
-SE_e_ZI_news        742.658     744.125
-SE_e_N              545.289     515.530
-SE_e_D              743.231     745.562
-SE_e_D_news         744.587     743.798
-SE_e_DI             735.822     733.709
-SE_e_DI_news        726.169     726.361
-SE_e_b              737.425     733.342
-SE_e_muC            738.852     732.345
-SE_e_muC_news       737.729     732.917
-SE_e_muI            734.433     744.435
-SE_e_muI_news       739.359     737.957
-gam                 743.637     741.532
-ha                  697.170     731.278
-nu                  740.832     746.016
-sigma_s             715.087     736.173
-m                   725.359     723.256
-nu_R                421.024     301.544
-sigma_ac            745.843     744.357
-sigma_ai            671.225     620.440
-Psi_C               740.101     743.012
-Psi_I               745.150     745.127
-eta                 741.323     744.421
-theta               737.027     746.092
-rho_g               743.351     746.194
-rho_Z               522.530     593.771
-rho_ZI              722.816     739.901
-rho_N               730.018     743.829
-rho_D               658.052     670.145
-rho_DI              671.617     435.688
-rho_b               740.414     733.829
-rho_muC             333.328     284.422
-rho_muI             653.069     638.909
+SE_e_g              733.919     682.332
+SE_e_g_news         731.405     673.572
+SE_e_Z              645.269     649.155
+SE_e_Z_news         673.187     606.552
+SE_e_ZI             714.412     519.382
+SE_e_ZI_news        731.497     631.792
+SE_e_N              284.965     180.325
+SE_e_D              729.714     732.596
+SE_e_D_news         736.155     738.447
+SE_e_DI             594.796     619.402
+SE_e_DI_news        508.310     585.830
+SE_e_b              531.940     639.655
+SE_e_b_news         726.862     704.978
+SE_e_muC            657.863     699.102
+SE_e_muC_news       675.021     686.935
+SE_e_muI            724.415     704.514
+SE_e_muI_news       729.612     673.404
+SE_EOBS_w_obs       197.908     189.668
+gam                 736.605     742.520
+ha                  720.183     710.632
+nu                  738.817     729.124
+sigma_s             718.536     694.770
+m                   727.259     690.008
+nu_R                738.514     733.177
+sigma_ac            720.074     724.299
+sigma_ai            549.289     609.959
+Psi_C               740.352     725.934
+Psi_I               741.509     704.084
+eta                 702.780     727.466
+theta               725.947     713.505
+rho_g               738.617     740.018
+rho_Z               724.956     733.801
+rho_ZI              706.794     714.888
+rho_N               727.248     742.826
+rho_D               601.368     577.246
+rho_DI              411.435     281.833
+rho_b               697.548     700.770
+rho_muC              62.501      64.667
+rho_muI             435.163     363.090
 
 Estimation::mcmc::diagnostics: Univariate convergence diagnostic, Brooks and Gelman (1998):
     Parameter 1...  Done! 
@@ -708,6 +671,8 @@ Estimation::mcmc::diagnostics: Univariate convergence diagnostic, Brooks and Gel
     Parameter 35...  Done! 
     Parameter 36...  Done! 
     Parameter 37...  Done! 
+    Parameter 38...  Done! 
+    Parameter 39...  Done! 
 
 Estimation::marginal density: I'm computing the posterior mean and covariance...  Done!
 Estimation::marginal density: I'm computing the posterior log marginal density (modified harmonic mean)... Done!
@@ -715,280 +680,361 @@ Estimation::marginal density: I'm computing the posterior log marginal density (
 
 ESTIMATION RESULTS
 
-Log data density is 4780.687552.
+Log data density is 5200.642325.
 
 parameters
              prior mean   post. mean        90% HPD interval    prior       pstdev
 
-gam               1.500       2.2085      1.6662      2.6661     beta       0.2500
-ha                0.500       0.1774      0.1034      0.2258     beta       0.2000
-nu                0.720       1.6334      1.5032      1.8272     gamm       0.2500
-sigma_s           0.500       0.6382      0.5825      0.7282     beta       0.2000
-m                 0.286       0.3652      0.3157      0.4236     gamm       0.2000
-nu_R              0.200       0.4977      0.4946      0.5000     beta       0.1000
-sigma_ac          1.000       2.5876      1.7661      3.3063     invg       1.0000
-sigma_ai          1.000       0.2811      0.1907      0.3817     invg       1.0000
-Psi_C             4.000       4.0719      3.3244      5.1357     gamm       1.0000
-Psi_I             4.000       1.6346      0.4569      2.9947     gamm       1.0000
-eta               0.200       0.5814      0.4826      0.6697     gamm       0.1500
-theta             1.000       1.7748      1.4749      2.0497     gamm       0.5000
-rho_g             0.100       0.0545      0.0132      0.0936     beta       0.0500
-rho_Z             0.600       0.9982      0.9955      1.0000     beta       0.2000
-rho_ZI            0.600       0.5405      0.4507      0.6295     beta       0.2000
-rho_N             0.600       0.5420      0.3692      0.7833     beta       0.2000
-rho_D             0.600       0.9326      0.9073      0.9573     beta       0.2000
-rho_DI            0.600       0.9938      0.9851      0.9999     beta       0.2000
-rho_b             0.600       0.8905      0.8132      0.9710     beta       0.2000
-rho_muC           0.600       0.9921      0.9859      0.9999     beta       0.2000
-rho_muI           0.600       0.9664      0.9460      0.9892     beta       0.2000
+gam               1.500       1.8895      1.3391      2.5395     beta       0.2500
+ha                0.500       0.5147      0.4528      0.6016     beta       0.2000
+nu                0.720       1.7955      1.5732      2.0000     gamm       0.2500
+sigma_s           0.500       0.2461      0.1662      0.3095     beta       0.2000
+m                 0.286       0.8874      0.7906      0.9500     gamm       0.2000
+nu_R              0.200       0.1455      0.0741      0.2226     beta       0.1000
+sigma_ac          1.000       1.2643      0.8259      1.8483     invg       1.0000
+sigma_ai          1.000       0.4951      0.3168      0.6735     invg       1.0000
+Psi_C             4.000       5.2654      3.9746      6.6670     gamm       1.0000
+Psi_I             4.000       4.1801      3.3939      4.9489     gamm       1.0000
+eta               0.200       0.3758      0.3022      0.4552     gamm       0.1500
+theta             1.000       1.9041      1.5923      2.1812     gamm       0.5000
+rho_g             0.100       0.2566      0.1273      0.3733     beta       0.0500
+rho_Z             0.600       0.7654      0.6636      0.9162     beta       0.2000
+rho_ZI            0.600       0.9201      0.8280      0.9790     beta       0.2000
+rho_N             0.600       0.6739      0.4724      0.8430     beta       0.2000
+rho_D             0.600       0.9280      0.8917      0.9657     beta       0.2000
+rho_DI            0.600       0.9915      0.9794      0.9999     beta       0.2000
+rho_b             0.600       0.8388      0.7533      0.9259     beta       0.2000
+rho_muC           0.600       0.9944      0.9892      0.9999     beta       0.2000
+rho_muI           0.600       0.9782      0.9609      0.9997     beta       0.2000
 
 standard deviation of shocks
              prior mean   post. mean        90% HPD interval    prior       pstdev
 
-e_g               0.010       0.0110      0.0009      0.0232     gamm       0.0100
-e_g_news          0.010       0.0189      0.0077      0.0250     gamm       0.0100
-e_Z               0.010       0.0102      0.0090      0.0114     gamm       0.0100
-e_Z_news          0.010       0.0048      0.0032      0.0065     gamm       0.0100
-e_ZI              0.010       0.0225      0.0193      0.0272     gamm       0.0100
-e_ZI_news         0.010       0.0115      0.0001      0.0243     gamm       0.0100
-e_N               0.010       0.0006      0.0001      0.0012     gamm       0.0100
-e_D               0.010       0.0479      0.0346      0.0568     gamm       0.0100
-e_D_news          0.010       0.0642      0.0519      0.0752     gamm       0.0100
-e_DI              0.010       0.0038      0.0001      0.0067     gamm       0.0100
-e_DI_news         0.010       0.0266      0.0241      0.0292     gamm       0.0100
-e_b               0.010       0.0042      0.0008      0.0071     gamm       0.0100
-e_muC             0.010       0.0033      0.0001      0.0061     gamm       0.0100
-e_muC_news        0.010       0.0046      0.0009      0.0067     gamm       0.0100
-e_muI             0.010       0.0234      0.0184      0.0291     gamm       0.0100
-e_muI_news        0.010       0.0218      0.0176      0.0261     gamm       0.0100
-[Warning: Some of the parameters have no value (gam_max) when using stoch_simul. If these parameters are not initialized in a steadystate file or a steady_state_model-block, Dynare may not be able to solve the
-model. Note that simul, perfect_foresight_setup, and perfect_foresight_solver do not automatically call the steady state file.] 
+e_g               0.010       0.0047      0.0000      0.0095     gamm       0.0100
+e_g_news          0.010       0.0069      0.0007      0.0104     gamm       0.0100
+e_Z               0.010       0.0029      0.0006      0.0050     gamm       0.0100
+e_Z_news          0.010       0.0064      0.0044      0.0082     gamm       0.0100
+e_ZI              0.010       0.0126      0.0109      0.0154     gamm       0.0100
+e_ZI_news         0.010       0.0032      0.0001      0.0101     gamm       0.0100
+e_N               0.010       0.0006      0.0001      0.0011     gamm       0.0100
+e_D               0.010       0.0433      0.0361      0.0500     gamm       0.0100
+e_D_news          0.010       0.0444      0.0341      0.0629     gamm       0.0100
+e_DI              0.010       0.0015      0.0001      0.0033     gamm       0.0100
+e_DI_news         0.010       0.0192      0.0175      0.0208     gamm       0.0100
+e_b               0.010       0.0015      0.0001      0.0032     gamm       0.0100
+e_b_news          0.010       0.0070      0.0016      0.0117     gamm       0.0100
+e_muC             0.010       0.0043      0.0020      0.0062     gamm       0.0100
+e_muC_news        0.010       0.0026      0.0001      0.0049     gamm       0.0100
+e_muI             0.010       0.0143      0.0001      0.0284     gamm       0.0100
+e_muI_news        0.010       0.0277      0.0191      0.0344     gamm       0.0100
+
+standard deviation of measurement errors
+             prior mean   post. mean        90% HPD interval    prior       pstdev
+
+w_obs             0.010       0.0082      0.0075      0.0088     gamm       0.0100
+[Warning: Some of the parameters have no value (gam_max) when using stoch_simul. If these parameters are not initialized in a
+steadystate file or a steady_state_model-block, Dynare may not be able to solve the model. Note that simul, perfect_foresight_setup,
+and perfect_foresight_solver do not automatically call the steady state file.] 
 
 MODEL SUMMARY
 
-  Number of variables:         108
-  Number of stochastic shocks: 16
-  Number of state variables:   58
+  Number of variables:         112
+  Number of stochastic shocks: 17
+  Number of state variables:   62
   Number of jumpers:           14
   Number of static variables:  37
 
 
 MATRIX OF COVARIANCE OF EXOGENOUS SHOCKS
-Variables            e_g         e_Z        e_ZI         e_N         e_D        e_DI         e_b       e_muC       e_muI    e_g_news    e_Z_news   e_ZI_news    e_D_news   e_DI_news  e_muC_news  e_muI_news
-e_g             0.000120    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000
-e_Z             0.000000    0.000105    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000
-e_ZI            0.000000    0.000000    0.000506    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000
-e_N             0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000
-e_D             0.000000    0.000000    0.000000    0.000000    0.002298    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000
-e_DI            0.000000    0.000000    0.000000    0.000000    0.000000    0.000014    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000
-e_b             0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000017    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000
-e_muC           0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000011    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000
-e_muI           0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000546    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000
-e_g_news        0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000358    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000
-e_Z_news        0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000023    0.000000    0.000000    0.000000    0.000000    0.000000
-e_ZI_news       0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000133    0.000000    0.000000    0.000000    0.000000
-e_D_news        0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.004115    0.000000    0.000000    0.000000
-e_DI_news       0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000706    0.000000    0.000000
-e_muC_news      0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000021    0.000000
-e_muI_news      0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000475
+Variables            e_g    e_g_news         e_Z    e_Z_news        e_ZI   e_ZI_news         e_N         e_D    e_D_news        e_DI   e_DI_news         e_b    e_b_news       e_muC  e_muC_news       e_muI  e_muI_news
+e_g             0.000023    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000
+e_g_news        0.000000    0.000047    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000
+e_Z             0.000000    0.000000    0.000008    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000
+e_Z_news        0.000000    0.000000    0.000000    0.000040    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000
+e_ZI            0.000000    0.000000    0.000000    0.000000    0.000159    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000
+e_ZI_news       0.000000    0.000000    0.000000    0.000000    0.000000    0.000010    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000
+e_N             0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000
+e_D             0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.001871    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000
+e_D_news        0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.001970    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000
+e_DI            0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000002    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000
+e_DI_news       0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000368    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000
+e_b             0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000002    0.000000    0.000000    0.000000    0.000000    0.000000
+e_b_news        0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000050    0.000000    0.000000    0.000000    0.000000
+e_muC           0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000019    0.000000    0.000000    0.000000
+e_muC_news      0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000007    0.000000    0.000000
+e_muI           0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000205    0.000000
+e_muI_news      0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000767
+
+
+MATRIX OF COVARIANCE OF MEASUREMENT ERRORS
+Variables              SE_NC_obs       SE_NI_obs        SE_C_obs        SE_I_obs      SE_p_I_obs  SE_util_ND_obs   SE_util_D_obs        SE_w_obs
+SE_NC_obs               0.000000        0.000000        0.000000        0.000000        0.000000        0.000000        0.000000        0.000000
+SE_NI_obs               0.000000        0.000000        0.000000        0.000000        0.000000        0.000000        0.000000        0.000000
+SE_C_obs                0.000000        0.000000        0.000000        0.000000        0.000000        0.000000        0.000000        0.000000
+SE_I_obs                0.000000        0.000000        0.000000        0.000000        0.000000        0.000000        0.000000        0.000000
+SE_p_I_obs              0.000000        0.000000        0.000000        0.000000        0.000000        0.000000        0.000000        0.000000
+SE_util_ND_obs          0.000000        0.000000        0.000000        0.000000        0.000000        0.000000        0.000000        0.000000
+SE_util_D_obs           0.000000        0.000000        0.000000        0.000000        0.000000        0.000000        0.000000        0.000000
+SE_w_obs                0.000000        0.000000        0.000000        0.000000        0.000000        0.000000        0.000000        0.000067
 
 
 
 THEORETICAL MOMENTS
 VARIABLE            MEAN  STD. DEV.   VARIANCE
-Y_obs             0.0000     0.0281     0.0008
-Y_N_obs           0.0000     0.0292     0.0009
-SR_obs            0.0000     0.0286     0.0008
-I_obs             0.0000     0.0426     0.0018
-p_I_obs           0.0000     0.0453     0.0021
-C_obs             0.0000     0.0282     0.0008
-NC_obs            0.0000     0.0059     0.0000
-NI_obs            0.0000     0.0237     0.0006
-util_ND_obs       0.0000     0.0152     0.0002
+Y_obs             0.0000     0.0160     0.0003
+Y_N_obs           0.0000     0.0138     0.0002
+SR_obs            0.0000     0.0139     0.0002
+I_obs             0.0000     0.0394     0.0016
+p_I_obs           0.0000     0.0245     0.0006
+C_obs             0.0000     0.0132     0.0002
+NC_obs            0.0000     0.0062     0.0000
+NI_obs            0.0000     0.0192     0.0004
+util_ND_obs       0.0000     0.0117     0.0001
 util_D_obs        0.0000     0.0348     0.0012
-log_Y             0.0000     0.7043     0.4961
-log_Y_N           0.0000     0.8549     0.7308
-log_SR            0.0000     0.5423     0.2941
-log_I             0.0000     0.8557     0.7322
-log_p_I           0.0000     0.3318     0.1101
-log_C             0.0000     0.6775     0.4590
-log_N             0.0000     0.1594     0.0254
-log_NC            0.0000     0.1383     0.0191
-log_NI            0.0000     0.2524     0.0637
-log_util_ND       0.0000     0.1331     0.0177
-log_util_D        0.0000     0.2992     0.0895
+w_obs             0.0000     0.0135     0.0002
+log_Y             0.0000     0.1582     0.0250
+log_Y_N           0.0000     0.1496     0.0224
+log_SR            0.0000     0.0879     0.0077
+log_I             0.0000     0.3924     0.1540
+log_p_I           0.0000     0.1816     0.0330
+log_C             0.0000     0.1229     0.0151
+log_N             0.0000     0.0693     0.0048
+log_NC            0.0000     0.0580     0.0034
+log_NI            0.0000     0.1255     0.0158
+log_util_ND       0.0000     0.0572     0.0033
+log_util_D        0.0000     0.3155     0.0996
 
 
 
 VARIANCE DECOMPOSITION (in percent)
-                      e_g         e_Z        e_ZI         e_N         e_D        e_DI         e_b       e_muC       e_muI    e_g_news    e_Z_news   e_ZI_news    e_D_news   e_DI_news  e_muC_news  e_muI_news
-Y_obs                5.73       43.01        1.15        0.00       11.85        0.02        0.32        0.05        0.12       13.23        6.30        0.28       17.08        0.62        0.12        0.10
-Y_N_obs              5.77       50.59        4.57        0.01        7.12        0.03        1.13        0.10        0.25       12.10        6.05        1.06       10.19        0.68        0.14        0.21
-SR_obs               5.83       48.69        3.18        0.00        8.74        0.03        0.68        0.02        0.06       12.64        6.22        0.71       12.52        0.61        0.02        0.05
-I_obs                2.55       28.57       15.02        0.00       10.08        0.17        4.44        0.00        0.20        7.40        9.88        3.55       12.37        5.64        0.03        0.10
-p_I_obs              0.25        5.74       61.41        0.00        0.46        0.21        1.67        0.01        0.60        0.69        2.70       16.09        1.02        8.61        0.01        0.52
-C_obs                6.38       44.25        0.05        0.00       10.41        0.00        0.98        0.08        0.08       14.81        5.77        0.02       16.78        0.09        0.20        0.09
-NC_obs               1.28       15.41       10.67        0.51        7.42        0.02        5.56        9.36        2.56        6.18        3.79        3.11       13.78        1.17       17.10        2.07
-NI_obs               1.59        5.49       31.08        0.04        2.70        0.06        8.73        0.06       11.94        5.66        6.23        9.35        4.47        2.78        0.09        9.74
-util_ND_obs          0.16        8.39        0.01        0.00       30.93        0.01        4.79        0.01        0.11        2.37        3.82        0.00       48.87        0.30        0.10        0.15
-util_D_obs           1.30        5.08       33.71        0.00       12.11        0.24        3.61        0.00        0.21        5.21        3.52       11.10       15.06        8.53        0.03        0.30
-log_Y                0.06       79.59        0.01        0.00        0.32        0.03        0.01        0.00        0.01        0.20       17.63        0.01        0.61        1.49        0.01        0.01
-log_Y_N              0.12       80.01        0.01        0.00        0.17        0.03        0.01        0.01        0.00        0.37       17.68        0.00        0.31        1.26        0.01        0.00
-log_SR               0.01       80.32        0.02        0.00        0.32        0.01        0.00        0.00        0.00        0.02       17.97        0.01        0.60        0.72        0.00        0.00
-log_I                0.09       74.59        0.16        0.00        0.73        0.11        0.23        0.00        0.03        0.29       16.80        0.09        1.51        5.35        0.00        0.03
-log_p_I              0.03       70.34        1.17        0.00        0.05        0.24        0.20        0.01        0.13        0.12       15.57        0.28        0.10       11.64        0.01        0.10
-log_C                0.16       80.00        0.00        0.00        0.24        0.02        0.02        0.01        0.01        0.52       17.66        0.00        0.44        0.91        0.02        0.00
-log_N                0.59       76.18        0.06        0.00        0.26        0.02        0.37        0.54        0.37        1.89       16.78        0.02        0.57        1.01        1.02        0.33
-log_NC               0.41       76.85        0.02        0.00        0.13        0.02        0.17        0.99        0.07        1.30       16.91        0.01        0.28        0.89        1.88        0.06
-log_NI               1.04       71.10        0.20        0.00        0.72        0.03        1.01        0.02        1.83        3.41       15.78        0.06        1.56        1.57        0.04        1.63
-log_util_ND          0.04       71.85        0.00        0.00        3.80        0.01        0.34        0.01        0.03        0.23       16.08        0.00        6.82        0.73        0.03        0.02
-log_util_D           2.86       34.93        0.37        0.00        4.08        0.57        1.10        0.01        0.02        9.40        8.97        0.16        8.42       29.09        0.01        0.02
+                      e_g    e_g_news         e_Z    e_Z_news        e_ZI   e_ZI_news         e_N         e_D    e_D_news        e_DI   e_DI_news         e_b    e_b_news       e_muC  e_muC_news       e_muI  e_muI_news
+Y_obs                4.52        8.00        4.22       14.36        2.56        0.11        0.00       34.12       27.02        0.04        4.09        0.05        0.86        0.01        0.00        0.01        0.03
+Y_N_obs              7.47       13.44        3.37       10.15        4.37        0.17        0.08       23.01       15.91        0.05        4.22        0.24        7.41        2.35        0.76        1.50        5.49
+SR_obs               6.85       12.31        3.92       12.28        3.66        0.14        0.04       28.36       20.51        0.04        3.74        0.15        3.79        0.99        0.32        0.63        2.28
+I_obs                0.56        1.03        6.01       19.58        9.42        0.42        0.00       22.96       18.34        0.12       12.88        0.17        8.50        0.00        0.00        0.00        0.01
+p_I_obs              0.02        0.06        4.46       18.49       29.23        1.71        0.00        1.28        1.75        0.28       42.28        0.01        0.40        0.00        0.00        0.01        0.03
+C_obs                8.69       16.09        2.26        9.58        0.09        0.01        0.00       27.86       26.68        0.00        0.57        0.28        7.80        0.01        0.01        0.01        0.06
+NC_obs               0.60        1.35        1.62        8.91        3.76        0.24        0.43       11.12       16.10        0.05        6.55        0.35       18.29       16.52        5.71        1.76        6.64
+NI_obs               0.69        1.52        1.51        7.50        4.94        0.39        0.05        9.73       10.51        0.04        7.83        0.29       13.21        0.30        0.10        8.77       32.62
+util_ND_obs          0.70        1.43        3.10       15.29        0.02        0.00        0.00       35.14       33.83        0.00        0.21        0.35        9.86        0.00        0.01        0.01        0.05
+util_D_obs           0.63        1.55        1.90        9.12        8.46        0.71        0.00       28.47       22.94        0.15       15.92        0.20        9.90        0.00        0.00        0.00        0.03
+w_obs                8.47       15.73        2.13        6.86        0.16        0.01        0.09       25.68       20.26        0.00        0.63        0.25        8.68        2.43        0.80        1.69        6.14
+log_Y                0.54        1.16        2.14       11.38        1.55        0.12        0.00       11.10       13.34        0.35       57.85        0.01        0.45        0.01        0.00        0.00        0.01
+log_Y_N              2.15        4.66        1.49        6.98        1.14        0.07        0.00        7.56        7.76        0.38       62.09        0.04        2.20        1.70        0.58        0.26        0.96
+log_SR               0.20        0.45        2.35       11.45        1.52        0.10        0.00       17.09       18.36        0.25       42.13        0.04        2.29        1.81        0.63        0.28        1.04
+log_I                0.25        0.54        3.56       19.20        3.37        0.27        0.00        6.05        8.77        0.32       54.87        0.04        2.75        0.00        0.00        0.00        0.00
+log_p_I              0.18        0.40        3.72       18.32        5.10        0.35        0.00        0.32        0.53        0.42       70.38        0.00        0.26        0.00        0.00        0.00        0.01
+log_C                2.27        4.93        1.29        6.50        0.87        0.06        0.00       12.68       14.01        0.33       54.95        0.04        2.01        0.02        0.01        0.01        0.02
+log_N                2.49        5.44        2.28       13.84        2.02        0.18        0.01        6.16       10.51        0.16       27.42        0.17       10.75        8.72        3.02        1.43        5.41
+log_NC               2.43        5.29        2.16       13.01        1.90        0.17        0.01        5.64        9.65        0.15       25.78        0.15        9.88       16.24        5.63        0.40        1.52
+log_NI               2.18        4.77        2.13       13.10        1.92        0.17        0.00        6.10       10.39        0.15       25.86        0.17       10.65        0.49        0.17        4.56       17.18
+log_util_ND          0.36        0.86        0.35        1.69        0.16        0.01        0.00       35.43       38.31        0.09       15.32        0.13        7.17        0.03        0.01        0.02        0.06
+log_util_D           0.95        2.07        1.58        9.53        1.40        0.12        0.00        8.19       11.95        0.35       60.01        0.06        3.76        0.00        0.00        0.00        0.00
+
+
+VARIANCE DECOMPOSITION (in percent) WITH MEASUREMENT ERROR
+                      e_g    e_g_news         e_Z    e_Z_news        e_ZI   e_ZI_news         e_N         e_D    e_D_news        e_DI   e_DI_news         e_b    e_b_news       e_muC  e_muC_news       e_muI  e_muI_news          ME
+I_obs                0.56        1.03        6.01       19.58        9.42        0.42        0.00       22.96       18.34        0.12       12.88        0.17        8.50        0.00        0.00        0.00        0.01        0.00
+p_I_obs              0.02        0.06        4.46       18.49       29.23        1.71        0.00        1.28        1.75        0.28       42.28        0.01        0.40        0.00        0.00        0.01        0.03        0.00
+C_obs                8.69       16.09        2.26        9.58        0.09        0.01        0.00       27.86       26.68        0.00        0.57        0.28        7.80        0.01        0.01        0.01        0.06       -0.00
+NC_obs               0.60        1.35        1.62        8.91        3.76        0.24        0.43       11.12       16.10        0.05        6.55        0.35       18.29       16.52        5.71        1.76        6.64        0.00
+NI_obs               0.69        1.52        1.51        7.50        4.94        0.39        0.05        9.73       10.51        0.04        7.83        0.29       13.21        0.30        0.10        8.77       32.62        0.00
+util_ND_obs          0.70        1.43        3.10       15.29        0.02        0.00        0.00       35.14       33.83        0.00        0.21        0.35        9.86        0.00        0.01        0.01        0.05       -0.00
+util_D_obs           0.63        1.55        1.90        9.12        8.46        0.71        0.00       28.47       22.94        0.15       15.92        0.20        9.90        0.00        0.00        0.00        0.03        0.00
+w_obs                6.20       11.52        1.56        5.02        0.12        0.01        0.06       18.80       14.83        0.00        0.46        0.19        6.35        1.78        0.58        1.24        4.49       26.78
 
 CONDITIONAL VARIANCE DECOMPOSITION (in percent)
 Period 1:
-                      e_g         e_Z        e_ZI         e_N         e_D        e_DI         e_b       e_muC       e_muI    e_g_news    e_Z_news   e_ZI_news    e_D_news   e_DI_news  e_muC_news  e_muI_news
-Y_obs                9.47       68.95        1.54        0.00       19.19        0.03        0.11        0.09        0.20        0.09        0.15        0.02        0.11        0.06        0.00        0.00
-Y_N_obs              8.76       71.10        5.94        0.01       10.14        0.04        1.53        0.15        0.36        0.51        1.18        0.01        0.11        0.15        0.01        0.00
-SR_obs               9.10       71.34        4.33        0.00       12.80        0.04        0.93        0.03        0.08        0.35        0.76        0.01        0.11        0.12        0.00        0.00
-I_obs                3.27       32.45       33.14        0.00       18.77        0.26        7.23        0.00        0.35        0.80        3.28        0.21        0.17        0.01        0.03        0.03
-p_I_obs              0.39        0.73       90.07        0.00        0.78        0.41        3.04        0.01        1.14        0.92        2.24        0.00        0.04        0.23        0.01        0.00
-C_obs               10.21       70.25        0.03        0.00       16.28        0.00        1.41        0.12        0.13        0.40        0.99        0.00        0.07        0.10        0.01        0.00
-NC_obs               0.03       18.48       14.77        1.00       16.90        0.03        9.86       23.83        6.41        2.15        6.11        0.03        0.03        0.33        0.04        0.01
-NI_obs               0.99        5.72       35.52        0.06        4.32        0.05       15.30        0.11       24.67        3.26        9.38        0.05        0.02        0.47        0.05        0.02
-util_ND_obs          0.11       14.46        0.00        0.00       64.73        0.02        9.82        0.02        0.23        2.70        6.81        0.00        0.44        0.62        0.04        0.01
-util_D_obs           0.90        0.18       55.18        0.00       31.37        0.61        7.06        0.00        0.46        0.66        2.99        0.26        0.27        0.00        0.03        0.04
-log_Y                4.26       72.92        1.63        0.00       20.30        0.03        0.12        0.09        0.21        0.10        0.16        0.02        0.11        0.06        0.00        0.00
-log_Y_N              2.96       75.62        6.32        0.01       10.79        0.04        1.63        0.16        0.39        0.54        1.25        0.01        0.12        0.16        0.01        0.00
-log_SR               3.38       75.83        4.60        0.00       13.61        0.04        0.99        0.03        0.08        0.37        0.81        0.01        0.12        0.12        0.00        0.00
-log_I                5.66       31.65       32.32        0.00       18.31        0.25        7.05        0.00        0.34        0.78        3.20        0.20        0.17        0.01        0.03        0.03
-log_p_I              0.39        0.73       90.07        0.00        0.78        0.41        3.04        0.01        1.14        0.92        2.24        0.00        0.04        0.23        0.01        0.00
-log_C                3.20       75.73        0.03        0.00       17.55        0.00        1.52        0.13        0.14        0.43        1.07        0.00        0.08        0.10        0.01        0.00
-log_N                0.40       12.14       27.33        0.40       10.35        0.04       14.00        6.97       16.16        3.01        8.62        0.04        0.02        0.44        0.05        0.02
-log_NC               0.03       18.48       14.77        1.00       16.90        0.03        9.86       23.83        6.41        2.15        6.11        0.03        0.03        0.33        0.04        0.01
-log_NI               0.99        5.72       35.52        0.06        4.32        0.05       15.30        0.11       24.67        3.26        9.38        0.05        0.02        0.47        0.05        0.02
-log_util_ND          0.11       14.46        0.00        0.00       64.73        0.02        9.82        0.02        0.23        2.70        6.81        0.00        0.44        0.62        0.04        0.01
-log_util_D           0.90        0.18       55.18        0.00       31.37        0.61        7.06        0.00        0.46        0.66        2.99        0.26        0.27        0.00        0.03        0.04
+                      e_g    e_g_news         e_Z    e_Z_news        e_ZI   e_ZI_news         e_N         e_D    e_D_news        e_DI   e_DI_news         e_b    e_b_news       e_muC  e_muC_news       e_muI  e_muI_news
+Y_obs               12.73        0.07        8.66        0.91        3.90        0.02        0.00       70.57        1.18        0.06        0.85        0.09        0.95        0.01        0.00        0.01        0.00
+Y_N_obs             19.87        0.20        5.91        0.33       11.10        0.01        0.19       41.26        0.41        0.11        0.51        0.48        9.17        6.40        0.00        4.06        0.01
+SR_obs              18.12        0.15        7.21        0.53        8.58        0.01        0.08       53.63        0.67        0.10        0.66        0.32        5.58        2.67        0.00        1.68        0.00
+I_obs                0.35        0.01        9.52        2.40       18.15        0.07        0.00       55.52        3.05        0.21        1.50        0.25        8.97        0.00        0.00        0.00        0.01
+p_I_obs              0.00        0.00        0.00        0.10       97.99        0.00        0.00        0.65        0.09        0.96        0.10        0.00        0.05        0.00        0.00        0.04        0.00
+C_obs               24.19        0.21        5.42        0.15        0.01        0.00        0.00       57.00        0.21        0.00        0.31        0.59       11.85        0.03        0.00        0.02        0.01
+NC_obs               0.42        0.05        1.33        0.50        2.47        0.02        1.17       25.05        0.68        0.01        0.20        0.32        8.99       53.17        0.00        5.61        0.01
+NI_obs               1.26        0.08        4.15        1.24        6.88        0.04        0.15       31.33        1.68        0.03        0.55        0.57       16.81        1.15        0.00       34.07        0.01
+util_ND_obs          1.25        0.26        4.46        0.15        0.04        0.00        0.00       77.25        0.19        0.00        0.34        0.75       15.29        0.00        0.00        0.01        0.01
+util_D_obs           0.91        0.01        2.70        2.64        7.63        0.08        0.00       70.18        3.36        0.28        1.64        0.28       10.27        0.00        0.00        0.01        0.01
+w_obs               21.00        0.16        4.39        0.13        0.01        0.00        0.18       53.99        0.18        0.00        0.26        0.44        8.78        6.21        0.00        4.26        0.01
+log_Y                2.56        0.08        9.66        1.02        4.35        0.02        0.00       78.79        1.31        0.06        0.95        0.10        1.06        0.02        0.00        0.01        0.00
+log_Y_N              1.81        0.24        7.24        0.40       13.60        0.01        0.23       50.55        0.50        0.14        0.62        0.58       11.24        7.85        0.00        4.98        0.01
+log_SR               2.21        0.18        8.61        0.63       10.25        0.01        0.10       64.05        0.80        0.12        0.78        0.38        6.67        3.19        0.00        2.01        0.00
+log_I                2.76        0.01        9.29        2.34       17.71        0.07        0.00       54.18        2.97        0.21        1.47        0.24        8.76        0.00        0.00        0.00        0.01
+log_p_I              0.00        0.00        0.00        0.10       97.99        0.00        0.00        0.65        0.09        0.96        0.10        0.00        0.05        0.00        0.00        0.04        0.00
+log_C                1.68        0.27        7.03        0.20        0.01        0.00        0.00       73.93        0.27        0.00        0.41        0.76       15.37        0.03        0.00        0.02        0.01
+log_N                0.82        0.07        2.66        0.88        4.64        0.03        0.73       31.82        1.20        0.02        0.37        0.48       13.76       25.86        0.00       16.65        0.01
+log_NC               0.42        0.05        1.33        0.50        2.47        0.02        1.17       25.05        0.68        0.01        0.20        0.32        8.99       53.17        0.00        5.61        0.01
+log_NI               1.26        0.08        4.15        1.24        6.88        0.04        0.15       31.33        1.68        0.03        0.55        0.57       16.81        1.15        0.00       34.07        0.01
+log_util_ND          1.25        0.26        4.46        0.15        0.04        0.00        0.00       77.25        0.19        0.00        0.34        0.75       15.29        0.00        0.00        0.01        0.01
+log_util_D           0.91        0.01        2.70        2.64        7.63        0.08        0.00       70.18        3.36        0.28        1.64        0.28       10.27        0.00        0.00        0.01        0.01
 Period 4:
-                      e_g         e_Z        e_ZI         e_N         e_D        e_DI         e_b       e_muC       e_muI    e_g_news    e_Z_news   e_ZI_news    e_D_news   e_DI_news  e_muC_news  e_muI_news
-Y_obs                9.16       68.31        1.65        0.00       18.44        0.04        0.49        0.08        0.19        0.24        0.28        0.18        0.67        0.26        0.00        0.01
-Y_N_obs              8.18       71.49        6.41        0.02        9.85        0.04        1.52        0.14        0.35        0.50        1.13        0.02        0.17        0.17        0.00        0.00
-SR_obs               8.60       71.59        4.57        0.00       12.40        0.04        0.98        0.03        0.09        0.39        0.78        0.05        0.28        0.18        0.00        0.00
-I_obs                3.79       39.98       20.95        0.00       14.30        0.25        6.04        0.00        0.29        1.91        3.43        1.59        5.45        1.91        0.03        0.08
-p_I_obs              0.35        7.91       85.21        0.00        0.63        0.30        2.21        0.01        0.82        0.67        1.64        0.01        0.06        0.18        0.01        0.00
-C_obs               10.15       70.19        0.07        0.00       16.28        0.00        1.48        0.12        0.13        0.39        0.98        0.00        0.08        0.10        0.01        0.00
-NC_obs               2.13       26.05       18.56        0.90       12.67        0.04        8.60       16.44        4.44        2.03        5.48        0.47        1.44        0.70        0.04        0.03
-NI_obs               2.18        6.57       44.36        0.05        3.44        0.08       11.40        0.08       16.88        2.96        7.41        0.76        2.54        1.22        0.04        0.04
-util_ND_obs          0.32       17.33        0.01        0.00       62.28        0.02        9.52        0.02        0.23        2.61        6.59        0.00        0.42        0.60        0.04        0.01
-util_D_obs           1.94        5.25       54.81        0.00       18.14        0.38        4.96        0.00        0.34        1.91        3.05        1.60        5.47        2.04        0.02        0.08
-log_Y                2.36       76.37        1.57        0.00       17.71        0.06        0.17        0.07        0.22        0.18        0.12        0.19        0.71        0.26        0.00        0.01
-log_Y_N              2.49       82.62        1.99        0.00        9.68        0.04        0.77        0.08        0.17        0.54        1.13        0.03        0.23        0.21        0.00        0.00
-log_SR               0.64       83.22        1.72        0.00       12.00        0.05        0.38        0.02        0.03        0.46        0.82        0.06        0.37        0.24        0.00        0.00
-log_I                0.70       53.02       13.39        0.00       17.11        0.32        7.47        0.00        0.36        0.30        1.58        1.34        3.51        0.79        0.03        0.09
-log_p_I              0.26       30.57       54.04        0.00        0.82        0.66        5.23        0.01        1.83        1.68        4.48        0.02        0.04        0.32        0.02        0.00
-log_C                3.51       78.06        0.02        0.00       15.50        0.00        0.94        0.13        0.14        0.43        1.04        0.00        0.10        0.12        0.01        0.00
-log_N                1.64       28.30        6.45        0.12        8.17        0.02       21.05        5.02       12.47        2.78       10.83        0.98        1.68        0.30        0.10        0.09
-log_NC               2.20       44.20        2.92        0.23        6.84        0.01       14.22       14.24        3.69        2.08        7.78        0.53        0.77        0.17        0.07        0.06
-log_NI               0.99       10.70       10.22        0.02        8.40        0.03       25.01        0.07       24.56        3.06       12.23        1.39        2.64        0.45        0.11        0.12
-log_util_ND          0.05       25.24        0.00        0.00       55.51        0.01        7.45        0.03        0.24        2.90        7.42        0.00        0.44        0.64        0.04        0.01
-log_util_D           1.22       10.13       11.84        0.00       45.60        1.02       13.71        0.00        0.09        0.63        2.36        3.00        8.04        2.09        0.06        0.20
+                      e_g    e_g_news         e_Z    e_Z_news        e_ZI   e_ZI_news         e_N         e_D    e_D_news        e_DI   e_DI_news         e_b    e_b_news       e_muC  e_muC_news       e_muI  e_muI_news
+Y_obs                9.08        0.12        8.05        3.97        4.67        0.10        0.00       64.61        5.13        0.08        3.25        0.08        0.84        0.01        0.00        0.01        0.00
+Y_N_obs             15.73        0.26        6.69        0.58        8.88        0.01        0.17       46.07        0.73        0.10        0.80        0.44       11.38        4.96        0.00        3.16        0.01
+SR_obs              14.38        0.23        7.56        1.56        7.20        0.03        0.07       55.24        2.00        0.09        1.61        0.28        6.34        2.07        0.00        1.31        0.00
+I_obs                0.70        0.07        8.35        9.87       14.09        0.26        0.00       35.64       12.71        0.19        7.15        0.23       10.71        0.00        0.00        0.00        0.01
+p_I_obs              0.04        0.01       10.38        1.43       80.18        0.04        0.00        3.41        1.81        0.80        1.09        0.01        0.76        0.00        0.00        0.03        0.00
+C_obs               19.75        0.24        4.95        0.28        0.09        0.00        0.00       60.36        0.37        0.00        0.46        0.54       12.88        0.03        0.00        0.02        0.01
+NC_obs               0.45        0.05        1.31        6.16        4.38        0.17        0.82       18.13        7.98        0.04        3.99        0.49       20.83       31.80        0.00        3.37        0.02
+NI_obs               1.17        0.08        2.56        7.72        9.86        0.21        0.10       20.18       10.01        0.08        5.19        0.54       21.77        0.67        0.00       19.84        0.02
+util_ND_obs          1.49        0.30        6.81        0.20        0.03        0.00        0.00       72.57        0.27        0.00        0.42        0.67       17.20        0.01        0.01        0.01        0.01
+util_D_obs           0.75        0.08        2.18       10.52       12.21        0.28        0.00       40.96       13.52        0.22        7.62        0.25       11.39        0.00        0.00        0.01        0.01
+w_obs               18.34        0.22        4.02        0.14        0.16        0.00        0.19       53.55        0.19        0.00        0.27        0.47       13.50        5.30        0.00        3.65        0.01
+log_Y                1.86        0.14        8.99        3.79        5.68        0.09        0.00       70.97        4.89        0.09        3.18        0.02        0.26        0.01        0.00        0.01        0.00
+log_Y_N              2.52        0.35        8.39        0.78        7.57        0.01        0.04       57.63        0.98        0.10        1.08        0.47       15.23        3.03        0.00        1.79        0.01
+log_SR               0.26        0.31        9.19        1.87        7.09        0.04        0.02       66.30        2.40        0.11        2.00        0.28        8.21        1.22        0.00        0.71        0.00
+log_I                0.47        0.01        9.52        8.20       15.76        0.22        0.00       36.79       10.52        0.22        5.71        0.27       12.29        0.00        0.00        0.00        0.01
+log_p_I              0.02        0.01       12.73        1.92       77.54        0.05        0.00        1.68        2.31        0.96        1.48        0.03        1.23        0.00        0.00        0.03        0.00
+log_C                3.09        0.31        4.86        0.37        0.09        0.01        0.00       73.56        0.49        0.01        0.62        0.49       16.03        0.04        0.01        0.02        0.01
+log_N                0.16        0.06        2.13        7.06        1.34        0.20        0.13       25.08        9.20        0.02        4.22        0.82       33.28       10.11        0.01        6.17        0.03
+log_NC               0.10        0.06        1.79        5.75        0.96        0.16        0.23       23.65        7.49        0.01        3.37        0.76       30.19       23.20        0.01        2.24        0.02
+log_NI               0.23        0.05        2.37        8.06        1.78        0.22        0.03       23.69       10.50        0.03        4.93        0.80       33.21        0.44        0.01       13.63        0.03
+log_util_ND          0.21        0.36        0.69        0.25        0.02        0.00        0.00       76.41        0.33        0.00        0.52        0.62       20.54        0.01        0.01        0.01        0.01
+log_util_D           0.12        0.02        2.87       10.23        2.66        0.28        0.00       47.59       13.12        0.29        7.11        0.33       15.35        0.00        0.00        0.00        0.02
 Period 8:
-                      e_g         e_Z        e_ZI         e_N         e_D        e_DI         e_b       e_muC       e_muI    e_g_news    e_Z_news   e_ZI_news    e_D_news   e_DI_news  e_muC_news  e_muI_news
-Y_obs                5.81       43.52        1.16        0.00       11.74        0.02        0.32        0.05        0.12       13.37        6.27        0.23       16.58        0.60        0.12        0.10
-Y_N_obs              5.81       50.85        4.60        0.01        7.05        0.03        1.13        0.10        0.25       12.16        6.03        1.05        9.91        0.66        0.14        0.21
-SR_obs               5.89       49.13        3.21        0.00        8.60        0.03        0.68        0.02        0.06       12.77        6.24        0.69       12.00        0.60        0.02        0.05
-I_obs                2.69       29.80       15.71        0.00        9.84        0.17        4.25        0.00        0.20        7.52        9.68        3.09       11.22        5.71        0.03        0.10
-p_I_obs              0.25        5.71       61.57        0.00        0.45        0.21        1.63        0.01        0.60        0.68        2.70       16.07        1.01        8.60        0.01        0.51
-C_obs                6.42       44.42        0.05        0.00       10.37        0.00        0.97        0.08        0.08       14.89        5.77        0.02       16.56        0.07        0.21        0.09
-NC_obs               1.29       15.46       10.87        0.52        7.37        0.02        5.23        9.54        2.58        6.12        3.69        3.10       13.61        1.09       17.43        2.08
-NI_obs               1.62        5.46       31.88        0.04        2.49        0.06        8.44        0.06       12.11        5.62        6.14        9.49        3.95        2.74        0.09        9.83
-util_ND_obs          0.16        8.55        0.01        0.00       31.10        0.01        4.81        0.01        0.11        2.41        3.90        0.00       48.38        0.30        0.10        0.15
-util_D_obs           1.35        4.97       35.62        0.00       11.82        0.25        3.34        0.00        0.22        5.18        3.14       11.52       13.54        8.68        0.03        0.32
-log_Y                1.18       64.25        0.68        0.00       11.25        0.06        0.24        0.04        0.16        2.36        5.31        0.36       12.71        1.25        0.06        0.09
-log_Y_N              1.78       72.13        0.80        0.00        6.59        0.04        0.33        0.06        0.10        2.96        6.99        0.26        6.94        0.92        0.06        0.05
-log_SR               0.24       72.58        0.68        0.00        7.95        0.04        0.16        0.01        0.01        0.78        7.24        0.27        8.94        1.09        0.01        0.01
-log_I                0.31       53.87        4.36        0.00       11.04        0.27        4.49        0.00        0.26        0.52        3.28        2.29       13.32        5.80        0.01        0.16
-log_p_I              0.13       39.94       25.40        0.00        0.67        0.57        3.70        0.01        1.45        1.08        5.00        6.14        0.93       14.30        0.02        0.66
-log_C                2.64       63.93        0.02        0.00       10.18        0.00        0.43        0.10        0.10        4.34        6.86        0.00       11.09        0.12        0.11        0.05
-log_N                3.18       19.77        3.19        0.05        7.69        0.03       16.99        4.10       10.09        3.70        8.20        0.84       11.82        0.50        4.50        5.34
-log_NC               3.41       33.81        1.34        0.09        4.79        0.01       10.49       10.57        2.66        3.67        7.78        0.39        8.20        0.20       11.07        1.51
-log_NI               2.11        5.42        5.16        0.01        9.63        0.05       20.67        0.05       20.70        2.93        7.02        1.30       13.29        0.86        0.15       10.66
-log_util_ND          0.04       19.68        0.00        0.00       32.99        0.01        3.91        0.03        0.16        1.15        4.81        0.00       36.62        0.48        0.04        0.08
-log_util_D           1.59       16.05        3.25        0.00       23.43        0.67        6.75        0.00        0.04        1.23        1.15        1.26       28.87       15.64        0.02        0.05
+                      e_g    e_g_news         e_Z    e_Z_news        e_ZI   e_ZI_news         e_N         e_D    e_D_news        e_DI   e_DI_news         e_b    e_b_news       e_muC  e_muC_news       e_muI  e_muI_news
+Y_obs                4.84        8.53        4.29       14.06        2.53        0.10        0.00       34.67       26.00        0.04        4.02        0.05        0.82        0.01        0.01        0.01        0.03
+Y_N_obs              7.83       14.03        3.42        9.84        4.53        0.17        0.09       23.32       15.63        0.05        4.20        0.23        6.09        2.47        0.80        1.57        5.73
+SR_obs               7.30       13.11        3.92       11.51        3.74        0.13        0.04       28.65       19.55        0.05        3.92        0.15        3.46        1.05        0.34        0.67        2.41
+I_obs                0.64        0.84        6.04       17.50        9.83        0.40        0.00       24.91       17.86        0.14       13.88        0.17        7.79        0.00        0.00        0.00        0.01
+p_I_obs              0.02        0.04        4.14       15.80       30.22        1.73        0.00        1.29        1.72        0.30       44.37        0.01        0.31        0.00        0.00        0.01        0.03
+C_obs                9.13       16.87        2.37        9.54        0.07        0.00        0.00       28.09       26.42        0.00        0.26        0.28        6.88        0.01        0.02        0.01        0.07
+NC_obs               0.59        0.62        1.26        6.92        3.84        0.22        0.52       11.62       16.12        0.05        5.14        0.33       15.84       19.97        6.90        2.12        7.94
+NI_obs               0.73        1.23        1.38        6.69        5.12        0.40        0.05        9.81        9.76        0.04        7.61        0.27       11.23        0.33        0.11        9.61       35.64
+util_ND_obs          0.74        1.44        3.28       16.13        0.02        0.00        0.00       35.40       33.31        0.00        0.21        0.35        9.05        0.00        0.01        0.01        0.05
+util_D_obs           0.70        1.39        1.75        8.13        9.20        0.78        0.00       30.29       21.84        0.17       16.78        0.19        8.73        0.00        0.00        0.00        0.03
+w_obs                8.92       16.45        2.16        6.15        0.10        0.01        0.09       26.44       20.57        0.00        0.24        0.24        7.03        2.57        0.84        1.77        6.43
+log_Y                0.90        0.91        5.51       16.00        4.02        0.18        0.00       39.08       26.29        0.08        6.81        0.01        0.18        0.01        0.00        0.01        0.01
+log_Y_N              2.23        1.48        5.14       11.14        3.83        0.13        0.01       36.18       16.97        0.07        5.20        0.25       12.39        1.67        0.33        0.92        2.06
+log_SR               0.09        0.16        5.48       14.25        3.80        0.16        0.00       38.95       22.36        0.07        6.49        0.13        6.16        0.64        0.13        0.34        0.78
+log_I                0.12        0.21        7.31       19.27        9.75        0.45        0.00       19.26       19.28        0.17       14.72        0.16        9.28        0.00        0.00        0.00        0.01
+log_p_I              0.05        0.02       11.43       15.80       28.48        1.22        0.00        1.16        1.48        0.46       38.81        0.02        1.04        0.00        0.00        0.01        0.03
+log_C                2.65        1.87        2.44        8.10        0.20        0.01        0.00       49.03       25.24        0.01        0.67        0.20        9.49        0.03        0.00        0.02        0.03
+log_N                0.26        0.11        2.22       11.05        2.46        0.14        0.03       15.05       19.92        0.05        4.14        0.56       30.50        4.42        0.88        2.53        5.68
+log_NC               0.24        0.09        2.17       10.34        2.35        0.13        0.05       15.15       19.55        0.04        3.78        0.57       30.66        9.95        1.92        0.87        2.13
+log_NI               0.27        0.15        2.09       11.11        2.41        0.13        0.01       13.47       18.57        0.05        4.30        0.49       27.40        0.19        0.05        6.15       13.17
+log_util_ND          0.13        0.38        0.37        1.02        0.03        0.00        0.00       53.20       28.24        0.00        0.51        0.32       15.75        0.01        0.00        0.01        0.02
+log_util_D           0.18        0.05        2.54       10.99        2.90        0.16        0.00       25.18       25.78        0.23       20.07        0.20       11.71        0.00        0.00        0.00        0.00
 Period 40:
-                      e_g         e_Z        e_ZI         e_N         e_D        e_DI         e_b       e_muC       e_muI    e_g_news    e_Z_news   e_ZI_news    e_D_news   e_DI_news  e_muC_news  e_muI_news
-Y_obs                5.73       42.99        1.15        0.00       11.86        0.02        0.32        0.05        0.12       13.25        6.29        0.28       17.09        0.61        0.12        0.10
-Y_N_obs              5.78       50.57        4.57        0.01        7.13        0.03        1.14        0.10        0.25       12.10        6.03        1.06       10.20        0.67        0.14        0.21
-SR_obs               5.84       48.67        3.18        0.00        8.74        0.03        0.68        0.02        0.06       12.66        6.20        0.71       12.53        0.60        0.02        0.05
-I_obs                2.56       28.50       15.07        0.00       10.11        0.17        4.46        0.00        0.20        7.42        9.88        3.56       12.38        5.57        0.03        0.10
-p_I_obs              0.25        5.74       61.43        0.00        0.46        0.21        1.67        0.01        0.60        0.69        2.70       16.09        1.02        8.60        0.01        0.52
-C_obs                6.39       44.23        0.05        0.00       10.42        0.00        0.98        0.08        0.08       14.82        5.76        0.02       16.80        0.09        0.20        0.09
-NC_obs               1.27       15.33       10.71        0.51        7.44        0.02        5.58        9.38        2.56        6.16        3.76        3.12       13.82        1.14       17.12        2.07
-NI_obs               1.58        5.42       31.14        0.04        2.71        0.06        8.75        0.06       11.95        5.65        6.22        9.37        4.47        2.76        0.09        9.74
-util_ND_obs          0.16        8.38        0.01        0.00       30.94        0.01        4.79        0.01        0.11        2.37        3.82        0.00       48.87        0.30        0.10        0.15
-util_D_obs           1.29        4.86       33.90        0.00       12.17        0.24        3.63        0.00        0.21        5.20        3.47       11.17       15.12        8.41        0.03        0.30
-log_Y                0.44       71.20        0.12        0.00        3.32        0.07        0.11        0.03        0.08        1.26       13.75        0.07        6.31        3.12        0.05        0.08
-log_Y_N              0.93       74.02        0.14        0.00        2.03        0.05        0.09        0.03        0.02        2.74       14.10        0.05        3.69        2.04        0.06        0.02
-log_SR               0.05       75.57        0.12        0.00        2.30        0.04        0.03        0.01        0.00        0.15       15.41        0.05        4.31        1.94        0.01        0.00
-log_I                0.24       62.61        0.72        0.00        3.28        0.24        1.04        0.00        0.12        0.66       12.78        0.42        6.84       10.94        0.00        0.11
-log_p_I              0.08       51.19        7.35        0.00        0.29        0.57        1.25        0.01        0.79        0.46       10.10        1.78        0.58       24.92        0.02        0.61
-log_C                1.45       70.94        0.02        0.00        3.16        0.02        0.12        0.07        0.06        4.22       13.41        0.01        5.64        0.72        0.12        0.06
-log_N                5.77       25.82        0.98        0.01        3.41        0.04        6.11        4.51        6.54       17.37        5.62        0.31        7.80        2.02        7.98        5.72
-log_NC               4.08       41.82        0.33        0.02        1.43        0.01        2.74        8.45        1.21       12.12        7.97        0.11        3.31        0.43       14.91        1.07
-log_NI               5.61        3.27        2.00        0.00        6.02        0.11        9.77        0.06       17.88       17.18        2.75        0.59       13.53        5.48        0.14       15.60
-log_util_ND          0.10       34.96        0.00        0.00       19.25        0.01        1.72        0.04        0.12        0.74        7.75        0.00       34.40        0.71        0.08        0.10
-log_util_D           2.48       29.18        0.61        0.00        6.64        0.62        1.59        0.00        0.03        7.63        7.30        0.27       13.82       29.79        0.00        0.04
+                      e_g    e_g_news         e_Z    e_Z_news        e_ZI   e_ZI_news         e_N         e_D    e_D_news        e_DI   e_DI_news         e_b    e_b_news       e_muC  e_muC_news       e_muI  e_muI_news
+Y_obs                4.53        8.01        4.23       14.34        2.56        0.11        0.00       34.18       27.04        0.04        3.99        0.05        0.86        0.01        0.00        0.01        0.03
+Y_N_obs              7.48       13.45        3.38       10.15        4.38        0.17        0.08       23.05       15.92        0.05        4.10        0.24        7.43        2.35        0.77        1.51        5.50
+SR_obs               6.85       12.32        3.92       12.28        3.66        0.14        0.04       28.38       20.50        0.04        3.71        0.15        3.79        0.99        0.32        0.63        2.28
+I_obs                0.56        1.03        6.03       19.57        9.47        0.42        0.00       23.08       18.41        0.12       12.57        0.17        8.55        0.00        0.00        0.00        0.01
+p_I_obs              0.02        0.06        4.46       18.48       29.32        1.71        0.00        1.29        1.75        0.28       42.17        0.01        0.40        0.00        0.00        0.01        0.03
+C_obs                8.70       16.10        2.26        9.58        0.08        0.00        0.00       27.90       26.70        0.00        0.47        0.28        7.81        0.01        0.01        0.01        0.06
+NC_obs               0.59        1.32        1.61        8.82        3.79        0.24        0.44       11.19       16.20        0.04        6.12        0.35       18.44       16.63        5.75        1.78        6.68
+NI_obs               0.69        1.51        1.51        7.48        4.96        0.39        0.05        9.77       10.53        0.04        7.64        0.29       13.26        0.30        0.10        8.80       32.69
+util_ND_obs          0.70        1.43        3.11       15.30        0.02        0.00        0.00       35.15       33.82        0.00        0.21        0.35        9.87        0.00        0.01        0.01        0.05
+util_D_obs           0.63        1.55        1.91        9.12        8.51        0.72        0.00       28.64       23.06        0.15       15.51        0.20        9.96        0.00        0.00        0.00        0.03
+w_obs                8.49       15.75        2.13        6.85        0.15        0.01        0.09       25.75       20.30        0.00        0.44        0.25        8.70        2.44        0.80        1.69        6.15
+log_Y                0.65        1.31        3.72       19.64        2.68        0.20        0.00       20.07       24.00        0.17       26.91        0.01        0.59        0.01        0.00        0.00        0.02
+log_Y_N              3.94        7.86        3.07       13.22        2.25        0.12        0.00       21.10       20.66        0.12       16.66        0.09        5.24        1.89        0.60        0.69        2.47
+log_SR               0.16        0.32        3.38       16.37        2.16        0.14        0.00       24.94       26.65        0.13       19.54        0.06        3.30        0.96        0.31        0.34        1.23
+log_I                0.17        0.34        4.71       25.42        4.47        0.35        0.00        7.99       11.62        0.25       41.04        0.05        3.59        0.00        0.00        0.00        0.00
+log_p_I              0.13        0.26        5.50       27.05        7.56        0.51        0.00        0.36        0.65        0.36       57.27        0.00        0.31        0.00        0.00        0.00        0.02
+log_C                3.56        7.19        1.94        9.32        1.06        0.07        0.00       30.89       33.47        0.06        8.48        0.07        3.77        0.04        0.01        0.01        0.06
+log_N                1.79        3.53        2.52       16.25        2.25        0.21        0.01        7.36       13.58        0.13       23.21        0.23       14.79        4.55        1.47        1.74        6.37
+log_NC               1.87        3.67        2.56       16.40        2.27        0.22        0.01        7.19       13.39        0.13       22.68        0.23       14.67        9.29        2.99        0.52        1.93
+log_NI               1.45        2.87        2.17       14.10        1.98        0.18        0.00        6.75       12.28        0.12       21.11        0.21       13.30        0.20        0.07        5.02       18.18
+log_util_ND          0.25        0.61        0.30        1.41        0.10        0.01        0.00       41.54       44.66        0.02        2.44        0.16        8.41        0.02        0.01        0.02        0.06
+log_util_D           0.65        1.29        1.82       11.21        1.61        0.14        0.00       10.31       15.21        0.32       52.78        0.07        4.58        0.00        0.00        0.00        0.00
+
+CONDITIONAL VARIANCE DECOMPOSITION (in percent) - WITH MEASUREMENT ERROR
+Period 1:
+                      e_g    e_g_news         e_Z    e_Z_news        e_ZI   e_ZI_news         e_N         e_D    e_D_news        e_DI   e_DI_news         e_b    e_b_news       e_muC  e_muC_news       e_muI  e_muI_news          ME
+I_obs                0.35        0.01        9.52        2.40       18.15        0.07        0.00       55.52        3.05        0.21        1.50        0.25        8.97        0.00        0.00        0.00        0.01        0.00
+p_I_obs              0.00        0.00        0.00        0.10       97.99        0.00        0.00        0.65        0.09        0.96        0.10        0.00        0.05        0.00        0.00        0.04        0.00        0.00
+C_obs               24.19        0.21        5.42        0.15        0.01        0.00        0.00       57.00        0.21        0.00        0.31        0.59       11.85        0.03        0.00        0.02        0.01       -0.00
+NC_obs               0.42        0.05        1.33        0.50        2.47        0.02        1.17       25.05        0.68        0.01        0.20        0.32        8.99       53.17        0.00        5.61        0.01        0.00
+NI_obs               1.26        0.08        4.15        1.24        6.88        0.04        0.15       31.33        1.68        0.03        0.55        0.57       16.81        1.15        0.00       34.07        0.01        0.00
+util_ND_obs          1.25        0.26        4.46        0.15        0.04        0.00        0.00       77.25        0.19        0.00        0.34        0.75       15.29        0.00        0.00        0.01        0.01       -0.00
+util_D_obs           0.91        0.01        2.70        2.64        7.63        0.08        0.00       70.18        3.36        0.28        1.64        0.28       10.27        0.00        0.00        0.01        0.01       -0.00
+w_obs               10.84        0.08        2.26        0.07        0.00        0.00        0.09       27.87        0.09        0.00        0.13        0.23        4.53        3.20        0.00        2.20        0.00       48.39
+Period 4:
+                      e_g    e_g_news         e_Z    e_Z_news        e_ZI   e_ZI_news         e_N         e_D    e_D_news        e_DI   e_DI_news         e_b    e_b_news       e_muC  e_muC_news       e_muI  e_muI_news          ME
+I_obs                0.70        0.07        8.35        9.87       14.09        0.26        0.00       35.64       12.71        0.19        7.15        0.23       10.71        0.00        0.00        0.00        0.01        0.00
+p_I_obs              0.04        0.01       10.38        1.43       80.18        0.04        0.00        3.41        1.81        0.80        1.09        0.01        0.76        0.00        0.00        0.03        0.00       -0.00
+C_obs               19.75        0.24        4.95        0.28        0.09        0.00        0.00       60.36        0.37        0.00        0.46        0.54       12.88        0.03        0.00        0.02        0.01        0.00
+NC_obs               0.45        0.05        1.31        6.16        4.38        0.17        0.82       18.13        7.98        0.04        3.99        0.49       20.83       31.80        0.00        3.37        0.02       -0.00
+NI_obs               1.17        0.08        2.56        7.72        9.86        0.21        0.10       20.18       10.01        0.08        5.19        0.54       21.77        0.67        0.00       19.84        0.02       -0.00
+util_ND_obs          1.49        0.30        6.81        0.20        0.03        0.00        0.00       72.57        0.27        0.00        0.42        0.67       17.20        0.01        0.01        0.01        0.01       -0.00
+util_D_obs           0.75        0.08        2.18       10.52       12.21        0.28        0.00       40.96       13.52        0.22        7.62        0.25       11.39        0.00        0.00        0.01        0.01        0.00
+w_obs               10.20        0.12        2.24        0.08        0.09        0.00        0.10       29.78        0.10        0.00        0.15        0.26        7.51        2.95        0.00        2.03        0.01       44.39
+Period 8:
+                      e_g    e_g_news         e_Z    e_Z_news        e_ZI   e_ZI_news         e_N         e_D    e_D_news        e_DI   e_DI_news         e_b    e_b_news       e_muC  e_muC_news       e_muI  e_muI_news          ME
+I_obs                0.64        0.84        6.04       17.50        9.83        0.40        0.00       24.91       17.86        0.14       13.88        0.17        7.79        0.00        0.00        0.00        0.01       -0.00
+p_I_obs              0.02        0.04        4.14       15.80       30.22        1.73        0.00        1.29        1.72        0.30       44.37        0.01        0.31        0.00        0.00        0.01        0.03        0.00
+C_obs                9.13       16.87        2.37        9.54        0.07        0.00        0.00       28.09       26.42        0.00        0.26        0.28        6.88        0.01        0.02        0.01        0.07       -0.00
+NC_obs               0.59        0.62        1.26        6.92        3.84        0.22        0.52       11.62       16.12        0.05        5.14        0.33       15.84       19.97        6.90        2.12        7.94        0.00
+NI_obs               0.73        1.23        1.38        6.69        5.12        0.40        0.05        9.81        9.76        0.04        7.61        0.27       11.23        0.33        0.11        9.61       35.64        0.00
+util_ND_obs          0.74        1.44        3.28       16.13        0.02        0.00        0.00       35.40       33.31        0.00        0.21        0.35        9.05        0.00        0.01        0.01        0.05       -0.00
+util_D_obs           0.70        1.39        1.75        8.13        9.20        0.78        0.00       30.29       21.84        0.17       16.78        0.19        8.73        0.00        0.00        0.00        0.03        0.00
+w_obs                6.43       11.87        1.56        4.43        0.07        0.01        0.07       19.07       14.83        0.00        0.17        0.17        5.07        1.85        0.60        1.28        4.63       27.88
+Period 40:
+                      e_g    e_g_news         e_Z    e_Z_news        e_ZI   e_ZI_news         e_N         e_D    e_D_news        e_DI   e_DI_news         e_b    e_b_news       e_muC  e_muC_news       e_muI  e_muI_news          ME
+I_obs                0.56        1.03        6.03       19.57        9.47        0.42        0.00       23.08       18.41        0.12       12.57        0.17        8.55        0.00        0.00        0.00        0.01        0.00
+p_I_obs              0.02        0.06        4.46       18.48       29.32        1.71        0.00        1.29        1.75        0.28       42.17        0.01        0.40        0.00        0.00        0.01        0.03        0.00
+C_obs                8.70       16.10        2.26        9.58        0.08        0.00        0.00       27.90       26.70        0.00        0.47        0.28        7.81        0.01        0.01        0.01        0.06        0.00
+NC_obs               0.59        1.32        1.61        8.82        3.79        0.24        0.44       11.19       16.20        0.04        6.12        0.35       18.44       16.63        5.75        1.78        6.68        0.00
+NI_obs               0.69        1.51        1.51        7.48        4.96        0.39        0.05        9.77       10.53        0.04        7.64        0.29       13.26        0.30        0.10        8.80       32.69        0.00
+util_ND_obs          0.70        1.43        3.11       15.30        0.02        0.00        0.00       35.15       33.82        0.00        0.21        0.35        9.87        0.00        0.01        0.01        0.05        0.00
+util_D_obs           0.63        1.55        1.91        9.12        8.51        0.72        0.00       28.64       23.06        0.15       15.51        0.20        9.96        0.00        0.00        0.00        0.03        0.00
+w_obs                6.21       11.52        1.56        5.01        0.11        0.01        0.06       18.83       14.85        0.00        0.32        0.19        6.36        1.78        0.58        1.24        4.50       26.86
 
 
 
 MATRIX OF CORRELATIONS
-Variables            Y_obs      Y_N_obs       SR_obs        I_obs      p_I_obs        C_obs       NC_obs       NI_obs  util_ND_obs   util_D_obs        log_Y      log_Y_N       log_SR        log_I      log_p_I        log_C        log_N       log_NC       log_NI  log_util_ND   log_util_D
-Y_obs               1.0000       0.9532       0.9769       0.7393      -0.1094       0.9671       0.0572       0.0021       0.6305       0.2691       0.0089       0.0035       0.0300       0.0203      -0.0209       0.0052       0.0208       0.0215       0.0186       0.0561       0.0627
-Y_N_obs             0.9532       1.0000       0.9937       0.6865      -0.2971       0.9287      -0.2262      -0.2792       0.5763       0.0668       0.0134       0.0089       0.0355       0.0237      -0.0314       0.0100       0.0117       0.0139       0.0063       0.0594       0.0593
-SR_obs              0.9769       0.9937       1.0000       0.7087      -0.2416       0.9498      -0.1339      -0.1927       0.6013       0.1295      -0.0012      -0.0031       0.0156      -0.0035      -0.0135      -0.0004       0.0114       0.0171      -0.0014       0.0430       0.0129
-I_obs               0.7393       0.6865       0.7087       1.0000      -0.3567       0.5436       0.0546       0.1014       0.3640       0.3943      -0.0009      -0.0041       0.0272       0.0192      -0.0527      -0.0073       0.0179       0.0213       0.0100       0.0442       0.0415
-p_I_obs            -0.1094      -0.2971      -0.2416      -0.3567       1.0000      -0.0016       0.5144       0.6654      -0.0260       0.5388      -0.0001      -0.0038      -0.0087      -0.0001       0.0683      -0.0001       0.0201       0.0106       0.0403      -0.0096       0.0448
-C_obs               0.9671       0.9287       0.9498       0.5436      -0.0016       1.0000       0.0507      -0.0357       0.6483       0.1863       0.0115       0.0059       0.0271       0.0180      -0.0062       0.0093       0.0192       0.0188       0.0194       0.0532       0.0624
-NC_obs              0.0572      -0.2262      -0.1339       0.0546       0.5144       0.0507       1.0000       0.7296       0.1773       0.4963      -0.0200      -0.0207      -0.0307      -0.0239       0.0366      -0.0185       0.0226       0.0215       0.0242      -0.0250      -0.0222
-NI_obs              0.0021      -0.2792      -0.1927       0.1014       0.6654      -0.0357       0.7296       1.0000       0.0114       0.6862      -0.0097      -0.0134      -0.0101      -0.0018       0.0322      -0.0120       0.0290       0.0203       0.0470      -0.0078       0.0289
-util_ND_obs         0.6305       0.5763       0.6013       0.3640      -0.0260       0.6483       0.1773       0.0114       1.0000       0.3454       0.0091       0.0049       0.0158       0.0018       0.0078       0.0113       0.0142       0.0170       0.0075       0.0573       0.0176
-util_D_obs          0.2691       0.0668       0.1295       0.3943       0.5388       0.1863       0.4963       0.6862       0.3454       1.0000      -0.0088      -0.0135       0.0043       0.0035       0.0210      -0.0126       0.0336       0.0296       0.0411       0.0223       0.0581
-log_Y               0.0089       0.0134      -0.0012      -0.0009      -0.0001       0.0115      -0.0200      -0.0097       0.0091      -0.0088       1.0000       0.9977       0.9912       0.9608      -0.9515       0.9962      -0.9325      -0.9501      -0.8613       0.9667       0.1181
-log_Y_N             0.0035       0.0089      -0.0031      -0.0041      -0.0038       0.0059      -0.0207      -0.0134       0.0049      -0.0135       0.9977       1.0000       0.9846       0.9435      -0.9488       0.9987      -0.9547      -0.9683      -0.8916       0.9583       0.0618
-log_SR              0.0300       0.0355       0.0156       0.0272      -0.0087       0.0271      -0.0307      -0.0101       0.0158       0.0043       0.9912       0.9846       1.0000       0.9767      -0.9433       0.9797      -0.9011      -0.9250      -0.8170       0.9626       0.1946
-log_I               0.0203       0.0237      -0.0035       0.0192      -0.0001       0.0180      -0.0239      -0.0018       0.0018       0.0035       0.9608       0.9435       0.9767       1.0000      -0.9471       0.9328      -0.8149      -0.8515      -0.7060       0.9362       0.3805
-log_p_I            -0.0209      -0.0314      -0.0135      -0.0527       0.0683      -0.0062       0.0366       0.0322       0.0078       0.0210      -0.9515      -0.9488      -0.9433      -0.9471       1.0000      -0.9375       0.8843       0.9042       0.8096      -0.8901      -0.2111
-log_C               0.0052       0.0100      -0.0004      -0.0073      -0.0001       0.0093      -0.0185      -0.0120       0.0113      -0.0126       0.9962       0.9987       0.9797       0.9328      -0.9375       1.0000      -0.9545      -0.9658      -0.8964       0.9607       0.0334
-log_N               0.0208       0.0117       0.0114       0.0179       0.0201       0.0192       0.0226       0.0290       0.0142       0.0336      -0.9325      -0.9547      -0.9011      -0.8149       0.8843      -0.9545       1.0000       0.9950       0.9759      -0.8683       0.1907
-log_NC              0.0215       0.0139       0.0171       0.0213       0.0106       0.0188       0.0215       0.0203       0.0170       0.0296      -0.9501      -0.9683      -0.9250      -0.8515       0.9042      -0.9658       0.9950       1.0000       0.9492      -0.8893       0.1208
-log_NI              0.0186       0.0063      -0.0014       0.0100       0.0403       0.0194       0.0242       0.0470       0.0075       0.0411      -0.8613      -0.8916      -0.8170      -0.7060       0.8096      -0.8964       0.9759       0.9492       1.0000      -0.7918       0.3372
-log_util_ND         0.0561       0.0594       0.0430       0.0442      -0.0096       0.0532      -0.0250      -0.0078       0.0573       0.0223       0.9667       0.9583       0.9626       0.9362      -0.8901       0.9607      -0.8683      -0.8893      -0.7918       1.0000       0.1706
-log_util_D          0.0627       0.0593       0.0129       0.0415       0.0448       0.0624      -0.0222       0.0289       0.0176       0.0581       0.1181       0.0618       0.1946       0.3805      -0.2111       0.0334       0.1907       0.1208       0.3372       0.1706       1.0000
+Variables            Y_obs      Y_N_obs       SR_obs        I_obs      p_I_obs        C_obs       NC_obs       NI_obs  util_ND_obs   util_D_obs        w_obs        log_Y      log_Y_N       log_SR        log_I      log_p_I        log_C        log_N       log_NC       log_NI  log_util_ND   log_util_D
+Y_obs               1.0000       0.8515       0.9330       0.8186      -0.2490       0.9038       0.5226       0.4197       0.6374       0.6846       0.7820       0.0350      -0.0094       0.0885       0.0991      -0.0333      -0.0227       0.1002       0.0778       0.1327       0.0295       0.1375
+Y_N_obs             0.8515       1.0000       0.9779       0.5550      -0.3006       0.8755       0.0201      -0.0832       0.6095       0.3651       0.9183       0.0618       0.0287       0.1030       0.0858      -0.0389       0.0309       0.0791       0.0716       0.0859       0.0852       0.1112
+SR_obs              0.9330       0.9779       1.0000       0.6725      -0.2873       0.9113       0.2007       0.1019       0.6344       0.4987       0.9023       0.0113       0.0024       0.0564       0.0257       0.0182      -0.0023       0.0207       0.0101       0.0383       0.0388       0.0534
+I_obs               0.8186       0.5550       0.6725       1.0000      -0.4973       0.4940       0.6550       0.5615       0.3794       0.8669       0.3682      -0.0309      -0.0420       0.0501       0.0471      -0.0191      -0.0874       0.0199      -0.0058       0.0657      -0.0647       0.0773
+p_I_obs            -0.2490      -0.3006      -0.2873      -0.4973       1.0000      -0.0063      -0.0370       0.0943      -0.1126      -0.2195       0.0864      -0.0008      -0.0017      -0.0679      -0.0360       0.0674       0.0274       0.0018       0.0075      -0.0088       0.0141      -0.0316
+C_obs               0.9038       0.8755       0.9113       0.4940      -0.0063       1.0000       0.3029       0.2169       0.6822       0.3903       0.9094       0.0761       0.0171       0.0967       0.1149      -0.0362       0.0308       0.1369       0.1222       0.1520       0.0928       0.1505
+NC_obs              0.5226       0.0201       0.2007       0.6550      -0.0370       0.3029       1.0000       0.8099       0.2468       0.6970       0.0019      -0.0226      -0.0622       0.0160       0.0703      -0.0144      -0.0926       0.0826       0.0536       0.1288      -0.0761       0.1035
+NI_obs              0.4197      -0.0832       0.1019       0.5615       0.0943       0.2169       0.8099       1.0000       0.1388       0.6336      -0.0548      -0.0474      -0.0619      -0.0233       0.0124       0.0205      -0.0862       0.0254      -0.0035       0.0765      -0.0859       0.0380
+util_ND_obs         0.6374       0.6095       0.6344       0.3794      -0.1126       0.6822       0.2468       0.1388       1.0000       0.4252       0.6198       0.0549       0.0231       0.0742       0.0720      -0.0245       0.0309       0.0756       0.0665       0.0857       0.1020       0.0852
+util_D_obs          0.6846       0.3651       0.4987       0.8669      -0.2195       0.3903       0.6970       0.6336       0.4252       1.0000       0.2970      -0.0571      -0.0598       0.0050       0.0165       0.0091      -0.1050      -0.0013      -0.0259       0.0443      -0.0709       0.0551
+w_obs               0.7820       0.9183       0.9023       0.3682       0.0864       0.9094       0.0019      -0.0548       0.6198       0.2970       1.0000       0.0567       0.0265       0.0695       0.0644      -0.0109       0.0398       0.0722       0.0682       0.0731       0.0906       0.0902
+log_Y               0.0350       0.0618       0.0113      -0.0309      -0.0008       0.0761      -0.0226      -0.0474       0.0549      -0.0571       0.0567       1.0000       0.9002       0.9392       0.8667      -0.7899       0.9173       0.3400       0.3128       0.3601       0.7694       0.7571
+log_Y_N            -0.0094       0.0287       0.0024      -0.0420      -0.0017       0.0171      -0.0622      -0.0619       0.0231      -0.0598       0.0265       0.9002       1.0000       0.8713       0.6079      -0.5922       0.9633      -0.1034      -0.1245      -0.0551       0.7140       0.4544
+log_SR              0.0885       0.1030       0.0564       0.0501      -0.0679       0.0967       0.0160      -0.0233       0.0742       0.0050       0.0695       0.9392       0.8713       1.0000       0.8259      -0.7292       0.8519       0.2635       0.2311       0.2998       0.8378       0.7423
+log_I               0.0991       0.0858       0.0257       0.0471      -0.0360       0.1149       0.0703       0.0124       0.0720       0.0165       0.0644       0.8667       0.6079       0.8259       1.0000      -0.9328       0.5964       0.6668       0.6306       0.6743       0.5397       0.9580
+log_p_I            -0.0333      -0.0389       0.0182      -0.0191       0.0674      -0.0362      -0.0144       0.0205      -0.0245       0.0091      -0.0109      -0.7899      -0.5922      -0.7292      -0.9328       1.0000      -0.5264      -0.5253      -0.4944      -0.5355      -0.3563      -0.8637
+log_C              -0.0227       0.0309      -0.0023      -0.0874       0.0274       0.0308      -0.0926      -0.0862       0.0309      -0.1050       0.0398       0.9173       0.9633       0.8519       0.5964      -0.5264       1.0000       0.0148      -0.0001       0.0412       0.8073       0.4536
+log_N               0.1002       0.0791       0.0207       0.0199       0.0018       0.1369       0.0826       0.0254       0.0756      -0.0013       0.0722       0.3400      -0.1034       0.2635       0.6668      -0.5253       0.0148       1.0000       0.9833       0.9418       0.2156       0.7481
+log_NC              0.0778       0.0716       0.0101      -0.0058       0.0075       0.1222       0.0536      -0.0035       0.0665      -0.0259       0.0682       0.3128      -0.1245       0.2311       0.6306      -0.4944      -0.0001       0.9833       1.0000       0.8648       0.2001       0.7111
+log_NI              0.1327       0.0859       0.0383       0.0657      -0.0088       0.1520       0.1288       0.0765       0.0857       0.0443       0.0731       0.3601      -0.0551       0.2998       0.6743      -0.5355       0.0412       0.9418       0.8648       1.0000       0.2249       0.7497
+log_util_ND         0.0295       0.0852       0.0388      -0.0647       0.0141       0.0928      -0.0761      -0.0859       0.1020      -0.0709       0.0906       0.7694       0.7140       0.8378       0.5397      -0.3563       0.8073       0.2156       0.2001       0.2249       1.0000       0.5062
+log_util_D          0.1375       0.1112       0.0534       0.0773      -0.0316       0.1505       0.1035       0.0380       0.0852       0.0551       0.0902       0.7571       0.4544       0.7423       0.9580      -0.8637       0.4536       0.7481       0.7111       0.7497       0.5062       1.0000
 
 
 
 COEFFICIENTS OF AUTOCORRELATION
 Order                1        2        3        4        5
-Y_obs           0.2282   0.1248   0.0808   0.0751   0.0355
-Y_N_obs         0.1944   0.0724   0.0450   0.0722   0.0223
-SR_obs          0.2021   0.0845   0.0503   0.0653   0.0168
-I_obs           0.6845   0.4458   0.2602   0.1272   0.0517
-p_I_obs        -0.1647  -0.0902  -0.0505  -0.0237  -0.0080
-C_obs           0.0550  -0.0016   0.0034   0.0484   0.0065
-NC_obs          0.1096   0.0245  -0.0071  -0.0094  -0.0188
-NI_obs          0.0016   0.0028  -0.0067   0.0051  -0.0155
-util_ND_obs     0.1053  -0.0252  -0.0330  -0.0216  -0.0278
-util_D_obs      0.1899   0.1793   0.1363   0.0936   0.0420
-log_Y           0.9993   0.9982   0.9970   0.9958   0.9944
-log_Y_N         0.9995   0.9987   0.9978   0.9969   0.9959
-log_SR          0.9986   0.9969   0.9951   0.9931   0.9910
-log_I           0.9987   0.9960   0.9924   0.9882   0.9837
-log_p_I         0.9907   0.9844   0.9798   0.9762   0.9730
-log_C           0.9992   0.9983   0.9975   0.9966   0.9957
-log_N           0.9985   0.9967   0.9949   0.9932   0.9914
-log_NC          0.9991   0.9979   0.9968   0.9956   0.9945
-log_NI          0.9956   0.9912   0.9867   0.9823   0.9779
-log_util_ND     0.9934   0.9855   0.9779   0.9707   0.9638
-log_util_D      0.9932   0.9839   0.9722   0.9586   0.9437
-Total computing time : 1h12m35s
-Note: 2 warning(s) encountered in the preprocessor
+Y_obs           0.5803   0.3587   0.2267   0.1426   0.0476
+Y_N_obs         0.4188   0.1896   0.0846   0.0388  -0.0303
+SR_obs          0.4708   0.2382   0.1214   0.0616  -0.0198
+I_obs           0.7864   0.5993   0.4372   0.2947   0.1631
+p_I_obs         0.2299   0.1756   0.1281   0.0884   0.0482
+C_obs           0.4173   0.1817   0.0776   0.0323  -0.0273
+NC_obs          0.5078   0.4268   0.3413   0.2563   0.1744
+NI_obs          0.2947   0.2250   0.1647   0.1080   0.0544
+util_ND_obs     0.3355   0.1649   0.0703   0.0168  -0.0288
+util_D_obs      0.6723   0.4884   0.3376   0.2078   0.0975
+w_obs           0.3068   0.1162   0.0387   0.0122  -0.0355
+log_Y           0.9953   0.9848   0.9707   0.9543   0.9366
+log_Y_N         0.9964   0.9893   0.9805   0.9708   0.9607
+log_SR          0.9893   0.9680   0.9408   0.9106   0.8789
+log_I           0.9949   0.9819   0.9630   0.9399   0.9139
+log_p_I         0.9909   0.9776   0.9612   0.9423   0.9219
+log_C           0.9954   0.9859   0.9741   0.9611   0.9478
+log_N           0.9927   0.9788   0.9595   0.9361   0.9097
+log_NC          0.9942   0.9826   0.9661   0.9457   0.9223
+log_NI          0.9883   0.9697   0.9459   0.9181   0.8879
+log_util_ND     0.9792   0.9445   0.9029   0.8583   0.8131
+log_util_D      0.9939   0.9797   0.9595   0.9352   0.9084
+Total computing time : 1h12m23s
 Note: warning(s) encountered in MATLAB/Octave code
