@@ -99,27 +99,30 @@ var Y           ${Y}$ (long_name='output')
     ;
 
 varexo e_g ${e_g}$ (long_name= 'Labor-augmenting-technology growth shock')
+       e_g_news ${e_{g,-4}}$ (long_name= 'Labor-augmenting-technology growth shock: news')
        e_Z ${e_Z}$ (long_name= 'TFP shock')
+       e_Z_news ${e_{Z,-4}}$ (long_name= 'TFP shock: news')
        e_ZI ${e_{ZI}}$ (long_name= 'Investment-specific tech shock')
+       e_ZI_news ${e_{ZI,-4}}$ (long_name= 'Investment-specific tech shock: news')
        
        e_N ${e_N}$ (long_name= 'Labor supply shock')
+
        e_D ${e_D}$ (long_name = 'Shopping disutility shock')
-       e_DI ${e_DI}$ (long_name = 'Relative investment shopping disutility shock')
-       e_b ${e_b}$ (long_name = 'Discount factor shock')
-
-       e_muC ${e_{muC}}$ (long_name = 'Wage markup shock: C')
-       e_muI ${e_{muI}}$ (long_name = 'Wage markup shock: I')
-
-       % News shocks
-       e_g_news ${e_{g,-4}}$ (long_name= 'Labor-augmenting-technology growth shock: news')
-       e_Z_news ${e_{Z,-4}}$ (long_name= 'TFP shock: news')
-       e_ZI_news ${e_{ZI,-4}}$ (long_name= 'Investment-specific tech shock: news')
-
        e_D_news ${e_{D,4}}$ (long_name = 'Shopping disutility shock: news')
+       e_DI ${e_DI}$ (long_name = 'Relative investment shopping disutility shock')
        e_DI_news ${e_{DI,-4}}$ (long_name = 'Relative investment shopping disutility shock: news')
 
+       e_b ${e_b}$ (long_name = 'Discount factor shock')
+       e_b_news ${e_{b,-4}}$ (long_name = 'Discount factor shock')
+
+       e_muC ${e_{muC}}$ (long_name = 'Wage markup shock: C')
        e_muC_news ${e_{muC,-4}}$ (long_name = 'Wage markup shock: C: news')
+       e_muI ${e_{muI}}$ (long_name = 'Wage markup shock: I')
        e_muI_news ${e_{muI,-4}}$ (long_name = 'Wage markup shock: I: news')
+
+       % News shocks
+   
+   
     ;
     
 parameters 
@@ -397,7 +400,7 @@ theta_D = rho_D*theta_D(-1) - e_D - e_D_news(-4);
 theta_I = rho_DI*theta_I(-1) - e_DI - e_DI_news(-4);
 
 [name='Consumption preference process']
-theta_b = rho_b*theta_b(-1) + e_b;
+theta_b = rho_b*theta_b(-1) + e_b + e_b_news(-4);
 
 [name = 'Wage-markup process: C']
 mu_C = rho_muC*mu_C(-1) + e_muC + e_muC_news(-4);
@@ -653,6 +656,7 @@ stderr e_DI, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 stderr e_DI_news, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 
 stderr e_b, 0.01, 0.0001, 0.4,  GAMMA_PDF, 0.01, 0.01;
+stderr e_b_news, 0.01, 0.0001, 0.4,  GAMMA_PDF, 0.01, 0.01;
 
 stderr e_muC, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 stderr e_muC_news, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
