@@ -239,7 +239,7 @@ if __name__ == "__main__":
     cycle_growth.columns = lab
     print(cycle_growth.mean())
     cycle_growth = cycle_growth - cycle_growth.mean()
-    mom_growth_data = moments(100*cycle_growth, lab=['I', 'LI'], lags=[1])
+    mom_growth_data = moments(100*cycle_growth, lab=['I', 'NI'], lags=[1])
     print(mom_growth_data.style.format(precision=2).to_latex())
     
      
@@ -252,11 +252,7 @@ if __name__ == "__main__":
         dic_data = dict(zip(lab_obs, [np.asarray(cycle_growth[x]) for x in cycle_growth.columns]))
         sio.savemat('observables_sectoral.mat', dic_data)
     
-    cycle =  pd.concat([filter_transform(dat[x], init=init, final=final, transform_type='log',
-                                         filter_type="hamilton", demean=True) for x in lab], axis=1)
-    #cycle =  pd.concat([filter_transform(dat[x], init=init, final=final, transform_type='log',
-                                     #    filter_type="hp_filter", demean=True) for x in lab], axis=1)
-    cycle.columns = lab
+    
     
     # Stacked moments
     stds = cycle_growth.std(axis=0)
@@ -266,10 +262,10 @@ if __name__ == "__main__":
     corrs = np.zeros((7, 1))
     corr_mat = cycle_growth.corr()
     corrs[0] = corr_mat['C']['I']
-    corrs[1] = corr_mat['C']['LI']
+    corrs[1] = corr_mat['C']['NI']
     corrs[2] = corr_mat['C']['lab_prod']
     corrs[3] = corr_mat['C']['util']
-    corrs[4] = corr_mat['LC']['LI']
+    corrs[4] = corr_mat['NC']['NI']
     corrs[5] = corr_mat['util_D']['util_ND']
     corrs[6] = corr_mat['p_I']['I']
     cor_dat = pd.DataFrame(corrs)
@@ -278,12 +274,17 @@ if __name__ == "__main__":
     autocorr_dat = np.zeros((2, 1))
     autocorr_dat[0] = cycle_growth.NC.autocorr()
     autocorr_dat[1] = cycle_growth.NI.autocorr()
+    autocorr_dat = pd.DataFrame(autocorr_dat)
     autocorr_dat.index = ["Cor(N_C, N_{C,-1})", "Cor(N_I, N_{I,-1})"]
     summ = pd.concat([stds, cor_dat, autocorr_dat])
     print(summ.style.format(precision=2).to_latex())
     
-
-
+    " Plots using Hamilton regression filtered data "
+    cycle =  pd.concat([filter_transform(dat[x], init=init, final=final, transform_type='log',
+                                         filter_type="hamilton", demean=True) for x in lab], axis=1)
+    #cycle =  pd.concat([filter_transform(dat[x], init=init, final=final, transform_type='log',
+                                     #    filter_type="hp_filter", demean=True) for x in lab], axis=1)
+    cycle.columns = lab
    
     
     " Choose specific variable set "
