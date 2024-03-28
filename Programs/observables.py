@@ -226,7 +226,7 @@ if __name__ == "__main__":
         save_object(var_load_list, 'var_load_list')
     
     dat = pd.concat(var_load_list, axis=1)
-    lab = ['Y', 'C', 'I', 'LC', 'LI', 'L', "lab_prod", 'p_I', 'SR', 'SR_util', 'util', 'util_D', 'util_ND', 'w']
+    lab = ['Y', 'C', 'I', 'NC', 'NI', 'N', "lab_prod", 'p_I', 'SR', 'SR_util', 'util', 'util_D', 'util_ND', 'w']
     dat.columns = lab
     """
     Create cycles
@@ -260,21 +260,26 @@ if __name__ == "__main__":
     
     # Stacked moments
     stds = cycle_growth.std(axis=0)
-    stds = 100*stds[["C", "I", "LC", "LI", "p_I", "util"]]
+    stds = 100*stds[["C", "I", "NC", "NI", "p_I", "util_ND", "util_D"]]
     stds = pd.DataFrame(stds)
-    stds.index = ["std(C)", "std(I)", "std(LC)", "std(LI)", "std(p_I)", "std(util)"]
-    corrs = np.zeros((6, 1))
+    stds.index = ["std(C)", "std(I)", "std(NC)", "std(NI)", "std(p_I)", "std(util_ND)", "std(util_D)"]
+    corrs = np.zeros((7, 1))
     corr_mat = cycle_growth.corr()
     corrs[0] = corr_mat['C']['I']
     corrs[1] = corr_mat['C']['LI']
     corrs[2] = corr_mat['C']['lab_prod']
     corrs[3] = corr_mat['C']['util']
     corrs[4] = corr_mat['LC']['LI']
-    corrs[5] = corr_mat['p_I']['I']
+    corrs[5] = corr_mat['util_D']['util_ND']
+    corrs[6] = corr_mat['p_I']['I']
     cor_dat = pd.DataFrame(corrs)
-    cor_dat.index = ["Cor(C, I)", "Cor(C, L_I)",  "Cor(C, lab_prod)", "Cor(C, util)",
-                     "Cor(L_C, L_I)" , "Cor(p_I, I)"]
-    summ = pd.concat([stds, cor_dat])
+    cor_dat.index = ["Cor(C, I)", "Cor(C, N_I)",  "Cor(C, lab_prod)", "Cor(C, util)",
+                     "Cor(N_C, N_I)" , "Corr(util_D, util_ND)", "Cor(p_I, I)"]
+    autocorr_dat = np.zeros((2, 1))
+    autocorr_dat[0] = cycle_growth.NC.autocorr()
+    autocorr_dat[1] = cycle_growth.NI.autocorr()
+    autocorr_dat.index = ["Cor(N_C, N_{C,-1})", "Cor(N_I, N_{I,-1})"]
+    summ = pd.concat([stds, cor_dat, autocorr_dat])
     print(summ.style.format(precision=2).to_latex())
     
 

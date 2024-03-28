@@ -1,25 +1,19 @@
 clc;
 clear;
-%% Baseline RBC model comparision
 addpath c:\dynare\5.4\matlab
-dynare RBC_growth.mod
+%% Main model estimated with sectoral data 
+%%
+dynare BRS_sectoral.mod
+%% Baseline RBC model comparision -> shut down shopping effort and goods market frictions
+dynare RBC_sectoral.mod
 
 %% General preferences with parameterized wealth effects
 dynare BRS_gen.mod 
 irf = oo_.irfs;
 save('irf_KPR.mat', 'irf')
-%%
-dynare BRS_sectoral.mod
+
 %% Estimate with sectoral data
 
-
-
-dynare BRS_growth_KPR_sectoral.mod
-%% Estimate sectoral data, separable preferences
-dynare BRS_growth_util_sectoral_separable_alt.mod
-%dynare BRS_growth_util_sectoral_exc.mod
-%% Intersector labor market friction
-dynare BRS_imp_mobility.mod
 
 %% Estimate intersectoral labor market friction with new g. Estimate gam
 dynare BRS_imp_mobility_est.mod
