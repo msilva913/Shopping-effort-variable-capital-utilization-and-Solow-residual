@@ -428,7 +428,7 @@ log_Y_N = log_Y - log_N;
 [name = 'Definition log shopping effort']
 log_D = log(D) - steady_state(log(D));
 [name = 'Definition of log relative investment  price']
-log_p_I = log(p_I) - steady_state(log_p_I);
+log_p_I = log(p_I) - steady_state(log(p_I));
 
 [name = 'Definition of log capacity utilization']
 log_util = log(util) - steady_state(log(util));
@@ -600,7 +600,7 @@ shocks;
 end;
 
 // local identification
-//identification(ar=10);
+//identification(ar=1);
 //check the starting values for the steady state
 resid;
 
@@ -609,7 +609,7 @@ steady;
 // check Blanchard-Kahn-conditions
 check;
 
-%/*
+
 estimated_params;
 //x, init_value, lower bound, upper bound, prior shape, prior mean, prior std
 
@@ -666,7 +666,7 @@ stderr e_muC_news, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 stderr e_muI, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 stderr e_muI_news, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 
-stderr w_obs, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
+stderr w_obs, 0.01, 0.0001, 0.05,  GAMMA_PDF, 0.01, 0.01;
 
 % news
 
@@ -683,11 +683,11 @@ estimation(tex, optim=('MaxIter', 200),
 datafile=observables_sectoral, 
 mode_file=BRS_sectoral_mode, 
 //nograph,
-//load_mh_file, 
+load_mh_file, 
 //mh_recover,
 mcmc_jumping_covariance=prior_variance,
 
-mode_compute=4,
+mode_compute=0,
 presample=0, 
 lik_init=2,
 mh_jscale=0.007, 
@@ -721,10 +721,10 @@ collect_latex_files;
 %     error('TeX-File did not compile.')
 % end
 
-%*/
+
 % Stochastic simulation -> for conditional FEVD and IRF
-stoch_simul (order=1, nofunctions, irf=100, periods=0,
-conditional_variance_decomposition=[1 4 8 40])
-Y_obs, Y_N_obs, SR_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_ND_obs, util_D_obs, w_obs,
-log_Y, log_Y_N, log_SR, log_I, log_p_I, log_C, log_N, log_NC, log_NI, log_util_ND, log_util_D;
+stoch_simul (order=1, nofunctions, irf=100, periods=0)
+//conditional_variance_decomposition=[1 4 8 40])
+Y_obs, Y_N_obs, SR_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_ND_obs, util_D_obs, w_obs;
+//log_Y, log_Y_N, log_SR, log_I, log_p_I, log_C, log_N, log_NC, log_NI, log_util_ND, log_util_D;
 
