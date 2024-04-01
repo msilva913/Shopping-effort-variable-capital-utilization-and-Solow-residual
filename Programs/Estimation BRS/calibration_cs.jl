@@ -21,12 +21,16 @@ cd(@__DIR__)
     N::Float64 = 0.30
     Ψ_j::Float64 = 0.81
 
+    # Consumption aggregator (elast. of sub = 0.85)
+    ρ_c::Float64 = (0.85-1)/0.85
+
     # Standard targets
     I_Y::Float64 = 0.20
     K_Y::Float64 = 11 #quarterly
+    S_c::Float64 = 0.65 # ratio of services to consumption
     labor_share::Float64 = 0.67
 
-    # Fixed cost share of output
+    # Fixed cost share of output-> assume it holds in each subsector
     ν_R::Float64 = 0.20
 
     # Targets specific to this economy
@@ -61,13 +65,14 @@ end
 
 
 function calibrate(targets)
-    @unpack γ, r_ann, g_bar, ν, Y, p_i, N, Ψ_j, I_Y, K_Y, labor_share, ϕ, η, θ, ν_R = targets
+    @unpack γ, r_ann, g_bar, ν, Y, p_i, N, Ψ_j, I_Y, K_Y, S_c, ρ_c, labor_share, ϕ, η, θ, ν_R = targets
 
     # Discount factor
+    β = 0.99
     #β*(1+g_bar)^(-γ) = 1/(1+r)
     G = exp(g_bar)
-    r = (1+r_ann)^(1/4) - 1.0
-    β = (1/(1+r))*G^(γ)
+    r = G^γ/β - 1.0
+    #β = (1/(1+r))*G^(γ)
     # upper bound on γ
     #γ = log(1+r)/log(G)
     # Capital accumulation
@@ -97,39 +102,72 @@ function calibrate(targets)
     # ϕ*C/D_c = D^(1/η) ⇒
     # (1-I_Y)D^(1+1/η) = ϕ*C = ϕ(1-I_Y)
 
-    D = ϕ^(η/(1+η))
+    # Weight of services in consumption aggregator
+    ω_sc = S_c
+
+    # Shopping effort 
+    D = ϕ^(η/(1+η)) 
     D_c = (1-I_Y)*D
+    D_sc = ω_sc*D_c
+    D_mc = (1-ω_sc)*D_c
     D_i = I_Y*D
-    A_c = Ψ_j/D_c^(ϕ)
+
+    # Technology coefficients of matching function ⇒ Ψ_j target
+    A_mc = Ψ_j/D_mc^(ϕ)
+    A_sc = Ψ_j/D_sc^ϕ
     A_i = Ψ_j/D_i^(ϕ)
 
 
     # Mean TFP 
     # N_i/N_c = I_Y/(1-I_Y)
     # K_i/K_c = I_Y/(1-I_Y) 
+
+    # Sectoral output 
     I = I_Y*Y
     C = Y - I
+    Y_mc = (1-ω_sc)*C
+    Y_sc = ω_sc*C
+
+    C_agg = ((1-ω_sc)^(1-ρ_c)*Y_mc^ρ_c + ω_sc^(1-ρ_c)*Y_sc^ρ_c)^(1/ρ_c)
+    @assert C ≈ C_agg
+
+    # Solve for price using price index 
+    # 1 = (ω_mc*p_mc^(-ρ_c/(1-ρ_c)) +ω_sc*p_sc^(-ρ_c/(1-ρ_c))
+    # This implies p_mc = p_sc = 1
+    p_mc = p_sc = 1
+
+    # C = p_mc*Y_mc + p_sc*Y_sc
+
+
     K = K_Y*Y*G # transformation of variables
+
+    # Sectoral capital stocks
     K_i = I_Y*K
     K_c = (1-I_Y)*K
+    K_mc = (1-ω_sc)*K_c
+    K_sc = ω_sc*K_c
+
+    # Sectoral labor
     N_i = I_Y*N 
     N_c = (1-I_Y)*N
+    N_mc = (1-ω_sc)*N_c 
+    N_sc = ω_sc*N_c
 
-    # Solve for fixed cost parameter
-    ν_c= ν_R*C/(Ψ_j)
-    ν_i = ν_R*I/(Ψ_j)
+    # Sectoral fixed costs
+    ν_mc= ν_R*Y_mc/(Ψ_j)
+    ν_sc = ν_R*Y_sc/Ψ_j
+    ν_i = ν_R*I/Ψ_j
 
     Q = p_i/(1-ϕ);
 
     # TFP parameter
-    #z_c = (1-I_Y)/(Ψ_j*G^(-α_K)*K_c^(α_K)*N_c^(α_N))
-    #z_i = (I_Y)/(Ψ_j*G^(-α_K)*K_i^(α_K)*N_i^(α_N))
-    z_c = ((1-I_Y)/Ψ_j + ν_c)/(G^(-α_k)*K_c^(α_k)*N_c^(α_n))
-    z_i = (I_Y/Ψ_j+ ν_i)/(G^(-α_k)*K_i^(α_k)*N_i^(α_n))
+    z_mc = (Y_mc/Ψ_j + ν_mc)/(G^(-α_k)*K_mc^(α_k)*N_mc^(α_n))
+    z_sc = (Y_sc/Ψ_j +ν_sc)/(G^(-α_k)*K_sc^(α_k)*N_sc^(α_n))
+    z_i = (I/Ψ_j+ ν_i)/(G^(-α_k)*K_i^(α_k)*N_i^(α_n))
     #
     # Weight on labor aggregator
     ω = N_c/N
-    # Labor composite 
+    # Labor composite: imperfect subs. only between c and i 
     N_a = (ω^(-θ)*N_c^(1+θ)+(1-ω)^(-θ)*N_i^(1+θ))^(1/(1+θ))
     # Implied wage
     #W = α_N*(I/N_i)*p_i/(1-ϕ)*(1+ν_R)
@@ -137,38 +175,57 @@ function calibrate(targets)
     # Level parameter on labor supply
     θ_n = (1-ϕ)*W/(N_a^(1/ν))
 
+
+
     # Profits 
     #Π = C + p_i*I -K_c*R_c - K_i*R_i - n*W
     Π = C + p_i*I - N*W*(α_n+α_k)/α_n
     Π_Y = 1 - labor_share*(1+α_k/α_n)
-    return (γ=γ, r=r, β=β, δ=δ, α_n=α_n, α_k=α_k, A_c=A_c, A_i=A_i, z_c=z_c, z_i=z_i, σ_b, ω, θ_n,
-    C=C, I=I, Y=Y, K=K, K_c=K_c, K_i=K_i, N=N, N_c=N_c, N_i=N_i, W=W, N_a, D=D, D_c=D_c, 
-    D_i=D_i, Q=Q, ν_c=ν_c, ν_i=ν_i, Π=Π, Π_Y=Π_Y)
+    return (γ=γ, r=r, β=β, δ=δ, α_n=α_n, α_k=α_k, 
+    A_mc=A_mc, A_sc=A_sc, A_i=A_i, 
+    z_mc=z_mc, z_sc=z_sc, z_i=z_i,
+    σ_b=σ_b, ω=ω, θ_n=θ_n,
+    Y_mc=Y_mc, Y_sc=Y_sc, C=C, I=I, Y=Y, 
+    p_i=p_i, p_mc=p_mc, p_sc=p_sc,
+    K_mc=K_mc, K_sc=K_sc, K_c=K_c, K_i=K_i, K=K,
+    N_mc=N_mc, N_sc=N_sc, N_c=N_c, N_i=N_i, N=N,
+    W=W, N_a=N_a, 
+    D_mc=D_mc, D_sc=D_sc, D_c=D_c, D_i=D_i, D=D,
+    Q=Q, 
+    ν_mc=ν_mc, ν_sc=ν_sc, ν_i=ν_i, 
+    Π=Π, Π_Y=Π_Y)
 end
 
 steady_state = function(par)
-    @unpack Y, C, I, K, K_c, K_i, N, N_c, N_i, z_c, z_i, W, D, D_c, D_i, Q = par
-    return (Y=Y, C=C, I=I, K=K, K_c=K_c, K_i=K_i, N=N, N_c=N_c, N_i=N_i, z_c=z_c, z_i=z_i, 
-    W=W, D=D, Dc=D_c, D_i=D_i, Q=Q)
+    @unpack Y, C, I, K_mc, K_sc, K_c, K_i, N, N_c, N_i, z_mc, z_sc, z_i, W, D, D_c, D_i, Q = par
+    return (Y_mc=Y_mc, Y_sc=Y_sc, C=C, I=I, K=K, K_mc=K_mc, K_sc=K_sc, K_i=K_i, 
+    N_c=N_c, N_i=N_i, N=N,
+    z_mc=z_mc, z_sc=z_sc, z_i=z_i, 
+    W=W, 
+    D_mc=D_mc, D_sc=D_sc, D_i=D_i, D=D,
+    Q=Q)
 end
 # Back out max on γ
 
 targets = Targets(g_bar = 0.0045, γ=2.0, r_ann=0.04)
 @show cal = calibrate(targets)
-@unpack W, N, C, I, Y, r, ν_c, ν_i, N_c, N_i, Π, Π_Y, δ = cal
-@unpack g_bar, labor_share, ν_R, Ψ_j, ν_R, p_i, K_Y, ϕ = targets
-γ_max = log(1+r)/g_bar
+@unpack W, N, Y_mc, Y_sc, C, I, Y, r, ν_mc, ν_sc, ν_i, N_c, N_i, Π, Π_Y, δ, K, K_mc, K_sc, K_i = cal
+@unpack g_bar, labor_share, ν_R, Ψ_j, ν_R, p_i, K_Y, I_Y, ϕ, S_c = targets
+#γ_max = log(1+r)/g_bar
 
 # Tests 
+@assert Y_sc/C ≈ S_c ≈ ω_sc
 @show W*N/Y - labor_share
-@show Ψ_j*ν_c/C - ν_R
+@show Ψ_j*ν_mc/Y_mc - ν_R
+@show Ψ_j ν_sc/Y_sc - ν_R
 @show Ψ_j*ν_i/I - ν_R
-@show (C/N_c)/(I/N_i) - p_i
+@show D_sc/D_i - S_c*(1-I_Y)/I_Y
+@show K - K_mc - K_sc - K_i
 @show Π -  ( 1 - labor_share - (r+δ)*K_Y/(1-ϕ))
 @show Π - Π_Y
 #targets_ng = Targets(g_bar = 0.0, γ=1.0)
 # cal_ng = calibrate(targets_ng)
-@show ss = steady_state(par)
+@show ss = steady_state(cal)
 
 
 # To be modified #
