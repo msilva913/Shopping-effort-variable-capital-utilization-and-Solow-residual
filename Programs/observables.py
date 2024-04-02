@@ -103,7 +103,7 @@ def construct_data(init, final, freq):
     C_S = fred.get_series('PCESV').resample(freq).mean().dropna()
     C = C_ND + C_S
     omega_SC = np.mean(C_S/(C))
-    print(omega_SC)
+    print(rf'$\omega_{{SC}} =$ {omega_SC:.2f}')
     
     " Nominal investment: durables (PCDG), non-residential investment (PNFI), residential investment (PRFI) "
     PCDG = fred.get_series("PCDG").resample(freq).mean().dropna()
