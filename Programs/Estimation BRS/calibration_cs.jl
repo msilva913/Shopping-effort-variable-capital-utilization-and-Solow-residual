@@ -225,7 +225,6 @@ targets = Targets(g_bar = 0.0045, γ=2.0, r_ann=0.04)
 @show Π - Π_Y
 #targets_ng = Targets(g_bar = 0.0, γ=1.0)
 # cal_ng = calibrate(targets_ng)
-@show ss = steady_state(cal)
 
 
 # To be modified #
