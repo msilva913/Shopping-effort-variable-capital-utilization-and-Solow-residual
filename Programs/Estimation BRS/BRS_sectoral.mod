@@ -33,7 +33,7 @@ var Y           ${Y}$ (long_name='output')
     mu_I        $\mu_I}$
 
     R_mc         ${R_{mc}}$ (long_name='Capital rental rate:mc')
-    R_sc         ${R_{sc}}$ (long_name='Capital rental rate:mc')
+    R_sc         ${R_{sc}}$ (long_name='Capital rental rate:sc')
     R_I         ${R_I}$ (long_name='Capital rental rate:I')
     W_C           ${W_C}$ (long_name='Real wage:C')
     W_I           ${W_I}$ (long_name='Real wage:I')
@@ -48,7 +48,7 @@ var Y           ${Y}$ (long_name='output')
     delta_I    ${\delta_I}$ (long_name= 'Capital depreciation rate:I')
 
     delta_mc_pr    ${\delta_{mc,pr}$ (long_name= 'Capital depreciation rate derivative:mc')
-    delta_sc_pr    ${\delta_{sc,pr}}$ (long_name= 'Capital depreciation rate derivative:mc')
+    delta_sc_pr    ${\delta_{sc,pr}}$ (long_name= 'Capital depreciation rate derivative:sc')
     delta_I_pr    ${\delta_{I,pr}}$ (long_name= 'Capital depreciation rate derivative:I')
 
     Sc            $S$ (long_name = 'Investment adjustment cost:C')
@@ -291,7 +291,6 @@ model;
 
 #Z_mc_ss = (Y_mc_ss/(Psi) + nu_mc)/(exp(g_bar)^(-alpha_K)*K_mc_ss^(alpha_K)*N_mc_ss^(alpha_N));
 #Z_sc_ss = (Y_sc_ss/(Psi) + nu_sc)/(exp(g_bar)^(-alpha_K)*K_sc_ss^(alpha_K)*N_sc_ss^(alpha_N));
-
 #Z_I_ss = (I_ss/Psi+nu_I)/(exp(g_bar)^(-alpha_K)*K_I_ss^(alpha_K)*N_I_ss^(alpha_N));
 
 #zeta_ss = C_ss*(1-ha) - D_ss^(1+1/eta)/(1+1/eta);
@@ -314,6 +313,9 @@ C_sc = omega_sc^(1-rho)*(C/Y_sc)^(1-rho);
 
 [name='Marginal utility of wealth']
 lam = Gam^(-sigma)*C_mc*(1-phi)/p_mc;
+
+[name='Optimality between sectors']
+C_mc/p_mc = C_sc/p_sc;
 
 [name='Shopping:mc']
 exp(theta_D)*D^(1/eta) = phi*C_mc*Y_mc/D_mc;

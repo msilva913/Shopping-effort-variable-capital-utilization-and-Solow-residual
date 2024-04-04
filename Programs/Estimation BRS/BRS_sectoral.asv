@@ -20,19 +20,20 @@ var Y           ${Y}$ (long_name='output')
     N_I         ${N_I}$ (long_name='Hours:I')
     N_comp           ${N}$ (long_name= 'Labor CES aggregate')
 
-    Z_mc         ${Z_{mc}}$ (long_name='Tech:mc')
-    Z_sc         ${Z_{sc}$ (long_name='Tech:sc')
-
+    Z_C         ${Z_{C}}$ (long_name='Tech:mc')
+    //Z_sc         ${Z_{sc}$ (long_name='Tech:sc')
     u_ZI
     Z_I         ${Z_I}$ (long_name='Tech:I')
+
     theta_N     ${\theta_N}$ (long_name='Labor disutility')
     theta_D     ${\theta_D}$ (long_name='Shopping disutility')
     theta_I     ${\theta_I}$ (long_name ='Relative shopping disutility')
     theta_b     ${\theta_b}$ (long_name='Discount factor shock')
     mu_C        ${\mu_C}$
     mu_I        $\mu_I}$
+
     R_mc         ${R_{mc}}$ (long_name='Capital rental rate:mc')
-    R_sc         ${R_{sc}}$ (long_name='Capital rental rate:mc')
+    R_sc         ${R_{sc}}$ (long_name='Capital rental rate:sc')
     R_I         ${R_I}$ (long_name='Capital rental rate:I')
     W_C           ${W_C}$ (long_name='Real wage:C')
     W_I           ${W_I}$ (long_name='Real wage:I')
@@ -335,8 +336,8 @@ C = (omega_sc^(1-rho)*Y_sc^rho + (1-omega_sc)^(1-rho)*Y_mc^rho)^(1/rho);
 [name = 'Consumption expenditures']
 C = p_mc*Y_mc + p_sc*Y_sc;
 
-[name = 'Price index']
-1 = (1-omega_sc)*p_mc^(-rho/(1-rho)) + omega_sc*p_sc^(-rho/(1-rho));
+//[name = 'Price index']
+//1 = (1-omega_sc)*p_mc^(-rho/(1-rho)) + omega_sc*p_sc^(-rho/(1-rho));
 
 [name = 'Investment adjustment cost function:C']
 Sc =Psi_C/2*(x_C-exp(g_bar))^2;
@@ -393,20 +394,20 @@ Q_I = beta*exp(theta_b)*(lam(+1)/lam)*exp(g(+1))^(-sigma)*(R_I(+1)*h_I(+1) + (1-
 
 
 [name = 'Utilization: mc']
-delta_mc_pr*Q_C = R_C;
+delta_mc_pr*Q_C = R_mc;
 
 [name = 'Utilization: sc']
-delta_sc_pr*Q_C = R_C;
+delta_sc_pr*Q_C = R_sc;
 
 [name = 'Utilization: I']
 delta_I_pr*Q_I = R_I;
 
 
 [name = 'Non-durable goods production']
-Y_mc = A_mc*(D_mc)^phi*(Z_mc_ss*exp(g)^(-alpha_K)*exp(Z_mc)*(h_mc*K_mc(-1))^alpha_K*(N_mc)^alpha_N-nu_mc);
+Y_mc = A_mc*(D_mc)^phi*(Z_mc_ss*exp(g)^(-alpha_K)*exp(Z_C)*(h_mc*K_mc(-1))^alpha_K*(N_mc)^alpha_N-nu_mc);
 
 [name = 'Services production']
-Y_sc = A_sc*(D_sc)^phi*(Z_sc_ss*exp(g)^(-alpha_K)*exp(Z_sc)*(h_sc*K_sc(-1))^alpha_K*(N_sc)^alpha_N-nu_sc);
+Y_sc = A_sc*(D_sc)^phi*(Z_sc_ss*exp(g)^(-alpha_K)*exp(Z_C)*(h_sc*K_sc(-1))^alpha_K*(N_sc)^alpha_N-nu_sc);
 
 [name = 'Investment production']
 I = A_I*(D_I)^phi*(Z_I_ss*exp(g)^(-alpha_K)*exp(Z_I)*(h_I*K_I(-1))^alpha_K*(N_I)^alpha_N-nu_I);
@@ -419,19 +420,19 @@ K_I*exp(g) = (1-Si)*I_I*exp(g) + (1-delta_I)*K_I(-1);
 
 
 [name = 'Labor demand:mc']
-(1-phi)*W_C = alpha_N*(Y_mc+A_mc*D_mc^phi*nu_mc)/N_mc;
+(1-phi)*W_C/p_mc = alpha_N*(Y_mc+A_mc*D_mc^phi*nu_mc)/N_mc;
 
 [name = 'Labor demand:sc']
-(1-phi)*W_C = alpha_N*(Y_sc+A_sc*D_sc^phi*nu_sc)/N_sc;
+(1-phi)*W_C/p_sc = alpha_N*(Y_sc+A_sc*D_sc^phi*nu_sc)/N_sc;
 
 [name = 'Labor demand:I']
 (1-phi)*W_I/p_I = alpha_N*(I+A_I*D_I^phi*nu_I)/N_I;
 
 [name = 'Capital demand:mc']
-(1-phi)*R_mc = exp(g)*alpha_K*(Y_mc+A_mc*D_mc^phi*nu_mc)/(h_mc*K_mc(-1));
+(1-phi)*R_mc/p_mc = exp(g)*alpha_K*(Y_mc+A_mc*D_mc^phi*nu_mc)/(h_mc*K_mc(-1));
 
 [name = 'Capital demand:sc']
-(1-phi)*R_sc = exp(g)*alpha_K*(Y_sc+A_sc*D_sc^phi*nu_sc)/(h_sc*K_sc(-1));
+(1-phi)*R_sc/p_sc = exp(g)*alpha_K*(Y_sc+A_sc*D_sc^phi*nu_sc)/(h_sc*K_sc(-1));
 
 [name = 'Capital demand:I']
 (1-phi)*R_I/p_I = exp(g)*alpha_K*(I+A_I*D_I^phi*nu_I)/(h_I*K_I(-1));
@@ -458,7 +459,7 @@ W = (N_C/N)*W_C + (N_I/N)*W_I;
 Y = C + p_I_ss*I;
 
 [name = 'Capacity utilization']
-util_ND = A_mc*D_mc^phi*((h_mc*K_C(-1))^alpha_K*N_mc^alpha_N-nu_mc)/(K_mc(-1)^alpha_K*N_mc^alpha_N-nu_mc);
+util_ND = A_mc*D_mc^phi*((h_mc*K_mc(-1))^alpha_K*N_mc^alpha_N-nu_mc)/(K_mc(-1)^alpha_K*N_mc^alpha_N-nu_mc);
 
 util_D = A_I*D_I^phi*((h_I*K_I(-1))^alpha_K*N_I^alpha_N-nu_I)/(K_I(-1)^alpha_K*N_I^alpha_N-nu_I);
 
@@ -567,7 +568,7 @@ steady_state_model;
     Y_sc = omega_sc*C;
     D = phi_ss^(eta/(1+eta));
     D_mc = (1-I_Y)*(1-omega_sc)*D;
-    D_sc = (1-I_Y)*omega_sc*D
+    D_sc = (1-I_Y)*omega_sc*D;
     D_I = I_Y*D;
 
     I_C = I*C;
@@ -583,7 +584,7 @@ steady_state_model;
     K_mc = (1-I_Y)*(1-omega_sc)*K;
     K_sc = (1-I_Y)*omega_sc*K;
     N_I = I_Y*N;
-    N_C = (1-I_Y)*N
+    N_C = (1-I_Y)*N;
     N_mc = (1-omega_sc)*N_C;
     N_sc = (omega_sc)*N_C;
     N_comp = N;
@@ -613,13 +614,15 @@ steady_state_model;
     g = g_bar;
 
     % Utilization variables
-    h_C = 1;
+    h_mc = 1;
+    h_sc = 1;
     h_I = 1;
     delta_mc = delta_ss;
     delta_sc = delta_ss;
     delta_I = delta_ss;
 
-    delta_C_pr = sigma_b_ss;
+    delta_mc_pr = sigma_b_ss;
+    delta_sc_pr = sigma_b_ss;
     delta_I_pr = sigma_b_ss;
 
     Q_C = p_I/(1-phi_ss);
@@ -634,7 +637,7 @@ steady_state_model;
 
     util_ND = A_mc_ss*D_mc^phi_ss*((h_mc*K_mc)^alpha_K_ss*N_mc^alpha_N_ss-nu_mc_ss)/(K_mc^alpha_K_ss*N_mc^alpha_N_ss-nu_mc_ss);
     util_D = A_I_ss*D_I^phi_ss*((h_I*K_I)^alpha_K_ss*N_I^alpha_N_ss-nu_I_ss)/(K_I^alpha_K_ss*N_I^alpha_N_ss-nu_I_ss);
-    util = (C/Y)*util_ND + (I/Y)*util_D;
+    util = (Y_mc/Y)*util_ND + (I/Y)*util_D;
 
     Z_C = 0;
     Z_I = 0;
@@ -647,14 +650,14 @@ steady_state_model;
     mu_I = 0;
 
    
-    R_mc = W_mc*exp(g)*(alpha_K_ss/alpha_N_ss)*N_mc/K_mc;
-    R_sc = W_sc*exp(g)*(alpha_K_ss/alpha_N_ss)*N_sc/K_sc;
+    R_mc = W_C*exp(g)*(alpha_K_ss/alpha_N_ss)*N_mc/K_mc;
+    R_sc = W_C*exp(g)*(alpha_K_ss/alpha_N_ss)*N_sc/K_sc;
     R_I = R_mc;
     
     rho_ss = (xi-1)/xi;
     C_mc = (1-omega_sc)^(1-rho_ss)*(C/Y_mc)^(1-rho_ss);
     C_sc = omega_sc^(1-rho_ss)*(C/Y_sc)^(1-rho_ss);
-    lambda = Gam^(-sigma)*C_mc*(1-phi)/p_mc;
+    lam = Gam^(-sigma)*C_mc*(1-phi_ss)/p_mc;
     
     % Logged versions of variables
     log_Y = 0;
@@ -787,13 +790,13 @@ varobs NC_obs, NI_obs, C_obs, I_obs, p_I_obs, util_ND_obs, util_D_obs, w_obs;
 
 estimation(tex, optim=('MaxIter', 200), 
 datafile=observables_sectoral, 
-mode_file=BRS_sectoral_mode, 
+//mode_file=BRS_sectoral_mode, 
 //nograph,
-load_mh_file, 
+//load_mh_file, 
 //mh_recover,
 mcmc_jumping_covariance=prior_variance,
 
-mode_compute=0,
+mode_compute=4,
 presample=0, 
 lik_init=2,
 mh_jscale=0.007, 

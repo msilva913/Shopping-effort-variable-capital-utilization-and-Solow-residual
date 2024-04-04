@@ -184,6 +184,7 @@ function calibrate(targets)
     return (γ=γ, r=r, β=β, δ=δ, α_n=α_n, α_k=α_k, 
     A_mc=A_mc, A_sc=A_sc, A_i=A_i, 
     z_mc=z_mc, z_sc=z_sc, z_i=z_i,
+    ρ_c=ρ_c, ω_sc=ω_sc,
     σ_b=σ_b, ω=ω, θ_n=θ_n,
     Y_mc=Y_mc, Y_sc=Y_sc, C=C, I=I, Y=Y, 
     p_i=p_i, p_mc=p_mc, p_sc=p_sc,
@@ -209,7 +210,7 @@ end
 
 targets = Targets(g_bar = 0.0045, γ=2.0, r_ann=0.04)
 @show cal = calibrate(targets)
-@unpack W, N, Y_mc, Y_sc, C, I, Y, r, ν_mc, ν_sc, ν_i, N_c, N_i, Π, Π_Y, δ, K, K_mc, K_sc, K_i = cal
+@unpack W, N, Y_mc, Y_sc, C, I, Y, r, ν_mc, ν_sc, ν_i, N_c, N_i, Π, Π_Y, δ, K, K_mc, K_sc, K_i, ρ_c, ω_sc, D_sc, D_i = cal
 @unpack g_bar, labor_share, ν_R, Ψ_j, ν_R, p_i, K_Y, I_Y, ϕ, S_c = targets
 #γ_max = log(1+r)/g_bar
 
