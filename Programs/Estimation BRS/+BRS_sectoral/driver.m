@@ -1261,7 +1261,7 @@ options_.mh_drop = 0.3;
 options_.mh_init_scale = 0.0001;
 options_.mh_jscale = 0.007;
 options_.mh_nblck = 2;
-options_.mh_replic = 200000;
+options_.mh_replic = 0;
 options_.mode_check.status = true;
 options_.mode_compute = 0;
 options_.presample = 0;
@@ -1280,9 +1280,11 @@ collect_latex_files;
 options_.irf = 100;
 options_.nofunctions = true;
 options_.order = 1;
-options_.periods = 0;
+options_.periods = 223;
 var_list_ = {'Y_obs';'Y_N_obs';'SR_obs';'I_obs';'p_I_obs';'C_obs';'NC_obs';'NI_obs';'util_ND_obs';'util_D_obs';'w_obs'};
 [info, oo_, options_, M_] = stoch_simul(M_, options_, oo_, var_list_);
+savevars = {'NC_obs', 'NI_obs', 'C_obs', 'I_obs', 'p_I_obs', 'util_ND_obs', 'util_D_obs', 'w_obs'};
+save artificial_data.mat @savevars;
 
 
 oo_.time = toc(tic0);

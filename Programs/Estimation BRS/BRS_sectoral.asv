@@ -48,7 +48,7 @@ var Y           ${Y}$ (long_name='output')
     delta_I    ${\delta_I}$ (long_name= 'Capital depreciation rate:I')
 
     delta_mc_pr    ${\delta_{mc,pr}$ (long_name= 'Capital depreciation rate derivative:mc')
-    delta_sc_pr    ${\delta_{sc,pr}}$ (long_name= 'Capital depreciation rate derivative:mc')
+    delta_sc_pr    ${\delta_{sc,pr}}$ (long_name= 'Capital depreciation rate derivative:sc')
     delta_I_pr    ${\delta_{I,pr}}$ (long_name= 'Capital depreciation rate derivative:I')
 
     Sc            $S$ (long_name = 'Investment adjustment cost:C')
@@ -291,7 +291,6 @@ model;
 
 #Z_mc_ss = (Y_mc_ss/(Psi) + nu_mc)/(exp(g_bar)^(-alpha_K)*K_mc_ss^(alpha_K)*N_mc_ss^(alpha_N));
 #Z_sc_ss = (Y_sc_ss/(Psi) + nu_sc)/(exp(g_bar)^(-alpha_K)*K_sc_ss^(alpha_K)*N_sc_ss^(alpha_N));
-
 #Z_I_ss = (I_ss/Psi+nu_I)/(exp(g_bar)^(-alpha_K)*K_I_ss^(alpha_K)*N_I_ss^(alpha_N));
 
 #zeta_ss = C_ss*(1-ha) - D_ss^(1+1/eta)/(1+1/eta);
@@ -314,6 +313,9 @@ C_sc = omega_sc^(1-rho)*(C/Y_sc)^(1-rho);
 
 [name='Marginal utility of wealth']
 lam = Gam^(-sigma)*C_mc*(1-phi)/p_mc;
+
+[name='Optimality between sectors']
+C_mc/p_mc = C_sc/p_sc;
 
 [name='Shopping:mc']
 exp(theta_D)*D^(1/eta) = phi*C_mc*Y_mc/D_mc;
@@ -790,21 +792,21 @@ varobs NC_obs, NI_obs, C_obs, I_obs, p_I_obs, util_ND_obs, util_D_obs, w_obs;
 
 estimation(tex, optim=('MaxIter', 200), 
 datafile=observables_sectoral, 
-//mode_file=BRS_sectoral_mode, 
+mode_file=BRS_sectoral_mode, 
 //nograph,
-//load_mh_file, 
+load_mh_file, 
 //mh_recover,
 mcmc_jumping_covariance=prior_variance,
 
-mode_compute=4,
+mode_compute=0,
 presample=0, 
 lik_init=2,
 mh_jscale=0.007, 
 mh_init_scale =0.0001,
 //mh_jscale=0.1,
 mode_check, 
-mh_replic=100000, 
-//mh_replic=0,
+//mh_replic=200000, 
+mh_replic=0,
 mh_nblocks=2, 
 //bayesian_irf,
 //irf=100,
@@ -832,8 +834,11 @@ collect_latex_files;
 
 
 % Stochastic simulation -> for conditional FEVD and IRF
-stoch_simul (order=1, nofunctions, irf=100, periods=0)
+stoch_simul (order=1, nofunctions, irf=100, periods=223)
 //conditional_variance_decomposition=[1 4 8 40])
 Y_obs, Y_N_obs, SR_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_ND_obs, util_D_obs, w_obs;
 //log_Y, log_Y_N, log_SR, log_I, log_p_I, log_C, log_N, log_NC, log_NI, log_util_ND, log_util_D;
 
+% Save artificial data 
+savevars = ;
+save artificial_data.mat @savevars;

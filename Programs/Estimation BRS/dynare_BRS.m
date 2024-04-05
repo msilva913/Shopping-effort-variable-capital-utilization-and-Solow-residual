@@ -4,6 +4,9 @@ addpath c:\dynare\5.4\matlab
 %% Main model estimated with sectoral data 
 %%
 dynare BRS_sectoral.mod
+
+%% Remove utilization variables and re-estimate
+dynare BRS_sectoral_rest.mod 
 %% Baseline RBC model comparision -> shut down shopping effort and goods market frictions
 dynare RBC_sectoral.mod
 
@@ -15,9 +18,7 @@ save('irf_KPR.mat', 'irf')
 %% Estimate with sectoral data
 
 
-%% Estimate intersectoral labor market friction with new g. Estimate gam
-dynare BRS_imp_mobility_est.mod
-% Too high volatility
+
 
 
 
