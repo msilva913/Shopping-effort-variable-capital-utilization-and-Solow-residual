@@ -300,10 +300,10 @@ model;
 N_comp = (omega^(-theta)*N_C^(1+theta) + (1-omega)^(-theta)*N_I^(1+theta))^(1/(1+theta));
 
 [name='Labor leisure:C']
-theta_N_ss*exp(theta_N)*(N_comp)^(1/nu)*(N_C/N_comp)^theta*omega^(-theta) = (1-phi)*W_C/(mu_ss*exp(mu_C)*zeta);
+Gam^(-sigma)*theta_N_ss*exp(theta_N)*(N_comp)^(1/nu)*(N_C/N_comp)^theta*omega^(-theta) = lam*W_C/(mu_ss*exp(mu_C)*zeta);
 
 [name='Labor leisure:I']
-theta_N_ss*exp(theta_N)*(N_comp)^(1/nu)*(N_I/N_comp)^theta*(1-omega)^(-theta)  = (1-phi)*W_I/(mu_ss*exp(mu_I)*zeta);
+Gam^(-sigma)*theta_N_ss*exp(theta_N)*(N_comp)^(1/nu)*(N_I/N_comp)^theta*(1-omega)^(-theta)  = lam*W_I/(mu_ss*exp(mu_I)*zeta);
 
 [name='Partial der. C wrt non-durables']
 C_mc = (1-omega_sc)^(1-rho)*(C/Y_mc)^(1-rho);
@@ -601,9 +601,19 @@ steady_state_model;
     W_I = W_C;
     W = W_C;
 
+    rho_ss = (xi-1)/xi;
+    C_mc = (1-omega_sc)^(1-rho_ss)*(C/Y_mc)^(1-rho_ss);
+    C_sc = omega_sc^(1-rho_ss)*(C/Y_sc)^(1-rho_ss);
+ 
+    
+
     zeta = C*(1-ha) - D^(1+1/eta)/(1+1/eta);
-    theta_N_s = (1-phi_ss)*W_C/(N^(1/nu)*zeta*mu_ss);
+    theta_N_s = (1-phi_ss)*W_C/(N^(1/nu)*zeta*mu_ss)*C_mc/p_mc;
+    //Gam^(-sigma)*theta_N_ss*exp(theta_N)*(N_comp)^(1/nu)*(N_C/N_comp)^theta*omega^(-theta) = lam*W_C/(mu_ss*exp(mu_C)*zeta);
     Gam = (C*(1-ha) - D^(1+1/eta)/(1+1/eta) - theta_N_s*N_comp^(1+1/nu)/(1+1/nu)*zeta);
+
+    lam = Gam^(-sigma)*C_mc*(1-phi_ss)/p_mc;
+   
    
     //r_ss = (1+r_ann)^(1/4) - 1.0;
     //beta_ss = (1/(1+r_ss))*exp(g_bar)^(sigma);
@@ -656,10 +666,7 @@ steady_state_model;
     R_sc = W_C*exp(g)*(alpha_K_ss/alpha_N_ss)*N_sc/K_sc;
     R_I = R_mc;
     
-    rho_ss = (xi-1)/xi;
-    C_mc = (1-omega_sc)^(1-rho_ss)*(C/Y_mc)^(1-rho_ss);
-    C_sc = omega_sc^(1-rho_ss)*(C/Y_sc)^(1-rho_ss);
-    lam = Gam^(-sigma)*C_mc*(1-phi_ss)/p_mc;
+   
     
     % Logged versions of variables
     log_Y = 0;
@@ -801,11 +808,11 @@ mcmc_jumping_covariance=prior_variance,
 mode_compute=0,
 presample=0, 
 lik_init=2,
-mh_jscale=0.007, 
+mh_jscale=0.004, 
 mh_init_scale =0.0001,
 //mh_jscale=0.1,
 mode_check, 
-mh_replic=100000, 
+mh_replic=50000, 
 //mh_replic=0,
 mh_nblocks=2, 
 //bayesian_irf,
@@ -826,7 +833,7 @@ write_latex_dynamic_model;
 write_latex_parameter_table;
 write_latex_definitions;
 write_latex_prior_table;
-//generate_trace_plots(1);
+generate_trace_plots(1);
 collect_latex_files;
 % if system(['pdflatex -halt-on-error -interaction=batchmode ' M_.fname '_TeX_binder.tex'])
 %     error('TeX-File did not compile.')
@@ -834,7 +841,7 @@ collect_latex_files;
 
 
 % Stochastic simulation -> for conditional FEVD and IRF
-stoch_simul (order=1, nofunctions, irf=100, periods=0)
+stoch_simul (order=1, nofunctions, irf=0, periods=0)
 //conditional_variance_decomposition=[1 4 8 40])
 Y_obs, Y_N_obs, SR_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_ND_obs, util_D_obs, w_obs;
 //log_Y, log_Y_N, log_SR, log_I, log_p_I, log_C, log_N, log_NC, log_NI, log_util_ND, log_util_D;

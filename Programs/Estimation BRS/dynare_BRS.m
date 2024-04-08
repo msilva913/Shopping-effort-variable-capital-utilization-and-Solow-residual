@@ -10,13 +10,10 @@ dynare BRS_sectoral_rest.mod
 %% Baseline RBC model comparision -> shut down shopping effort and goods market frictions
 dynare RBC_sectoral.mod
 
-%% General preferences with parameterized wealth effects
-dynare BRS_gen.mod 
-irf = oo_.irfs;
-save('irf_KPR.mat', 'irf')
 
-%% Estimate with sectoral data
 
+%% Aggregate data for comparison to BRS
+dynare BRS_aggregate.mod
 
 
 

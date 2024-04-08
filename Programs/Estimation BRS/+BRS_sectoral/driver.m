@@ -1256,13 +1256,14 @@ estim_params_.var_endo = [estim_params_.var_endo; 91, 0.01, 0.0001, 0.05, 2, 0.0
 options_.TeX=1;
 options_.TeX = true;
 options_.lik_init = 2;
+options_.load_mh_file = true;
 options_.mh_drop = 0.3;
 options_.mh_init_scale = 0.0001;
 options_.mh_jscale = 0.006;
 options_.mh_nblck = 2;
-options_.mh_replic = 200000;
+options_.mh_replic = 75000;
 options_.mode_check.status = true;
-options_.mode_compute = 4;
+options_.mode_compute = 0;
 options_.presample = 0;
 options_.prior_trunc = 0;
 options_.MCMC_jumping_covariance = 'prior_variance';
@@ -1275,14 +1276,14 @@ oo_recursive_=dynare_estimation(var_list_);
 write_latex_parameter_table;
 write_latex_definitions;
 write_latex_prior_table;
+generate_trace_plots(1);
 collect_latex_files;
-options_.irf = 100;
+options_.irf = 0;
 options_.nofunctions = true;
 options_.order = 1;
-options_.periods = 223;
+options_.periods = 0;
 var_list_ = {'Y_obs';'Y_N_obs';'SR_obs';'I_obs';'p_I_obs';'C_obs';'NC_obs';'NI_obs';'util_ND_obs';'util_D_obs';'w_obs'};
 [info, oo_, options_, M_] = stoch_simul(M_, options_, oo_, var_list_);
-save artificial_data.mat 'NC_obs', 'NI_obs', 'C_obs', 'I_obs', 'p_I_obs', 'util_ND_obs', 'util_D_obs', 'w_obs';
 
 
 oo_.time = toc(tic0);
