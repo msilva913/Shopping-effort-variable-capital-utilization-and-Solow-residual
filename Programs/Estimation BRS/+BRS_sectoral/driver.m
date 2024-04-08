@@ -900,7 +900,7 @@ M_.nboth   = 1;
 M_.nsfwrd   = 17;
 M_.nspred   = 63;
 M_.ndynamic   = 79;
-M_.dynamic_tmp_nbr = [65; 22; 0; 0; ];
+M_.dynamic_tmp_nbr = [64; 24; 0; 0; ];
 M_.model_local_variables_dynamic_tt_idxs = {
 };
 M_.equations_tags = {
@@ -1049,14 +1049,14 @@ M_.mapping.D.eqidx = [8 9 10 11 12 50 74 ];
 M_.mapping.D_mc.eqidx = [8 35 40 43 50 53 ];
 M_.mapping.D_sc.eqidx = [9 36 41 44 50 ];
 M_.mapping.D_I.eqidx = [10 37 42 45 50 54 ];
-M_.mapping.Gam.eqidx = [6 11 ];
+M_.mapping.Gam.eqidx = [2 3 6 11 ];
 M_.mapping.zeta.eqidx = [2 3 11 12 ];
 M_.mapping.p_mc.eqidx = [6 7 10 14 40 43 ];
 M_.mapping.p_sc.eqidx = [7 14 41 44 ];
 M_.mapping.p_I.eqidx = [10 27 28 42 45 75 ];
 M_.mapping.C_mc.eqidx = [4 6 7 8 10 ];
 M_.mapping.C_sc.eqidx = [5 7 9 ];
-M_.mapping.lam.eqidx = [6 27 28 29 30 31 ];
+M_.mapping.lam.eqidx = [2 3 6 27 28 29 30 31 ];
 M_.mapping.Q_C.eqidx = [27 29 30 32 33 ];
 M_.mapping.Q_I.eqidx = [28 31 34 ];
 M_.mapping.x_C.eqidx = [15 17 19 27 ];
@@ -1126,8 +1126,8 @@ M_.maximum_exo_lead = 0;
 oo_.exo_steady_state = zeros(17, 1);
 M_.params = NaN(32, 1);
 M_.endo_trends = struct('deflator', cell(127, 1), 'log_deflator', cell(127, 1), 'growth_factor', cell(127, 1), 'log_growth_factor', cell(127, 1));
-M_.NNZDerivatives = [460; -1; -1; ];
-M_.static_tmp_nbr = [64; 20; 0; 0; ];
+M_.NNZDerivatives = [464; -1; -1; ];
+M_.static_tmp_nbr = [63; 22; 0; 0; ];
 M_.model_local_variables_static_tt_idxs = {
 };
 M_.params(1) = 2.0;
@@ -1256,14 +1256,13 @@ estim_params_.var_endo = [estim_params_.var_endo; 91, 0.01, 0.0001, 0.05, 2, 0.0
 options_.TeX=1;
 options_.TeX = true;
 options_.lik_init = 2;
-options_.load_mh_file = true;
 options_.mh_drop = 0.3;
 options_.mh_init_scale = 0.0001;
-options_.mh_jscale = 0.007;
+options_.mh_jscale = 0.006;
 options_.mh_nblck = 2;
-options_.mh_replic = 0;
+options_.mh_replic = 200000;
 options_.mode_check.status = true;
-options_.mode_compute = 0;
+options_.mode_compute = 4;
 options_.presample = 0;
 options_.prior_trunc = 0;
 options_.MCMC_jumping_covariance = 'prior_variance';
@@ -1283,8 +1282,7 @@ options_.order = 1;
 options_.periods = 223;
 var_list_ = {'Y_obs';'Y_N_obs';'SR_obs';'I_obs';'p_I_obs';'C_obs';'NC_obs';'NI_obs';'util_ND_obs';'util_D_obs';'w_obs'};
 [info, oo_, options_, M_] = stoch_simul(M_, options_, oo_, var_list_);
-savevars = {'NC_obs', 'NI_obs', 'C_obs', 'I_obs', 'p_I_obs', 'util_ND_obs', 'util_D_obs', 'w_obs'};
-save artificial_data.mat @savevars;
+save artificial_data.mat 'NC_obs', 'NI_obs', 'C_obs', 'I_obs', 'p_I_obs', 'util_ND_obs', 'util_D_obs', 'w_obs';
 
 
 oo_.time = toc(tic0);

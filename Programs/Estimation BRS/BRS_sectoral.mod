@@ -601,9 +601,19 @@ steady_state_model;
     W_I = W_C;
     W = W_C;
 
+    rho_ss = (xi-1)/xi;
+    C_mc = (1-omega_sc)^(1-rho_ss)*(C/Y_mc)^(1-rho_ss);
+    C_sc = omega_sc^(1-rho_ss)*(C/Y_sc)^(1-rho_ss);
+ 
+    
+
     zeta = C*(1-ha) - D^(1+1/eta)/(1+1/eta);
-    theta_N_s = (1-phi_ss)*W_C/(N^(1/nu)*zeta*mu_ss);
+    theta_N_s = (1-phi_ss)*W_C/(N^(1/nu)*zeta*mu_ss)*C_mc/p_mc;
+    //Gam^(-sigma)*theta_N_ss*exp(theta_N)*(N_comp)^(1/nu)*(N_C/N_comp)^theta*omega^(-theta) = lam*W_C/(mu_ss*exp(mu_C)*zeta);
     Gam = (C*(1-ha) - D^(1+1/eta)/(1+1/eta) - theta_N_s*N_comp^(1+1/nu)/(1+1/nu)*zeta);
+
+    lam = Gam^(-sigma)*C_mc*(1-phi_ss)/p_mc;
+   
    
     //r_ss = (1+r_ann)^(1/4) - 1.0;
     //beta_ss = (1/(1+r_ss))*exp(g_bar)^(sigma);
@@ -656,10 +666,7 @@ steady_state_model;
     R_sc = W_C*exp(g)*(alpha_K_ss/alpha_N_ss)*N_sc/K_sc;
     R_I = R_mc;
     
-    rho_ss = (xi-1)/xi;
-    C_mc = (1-omega_sc)^(1-rho_ss)*(C/Y_mc)^(1-rho_ss);
-    C_sc = omega_sc^(1-rho_ss)*(C/Y_sc)^(1-rho_ss);
-    lam = Gam^(-sigma)*C_mc*(1-phi_ss)/p_mc;
+   
     
     % Logged versions of variables
     log_Y = 0;
@@ -794,19 +801,19 @@ estimation(tex, optim=('MaxIter', 200),
 datafile=observables_sectoral, 
 mode_file=BRS_sectoral_mode, 
 //nograph,
-load_mh_file, 
+//load_mh_file, 
 //mh_recover,
 mcmc_jumping_covariance=prior_variance,
 
 mode_compute=4,
 presample=0, 
 lik_init=2,
-mh_jscale=0.007, 
+mh_jscale=0.006, 
 mh_init_scale =0.0001,
 //mh_jscale=0.1,
 mode_check, 
-//mh_replic=200000, 
-mh_replic=0,
+mh_replic=200000, 
+//mh_replic=0,
 mh_nblocks=2, 
 //bayesian_irf,
 //irf=100,

@@ -13,7 +13,7 @@ function T = static_g3_tt(T, y, x, params)
 %   T         [#temp variables by 1]  double   vector of temporary terms
 %
 
-assert(length(T) >= 84);
+assert(length(T) >= 85);
 
 T = BRS_sectoral.static_g2_tt(T, y, x, params);
 
