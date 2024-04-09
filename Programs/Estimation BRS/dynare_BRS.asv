@@ -4,7 +4,9 @@ addpath c:\dynare\5.4\matlab
 %% Main model estimated with sectoral data 
 %%
 dynare BRS_sectoral.mod
-
+res = oo_
+mom_sectoral = calc_moments(res)
+save
 %% Remove utilization variables and re-estimate
 dynare BRS_sectoral_rest.mod 
 %% Baseline RBC model comparision -> shut down shopping effort and goods market frictions
@@ -15,47 +17,8 @@ dynare RBC_sectoral.mod
 %% Aggregate data for comparison to BRS
 dynare BRS_aggregate.mod
 
-var_cov = oo_.var;
-std_vars = {'C_obs', 'I_obs', 'NC_obs', 'NI_obs', 'p_I_obs', 'util_ND_obs', 'util_D_obs'};
-
-moments = [];
-std_devs = sqrt(diag(var_cov));
-std_dev = sqrt(variances);
-
-for i = 1:length(std_vars)
-    x = std_vars{i}
-    index = strcmp(x, oo_.var_list);
-    std_x = std_dev(index)
-    moments = vertcat(moments, std_x)
-end
-
-corr_pairs = {'C_obs', 'I_obs'; 'C_obs', 'NI_obs'; 'NC_obs', 'NI_obs'; 'C_obs', 'Y_N_obs'; 'util_ND_obs', 'util_D_obs'; 'p_I_obs', 'I_obs'}
-
-correlations = zeros(size(corr_pairs, 1), 1);
-for i = 1:size(corr_pairs, 1)
-    variable1 = corr_pairs{i, 1};
-    variable2 = corr_pairs{i, 2};
-
-    % Find the indices of the variables in the var_cov_matrix
-    index1 = strcmp(variable1, oo_.var_list);
-    index2 = strcmp(variable2, oo_.var_list);
-
-    % Compute the correlation using the variance-covariance matrix
-    correlation = var_cov(index1, index2) / sqrt(var_cov(index1, index1) * var_cov(index2, index2));
-    correlations(i) = correlation;
-end
-
-autocorr_vars = {'NC_obs', 'NI_obs'}
-autocorr_array = zeros(length(autocorr_vars), 1);
-autocorrs
-for i = 1:length(autocorr_vars)
-    x = autocorr_vars{i}
-    index = strcmp(x, oo_.var_list)
-    % Compute the autocorrelation using the variance-covariance matrix
-    autocorr = oo_.autocorr(1)(index, index);
-    autocorr_array(i) = autocorr;
-end
-
+res = oo_
+calc_moments(res)
 
 % save('SR', 'SR_obs')
 % save('SR_util', 'SR_util_obs')

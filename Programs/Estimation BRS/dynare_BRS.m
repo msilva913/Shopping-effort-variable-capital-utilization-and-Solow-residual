@@ -4,7 +4,9 @@ addpath c:\dynare\5.4\matlab
 %% Main model estimated with sectoral data 
 %%
 dynare BRS_sectoral.mod
-
+res = oo_
+mom_bas = calc_moments(res)
+save('mom_bas', 'mom_bas')
 %% Remove utilization variables and re-estimate
 dynare BRS_sectoral_rest.mod 
 %% Baseline RBC model comparision -> shut down shopping effort and goods market frictions
