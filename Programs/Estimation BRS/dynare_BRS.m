@@ -15,9 +15,8 @@ dynare RBC_sectoral.mod
 %% Aggregate data for comparison to BRS
 dynare BRS_aggregate.mod
 
-
-
-
+res = oo_
+calc_moments(res)
 
 % save('SR', 'SR_obs')
 % save('SR_util', 'SR_util_obs')
