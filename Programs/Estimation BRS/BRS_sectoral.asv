@@ -131,7 +131,7 @@ varexo e_g ${e_g}$ (long_name= 'Labor-augmenting-technology growth shock')
        e_D ${e_D}$ (long_name = 'Shopping disutility shock')
        e_D_news ${e_{D,4}}$ (long_name = 'Shopping disutility shock: news')
        e_DI ${e_DI}$ (long_name = 'Relative investment shopping disutility shock')
-       e_DI_news ${e_{DI,-4}}$ (long_name = 'Relative investment shopping disutility shock: news')
+       e_DI_news_4 ${e_{DI,-4}}$ (long_name = 'Relative investment shopping disutility shock: news')
 
        e_b ${e_b}$ (long_name = 'Discount factor shock')
        e_b_news ${e_{b,-4}}$ (long_name = 'Discount factor shock')
@@ -465,7 +465,7 @@ util_ND = A_mc*D_mc^phi*(Z_mc_ss*exp(g)^(-alpha_K)*exp(Z_C)*(h_mc*K_mc(-1))^alph
 
 util_D = A_I*D_I^phi*(Z_I_ss*exp(g)^(-alpha_K)*exp(Z_I)*(h_I*K_I(-1))^alpha_K*N_I^alpha_N-nu_I)/(Z_I_ss*exp(g)^(-alpha_K)*exp(Z_I)*K_I(-1)^alpha_K*N_I^alpha_N-nu_I);
 
-util = (Y_mc/)*util_ND + (I/Y)*util_D;
+util = (Y_mc/(Y_mc+I))*util_ND + (I/(Y_mc+I))*util_D;
  
 % Exogenous processes
 [name='stochastic trend process']

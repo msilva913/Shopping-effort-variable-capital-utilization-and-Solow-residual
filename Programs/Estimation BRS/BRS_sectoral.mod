@@ -120,26 +120,34 @@ var Y           ${Y}$ (long_name='output')
     ;
 
 varexo e_g ${e_g}$ (long_name= 'Labor-augmenting-technology growth shock')
-       e_g_news ${e_{g,-4}}$ (long_name= 'Labor-augmenting-technology growth shock: news')
+       e_g_news_4 ${e_{g,-4}}$ (long_name= 'Labor-augmenting-technology growth shock: news')
+       e_g_news_8 ${e_{g,-8}}$ (long_name= 'Labor-augmenting-technology growth shock: news')
        e_Z ${e_Z}$ (long_name= 'TFP shock')
-       e_Z_news ${e_{Z,-4}}$ (long_name= 'TFP shock: news')
+       e_Z_news_4 ${e_{Z,-4}}$ (long_name= 'TFP shock: news')
+       e_Z_news_8 ${e_{Z,-8}}$ (long_name= 'TFP shock: news')
        e_ZI ${e_{ZI}}$ (long_name= 'Investment-specific tech shock')
-       e_ZI_news ${e_{ZI,-4}}$ (long_name= 'Investment-specific tech shock: news')
+       e_ZI_news_4 ${e_{ZI,-4}}$ (long_name= 'Investment-specific tech shock: news')
+       e_ZI_news_8 ${e_{ZI,-8}}$ (long_name= 'Investment-specific tech shock: news')
        
        e_N ${e_N}$ (long_name= 'Labor supply shock')
 
        e_D ${e_D}$ (long_name = 'Shopping disutility shock')
-       e_D_news ${e_{D,4}}$ (long_name = 'Shopping disutility shock: news')
+       e_D_news_4 ${e_{D,-4}}$ (long_name = 'Shopping disutility shock: news')
+       e_D_news_8 ${e_{D,-8}}$ (long_name = 'Shopping disutility shock: news')
        e_DI ${e_DI}$ (long_name = 'Relative investment shopping disutility shock')
-       e_DI_news ${e_{DI,-4}}$ (long_name = 'Relative investment shopping disutility shock: news')
+       e_DI_news_4 ${e_{DI,-4}}$ (long_name = 'Relative investment shopping disutility shock: news')
+       e_DI_news_8 ${e_{DI,-8}}$ (long_name = 'Relative investment shopping disutility shock: news')
 
        e_b ${e_b}$ (long_name = 'Discount factor shock')
-       e_b_news ${e_{b,-4}}$ (long_name = 'Discount factor shock')
+       e_b_news_4 ${e_{b,-4}}$ (long_name = 'Discount factor shock')
+       e_b_news_8 ${e_{b,-8}}$ (long_name = 'Discount factor shock')
 
        e_muC ${e_{muC}}$ (long_name = 'Wage markup shock: C')
-       e_muC_news ${e_{muC,-4}}$ (long_name = 'Wage markup shock: C: news')
+       e_muC_news_4 ${e_{muC,-4}}$ (long_name = 'Wage markup shock: C: news')
+       e_muC_news_8 ${e_{muC,-8}}$ (long_name = 'Wage markup shock: C: news')
        e_muI ${e_{muI}}$ (long_name = 'Wage markup shock: I')
-       e_muI_news ${e_{muI,-4}}$ (long_name = 'Wage markup shock: I: news')
+       e_muI_news_4 ${e_{muI,-4}}$ (long_name = 'Wage markup shock: I: news')
+       e_muI_news_8 ${e_{muI,-8}}$ (long_name = 'Wage markup shock: I: news')
 
 
        % News shocks
@@ -469,13 +477,13 @@ util = (Y_mc/(Y_mc+I))*util_ND + (I/(Y_mc+I))*util_D;
  
 % Exogenous processes
 [name='stochastic trend process']
-g = (1-rho_g)*g_bar + rho_g*g(-1) + e_g + e_g_news(-4);
+g = (1-rho_g)*g_bar + rho_g*g(-1) + e_g + e_g_news_4(-4) + e_g_news_8(-8);
 
 [name='Stationary TFP process']
-Z_C = rho_Z*Z_C(-1) + e_Z + e_Z_news(-4);
+Z_C = rho_Z*Z_C(-1) + e_Z + e_Z_news_4(-4) + e_Z_news_8(-8);
 
 [name='Independent component of I-specific tech']
-u_ZI = rho_ZI*Z_I(-1) + e_ZI + e_ZI_news(-4);
+u_ZI = rho_ZI*Z_I(-1) + e_ZI + e_ZI_news_4(-4) + e_ZI_news_8(-8);
 
 [name ='Investment-specific TFP process']
 Z_I = Z_C + u_ZI;
@@ -484,19 +492,19 @@ Z_I = Z_C + u_ZI;
 theta_N = rho_N*theta_N(-1) - e_N;
 
 [name ='Shopping effort process']
-theta_D = rho_D*theta_D(-1) - e_D - e_D_news(-4);
+theta_D = rho_D*theta_D(-1) - e_D - e_D_news_4(-4) - e_D_news_8(-8);
 
 [name ='Relative shopping effort process']
-theta_I = rho_DI*theta_I(-1) - e_DI - e_DI_news(-4);
+theta_I = rho_DI*theta_I(-1) - e_DI - e_DI_news_4(-4) - e_DI_news_8(-8);
 
 [name='Consumption preference process']
-theta_b = rho_b*theta_b(-1) + e_b + e_b_news(-4);
+theta_b = rho_b*theta_b(-1) + e_b + e_b_news_4(-4) + e_b_news_8(-8);
 
 [name = 'Wage-markup process: C']
-mu_C = rho_muC*mu_C(-1) + e_muC + e_muC_news(-4);
+mu_C = rho_muC*mu_C(-1) + e_muC + e_muC_news_4(-4) + e_muC_news_8(-8);
 
 [name = 'Wage-markup process: I']
-mu_I = rho_muI*mu_I(-1) + e_muI + e_muI_news(-4);
+mu_I = rho_muI*mu_I(-1) + e_muI + e_muI_news_4(-4) + e_muI_news_8(-8);
 
 
 [name='Definition log output']
@@ -763,25 +771,33 @@ rho_muI,  0.95, 0.01, 0.99999999,        BETA_PDF, 0.6, 0.2;
 
 % Standard errors
 stderr e_g, 0.01, 0.00001, 0.2,  GAMMA_PDF, 0.01, 0.01;
-stderr e_g_news, 0.01, 0.00001, 0.2,  GAMMA_PDF, 0.01, 0.01;
+stderr e_g_news_4, 0.01, 0.00001, 0.2,  GAMMA_PDF, 0.01, 0.01;
+stderr e_g_news_8, 0.01, 0.00001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 stderr e_Z, 0.01, 0.00001, 0.2,  GAMMA_PDF, 0.01, 0.01;
-stderr e_Z_news, 0.01, 0.00001, 0.2,  GAMMA_PDF, 0.01, 0.01;
+stderr e_Z_news_4, 0.01, 0.00001, 0.2,  GAMMA_PDF, 0.01, 0.01;
+stderr e_Z_news_8, 0.01, 0.00001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 stderr e_ZI, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
-stderr e_ZI_news, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
+stderr e_ZI_news_4, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
+stderr e_ZI_news_8, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 
 stderr e_N, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 stderr e_D, 0.01, 0.0001, 0.4,  GAMMA_PDF, 0.01, 0.01;
-stderr e_D_news, 0.01, 0.0001, 0.4,  GAMMA_PDF, 0.01, 0.01;
+stderr e_D_news_4, 0.01, 0.0001, 0.4,  GAMMA_PDF, 0.01, 0.01;
+stderr e_D_news_8, 0.01, 0.0001, 0.4,  GAMMA_PDF, 0.01, 0.01;
 stderr e_DI, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
-stderr e_DI_news, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
+stderr e_DI_news_4, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
+stderr e_DI_news_8, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 
 stderr e_b, 0.01, 0.0001, 0.4,  GAMMA_PDF, 0.01, 0.01;
-stderr e_b_news, 0.01, 0.0001, 0.4,  GAMMA_PDF, 0.01, 0.01;
+stderr e_b_news_4, 0.01, 0.0001, 0.4,  GAMMA_PDF, 0.01, 0.01;
+stderr e_b_news_8, 0.01, 0.0001, 0.4,  GAMMA_PDF, 0.01, 0.01;
 
 stderr e_muC, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
-stderr e_muC_news, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
+stderr e_muC_news_4, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
+stderr e_muC_news_8, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 stderr e_muI, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
-stderr e_muI_news, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
+stderr e_muI_news_4, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
+stderr e_muI_news_8, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 
 //stderr w_obs, 0.01, 0.0001, 0.05,  GAMMA_PDF, 0.01, 0.01;
 
