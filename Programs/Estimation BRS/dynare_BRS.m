@@ -9,6 +9,9 @@ mom_bas = calc_moments(res)
 save('mom_bas', 'mom_bas')
 %% Remove utilization variables and re-estimate
 dynare BRS_sectoral_rest.mod 
+res = oo_
+mom_rest = calc_moments(res)
+save('mom_rest', 'mom_rest')
 %% Baseline RBC model comparision -> shut down shopping effort and goods market frictions
 dynare RBC_sectoral.mod
 
