@@ -461,11 +461,11 @@ W = (N_C/N)*W_C + (N_I/N)*W_I;
 Y = C + p_I_ss*I;
 
 [name = 'Capacity utilization']
-util_ND = A_mc*D_mc^phi*((h_mc*K_mc(-1))^alpha_K*N_mc^alpha_N-nu_mc)/(K_mc(-1)^alpha_K*N_mc^alpha_N-nu_mc);
+util_ND = A_mc*D_mc^phi*(Z_mc_ss*exp(g)^(-alpha_K)*exp(Z_C)*(h_mc*K_mc(-1))^alpha_K*N_mc^alpha_N-nu_mc)/(Z_mc_ss*exp(g)^(-alpha_K)*exp(Z_C)*K_mc(-1)^alpha_K*N_mc^alpha_N-nu_mc);
 
-util_D = A_I*D_I^phi*((h_I*K_I(-1))^alpha_K*N_I^alpha_N-nu_I)/(K_I(-1)^alpha_K*N_I^alpha_N-nu_I);
+util_D = A_I*D_I^phi*(Z_I_ss*exp(g)^(-alpha_K)*exp(Z_I)*(h_I*K_I(-1))^alpha_K*N_I^alpha_N-nu_I)/(Z_I_ss*exp(g)^(-alpha_K)*exp(Z_I)*K_I(-1)^alpha_K*N_I^alpha_N-nu_I);
 
-util = (Y_mc/Y)*util_ND + (I/Y)*util_D;
+util = (Y_mc/(Y_mc+I))*util_ND + (I/(Y_mc+I))*util_D;
  
 % Exogenous processes
 [name='stochastic trend process']
@@ -645,11 +645,10 @@ steady_state_model;
     Si = 0;
     Sc_pr = 0;
     Si_pr = 0;
-    
 
-    util_ND = A_mc_ss*D_mc^phi_ss*((h_mc*K_mc)^alpha_K_ss*N_mc^alpha_N_ss-nu_mc_ss)/(K_mc^alpha_K_ss*N_mc^alpha_N_ss-nu_mc_ss);
-    util_D = A_I_ss*D_I^phi_ss*((h_I*K_I)^alpha_K_ss*N_I^alpha_N_ss-nu_I_ss)/(K_I^alpha_K_ss*N_I^alpha_N_ss-nu_I_ss);
-    util = (Y_mc/Y)*util_ND + (I/Y)*util_D;
+    util_ND = Psi;
+    util_D = Psi;
+    util = Psi;
 
     Z_C = 0;
     Z_I = 0;
@@ -799,13 +798,13 @@ varobs NC_obs, NI_obs, C_obs, I_obs, p_I_obs, util_ND_obs, util_D_obs;
 
 estimation(tex, optim=('MaxIter', 200), 
 datafile=observables_sectoral, 
-mode_file=BRS_sectoral_mode, 
+//mode_file=BRS_sectoral_mode, 
 //nograph,
 //load_mh_file, 
 //mh_recover,
 mcmc_jumping_covariance=prior_variance,
 
-mode_compute=9,
+mode_compute=4,
 presample=0, 
 lik_init=2,
 mh_jscale=0.006, 
