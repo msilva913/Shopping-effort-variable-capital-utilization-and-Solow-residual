@@ -23,6 +23,9 @@ dynare BRS_aggregate.mod
 res = oo_
 calc_moments(res)
 
+%% Original BRS
+dynare BRS_growth.mod
+
 % save('SR', 'SR_obs')
 % save('SR_util', 'SR_util_obs')
 % save('Y', 'Y_obs')
