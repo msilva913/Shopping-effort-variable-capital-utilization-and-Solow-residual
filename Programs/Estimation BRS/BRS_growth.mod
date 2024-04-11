@@ -400,6 +400,6 @@ collect_latex_files;
 stoch_simul (order=1, nofunctions, irf=100, periods=0
 //conditional_variance_decomposition=[1 4 8 40])
 )
-Y_obs, Y_N_obs, I_obs, p_I_obs, C_obs;
+Y_obs, Y_N_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs;
 //log_Y, log_Y_N, log_I, log_p_I, log_C;
 
