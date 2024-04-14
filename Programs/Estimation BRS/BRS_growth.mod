@@ -352,7 +352,10 @@ end;
 
 options_.TeX=1;
 
-varobs I_obs, Y_obs, p_I_obs, NC_obs, NI_obs;
+% Stochastic singularity if one includes both the relative price of investment and labor market variables
+//varobs I_obs, Y_obs, p_I_obs, NC_obs, NI_obs;
+
+varobs I_obs, Y_obs, p_I_obs, Y_N_obs;
 
 
 estimation(optim=('MaxIter', 200), 
@@ -368,8 +371,8 @@ lik_init=2,
 mh_jscale=0.005, 
 //mh_jscale=0.3,
 mode_check, 
-//mh_replic=250000, 
-mh_replic=0,
+mh_replic=250000, 
+//mh_replic=0,
 mh_nblocks=2, 
 //bayesian_irf,
 //irf=100,
