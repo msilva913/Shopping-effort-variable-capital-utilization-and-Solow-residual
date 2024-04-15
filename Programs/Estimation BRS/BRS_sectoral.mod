@@ -170,8 +170,8 @@ parameters
     nu_R   ${\nu_R}$ (long_name = 'Fixed cost share')
     ha     ${ha}$ (long_name = 'Habit persistence')
 
-    //phi  ${\phi}$ (long_name = 'Shopping matching function elasticity')
-    m    ${m}$    (long_name = 'Ratio of price dispersion to consumption dispersion')
+    phi  ${\phi}$ (long_name = 'Shopping matching function elasticity')
+    //m    ${m}$    (long_name = 'Ratio of price dispersion to consumption dispersion')
     eta  ${\eta}$ (long_name = 'Shopping disutility')
     Psi  ${\Psi}$ (long_name = 'Matching utilization')
 
@@ -217,9 +217,9 @@ K_Y = 11;
 labor_share = 0.67;
 nu_R = 0.2; % share of fixed costs in output
 
-m = 0.286;
+//m = 0.286;
 eta = 0.20;
-//phi = 0.32;
+phi = 0.32;
 Psi = 0.81;
 
 theta = 0.5;
@@ -250,7 +250,7 @@ model;
 #r = exp(g_bar)^(sigma)/beta - 1;
 
 # sigma_b = r + delta;
-#phi = (eta+1)*m/(1+eta*m);
+//#phi = (eta+1)*m/(1+eta*m);
 
 #rho = (xi-1)/xi;
 
@@ -562,13 +562,11 @@ steady_state_model;
     p_mc = 1.0;
     p_sc = 1.0;
     
-    phi_ss = (eta+1)*m/(1+eta*m);
-
     I = I_Y;
     C = 1-I_Y;
     Y_mc = (1-omega_sc)*C;
     Y_sc = omega_sc*C;
-    D = phi_ss^(eta/(1+eta));
+    D = phi^(eta/(1+eta));
     D_mc = (1-I_Y)*(1-omega_sc)*D;
     D_sc = (1-I_Y)*omega_sc*D;
     D_I = I_Y*D;
@@ -576,9 +574,9 @@ steady_state_model;
     I_C = I*C;
     I_I = I*I_Y;
     
-    A_mc_ss = Psi/D_mc^phi_ss;
-    A_sc_ss = Psi/D_sc^phi_ss;
-    A_I_ss = Psi/D_I^phi_ss;
+    A_mc_ss = Psi/D_mc^phi;
+    A_sc_ss = Psi/D_sc^phi;
+    A_I_ss = Psi/D_I^phi;
 
     //K = K_Y;
     K = K_Y*exp(g_bar);
@@ -596,7 +594,7 @@ steady_state_model;
     nu_I_ss = nu_R*I/Psi;
    
 
-    alpha_N_ss = (1-phi_ss)*labor_share/(1+nu_R);
+    alpha_N_ss = (1-phi)*labor_share/(1+nu_R);
     W_C = labor_share*Y/N;
     W_I = W_C;
     W = W_C;
@@ -608,11 +606,11 @@ steady_state_model;
     
 
     zeta = C*(1-ha) - D^(1+1/eta)/(1+1/eta);
-    theta_N_s = (1-phi_ss)*W_C/(N^(1/nu)*zeta*mu_ss)*C_mc/p_mc;
+    theta_N_s = (1-phi)*W_C/(N^(1/nu)*zeta*mu_ss)*C_mc/p_mc;
     //Gam^(-sigma)*theta_N_ss*exp(theta_N)*(N_comp)^(1/nu)*(N_C/N_comp)^theta*omega^(-theta) = lam*W_C/(mu_ss*exp(mu_C)*zeta);
     Gam = (C*(1-ha) - D^(1+1/eta)/(1+1/eta) - theta_N_s*N_comp^(1+1/nu)/(1+1/nu)*zeta);
 
-    lam = Gam^(-sigma)*C_mc*(1-phi_ss)/p_mc;
+    lam = Gam^(-sigma)*C_mc*(1-phi)/p_mc;
    
    
     //r_ss = (1+r_ann)^(1/4) - 1.0;
@@ -637,7 +635,7 @@ steady_state_model;
     delta_sc_pr = sigma_b_ss;
     delta_I_pr = sigma_b_ss;
 
-    Q_C = p_I/(1-phi_ss);
+    Q_C = p_I/(1-phi);
     Q_I = Q_C;
     x_C = exp(g_bar);
     x_I = x_C;
@@ -732,7 +730,10 @@ sigma, 1.5, 1.0, 4.0,             BETA_PDF, 1.5, 0.25, 1.0, 4.0;
 ha, 0.5, 0.0, 0.95,           BETA_PDF, 0.5, 0.2;
 nu, 0.72, 0.05, 2.0,           GAMMA_PDF, 0.72, 0.25;
 gam, 0.5, 0.0, 1.0,        BETA_PDF, 0.5, 0.2; %Born, Peter, and Pfeifer (2013)
-m, 0.286, 0.0, 0.95,          GAMMA_PDF, 0.286, 0.2;
+
+phi, 0.32, 0.00, 0.999,        BETA_PDF, 0.32, 0.2;
+eta, 0.20, 0.00, 10.0,          GAMMA_PDF, 0.2, 0.15;
+//m, 0.286, 0.0, 0.95,          GAMMA_PDF, 0.286, 0.2;
 
 xi, 0.85, 0.5, 2.0,        GAMMA_PDF, 0.85, 0.1;
 
@@ -743,9 +744,6 @@ sigma_ac, 0.32, 0.0, 10,       INV_GAMMA_PDF, 1, 1; % Schmitt-Grohe and Uribe (2
 sigma_ai, 0.32, 0.0, 10,       INV_GAMMA_PDF, 1, 1; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
 Psi_C, 1.5, 0.0, 50,           GAMMA_PDF, 4, 1.0; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
 Psi_I, 1.5, 0.0, 50,           GAMMA_PDF, 4, 1.0; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
-
-//phi, 0.32, 0.00, 0.999,        BETA_PDF, 0.32, 0.2;
-eta, 0.20, 0.00, 10.0,          GAMMA_PDF, 0.2, 0.15;
 
 theta, 0.5, .00, 10,   GAMMA_PDF, 1, 0.5; %Katayama and Kim 2018, based on Horvath (2000)
 
@@ -811,7 +809,7 @@ mh_jscale=0.006,
 mh_init_scale =0.0001,
 //mh_jscale=0.1,
 mode_check, 
-mh_replic=100000, 
+mh_replic=250000, 
 //mh_replic=0,
 mh_nblocks=2, 
 //bayesian_irf,

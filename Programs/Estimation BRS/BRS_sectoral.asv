@@ -170,8 +170,8 @@ parameters
     nu_R   ${\nu_R}$ (long_name = 'Fixed cost share')
     ha     ${ha}$ (long_name = 'Habit persistence')
 
-    //phi  ${\phi}$ (long_name = 'Shopping matching function elasticity')
-    m    ${m}$    (long_name = 'Ratio of price dispersion to consumption dispersion')
+    /phi  ${\phi}$ (long_name = 'Shopping matching function elasticity')
+    //m    ${m}$    (long_name = 'Ratio of price dispersion to consumption dispersion')
     eta  ${\eta}$ (long_name = 'Shopping disutility')
     Psi  ${\Psi}$ (long_name = 'Matching utilization')
 
@@ -465,7 +465,7 @@ util_ND = A_mc*D_mc^phi*(Z_mc_ss*exp(g)^(-alpha_K)*exp(Z_C)*(h_mc*K_mc(-1))^alph
 
 util_D = A_I*D_I^phi*(Z_I_ss*exp(g)^(-alpha_K)*exp(Z_I)*(h_I*K_I(-1))^alpha_K*N_I^alpha_N-nu_I)/(Z_I_ss*exp(g)^(-alpha_K)*exp(Z_I)*K_I(-1)^alpha_K*N_I^alpha_N-nu_I);
 
-util = (Y_mc/)*util_ND + (I/Y)*util_D;
+util = (Y_mc/(Y_mc+I))*util_ND + (I/(Y_mc+I))*util_D;
  
 % Exogenous processes
 [name='stochastic trend process']
