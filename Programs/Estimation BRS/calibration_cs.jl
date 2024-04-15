@@ -86,6 +86,9 @@ function calibrate(targets)
     # Labor share 
     α_n = (1-ϕ)*labor_share/(1+ν_R)
     α_k = (r+δ)*K_Y/(1+ν_R)
+
+    K_SR_disc = α_k-(1-labor_share)
+    N_SR_disc = α_n - labor_share
     # Capital share 
     # R_c=R_i=R in steady state 
     #R_pi = (1-β*(1+g_bar)^(-γ)*(1-δ))/(β*(1+g_bar)^(-γ))

@@ -23,8 +23,11 @@ dynare BRS_aggregate.mod
 res = oo_
 calc_moments(res)
 
-%% Original BRS
+%% Basic BRS
 dynare BRS_growth.mod
+
+%% Basic BRS: estimate phi and eta
+dynare BRS_growth_id.mod
 
 % save('SR', 'SR_obs')
 % save('SR_util', 'SR_util_obs')
