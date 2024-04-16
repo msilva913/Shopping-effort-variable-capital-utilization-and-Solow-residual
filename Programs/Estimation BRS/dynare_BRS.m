@@ -15,20 +15,20 @@ save('mom_rest', 'mom_rest')
 %% Baseline RBC model comparision -> shut down shopping effort and goods market frictions
 dynare RBC_sectoral.mod
 
-
-
 %% Aggregate data for comparison to BRS
 dynare BRS_aggregate.mod
 
 res = oo_
 calc_moments(res)
 
+%% Comparison to BRS
 %% Basic BRS
 dynare BRS_growth.mod
 
 %% Basic BRS: estimate phi and eta
 dynare BRS_growth_id.mod
-
+%% estimate BRS with utilization
+dynare BRS_util.mod 
 % save('SR', 'SR_obs')
 % save('SR_util', 'SR_util_obs')
 % save('Y', 'Y_obs')
