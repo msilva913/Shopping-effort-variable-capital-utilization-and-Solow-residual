@@ -23,7 +23,7 @@ calc_moments(res)
 
 %% Comparison to BRS
 %% Basic BRS
-dynare BRS_growth.mod
+%dynare BRS_growth.mod
 
 %% Basic BRS: estimate phi and eta
 dynare BRS_growth_id.mod

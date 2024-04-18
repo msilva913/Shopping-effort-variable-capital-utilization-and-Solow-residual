@@ -22,6 +22,6 @@ function g2 = dynamic_g2(T, y, x, params, steady_state, it_, T_flag)
 if T_flag
     T = BRS_growth_id.dynamic_g2_tt(T, y, x, params, steady_state, it_);
 end
-g2 = sparse([],[],[],40,4225);
+g2 = sparse([],[],[],46,5329);
 
 end

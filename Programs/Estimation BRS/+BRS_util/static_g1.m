@@ -18,7 +18,7 @@ function g1 = static_g1(T, y, x, params, T_flag)
 if T_flag
     T = BRS_util.static_g1_tt(T, y, x, params);
 end
-g1 = zeros(45, 45);
+g1 = zeros(46, 46);
 g1(1,7)=T(9)*getPowerDeriv(y(7),T(8),1);
 g1(1,13)=T(10);
 g1(1,17)=(-(1-params(8)));
@@ -130,6 +130,7 @@ g1(42,44)=1;
 g1(43,42)=1;
 g1(44,43)=1;
 g1(45,45)=1;
+g1(46,46)=1;
 if ~isreal(g1)
     g1 = real(g1)+2*imag(g1);
 end

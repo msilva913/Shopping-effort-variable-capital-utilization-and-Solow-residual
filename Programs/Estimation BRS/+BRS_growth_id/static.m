@@ -1,5 +1,5 @@
 function [residual, g1, g2, g3] = static(y, x, params)
-    T = NaN(32, 1);
+    T = NaN(34, 1);
     if nargout <= 1
         residual = BRS_growth_id.static_resid(T, y, x, params, true);
     elseif nargout == 2

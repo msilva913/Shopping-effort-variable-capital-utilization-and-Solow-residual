@@ -54,6 +54,7 @@ var Y           ${Y}$ (long_name='output')
     NC_obs
     NI_obs
     N_obs
+    D_obs
     util_obs
     ;
 
@@ -260,6 +261,7 @@ p_I_obs = log_p_I - log_p_I(-1);
 N_obs = log_N - log_N(-1);
 NC_obs = log_NC - log_NC(-1);
 NI_obs = log_NI - log_NI(-1);
+D_obs = log_D - log_D(-1);
 util_obs = log_util - log_util(-1);
 
 end;
@@ -394,13 +396,13 @@ lik_init=2,
 mh_jscale=0.0005, 
 //mh_jscale=0.3,
 mode_check, 
-mh_replic=100000, 
-//mh_replic=0,
+//mh_replic=100000, 
+mh_replic=0,
 mh_nblocks=2, 
 //bayesian_irf,
 //irf=100,
 mh_drop=0.3, 
-moments_varendo,
+//moments_varendo,
 prior_trunc=0,
 tex)
 Y_obs, Y_N_obs, I_obs, p_I_obs, C_obs, util_obs;
@@ -426,6 +428,6 @@ collect_latex_files;
 stoch_simul (order=1, nofunctions, irf=100, periods=0
 //conditional_variance_decomposition=[1 4 8 40])
 )
-Y_obs, Y_N_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_obs;
+Y_obs, Y_N_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, theta_D, D_obs, util_obs;
 //log_Y, log_Y_N, log_I, log_p_I, log_C;
 

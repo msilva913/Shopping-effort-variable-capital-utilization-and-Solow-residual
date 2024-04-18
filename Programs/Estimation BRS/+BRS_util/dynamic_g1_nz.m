@@ -1,6 +1,6 @@
 function [nzij_pred, nzij_current, nzij_fwrd] = dynamic_g1_nz()
 % Returns the coordinates of non-zero elements in the Jacobian, in column-major order, for each lead/lag (only for endogenous)
-  nzij_pred = zeros(20, 2, 'int32');
+  nzij_pred = zeros(21, 2, 'int32');
   nzij_pred(1,1)=7; nzij_pred(1,2)=5;
   nzij_pred(2,1)=9; nzij_pred(2,2)=5;
   nzij_pred(3,1)=11; nzij_pred(3,2)=5;
@@ -19,9 +19,10 @@ function [nzij_pred, nzij_current, nzij_fwrd] = dynamic_g1_nz()
   nzij_pred(16,1)=43; nzij_pred(16,2)=31;
   nzij_pred(17,1)=44; nzij_pred(17,2)=32;
   nzij_pred(18,1)=40; nzij_pred(18,2)=33;
-  nzij_pred(19,1)=41; nzij_pred(19,2)=35;
-  nzij_pred(20,1)=45; nzij_pred(20,2)=36;
-  nzij_current = zeros(120, 2, 'int32');
+  nzij_pred(19,1)=45; nzij_pred(19,2)=34;
+  nzij_pred(20,1)=41; nzij_pred(20,2)=35;
+  nzij_pred(21,1)=46; nzij_pred(21,2)=36;
+  nzij_current = zeros(122, 2, 'int32');
   nzij_current(1,1)=17; nzij_current(1,2)=1;
   nzij_current(2,1)=27; nzij_current(2,2)=1;
   nzij_current(3,1)=2; nzij_current(3,2)=2;
@@ -129,19 +130,21 @@ function [nzij_pred, nzij_current, nzij_fwrd] = dynamic_g1_nz()
   nzij_current(105,1)=33; nzij_current(105,2)=33;
   nzij_current(106,1)=40; nzij_current(106,2)=33;
   nzij_current(107,1)=34; nzij_current(107,2)=34;
-  nzij_current(108,1)=35; nzij_current(108,2)=35;
-  nzij_current(109,1)=41; nzij_current(109,2)=35;
-  nzij_current(110,1)=36; nzij_current(110,2)=36;
-  nzij_current(111,1)=45; nzij_current(111,2)=36;
-  nzij_current(112,1)=37; nzij_current(112,2)=37;
-  nzij_current(113,1)=38; nzij_current(113,2)=38;
-  nzij_current(114,1)=39; nzij_current(114,2)=39;
-  nzij_current(115,1)=40; nzij_current(115,2)=40;
-  nzij_current(116,1)=41; nzij_current(116,2)=41;
-  nzij_current(117,1)=43; nzij_current(117,2)=42;
-  nzij_current(118,1)=44; nzij_current(118,2)=43;
-  nzij_current(119,1)=42; nzij_current(119,2)=44;
-  nzij_current(120,1)=45; nzij_current(120,2)=45;
+  nzij_current(108,1)=45; nzij_current(108,2)=34;
+  nzij_current(109,1)=35; nzij_current(109,2)=35;
+  nzij_current(110,1)=41; nzij_current(110,2)=35;
+  nzij_current(111,1)=36; nzij_current(111,2)=36;
+  nzij_current(112,1)=46; nzij_current(112,2)=36;
+  nzij_current(113,1)=37; nzij_current(113,2)=37;
+  nzij_current(114,1)=38; nzij_current(114,2)=38;
+  nzij_current(115,1)=39; nzij_current(115,2)=39;
+  nzij_current(116,1)=40; nzij_current(116,2)=40;
+  nzij_current(117,1)=41; nzij_current(117,2)=41;
+  nzij_current(118,1)=43; nzij_current(118,2)=42;
+  nzij_current(119,1)=44; nzij_current(119,2)=43;
+  nzij_current(120,1)=42; nzij_current(120,2)=44;
+  nzij_current(121,1)=45; nzij_current(121,2)=45;
+  nzij_current(122,1)=46; nzij_current(122,2)=46;
   nzij_fwrd = zeros(6, 2, 'int32');
   nzij_fwrd(1,1)=5; nzij_fwrd(1,2)=15;
   nzij_fwrd(2,1)=6; nzij_fwrd(2,2)=15;

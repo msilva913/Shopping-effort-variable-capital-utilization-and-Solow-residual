@@ -30,6 +30,10 @@ var Y           ${Y}$ (long_name='output')
     p_I        ${p_I}$ (long_name = 'Relative investment price')
     
     g          ${g}$ (long_name = 'Output growth rate (labor-augmenting technology)')
+
+    util_C
+    util_I
+    util
     
     log_Y
     log_C
@@ -197,6 +201,12 @@ D = D_C + D_I;
 [name = 'Output (base-year prices)']
 Y = C + p_I_ss*I;
 
+util_C = A_C*D_C^phi;
+
+util_I = A_I*D_I^phi;
+
+util = (C/(C+I))*util_C + (I/(C+I))*util_I;
+
 % Exogenous processes
 [name='exogenous labor-augmenting growth process']
 g = (1-rho_g)*g_bar + rho_g*g(-1) + e_g;
@@ -234,6 +244,8 @@ log_Y_N = log_Y - log_N;
 log_D = log(D) - steady_state(log(D));
 [name = 'Definition of log relative investment  price']
 log_p_I = log(p_I) - steady_state(log_p_I);
+[name = 'Definition log util']
+log_util = log(util) - steady_state(log(util));
 
 % Observation variables: first differences (demeaned) -> link to data in first differences
 C_obs = log_C - log_C(-1) + g - g_bar;
@@ -246,6 +258,8 @@ p_I_obs = log_p_I - log_p_I(-1);
 N_obs = log_N - log_N(-1);
 NC_obs = log_NC - log_NC(-1);
 NI_obs = log_NI - log_NI(-1);
+D_obs = log_D - log_D(-1);
+util_obs = log_util - log_util(-1);
 
 end;
 
@@ -289,6 +303,10 @@ steady_state_model;
 
     R_C = W*exp(g)*(alpha_K_ss/alpha_N_ss)*N_I/K_I;
     R_I = R_C;
+
+    util_C = Psi;
+    util_I = Psi;
+    util = Psi;
     
     % Logged versions of variables
     log_Y = 0;
@@ -374,8 +392,8 @@ lik_init=2,
 mh_jscale=0.0005, 
 //mh_jscale=0.3,
 mode_check, 
-mh_replic=100000, 
-//mh_replic=0,
+//mh_replic=100000, 
+mh_replic=0,
 mh_nblocks=2, 
 //bayesian_irf,
 //irf=100,
@@ -406,6 +424,6 @@ collect_latex_files;
 stoch_simul (order=1, nofunctions, irf=100, periods=0
 //conditional_variance_decomposition=[1 4 8 40])
 )
-Y_obs, Y_N_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs;
+Y_obs, Y_N_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, D_obs;
 //log_Y, log_Y_N, log_I, log_p_I, log_C;
 

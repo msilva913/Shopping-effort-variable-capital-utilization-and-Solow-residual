@@ -18,7 +18,7 @@ function residual = static_resid(T, y, x, params, T_flag)
 if T_flag
     T = BRS_util.static_resid_tt(T, y, x, params);
 end
-residual = zeros(45, 1);
+residual = zeros(46, 1);
 lhs = T(10);
 rhs = (1-params(8))*y(17);
 residual(1) = lhs - rhs;
@@ -144,6 +144,7 @@ residual(42) = y(44);
 residual(43) = y(42);
 residual(44) = y(43);
 residual(45) = y(45);
+residual(46) = y(46);
 if ~isreal(residual)
   residual = real(residual)+imag(residual).^2;
 end

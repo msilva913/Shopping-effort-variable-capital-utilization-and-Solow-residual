@@ -6,8 +6,9 @@ WARNING: in the 'steady_state_model' block, variable 'log_NI' is not assigned a 
 WARNING: in the 'steady_state_model' block, variable 'Y_N_obs' is not assigned a value
 WARNING: in the 'steady_state_model' block, variable 'NC_obs' is not assigned a value
 WARNING: in the 'steady_state_model' block, variable 'NI_obs' is not assigned a value
+WARNING: in the 'steady_state_model' block, variable 'D_obs' is not assigned a value
 WARNING: in the 'steady_state_model' block, variable 'util_obs' is not assigned a value
-Found 45 equation(s).
+Found 46 equation(s).
 Evaluating expressions...done
 Computing static model derivatives (order 1).
 Computing dynamic model derivatives (order 1).
@@ -65,7 +66,8 @@ Equation number 41 : 0 : p_I_obs
 Equation number 42 : 0 : N_obs
 Equation number 43 : 0 : NC_obs
 Equation number 44 : 0 : NI_obs
-Equation number 45 : 0 : util_obs
+Equation number 45 : 0 : D_obs
+Equation number 46 : 0 : util_obs
 
 
 
@@ -115,6 +117,7 @@ p_I_obs  		 0
 NC_obs   		 0
 NI_obs   		 0
 N_obs    		 0
+D_obs    		 0
 util_obs 		 0
 
 EIGENVALUES:
@@ -122,14 +125,15 @@ EIGENVALUES:
 
                0                0                0
                0                0                0
-       6.369e-19       -6.369e-19                0
-       8.141e-19       -8.141e-19                0
-       2.706e-17       -2.706e-17                0
-       1.482e-16        1.482e-16                0
-       3.283e-16       -3.283e-16                0
-       4.104e-15        4.104e-15                0
-       1.435e-08        1.435e-08                0
-       1.435e-08       -1.435e-08                0
+       9.732e-20       -9.732e-20                0
+        6.49e-19        -6.49e-19                0
+       9.913e-19       -9.913e-19                0
+       1.553e-18       -1.553e-18                0
+       3.687e-17        3.687e-17                0
+       3.276e-16       -3.276e-16                0
+       4.992e-16        4.992e-16                0
+       7.355e-15        7.355e-15                0
+       2.213e-14       -2.213e-14                0
              0.1              0.1                0
              0.9              0.9                0
              0.9              0.9                0
@@ -137,10 +141,10 @@ EIGENVALUES:
              0.9              0.9                0
           0.9845           0.9845                0
            1.031            1.031                0
-       6.867e+16       -6.867e+16                0
-       9.183e+16       -9.183e+16                0
-       2.405e+17        2.405e+17                0
-       4.344e+17       -4.344e+17                0
+       1.381e+15        1.381e+15                0
+       1.159e+17       -1.159e+17                0
+       3.911e+17        3.911e+17                0
+       5.889e+17       -5.889e+17                0
 
 
 There are 5 eigenvalue(s) larger than 1 in modulus 
@@ -159,7 +163,7 @@ the estimated_params_init block, or use another optimization routine.
 [Warning: The results below are most likely wrong!] 
 [> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation_1', 'C:\dynare\5.4\matlab\dynare_estimation_1.m', 318)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare_estimation_1.m',318,0)">line 318</a>)
 In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation', 'C:\dynare\5.4\matlab\dynare_estimation.m', 118)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare_estimation.m',118,0)">line 118</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('BRS_util.driver', 'C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_util\driver.m', 532)" style="font-weight:bold">BRS_util.driver</a> (<a href="matlab: opentoline('C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_util\driver.m',532,0)">line 532</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('BRS_util.driver', 'C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_util\driver.m', 537)" style="font-weight:bold">BRS_util.driver</a> (<a href="matlab: opentoline('C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_util\driver.m',537,0)">line 537</a>)
 In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare', 'C:\dynare\5.4\matlab\dynare.m', 278)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare.m',278,0)">line 278</a>)] 
 
 MODE CHECK
@@ -168,7 +172,7 @@ Fval obtained by the minimization routine (minus the posterior/likelihood)): -35
 [Warning: Matrix is singular, close to singular or badly scaled. Results may be inaccurate. RCOND = NaN.] 
 [> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation_1', 'C:\dynare\5.4\matlab\dynare_estimation_1.m', 341)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare_estimation_1.m',341,0)">line 341</a>)
 In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation', 'C:\dynare\5.4\matlab\dynare_estimation.m', 118)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare_estimation.m',118,0)">line 118</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('BRS_util.driver', 'C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_util\driver.m', 532)" style="font-weight:bold">BRS_util.driver</a> (<a href="matlab: opentoline('C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_util\driver.m',532,0)">line 532</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('BRS_util.driver', 'C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_util\driver.m', 537)" style="font-weight:bold">BRS_util.driver</a> (<a href="matlab: opentoline('C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_util\driver.m',537,0)">line 537</a>)
 In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare', 'C:\dynare\5.4\matlab\dynare.m', 278)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare.m',278,0)">line 278</a>)
 ] 
 
@@ -196,18 +200,6 @@ e_D        0.0100   0.0074     NaN   invg 0.1000
 
 Log data density [Laplace approximation] is NaN.
 
-Estimation::mcmc: I am loading past Metropolis-Hastings simulations...
-Estimation::mcmc: Recovering the previous proposal density.
-Estimation::mcmc: I am writing a new mh-history file... Done.
-Estimation::mcmc: Ok. I have loaded 150000 simulations.
-
-
-Estimation::mcmc: Number of mh files: 1 per block.
-Estimation::mcmc: Total number of generated files: 2.
-Estimation::mcmc: Total number of iterations: 250000.
-Estimation::mcmc: Current acceptance ratio per chain: 
-                                                       Chain  1: 63.975%
-                                                       Chain  2: 63.841%
 Estimation::mcmc: Total number of MH draws per chain: 250000.
 Estimation::mcmc: Total number of generated MH files: 1.
 Estimation::mcmc: I'll use mh-files 1 to 1.
@@ -272,27 +264,12 @@ e_ZI          0.010       0.0080      0.0073      0.0086     invg       0.1000
 e_Z           0.010       0.0009      0.0008      0.0010     invg       0.1000
 e_N           0.010       0.0138      0.0127      0.0148     invg       0.1000
 e_D           0.010       0.0075      0.0068      0.0081     invg       0.1000
-Estimation::compute_moments_varendo: I'm computing endogenous moments (this may take a while)... 
-
-
-Posterior mean variance decomposition (in percent)
-               e_g     e_Z    e_ZI     e_N     e_D
-Y_obs         0.97   33.70    3.11    0.68   61.55
-Y_N_obs      39.16   15.23    2.43   16.64   26.55
-I_obs         0.23   22.65   11.66    0.53   64.93
-p_I_obs       0.01   25.35   61.92    0.07   12.66
-C_obs         1.25   46.52    2.22    0.62   49.39
-util_obs     36.24   10.26    0.58    0.21   52.72
-
-
-Done!
-
 
 MODEL SUMMARY
 
-  Number of variables:         45
+  Number of variables:         46
   Number of stochastic shocks: 5
-  Number of state variables:   16
+  Number of state variables:   17
   Number of jumpers:           5
   Number of static variables:  25
 
@@ -316,6 +293,8 @@ p_I_obs        0.0000     0.0101     0.0001
 C_obs          0.0000     0.0130     0.0002
 NC_obs         0.0000     0.0103     0.0001
 NI_obs         0.0000     0.0185     0.0003
+theta_D        0.0000     0.0200     0.0004
+D_obs          0.0000     0.0169     0.0003
 util_obs       0.0000     0.0149     0.0002
 
 
@@ -329,20 +308,24 @@ p_I_obs       0.01   24.95   62.24    0.07   12.74
 C_obs         1.24   44.83    2.09    0.62   51.22
 NC_obs       39.53   17.93    0.58   35.14    6.82
 NI_obs       13.97   20.33    0.18   13.81   51.70
+theta_D       0.00    0.00    0.00    0.00  100.00
+D_obs        36.59    9.37    0.53    0.20   53.31
 util_obs     36.59    9.37    0.53    0.20   53.31
 
 
 
 MATRIX OF CORRELATIONS
-Variables       Y_obs   Y_N_obs     I_obs   p_I_obs     C_obs    NC_obs    NI_obs  util_obs
-Y_obs          1.0000    0.6741    0.8388   -0.0371    0.9685    0.4161    0.6108    0.7121
-Y_N_obs        0.6741    1.0000    0.5641   -0.0938    0.6535   -0.3635    0.0121    0.0978
-I_obs          0.8388    0.5641    1.0000   -0.3393    0.6769    0.2399    0.7609    0.6391
-p_I_obs       -0.0371   -0.0938   -0.3393    1.0000    0.1049    0.0502    0.0624    0.0734
-C_obs          0.9685    0.6535    0.6769    0.1049    1.0000    0.4529    0.4779    0.6706
-NC_obs         0.4161   -0.3635    0.2399    0.0502    0.4529    1.0000    0.5762    0.7138
-NI_obs         0.6108    0.0121    0.7609    0.0624    0.4779    0.5762    1.0000    0.7901
-util_obs       0.7121    0.0978    0.6391    0.0734    0.6706    0.7138    0.7901    1.0000
+Variables       Y_obs   Y_N_obs     I_obs   p_I_obs     C_obs    NC_obs    NI_obs   theta_D     D_obs  util_obs
+Y_obs          1.0000    0.6741    0.8388   -0.0371    0.9685    0.4161    0.6108   -0.1983    0.7121    0.7121
+Y_N_obs        0.6741    1.0000    0.5641   -0.0938    0.6535   -0.3635    0.0121   -0.1341    0.0978    0.0978
+I_obs          0.8388    0.5641    1.0000   -0.3393    0.6769    0.2399    0.7609   -0.2034    0.6391    0.6391
+p_I_obs       -0.0371   -0.0938   -0.3393    1.0000    0.1049    0.0502    0.0624    0.0545    0.0734    0.0734
+C_obs          0.9685    0.6535    0.6769    0.1049    1.0000    0.4529    0.4779   -0.1752    0.6706    0.6706
+NC_obs         0.4161   -0.3635    0.2399    0.0502    0.4529    1.0000    0.5762   -0.0698    0.7138    0.7138
+NI_obs         0.6108    0.0121    0.7609    0.0624    0.4779    0.5762    1.0000   -0.1480    0.7901    0.7901
+theta_D       -0.1983   -0.1341   -0.2034    0.0545   -0.1752   -0.0698   -0.1480    1.0000   -0.1589   -0.1589
+D_obs          0.7121    0.0978    0.6391    0.0734    0.6706    0.7138    0.7901   -0.1589    1.0000    1.0000
+util_obs       0.7121    0.0978    0.6391    0.0734    0.6706    0.7138    0.7901   -0.1589    1.0000    1.0000
 
 
 
@@ -355,7 +338,9 @@ p_I_obs      0.1108   0.1370   0.1331   0.1292   0.1255
 C_obs        0.2755   0.3294   0.3300   0.3308   0.3315
 NC_obs       0.1805   0.1078   0.0910   0.0874   0.0868
 NI_obs      -0.0137   0.0234   0.0199   0.0198   0.0204
+theta_D      0.9281   0.8614   0.7994   0.7419   0.6886
+D_obs        0.1067   0.0920   0.0781   0.0756   0.0756
 util_obs     0.1067   0.0920   0.0781   0.0756   0.0756
-Total computing time : 0h17m47s
-Note: 6 warning(s) encountered in the preprocessor
+Total computing time : 0h01m07s
+Note: 7 warning(s) encountered in the preprocessor
 Note: warning(s) encountered in MATLAB/Octave code
