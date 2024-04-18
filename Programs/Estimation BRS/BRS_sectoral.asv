@@ -77,7 +77,7 @@ var Y           ${Y}$ (long_name='output')
     Q_sc          ${Q}$ (long_name = 'Relative price of capital:sc')
     Q_I          ${Q}$ (long_name = 'Relative price of capital:I')
     x_mc          ${x}$ (long_name = 'Growth rate of investment:mc')
-    x_sc          ${x}$ (long_name = 'Growth rate of investment:sc')
+ 
     x_I          ${x}$ (long_name = 'Growth rate of investment:I')
 
 
@@ -213,8 +213,7 @@ omega_sc = 0.65;
 
 sigma_ac = 0.32; % inverse of elasticity of capital utilization wrt rental rate
 sigma_ai = 0.32;
-Psi_mc = 1.5;
-Psi_sc = 1.5;
+Psi_C = 1.5;
 Psi_I = 1.5;
 
 I_Y = 0.20;
@@ -653,16 +652,13 @@ steady_state_model;
     delta_sc_pr = sigma_b_ss;
     delta_I_pr = sigma_b_ss;
 
-    Q_mc = p_I/(1-phi);
-    Q_sc = Q_mc;
-    Q_I = Q_mc;
+    Q_C = p_I/(1-phi);
+    Q_I = Q_C;
     x_C = exp(g_bar);
     x_I = x_C;
-    Smc = 0;
-    Ssc = 0;
+    Sc = 0;
     Si = 0;
-    Smc_pr = 0;
-    Ssc_pr = 0;
+    Sc_pr = 0;
     Si_pr = 0;
 
     util_ND = Psi;
@@ -763,8 +759,7 @@ nu_R, 0.20, 0.01, 0.5,        BETA_PDF, 0.2, 0.1;
 
 sigma_ac, 0.32, 0.0, 10,       INV_GAMMA_PDF, 1, 1; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
 sigma_ai, 0.32, 0.0, 10,       INV_GAMMA_PDF, 1, 1; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
-Psi_mc, 1.5, 0.0, 50,           GAMMA_PDF, 4, 1.0; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
-Psi_sc, 1.5, 0.0, 50,           GAMMA_PDF, 4, 1.0; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
+Psi_C, 1.5, 0.0, 50,           GAMMA_PDF, 4, 1.0; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
 Psi_I, 1.5, 0.0, 50,           GAMMA_PDF, 4, 1.0; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
 
 theta, 0.5, .00, 10,   GAMMA_PDF, 1, 0.5; %Katayama and Kim 2018, based on Horvath (2000)
