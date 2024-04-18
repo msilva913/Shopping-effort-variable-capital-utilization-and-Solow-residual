@@ -77,7 +77,7 @@ var Y           ${Y}$ (long_name='output')
     Q_sc          ${Q}$ (long_name = 'Relative price of capital:sc')
     Q_I          ${Q}$ (long_name = 'Relative price of capital:I')
     x_mc          ${x}$ (long_name = 'Growth rate of investment:mc')
- 
+    x_sc          ${x}$ (long_name = 'Growth rate of investment:sc')
     x_I          ${x}$ (long_name = 'Growth rate of investment:I')
 
 
@@ -162,10 +162,11 @@ parameters
 
     mu_ss    $\mu_{ss}$ (long_name = 'steady-state wage markup')
 
-    sigma_ac ${\sigma_{ac}}$ (long_name = 'Inverse elasticity of marginal utilization cost wrt rental rate:C')
+    sigma_amc ${\sigma_{amc}}$ (long_name = 'Inverse elasticity of marginal utilization cost wrt rental rate:mc)
+    sigma_asc ${\sigma_{asc}}$ (long_name = 'Inverse elasticity of marginal utilization cost wrt rental rate:sc)
     sigma_ai ${\sigma_{ai}}$ (long_name = 'Inverse elasticity of marginal utilization cost wrt rental rate:I')
-    Psi_mc ${\Psi_C}$ (long_name = 'Investment adjustment cost parameter:non-durable goods')
-    Psi_sc ${\Psi_C}$ (long_name = 'Investment adjustment cost parameter:services')
+    Psi_mc ${\Psi_{mc}}$ (long_name = 'Investment adjustment cost parameter:non-durable goods')
+    Psi_sc ${\Psi_{sc}}$ (long_name = 'Investment adjustment cost parameter:services')
     Psi_I ${\Psi_I}$ (long_name = 'Investment adjustment cost parameter:I')
    
     I_Y    ${I_Y}$   (long_name = 'Investment-output ratio')
@@ -211,9 +212,11 @@ mu_ss = 1.15; % steady-state wage markup
 xi = 0.85; % elasticity of substitution between non-durables and services
 omega_sc = 0.65;
 
-sigma_ac = 0.32; % inverse of elasticity of capital utilization wrt rental rate
+sigma_amc = 0.32; % inverse of elasticity of capital utilization wrt rental rate
+sigma_asc = 0.32; % inverse of elasticity of capital utilization wrt rental rate
 sigma_ai = 0.32;
-Psi_C = 1.5;
+Psi_mc = 1.5;
+Psi_sc = 1.5;
 Psi_I = 1.5;
 
 I_Y = 0.20;
@@ -373,10 +376,10 @@ x_sc = I_sc/I_sc(-1)*exp(g);
 x_I = I_I/I_I(-1)*exp(g);
 
 [name = 'Depreciation rate: mc']
-delta_mc = delta + sigma_b*(h_mc-1) + sigma_ac*sigma_b/2*(h_mc-1)^2;
+delta_mc = delta + sigma_b*(h_mc-1) + sigma_amc*sigma_b/2*(h_mc-1)^2;
 
 [name = 'Depreciation rate: sc']
-delta_sc = delta + sigma_b*(h_sc-1) + sigma_ac*sigma_b/2*(h_sc-1)^2;
+delta_sc = delta + sigma_b*(h_sc-1) + sigma_asc*sigma_b/2*(h_sc-1)^2;
 
 [name = 'Depreciation rate: I']
 delta_I = delta + sigma_b*(h_I-1) + sigma_ai*sigma_b/2*(h_I-1)^2;
@@ -652,13 +655,16 @@ steady_state_model;
     delta_sc_pr = sigma_b_ss;
     delta_I_pr = sigma_b_ss;
 
-    Q_C = p_I/(1-phi);
-    Q_I = Q_C;
+    Q_mc = p_I/(1-phi);
+    Q_sc = Q_mc;
+    Q_I = Q_mc;
     x_C = exp(g_bar);
     x_I = x_C;
-    Sc = 0;
+    Smc = 0;
+    Ssc = 0;
     Si = 0;
-    Sc_pr = 0;
+    Smc_pr = 0;
+    Ssc_pr = 0;
     Si_pr = 0;
 
     util_ND = Psi;
@@ -757,9 +763,11 @@ xi, 0.85, 0.5, 2.0,        GAMMA_PDF, 0.85, 0.1;
 
 nu_R, 0.20, 0.01, 0.5,        BETA_PDF, 0.2, 0.1;
 
-sigma_ac, 0.32, 0.0, 10,       INV_GAMMA_PDF, 1, 1; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
+sigma_amc, 0.32, 0.0, 10,       INV_GAMMA_PDF, 1, 1; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
+sigma_asc, 0.32, 0.0, 10,       INV_GAMMA_PDF, 1, 1; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
 sigma_ai, 0.32, 0.0, 10,       INV_GAMMA_PDF, 1, 1; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
-Psi_C, 1.5, 0.0, 50,           GAMMA_PDF, 4, 1.0; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
+Psi_mc, 1.5, 0.0, 50,           GAMMA_PDF, 4, 1.0; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
+Psi_sc, 1.5, 0.0, 50,           GAMMA_PDF, 4, 1.0; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
 Psi_I, 1.5, 0.0, 50,           GAMMA_PDF, 4, 1.0; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
 
 theta, 0.5, .00, 10,   GAMMA_PDF, 1, 0.5; %Katayama and Kim 2018, based on Horvath (2000)

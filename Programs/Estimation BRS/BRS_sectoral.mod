@@ -7,7 +7,8 @@ var Y           ${Y}$ (long_name='output')
     Y_mc        ${Y_{mc}}$ (long_name = 'consumption non-durable goods')
     Y_sc        $Y_{sc}}$ (long_name = 'consumption services')
     I           ${I}$ (long_name = 'investment')
-    I_C         ${I_C}$ (long_name = 'investment:C')
+    I_mc         ${I_C}$ (long_name = 'investment:mc')
+    I_sc         ${I_C}$ (long_name = 'investment:sc')
     I_I         ${I_I}$ (long_name = 'investment:I')
     K           ${K}$ (long_name='Capital')
     K_mc         ${K_{mc}}$ (long_name='Capital:mc')
@@ -54,7 +55,8 @@ var Y           ${Y}$ (long_name='output')
     Smc            $S$ (long_name = 'Investment adjustment cost:mc')
     Ssc            $S$ (long_name = 'Investment adjustment cost:sc')
     Si            $S$ (long_name = 'Investment adjustment cost:I')
-    Sc_pr         $S_pr$ (long_name = 'Derivative investment adjustment cost:C')
+    Smc_pr         $S_pr$ (long_name = 'Derivative investment adjustment cost:mc')
+    Ssc_pr         $S_pr$ (long_name = 'Derivative investment adjustment cost:mc')
     Si_pr         $S_pr$ (long_name = 'Derivative investment adjustment cost:I')
 
     D           ${D}$ (long_name='Shopping effort')
@@ -162,10 +164,11 @@ parameters
 
     mu_ss    $\mu_{ss}$ (long_name = 'steady-state wage markup')
 
-    sigma_ac ${\sigma_{ac}}$ (long_name = 'Inverse elasticity of marginal utilization cost wrt rental rate:C')
+    sigma_amc ${\sigma_{amc}}$ (long_name = 'Inverse elasticity of marginal utilization cost wrt rental rate:mc')
+    sigma_asc ${\sigma_{asc}}$ (long_name = 'Inverse elasticity of marginal utilization cost wrt rental rate:sc')
     sigma_ai ${\sigma_{ai}}$ (long_name = 'Inverse elasticity of marginal utilization cost wrt rental rate:I')
-    Psi_mc ${\Psi_C}$ (long_name = 'Investment adjustment cost parameter:non-durable goods')
-    Psi_sc ${\Psi_C}$ (long_name = 'Investment adjustment cost parameter:services')
+    Psi_mc ${\Psi_{mc}}$ (long_name = 'Investment adjustment cost parameter:non-durable goods')
+    Psi_sc ${\Psi_{sc}}$ (long_name = 'Investment adjustment cost parameter:services')
     Psi_I ${\Psi_I}$ (long_name = 'Investment adjustment cost parameter:I')
    
     I_Y    ${I_Y}$   (long_name = 'Investment-output ratio')
@@ -211,7 +214,8 @@ mu_ss = 1.15; % steady-state wage markup
 xi = 0.85; % elasticity of substitution between non-durables and services
 omega_sc = 0.65;
 
-sigma_ac = 0.32; % inverse of elasticity of capital utilization wrt rental rate
+sigma_amc = 0.32; % inverse of elasticity of capital utilization wrt rental rate
+sigma_asc = 0.32; % inverse of elasticity of capital utilization wrt rental rate
 sigma_ai = 0.32;
 Psi_mc = 1.5;
 Psi_sc = 1.5;
@@ -374,29 +378,29 @@ x_sc = I_sc/I_sc(-1)*exp(g);
 x_I = I_I/I_I(-1)*exp(g);
 
 [name = 'Depreciation rate: mc']
-delta_mc = delta + sigma_b*(h_mc-1) + sigma_ac*sigma_b/2*(h_mc-1)^2;
+delta_mc = delta + sigma_b*(h_mc-1) + sigma_amc*sigma_b/2*(h_mc-1)^2;
 
 [name = 'Depreciation rate: sc']
-delta_sc = delta + sigma_b*(h_sc-1) + sigma_ac*sigma_b/2*(h_sc-1)^2;
+delta_sc = delta + sigma_b*(h_sc-1) + sigma_asc*sigma_b/2*(h_sc-1)^2;
 
 [name = 'Depreciation rate: I']
 delta_I = delta + sigma_b*(h_I-1) + sigma_ai*sigma_b/2*(h_I-1)^2;
 
 [name = 'Depreciation rate derivative: mc']
-delta_mc_pr = sigma_b + sigma_ac*sigma_b*(h_mc-1);
+delta_mc_pr = sigma_b + sigma_amc*sigma_b*(h_mc-1);
 
 [name = 'Depreciation rate derivative: sc']
-delta_sc_pr = sigma_b + sigma_ac*sigma_b*(h_sc-1);
+delta_sc_pr = sigma_b + sigma_asc*sigma_b*(h_sc-1);
 
 [name = 'Depreciation rate derivative: I']
 delta_I_pr = sigma_b + sigma_ai*sigma_b*(h_I-1);
 
 [name = 'Tobins Q: mc']
-p_I/(1-phi) = Q_mc*(1-Sc_pr*x_mc-Smc) + 
+p_I/(1-phi) = Q_mc*(1-Smc_pr*x_mc-Smc) + 
     beta*exp(theta_b)*(lam(+1)/lam)*exp(g(+1))^(-sigma)*Q_mc(+1)*Smc_pr(+1)*x_mc(+1)^2;
 
 [name = 'Tobins Q: sc']
-p_I/(1-phi) = Q_sc*(1-Sc_pr*x_sc-Ssc) + 
+p_I/(1-phi) = Q_sc*(1-Ssc_pr*x_sc-Ssc) + 
     beta*exp(theta_b)*(lam(+1)/lam)*exp(g(+1))^(-sigma)*Q_sc(+1)*Ssc_pr(+1)*x_sc(+1)^2;
 
 [name = 'Tobins Q: I']
@@ -432,8 +436,11 @@ Y_sc = A_sc*(D_sc)^phi*(Z_sc_ss*exp(g)^(-alpha_K)*exp(Z_C)*(h_sc*K_sc(-1))^alpha
 [name = 'Investment production']
 I = A_I*(D_I)^phi*(Z_I_ss*exp(g)^(-alpha_K)*exp(Z_I)*(h_I*K_I(-1))^alpha_K*(N_I)^alpha_N-nu_I);
 
-[name = 'Capital law of motion:C']
-(K_mc + K_sc)*exp(g) = (1-Sc)*I_C*exp(g) + (1-delta_mc)*K_mc(-1) + (1-delta_sc)*K_sc(-1);
+[name = 'Capital law of motion:mc']
+K_mc*exp(g) = (1-Smc)*I_mc*exp(g) + (1-delta_mc)*K_mc(-1);
+
+[name = 'Capital law of motion:sc']
+K_sc*exp(g) = (1-Ssc)*I_sc*exp(g) + (1-delta_sc)*K_sc(-1);
 
 [name = 'Capital law of motion:I']
 K_I*exp(g) = (1-Si)*I_I*exp(g) + (1-delta_I)*K_I(-1);
@@ -467,7 +474,7 @@ N_C = N_mc + N_sc;
 K = K_mc + K_sc + K_I;
 
 [name = 'Investment composition']
-I = I_C + I_I;
+I = I_mc + I_sc + I_I;
 
 [name = 'Shopping composition']
 D = D_mc + D_sc + exp(theta_I)*D_I;
@@ -589,7 +596,8 @@ steady_state_model;
     D_sc = (1-I_Y)*omega_sc*D;
     D_I = I_Y*D;
 
-    I_C = I*C;
+    I_mc = I*C*(1-omega_sc);
+    I_sc = I*C*(omega_sc);
     I_I = I*I_Y;
     
     A_mc_ss = Psi/D_mc^phi;
@@ -761,7 +769,8 @@ xi, 0.85, 0.5, 2.0,        GAMMA_PDF, 0.85, 0.1;
 
 nu_R, 0.20, 0.01, 0.5,        BETA_PDF, 0.2, 0.1;
 
-sigma_ac, 0.32, 0.0, 10,       INV_GAMMA_PDF, 1, 1; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
+sigma_amc, 0.32, 0.0, 10,       INV_GAMMA_PDF, 1, 1; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
+sigma_asc, 0.32, 0.0, 10,       INV_GAMMA_PDF, 1, 1; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
 sigma_ai, 0.32, 0.0, 10,       INV_GAMMA_PDF, 1, 1; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
 Psi_mc, 1.5, 0.0, 50,           GAMMA_PDF, 4, 1.0; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
 Psi_sc, 1.5, 0.0, 50,           GAMMA_PDF, 4, 1.0; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
