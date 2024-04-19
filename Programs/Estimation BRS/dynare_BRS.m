@@ -7,6 +7,8 @@ dynare BRS_sectoral.mod
 res = oo_
 mom_bas = calc_moments(res)
 save('mom_bas', 'mom_bas')
+%% Remove fixed cost
+dynare BRS_sectoral_wo_fixed_cost.mod
 %% Remove utilization variables and re-estimate
 dynare BRS_sectoral_rest.mod 
 res = oo_
