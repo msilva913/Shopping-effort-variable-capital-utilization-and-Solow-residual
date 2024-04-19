@@ -6,14 +6,17 @@ var Y           ${Y}$ (long_name='output')
     C           ${C}$ (long_name='consumption')
     Y_mc        ${Y_{mc}}$ (long_name = 'consumption non-durable goods')
     Y_sc        $Y_{sc}}$ (long_name = 'consumption services')
+
     I           ${I}$ (long_name = 'investment')
     I_mc         ${I_C}$ (long_name = 'investment:mc')
     I_sc         ${I_C}$ (long_name = 'investment:sc')
     I_I         ${I_I}$ (long_name = 'investment:I')
+
     K           ${K}$ (long_name='Capital')
     K_mc         ${K_{mc}}$ (long_name='Capital:mc')
     K_sc         ${K_{sc}}$ (long_name='Capital:sc')
     K_I         ${K_I}$ (long_name='Capital:I')
+
     N           ${N}$   (long_name='Hours')
     N_mc         ${N_{mc}}$ (long_name='Hours:mc')
     N_sc         ${N_{sc}}$ (long_name='Hours:sc')
@@ -41,7 +44,7 @@ var Y           ${Y}$ (long_name='output')
     W          ${W}$ (long_name='Real wage')
 
     h_mc         ${h_mc}$ (long_name= 'Capital utilization rate:mc')
-    h_sc         ${h_mc}$ (long_name= 'Capital utilization rate:sc')
+    h_sc         ${h_sc}$ (long_name= 'Capital utilization rate:sc')
     h_I         ${h_I}$ (long_name= 'Capital utilization rate:I')
 
     delta_mc    ${\delta_{mc}}$ (long_name= 'Capital depreciation rate:mc')
@@ -56,7 +59,7 @@ var Y           ${Y}$ (long_name='output')
     Ssc            $S$ (long_name = 'Investment adjustment cost:sc')
     Si            $S$ (long_name = 'Investment adjustment cost:I')
     Smc_pr         $S_pr$ (long_name = 'Derivative investment adjustment cost:mc')
-    Ssc_pr         $S_pr$ (long_name = 'Derivative investment adjustment cost:mc')
+    Ssc_pr         $S_pr$ (long_name = 'Derivative investment adjustment cost:sc')
     Si_pr         $S_pr$ (long_name = 'Derivative investment adjustment cost:I')
 
     D           ${D}$ (long_name='Shopping effort')
@@ -71,8 +74,6 @@ var Y           ${Y}$ (long_name='output')
     p_sc       ${p_{sc}}$ (long_name = 'Relative service price')
     p_I        ${p_I}$ (long_name = 'Relative investment price')
 
-    C_mc      ${C_{mc}}$ (long_name = 'Der. C wrt non-durables')
-    C_sc      ${C_{sc}}$ (long_name = 'Der. C wrt services')
     lam    ${\lambda}$ (long_name = 'Marginal utility of wealth')
     
     Q_mc          ${Q}$ (long_name = 'Relative price of capital:mc')
@@ -252,6 +253,8 @@ rho_muI = 0.9;
 
 model;
 % Dependent parameters
+#omega_mc = 1-omega_sc;
+
 #I_K = I_Y/K_Y;
 #delta = I_K + 1 - exp(g_bar);
 //#r = (1+r_ann)^(1/4) - 1.0;
@@ -309,31 +312,29 @@ model;
 N_comp = (omega^(-theta)*N_C^(1+theta) + (1-omega)^(-theta)*N_I^(1+theta))^(1/(1+theta));
 
 [name='Labor leisure:C']
-Gam^(-sigma)*theta_N_ss*exp(theta_N)*(N_comp)^(1/nu)*(N_C/N_comp)^theta*omega^(-theta) = lam*W_C/(mu_ss*exp(mu_C)*zeta);
+theta_N_ss*exp(theta_N)*(N_comp)^(1/nu)*(N_C/N_comp)^theta*omega^(-theta) = (1-phi)*W_C/(mu_ss*exp(mu_C)*zeta);
 
 [name='Labor leisure:I']
-Gam^(-sigma)*theta_N_ss*exp(theta_N)*(N_comp)^(1/nu)*(N_I/N_comp)^theta*(1-omega)^(-theta)  = lam*W_I/(mu_ss*exp(mu_I)*zeta);
+theta_N_ss*exp(theta_N)*(N_comp)^(1/nu)*(N_I/N_comp)^theta*(1-omega)^(-theta)  = (1-phi)*W_I/(mu_ss*exp(mu_I)*zeta);
 
-[name='Partial der. C wrt non-durables']
-C_mc = (1-omega_sc)^(1-rho)*(C/Y_mc)^(1-rho);
-
-[name='Partial der. C wrt services']
-C_sc = omega_sc^(1-rho)*(C/Y_sc)^(1-rho);
 
 [name='Marginal utility of wealth']
-lam = Gam^(-sigma)*C_mc*(1-phi)/p_mc;
+lam = Gam^(-sigma)*(1-phi);
 
-[name='Optimality between sectors']
-C_mc/p_mc = C_sc/p_sc;
+[name='Demand curve: mc']
+Y_mc = p_mc^(-xi)*omega_mc*C;
+
+[name='Demand curve: sc']
+Y_sc = p_sc^(-xi)*omega_sc*C;
 
 [name='Shopping:mc']
-exp(theta_D)*D^(1/eta) = phi*C_mc*Y_mc/D_mc;
+exp(theta_D)*D^(1/eta) = phi*p_mc*Y_mc/D_mc;
 
 [name='Shopping:sc']
-exp(theta_D)*D^(1/eta) = phi*C_sc*Y_sc/D_sc;
+exp(theta_D)*D^(1/eta) = phi*p_sc*Y_sc/D_sc;
 
 [name = 'Shopping:I']
-exp(theta_D)*D^(1/eta)*exp(theta_I) = phi*C_mc*(p_I/p_mc)*I/D_I;
+exp(theta_D)*D^(1/eta)*exp(theta_I) = phi*p_I*I/D_I;
 
 [name = 'Composite utility term']
 Gam = C-ha*C(-1) - exp(theta_D)*D^(1+1/eta)/(1+1/eta) - theta_N_ss*exp(theta_N)*N_comp^(1+1/nu)/(1+1/nu)*zeta;
@@ -344,11 +345,8 @@ zeta =  (C-ha*C(-1) - exp(theta_D)*D^(1+1/eta)/(1+1/eta))^(gam)*zeta(-1)^(1-gam)
 [name = 'Consumption CES aggregator']
 C = (omega_sc^(1-rho)*Y_sc^rho + (1-omega_sc)^(1-rho)*Y_mc^rho)^(1/rho);
 
-[name = 'Consumption expenditures']
-C = p_mc*Y_mc + p_sc*Y_sc;
-
-//[name = 'Price index']
-//1 = (1-omega_sc)*p_mc^(-rho/(1-rho)) + omega_sc*p_sc^(-rho/(1-rho));
+//[name = 'Consumption expenditures']
+//C = p_mc*Y_mc + p_sc*Y_sc;
 
 [name = 'Investment adjustment cost function:mc']
 Smc =Psi_mc/2*(x_mc-exp(g_bar))^2;
@@ -586,7 +584,8 @@ steady_state_model;
     p_I = 1.0;
     p_mc = 1.0;
     p_sc = 1.0;
-    
+ 
+
     I = I_Y;
     C = 1-I_Y;
     Y_mc = (1-omega_sc)*C;
@@ -626,17 +625,13 @@ steady_state_model;
     W = W_C;
 
     rho_ss = (xi-1)/xi;
-    C_mc = (1-omega_sc)^(1-rho_ss)*(C/Y_mc)^(1-rho_ss);
-    C_sc = omega_sc^(1-rho_ss)*(C/Y_sc)^(1-rho_ss);
- 
     
-
     zeta = C*(1-ha) - D^(1+1/eta)/(1+1/eta);
-    theta_N_s = (1-phi)*W_C/(N^(1/nu)*zeta*mu_ss)*C_mc/p_mc;
+    theta_N_s = (1-phi)*W_C/(N^(1/nu)*zeta*mu_ss);
     //Gam^(-sigma)*theta_N_ss*exp(theta_N)*(N_comp)^(1/nu)*(N_C/N_comp)^theta*omega^(-theta) = lam*W_C/(mu_ss*exp(mu_C)*zeta);
     Gam = (C*(1-ha) - D^(1+1/eta)/(1+1/eta) - theta_N_s*N_comp^(1+1/nu)/(1+1/nu)*zeta);
 
-    lam = Gam^(-sigma)*C_mc*(1-phi)/p_mc;
+    lam = Gam^(-sigma)*(1-phi);
    
    
     //r_ss = (1+r_ann)^(1/4) - 1.0;
@@ -664,8 +659,9 @@ steady_state_model;
     Q_mc = p_I/(1-phi);
     Q_sc = Q_mc;
     Q_I = Q_mc;
-    x_C = exp(g_bar);
-    x_I = x_C;
+    x_mc = exp(g_bar);
+    x_sc = x_mc;
+    x_I = x_mc;
     Smc = 0;
     Ssc = 0;
     Si = 0;
