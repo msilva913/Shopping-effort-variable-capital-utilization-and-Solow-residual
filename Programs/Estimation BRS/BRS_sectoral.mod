@@ -165,11 +165,9 @@ parameters
 
     mu_ss    $\mu_{ss}$ (long_name = 'steady-state wage markup')
 
-    sigma_amc ${\sigma_{amc}}$ (long_name = 'Inverse elasticity of marginal utilization cost wrt rental rate:mc')
-    sigma_asc ${\sigma_{asc}}$ (long_name = 'Inverse elasticity of marginal utilization cost wrt rental rate:sc')
+    sigma_ac ${\sigma_{ac}}$ (long_name = 'Inverse elasticity of marginal utilization cost wrt rental rate:C')
     sigma_ai ${\sigma_{ai}}$ (long_name = 'Inverse elasticity of marginal utilization cost wrt rental rate:I')
-    Psi_mc ${\Psi_{mc}}$ (long_name = 'Investment adjustment cost parameter:non-durable goods')
-    Psi_sc ${\Psi_{sc}}$ (long_name = 'Investment adjustment cost parameter:services')
+    Psi_C ${\Psi_{C}}$ (long_name = 'Investment adjustment cost parameter:non-durable goods')
     Psi_I ${\Psi_I}$ (long_name = 'Investment adjustment cost parameter:I')
    
     I_Y    ${I_Y}$   (long_name = 'Investment-output ratio')
@@ -215,11 +213,9 @@ mu_ss = 1.15; % steady-state wage markup
 xi = 0.85; % elasticity of substitution between non-durables and services
 omega_sc = 0.65;
 
-sigma_amc = 0.32; % inverse of elasticity of capital utilization wrt rental rate
-sigma_asc = 0.32; % inverse of elasticity of capital utilization wrt rental rate
+sigma_ac = 0.32; % inverse of elasticity of capital utilization wrt rental rate
 sigma_ai = 0.32;
-Psi_mc = 1.5;
-Psi_sc = 1.5;
+Psi_C = 1.5;
 Psi_I = 1.5;
 
 I_Y = 0.20;
@@ -349,19 +345,19 @@ C = (omega_sc^(1-rho)*Y_sc^rho + (1-omega_sc)^(1-rho)*Y_mc^rho)^(1/rho);
 //C = p_mc*Y_mc + p_sc*Y_sc;
 
 [name = 'Investment adjustment cost function:mc']
-Smc =Psi_mc/2*(x_mc-exp(g_bar))^2;
+Smc =Psi_C/2*(x_mc-exp(g_bar))^2;
 
 [name = 'Investment adjustment cost function:mc']
-Ssc =Psi_sc/2*(x_sc-exp(g_bar))^2;
+Ssc =Psi_C/2*(x_sc-exp(g_bar))^2;
 
 [name = 'Investment adjustment cost function:I']
 Si =Psi_I/2*(x_I-exp(g_bar))^2;
 
 [name = 'Investment adjustment cost function: derivative mc']
-Smc_pr = Psi_mc*(x_mc-exp(g_bar));
+Smc_pr = Psi_C*(x_mc-exp(g_bar));
 
 [name = 'Investment adjustment cost function: derivative mc']
-Ssc_pr = Psi_sc*(x_sc-exp(g_bar));
+Ssc_pr = Psi_C*(x_sc-exp(g_bar));
 
 [name = 'Investment adjustment cost function: derivative I']
 Si_pr = Psi_I*(x_I-exp(g_bar));
@@ -376,19 +372,19 @@ x_sc = I_sc/I_sc(-1)*exp(g);
 x_I = I_I/I_I(-1)*exp(g);
 
 [name = 'Depreciation rate: mc']
-delta_mc = delta + sigma_b*(h_mc-1) + sigma_amc*sigma_b/2*(h_mc-1)^2;
+delta_mc = delta + sigma_b*(h_mc-1) + sigma_ac*sigma_b/2*(h_mc-1)^2;
 
 [name = 'Depreciation rate: sc']
-delta_sc = delta + sigma_b*(h_sc-1) + sigma_asc*sigma_b/2*(h_sc-1)^2;
+delta_sc = delta + sigma_b*(h_sc-1) + sigma_ac*sigma_b/2*(h_sc-1)^2;
 
 [name = 'Depreciation rate: I']
 delta_I = delta + sigma_b*(h_I-1) + sigma_ai*sigma_b/2*(h_I-1)^2;
 
 [name = 'Depreciation rate derivative: mc']
-delta_mc_pr = sigma_b + sigma_amc*sigma_b*(h_mc-1);
+delta_mc_pr = sigma_b + sigma_ac*sigma_b*(h_mc-1);
 
 [name = 'Depreciation rate derivative: sc']
-delta_sc_pr = sigma_b + sigma_asc*sigma_b*(h_sc-1);
+delta_sc_pr = sigma_b + sigma_ac*sigma_b*(h_sc-1);
 
 [name = 'Depreciation rate derivative: I']
 delta_I_pr = sigma_b + sigma_ai*sigma_b*(h_I-1);
@@ -765,11 +761,9 @@ xi, 0.85, 0.5, 2.0,        GAMMA_PDF, 0.85, 0.1;
 
 nu_R, 0.20, 0.01, 0.5,        BETA_PDF, 0.2, 0.1;
 
-sigma_amc, 0.32, 0.0, 10,       INV_GAMMA_PDF, 1, 1; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
-sigma_asc, 0.32, 0.0, 10,       INV_GAMMA_PDF, 1, 1; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
+sigma_ac, 0.32, 0.0, 10,       INV_GAMMA_PDF, 1, 1; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
 sigma_ai, 0.32, 0.0, 10,       INV_GAMMA_PDF, 1, 1; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
-Psi_mc, 1.5, 0.0, 50,           GAMMA_PDF, 4, 1.0; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
-Psi_sc, 1.5, 0.0, 50,           GAMMA_PDF, 4, 1.0; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
+Psi_C, 1.5, 0.0, 50,           GAMMA_PDF, 4, 1.0; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
 Psi_I, 1.5, 0.0, 50,           GAMMA_PDF, 4, 1.0; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
 
 theta, 0.5, .00, 10,   GAMMA_PDF, 1, 0.5; %Katayama and Kim 2018, based on Horvath (2000)
@@ -823,20 +817,20 @@ varobs NC_obs, NI_obs, C_obs, I_obs, p_I_obs, util_ND_obs, util_D_obs;
 
 estimation(tex, optim=('MaxIter', 200), 
 datafile=observables_sectoral, 
-mode_file=BRS_sectoral_mode, 
+//mode_file=BRS_sectoral_mode, 
 //nograph,
-load_mh_file, 
+//load_mh_file, 
 //mh_recover,
 mcmc_jumping_covariance=prior_variance,
 
-mode_compute=0,
+mode_compute=4,
 presample=0, 
 lik_init=2,
 mh_jscale=0.006, 
 mh_init_scale =0.0001,
 //mh_jscale=0.1,
 mode_check, 
-mh_replic=130000, 
+mh_replic=150000, 
 //mh_replic=0,
 mh_nblocks=2, 
 //bayesian_irf,
