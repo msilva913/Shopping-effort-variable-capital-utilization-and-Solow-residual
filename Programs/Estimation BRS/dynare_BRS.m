@@ -11,22 +11,12 @@ save('mom_bas', 'mom_bas')
 dynare BRS_sectoral_wo_fixed_cost.mod
 %% Remove vcu
 dynare BRS_sectoral_wo_vcu.mod
-%% Remove utilization variables and re-estimate
-dynare BRS_sectoral_rest.mod 
-res = oo_
-mom_rest = calc_moments(res)
-save('mom_rest', 'mom_rest')
-%% Baseline RBC model comparision -> shut down shopping effort and goods market frictions
-dynare RBC_sectoral.mod
+%% Remove goods market frictions
+dynare BRS_sectoral_wo_gmf.mod
 
-%% Aggregate data for comparison to BRS
-dynare BRS_aggregate.mod
 
-res = oo_
-calc_moments(res)
-
-%% Comparison to BRS
-%% Basic BRS
+%% Proof of concept exercise in BRS
+%% Basic BRS (general replication)
 %dynare BRS_growth.mod
 
 %% Basic BRS: estimate phi and eta

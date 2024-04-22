@@ -1,11 +1,11 @@
 % MH log file (Dynare).
-% 22-Apr-2024 09:59:44.
+% 22-Apr-2024 11:06:04.
  
 
 % Session 1.
  
   Number of blocks...............: 2
-  Number of simulations per block: 150000
+  Number of simulations per block: 50000
  
   Initial values of the parameters:
     Blck 1:
@@ -91,7 +91,7 @@
   CREATION OF THE MH HISTORY FILE!
 
     Expected number of files per block.......: 1.
-    Expected number of lines in the last file: 150000.
+    Expected number of lines in the last file: 50000.
 
     Initial state of the Gaussian random number generator for chain number 1:
       1
@@ -2599,60 +2599,60 @@
       624
  
 
-% Mh1Blck1 (22-Apr-2024 10:28:53)
+% Mh1Blck1 (22-Apr-2024 11:20:23)
  
-  Number of simulations.: 150000
-  Acceptance ratio......: 0.2469
+  Number of simulations.: 50000
+  Acceptance ratio......: 0.362
   Feval per iteration...: 1
   Posterior mean........:
-    params:1: 0.012931
-    params:2: 0.0076178
-    params:3: 0.0037616
-    params:4: 0.004512
-    params:5: 0.012171
-    params:6: 0.0034771
-    params:7: 0.0068166
-    params:8: 0.21716
-    params:9: 0.21343
-    params:10: 0.026395
-    params:11: 0.035874
-    params:12: 0.00026873
-    params:13: 0.00076596
-    params:14: 0.001816
-    params:15: 0.0024679
-    params:16: 0.030617
-    params:17: 0.015563
-    params:18: 1.1297
-    params:19: 0.05856
-    params:20: 1.4541
-    params:21: 0.86024
-    params:22: 0.30811
-    params:23: 0.15849
-    params:24: 0.81328
-    params:25: 0.1789
-    params:26: 0.21291
-    params:27: 2.4673
-    params:28: 2.0828
-    params:29: 0.19508
-    params:30: 0.86902
-    params:31: 0.82245
-    params:32: 0.96222
-    params:33: 0.93785
-    params:34: 0.95562
-    params:35: 0.88654
-    params:36: 0.96569
-    params:37: 0.97212
-    log2po:4561.3332
+    params:1: 0.013632
+    params:2: 0.014964
+    params:3: 0.0043348
+    params:4: 0.002721
+    params:5: 0.01289
+    params:6: 0.003373
+    params:7: 0.010129
+    params:8: 0.22034
+    params:9: 0.21875
+    params:10: 0.025163
+    params:11: 0.024122
+    params:12: 0.00042607
+    params:13: 0.00095103
+    params:14: 0.0016006
+    params:15: 0.0012055
+    params:16: 0.020791
+    params:17: 0.014124
+    params:18: 1.2977
+    params:19: 0.1332
+    params:20: 1.1719
+    params:21: 0.68657
+    params:22: 0.381
+    params:23: 0.12092
+    params:24: 0.83875
+    params:25: 0.19937
+    params:26: 0.46232
+    params:27: 2.3457
+    params:28: 1.312
+    params:29: 0.15991
+    params:30: 0.89572
+    params:31: 0.82122
+    params:32: 0.95039
+    params:33: 0.94843
+    params:34: 0.96005
+    params:35: 0.86828
+    params:36: 0.96488
+    params:37: 0.9696
+    log2po:4482.8141
   Minimum value.........:
     params:1: 0.0073074
-    params:2: 1.0578e-05
+    params:2: 0.0073426
     params:3: 7.9051e-06
     params:4: 1.0092e-05
-    params:5: 0.0090844
-    params:6: 0.00010019
-    params:7: 0.00010487
-    params:8: 0.21246
-    params:9: 0.20422
+    params:5: 0.0098627
+    params:6: 0.00010026
+    params:7: 0.0072922
+    params:8: 0.21576
+    params:9: 0.21339
     params:10: 0.017998
     params:11: 0.019461
     params:12: 0.00010001
@@ -2660,20 +2660,20 @@
     params:14: 0.00010026
     params:15: 0.0001
     params:16: 0.013067
-    params:17: 0.010356
-    params:18: 1.0036
-    params:19: 0.00030944
+    params:17: 0.010823
+    params:18: 1.0387
+    params:19: 0.0044901
     params:20: 0.65867
     params:21: 0.44882
-    params:22: 0.21944
+    params:22: 0.30174
     params:23: 0.089688
-    params:24: 0.71352
+    params:24: 0.79993
     params:25: 0.11182
-    params:26: 0.042248
+    params:26: 0.068945
     params:27: 1.4746
     params:28: 0.49133
     params:29: 0.09866
-    params:30: 0.73632
+    params:30: 0.84033
     params:31: 0.74528
     params:32: 0.59946
     params:33: 0.86723
@@ -2686,32 +2686,32 @@
     params:1: 0.043009
     params:2: 0.048253
     params:3: 0.0075747
-    params:4: 0.0078428
+    params:4: 0.0056363
     params:5: 0.021639
     params:6: 0.025062
     params:7: 0.017057
     params:8: 0.22612
     params:9: 0.22699
-    params:10: 0.033017
-    params:11: 0.052039
+    params:10: 0.032696
+    params:11: 0.031062
     params:12: 0.0025648
     params:13: 0.0028719
     params:14: 0.011369
     params:15: 0.0093465
-    params:16: 0.045154
-    params:17: 0.021072
+    params:16: 0.02675
+    params:17: 0.016802
     params:18: 1.5829
     params:19: 0.49803
-    params:20: 1.7163
-    params:21: 0.99921
+    params:20: 1.4632
+    params:21: 0.88739
     params:22: 0.46297
-    params:23: 0.23487
+    params:23: 0.2236
     params:24: 0.87877
     params:25: 0.24634
     params:26: 2.0026
-    params:27: 3.0794
-    params:28: 3.1162
-    params:29: 0.23734
+    params:27: 2.7527
+    params:28: 1.6868
+    params:29: 0.19161
     params:30: 0.97496
     params:31: 0.95191
     params:32: 0.98891
@@ -2720,85 +2720,85 @@
     params:35: 0.97989
     params:36: 0.99995
     params:37: 0.99984
-    log2po:4615.9822
+    log2po:4578.8879
  
 
-% Mh1Blck2 (22-Apr-2024 10:53:02)
+% Mh1Blck2 (22-Apr-2024 11:32:32)
  
-  Number of simulations.: 150000
-  Acceptance ratio......: 0.21853
+  Number of simulations.: 50000
+  Acceptance ratio......: 0.31838
   Feval per iteration...: 1
   Posterior mean........:
-    params:1: 0.013047
-    params:2: 0.0079936
-    params:3: 0.0031012
-    params:4: 0.0043513
-    params:5: 0.011918
-    params:6: 0.0021364
-    params:7: 0.0073542
-    params:8: 0.22376
-    params:9: 0.22679
-    params:10: 0.020742
-    params:11: 0.033778
-    params:12: 0.00016723
-    params:13: 0.00030358
-    params:14: 0.0012096
-    params:15: 0.0025261
-    params:16: 0.015875
-    params:17: 0.031612
-    params:18: 1.0736
-    params:19: 0.06266
-    params:20: 1.3385
-    params:21: 0.8606
-    params:22: 0.33434
-    params:23: 0.13325
-    params:24: 0.73299
-    params:25: 0.23173
-    params:26: 0.20935
-    params:27: 2.8384
-    params:28: 2.1435
-    params:29: 0.17734
-    params:30: 0.80113
-    params:31: 0.8759
-    params:32: 0.98198
-    params:33: 0.94507
-    params:34: 0.95628
-    params:35: 0.97148
-    params:36: 0.9855
-    params:37: 0.96621
-    log2po:4557.7422
+    params:1: 0.013525
+    params:2: 0.015818
+    params:3: 0.0035504
+    params:4: 0.003162
+    params:5: 0.012626
+    params:6: 0.0028099
+    params:7: 0.011339
+    params:8: 0.22075
+    params:9: 0.22818
+    params:10: 0.021126
+    params:11: 0.031493
+    params:12: 0.00022101
+    params:13: 0.00035706
+    params:14: 0.0011615
+    params:15: 0.0011332
+    params:16: 0.0095699
+    params:17: 0.02191
+    params:18: 1.1271
+    params:19: 0.14031
+    params:20: 1.0168
+    params:21: 0.66839
+    params:22: 0.34657
+    params:23: 0.12925
+    params:24: 0.76515
+    params:25: 0.1913
+    params:26: 0.45666
+    params:27: 1.9286
+    params:28: 1.2233
+    params:29: 0.12806
+    params:30: 0.7865
+    params:31: 0.88122
+    params:32: 0.96592
+    params:33: 0.95117
+    params:34: 0.95658
+    params:35: 0.97007
+    params:36: 0.97732
+    params:37: 0.9431
+    log2po:4478.6578
   Minimum value.........:
     params:1: 0.0053632
-    params:2: 1.028e-05
+    params:2: 0.0079718
     params:3: 1.0082e-05
     params:4: 1.0001e-05
-    params:5: 0.0089084
+    params:5: 0.010065
     params:6: 0.00010007
-    params:7: 0.00020048
+    params:7: 0.0074524
     params:8: 0.2157
-    params:9: 0.22164
-    params:10: 0.015951
+    params:9: 0.22299
+    params:10: 0.017838
     params:11: 0.026746
-    params:12: 0.0001
-    params:13: 0.00010006
+    params:12: 0.00010001
+    params:13: 0.00010039
     params:14: 0.00010012
     params:15: 0.00010018
     params:16: 0.0050066
     params:17: 0.012378
     params:18: 1.0012
-    params:19: 0.00046255
+    params:19: 0.0012219
     params:20: 0.65552
     params:21: 0.44715
-    params:22: 0.27887
+    params:22: 0.29197
     params:23: 0.10361
-    params:24: 0.61447
+    params:24: 0.70743
     params:25: 0.0942
-    params:26: 0.043443
+    params:26: 0.054421
     params:27: 1.3843
     params:28: 0.43928
     params:29: 0.09082
     params:30: 0.71093
-    params:31: 0.78602
+    params:31: 0.82776
     params:32: 0.59848
     params:33: 0.87029
     params:34: 0.89829
@@ -2817,32 +2817,32 @@
     params:8: 0.22891
     params:9: 0.23362
     params:10: 0.029118
-    params:11: 0.039731
+    params:11: 0.036743
     params:12: 0.0013427
     params:13: 0.0024693
     params:14: 0.011133
     params:15: 0.0094486
-    params:16: 0.025393
-    params:17: 0.042539
+    params:16: 0.015558
+    params:17: 0.032306
     params:18: 1.534
     params:19: 0.49892
-    params:20: 1.6359
-    params:21: 0.99981
+    params:20: 1.3228
+    params:21: 0.9111
     params:22: 0.39228
     params:23: 0.24075
     params:24: 0.85214
-    params:25: 0.29679
+    params:25: 0.27688
     params:26: 2.0543
-    params:27: 4.027
-    params:28: 2.882
-    params:29: 0.24086
+    params:27: 2.3175
+    params:28: 2.0217
+    params:29: 0.17713
     params:30: 0.96746
     params:31: 0.97558
-    params:32: 0.99987
+    params:32: 0.99977
     params:33: 0.99216
     params:34: 0.99961
     params:35: 0.99926
     params:36: 1
-    params:37: 0.99986
-    log2po:4611.354
+    params:37: 0.99947
+    log2po:4582.3162
  
