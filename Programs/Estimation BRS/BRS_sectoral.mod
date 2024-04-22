@@ -46,6 +46,7 @@ var Y           ${Y}$ (long_name='output')
     h_mc         ${h_mc}$ (long_name= 'Capital utilization rate:mc')
     h_sc         ${h_sc}$ (long_name= 'Capital utilization rate:sc')
     h_I         ${h_I}$ (long_name= 'Capital utilization rate:I')
+    h           $h$ (long_name = 'Capital utilization rate: average')
 
     delta_mc    ${\delta_{mc}}$ (long_name= 'Capital depreciation rate:mc')
     delta_sc    ${\delta_{sc}}$ (long_name= 'Capital depreciation rate:sc')
@@ -101,6 +102,7 @@ var Y           ${Y}$ (long_name='output')
     log_K
     log_Y_N
     log_D
+    log_h
     log_p_I
     log_util
     log_util_ND
@@ -120,6 +122,7 @@ var Y           ${Y}$ (long_name='output')
     w_obs
     util_obs
     D_obs
+    h_obs
     K_obs
     SR_obs
   
@@ -473,6 +476,9 @@ I = I_mc + I_sc + I_I;
 [name = 'Shopping composition']
 D = D_mc + D_sc + exp(theta_I)*D_I;
 
+[name = 'Capital utilization composition']
+h = (Y_mc/Y)*h_mc + (Y_sc/Y)*h_sc + (I/Y)*h_I;
+
 [name = 'Aggregate wage']
 W = (N_C/N)*W_C + (N_I/N)*W_I;
 
@@ -535,6 +541,10 @@ log_K = log(K) - steady_state(log(K));
 log_Y_N = log_Y - log_N;
 [name = 'Definition log shopping effort']
 log_D = log(D) - steady_state(log(D));
+
+[name = 'Definition log capital utilization']
+log_h = log(h) - steady_state(log(h));
+
 [name = 'Definition of log relative investment  price']
 log_p_I = log(p_I) - steady_state(log(p_I));
 
@@ -568,6 +578,7 @@ util_D_obs = log_util_D - log_util_D(-1);
 util_obs = log_util - log_util(-1);
 
 D_obs = log_D - log_D(-1);
+h_obs = log_h - log_h(-1);
 
 
 end;
@@ -644,6 +655,7 @@ steady_state_model;
     h_mc = 1;
     h_sc = 1;
     h_I = 1;
+    h = 1;
     delta_mc = delta_ss;
     delta_sc = delta_ss;
     delta_I = delta_ss;
@@ -838,7 +850,7 @@ mh_nblocks=2,
 mh_drop=0.3, 
 //moments_varendo,
 prior_trunc=0)
-Y_obs, Y_N_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_ND_obs, util_D_obs, w_obs;
+Y_obs, Y_N_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_ND_obs, util_D_obs, h_obs, w_obs;
 //log_Y, log_Y_N, log_I, log_p_I, log_C, log_N, log_NC, log_NI, util;
 
 
