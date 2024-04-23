@@ -781,8 +781,8 @@ ha, 0.5, 0.0, 0.95,           BETA_PDF, 0.5, 0.2;
 nu, 0.72, 0.05, 2.0,           GAMMA_PDF, 0.72, 0.25;
 gam, 0.5, 0.0, 1.0,        BETA_PDF, 0.5, 0.2; %Born, Peter, and Pfeifer (2013)
 
-phi, 0.32, 0.00, 0.999,        BETA_PDF, 0.32, 0.2;
-eta, 0.20, 0.00, 10.0,          GAMMA_PDF, 0.2, 0.15;
+phi, 0.8, 0.00, 0.999,        BETA_PDF, 0.32, 0.2;
+eta, 0.567, 0.00, 10.0,          GAMMA_PDF, 0.2, 0.15;
 //m, 0.286, 0.0, 0.95,          GAMMA_PDF, 0.286, 0.2;
 
 xi, 0.85, 0.5, 2.0,        GAMMA_PDF, 0.85, 0.1;
@@ -810,7 +810,7 @@ rho_muC,  0.95, 0.01, 0.99999999,        BETA_PDF, 0.6, 0.2;
 rho_muI,  0.95, 0.01, 0.99999999,        BETA_PDF, 0.6, 0.2;
 
 % Standard errors
-stderr e_g, 0.01, 0.00001, 0.2,  GAMMA_PDF, 0.01, 0.01;
+stderr e_g, 0.01, 0.0000001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 stderr e_g_news, 0.01, 0.00001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 stderr e_Z, 0.01, 0.00001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 stderr e_Z_news, 0.01, 0.00001, 0.2,  GAMMA_PDF, 0.01, 0.01;
@@ -818,7 +818,7 @@ stderr e_ZI, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 stderr e_ZI_news, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 
 stderr e_N, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
-stderr e_D, 0.01, 0.0001, 0.4,  GAMMA_PDF, 0.01, 0.01;
+stderr e_D, 0.01, 0.00001, 0.4,  GAMMA_PDF, 0.01, 0.01;
 stderr e_D_news, 0.01, 0.0001, 0.4,  GAMMA_PDF, 0.01, 0.01;
 stderr e_DI, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 stderr e_DI_news, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
@@ -846,21 +846,21 @@ varobs NC_obs, NI_obs, C_obs, I_obs, p_I_obs, util_ND_obs, util_D_obs;
 
 estimation(tex, optim=('MaxIter', 200), 
 datafile=observables_sectoral, 
-mode_file=BRS_sectoral_mode, 
+mode_file=BRS_sectoral_mh_mode, %With _mh option uses mode after MCM run
 //nograph,
 load_mh_file, 
 //mh_recover,
 mcmc_jumping_covariance=prior_variance,
 
-mode_compute=0,
+mode_compute=4,
 presample=0, 
 lik_init=2,
 mh_jscale=0.006, 
 mh_init_scale =0.0001,
 //mh_jscale=0.1,
 mode_check, 
-//mh_replic=150000, 
-mh_replic=0,
+mh_replic=75000, 
+//mh_replic=0,
 mh_nblocks=2, 
 //bayesian_irf,
 //irf=100,
@@ -888,10 +888,10 @@ collect_latex_files;
 
 
 % Stochastic simulation -> for conditional FEVD and IRF
-stoch_simul (order=1, nofunctions, irf=0, periods=0)
+stoch_simul (order=1, nofunctions, irf=120, periods=0)
 //conditional_variance_decomposition=[1 4 8 40])
-Y_obs, Y_N_obs, SR_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_ND_obs, util_D_obs, SR_obs, util_obs, D_obs, h_obs;
-//log_Y, log_Y_N, log_SR, log_I, log_p_I, log_C, log_N, log_NC, log_NI, log_util_ND, log_util_D;
+//Y_obs, Y_N_obs, SR_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_ND_obs, util_D_obs, SR_obs, util_obs, D_obs, h_obs;
+log_Y, log_Y_N, log_SR, log_I, log_p_I, log_C, log_N, log_NC, log_NI, log_util_ND, log_util_D, log_D, log_h;
 
 % Save artificial data 
 //save artificial_data.mat 'NC_obs', 'NI_obs', 'C_obs', 'I_obs', 'p_I_obs', 'util_ND_obs', 'util_D_obs', 'w_obs';

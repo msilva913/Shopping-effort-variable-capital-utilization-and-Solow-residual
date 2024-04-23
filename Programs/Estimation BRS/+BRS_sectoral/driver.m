@@ -1264,8 +1264,8 @@ estim_params_.param_vals = [estim_params_.param_vals; 1, 1.5, 1.0, 4.0, 1, 1.5, 
 estim_params_.param_vals = [estim_params_.param_vals; 17, 0.5, 0.0, 0.95, 1, 0.5, 0.2, NaN, NaN, NaN ];
 estim_params_.param_vals = [estim_params_.param_vals; 4, 0.72, 0.05, 2.0, 2, 0.72, 0.25, NaN, NaN, NaN ];
 estim_params_.param_vals = [estim_params_.param_vals; 5, 0.5, 0.0, 1.0, 1, 0.5, 0.2, NaN, NaN, NaN ];
-estim_params_.param_vals = [estim_params_.param_vals; 18, 0.32, 0.00, 0.999, 1, 0.32, 0.2, NaN, NaN, NaN ];
-estim_params_.param_vals = [estim_params_.param_vals; 19, 0.20, 0.00, 10.0, 2, 0.2, 0.15, NaN, NaN, NaN ];
+estim_params_.param_vals = [estim_params_.param_vals; 18, 0.8, 0.00, 0.999, 1, 0.32, 0.2, NaN, NaN, NaN ];
+estim_params_.param_vals = [estim_params_.param_vals; 19, 0.567, 0.00, 10.0, 2, 0.2, 0.15, NaN, NaN, NaN ];
 estim_params_.param_vals = [estim_params_.param_vals; 6, 0.85, 0.5, 2.0, 2, 0.85, 0.1, NaN, NaN, NaN ];
 estim_params_.param_vals = [estim_params_.param_vals; 16, 0.20, 0.01, 0.5, 1, 0.2, 0.1, NaN, NaN, NaN ];
 estim_params_.param_vals = [estim_params_.param_vals; 9, 0.32, 0.0, 10, 4, 1, 1, NaN, NaN, NaN ];
@@ -1282,14 +1282,14 @@ estim_params_.param_vals = [estim_params_.param_vals; 27, 0.9, 0.01, 0.9999, 1, 
 estim_params_.param_vals = [estim_params_.param_vals; 28, 0.95, 0.01, 0.99999999, 1, 0.6, 0.2, NaN, NaN, NaN ];
 estim_params_.param_vals = [estim_params_.param_vals; 29, 0.95, 0.01, 0.99999999, 1, 0.6, 0.2, NaN, NaN, NaN ];
 estim_params_.param_vals = [estim_params_.param_vals; 30, 0.95, 0.01, 0.99999999, 1, 0.6, 0.2, NaN, NaN, NaN ];
-estim_params_.var_exo = [estim_params_.var_exo; 1, 0.01, 0.00001, 0.2, 2, 0.01, 0.01, NaN, NaN, NaN ];
+estim_params_.var_exo = [estim_params_.var_exo; 1, 0.01, 0.0000001, 0.2, 2, 0.01, 0.01, NaN, NaN, NaN ];
 estim_params_.var_exo = [estim_params_.var_exo; 2, 0.01, 0.00001, 0.2, 2, 0.01, 0.01, NaN, NaN, NaN ];
 estim_params_.var_exo = [estim_params_.var_exo; 3, 0.01, 0.00001, 0.2, 2, 0.01, 0.01, NaN, NaN, NaN ];
 estim_params_.var_exo = [estim_params_.var_exo; 4, 0.01, 0.00001, 0.2, 2, 0.01, 0.01, NaN, NaN, NaN ];
 estim_params_.var_exo = [estim_params_.var_exo; 5, 0.01, 0.0001, 0.2, 2, 0.01, 0.01, NaN, NaN, NaN ];
 estim_params_.var_exo = [estim_params_.var_exo; 6, 0.01, 0.0001, 0.2, 2, 0.01, 0.01, NaN, NaN, NaN ];
 estim_params_.var_exo = [estim_params_.var_exo; 7, 0.01, 0.0001, 0.2, 2, 0.01, 0.01, NaN, NaN, NaN ];
-estim_params_.var_exo = [estim_params_.var_exo; 8, 0.01, 0.0001, 0.4, 2, 0.01, 0.01, NaN, NaN, NaN ];
+estim_params_.var_exo = [estim_params_.var_exo; 8, 0.01, 0.00001, 0.4, 2, 0.01, 0.01, NaN, NaN, NaN ];
 estim_params_.var_exo = [estim_params_.var_exo; 9, 0.01, 0.0001, 0.4, 2, 0.01, 0.01, NaN, NaN, NaN ];
 estim_params_.var_exo = [estim_params_.var_exo; 10, 0.01, 0.0001, 0.2, 2, 0.01, 0.01, NaN, NaN, NaN ];
 estim_params_.var_exo = [estim_params_.var_exo; 11, 0.01, 0.0001, 0.2, 2, 0.01, 0.01, NaN, NaN, NaN ];
@@ -1307,14 +1307,14 @@ options_.mh_drop = 0.3;
 options_.mh_init_scale = 0.0001;
 options_.mh_jscale = 0.006;
 options_.mh_nblck = 2;
-options_.mh_replic = 0;
+options_.mh_replic = 75000;
 options_.mode_check.status = true;
-options_.mode_compute = 0;
+options_.mode_compute = 4;
 options_.presample = 0;
 options_.prior_trunc = 0;
 options_.MCMC_jumping_covariance = 'prior_variance';
 options_.datafile = 'observables_sectoral';
-options_.mode_file = 'BRS_sectoral_mode';
+options_.mode_file = 'BRS_sectoral_mh_mode';
 options_.optim_opt = '''MaxIter'',200';
 options_.order = 1;
 var_list_ = {'Y_obs';'Y_N_obs';'I_obs';'p_I_obs';'C_obs';'NC_obs';'NI_obs';'util_ND_obs';'util_D_obs';'SR_obs';'util_obs';'D_obs';'h_obs'};
@@ -1324,11 +1324,11 @@ write_latex_definitions;
 write_latex_prior_table;
 generate_trace_plots(1);
 collect_latex_files;
-options_.irf = 0;
+options_.irf = 120;
 options_.nofunctions = true;
 options_.order = 1;
 options_.periods = 0;
-var_list_ = {'Y_obs';'Y_N_obs';'SR_obs';'I_obs';'p_I_obs';'C_obs';'NC_obs';'NI_obs';'util_ND_obs';'util_D_obs';'util_obs';'D_obs';'h_obs'};
+var_list_ = {'log_Y';'log_Y_N';'log_SR';'log_I';'log_p_I';'log_C';'log_N';'log_NC';'log_NI';'log_util_ND';'log_util_D';'log_D';'log_h'};
 [info, oo_, options_, M_] = stoch_simul(M_, options_, oo_, var_list_);
 
 
@@ -1356,7 +1356,7 @@ end
 if exist('oo_recursive_', 'var') == 1
   save([M_.dname filesep 'Output' filesep 'BRS_sectoral_results.mat'], 'oo_recursive_', '-append');
 end
-disp('Note: 4 warning(s) encountered in the preprocessor')
+disp('Note: 3 warning(s) encountered in the preprocessor')
 if ~isempty(lastwarn)
   disp('Note: warning(s) encountered in MATLAB/Octave code')
 end

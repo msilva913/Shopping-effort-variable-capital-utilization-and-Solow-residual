@@ -20,11 +20,15 @@ for i = 1:length(var_names)
     var_array = vertcat(var_array, var_x)
 end
 
-posterior_means = oo_.posterior_mean;
-phi = posterior_means.parameters.phi
+targets = [0.99, 11, 0.20, 0.67, 0.0045];
+[delta, r, sigma_b, alpha_K, alpha_N]  = dependent_parameters(posterior_means.parameters, targets);
 
 ratio_util = var_array(2)/var_array(1);
 ratio_D = phi^2*var_array(3)/var_array(2);
+ratio_h = alpha_K^2*(1+nu_R)^2*var_array(4)/var_array(2);
+
+index_D = strcmp('D_obs', oo_.var_list);
+index_h = strcmp('h_obs', oo_.var_list)
 
 %% Remove fixed cost
 dynare BRS_sectoral_wo_fixed_cost.mod
