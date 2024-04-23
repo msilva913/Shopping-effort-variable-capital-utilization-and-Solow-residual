@@ -8,28 +8,30 @@ res = oo_
 mom_bas = calc_moments(res)
 save('mom_bas', 'mom_bas')
 
-var_cov = 100^2*oo_.var;
-vars = diag(var_cov); % Diagonal of variances
-var_array = [];
-var_names = {'SR_obs', 'util_obs', 'D_obs', 'h_obs'};
-% Populate variances
-for i = 1:length(var_names)
-    x = var_names{i};
-    index = strcmp(x, oo_.var_list);
-    var_x = vars(index);
-    var_array = vertcat(var_array, var_x)
-end
+out, HPD = main_tables(res);
 
-targets = [0.99, 11, 0.20, 0.67, 0.0045];
-[delta, r, sigma_b, alpha_K, alpha_N]  = dependent_parameters(posterior_means.parameters, targets);
-
-ratio_util = var_array(2)/var_array(1);
-ratio_D = phi^2*var_array(3)/var_array(2);
-ratio_h = alpha_K^2*(1+nu_R)^2*var_array(4)/var_array(2);
-
-index_D = strcmp('D_obs', oo_.var_list);
-index_h = strcmp('h_obs', oo_.var_list);
-var_cov(index_D, index_h); % negative variance covariance
+% var_cov = 100^2*oo_.var;
+% vars = diag(var_cov); % Diagonal of variances
+% var_array = [];
+% var_names = {'SR_obs', 'util_obs', 'D_obs', 'h_obs'};
+% % Populate variances
+% for i = 1:length(var_names)
+%     x = var_names{i};
+%     index = strcmp(x, oo_.var_list);
+%     var_x = vars(index);
+%     var_array = vertcat(var_array, var_x)
+% end
+% 
+% targets = [0.99, 11, 0.20, 0.67, 0.0045];
+% [delta, r, sigma_b, alpha_K, alpha_N]  = dependent_parameters(posterior_means.parameters, targets);
+% 
+% ratio_util = var_array(2)/var_array(1);
+% ratio_D = phi^2*var_array(3)/var_array(2);
+% ratio_h = alpha_K^2*(1+nu_R)^2*var_array(4)/var_array(2);
+% 
+% index_D = strcmp('D_obs', oo_.var_list);
+% index_h = strcmp('h_obs', oo_.var_list);
+% var_cov(index_D, index_h); % negative variance covariance
 
 %% Remove fixed cost
 dynare BRS_sectoral_wo_fixed_cost.mod

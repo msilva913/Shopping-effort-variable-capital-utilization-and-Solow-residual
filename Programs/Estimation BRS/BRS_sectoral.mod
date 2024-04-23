@@ -130,7 +130,6 @@ var Y           ${Y}$ (long_name='output')
     D_obs
     h_obs
     K_obs
-    SR_obs
   
     ;
 

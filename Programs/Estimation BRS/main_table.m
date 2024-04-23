@@ -1,4 +1,5 @@
 function [out, HPD] = main_table(res)
+% Generates main output
  %1) Marginal density
  marginal_density = res.MarginalDensity.LaplaceApproximation;
 
@@ -15,7 +16,7 @@ HPD = [HPD_inf.phi, posterior_mean.phi, HPD_sup.phi];
 
 %3) FEVD
 index_Y = strcmp('Y_obs', oo_.var_list);
-index_SR = strcmp('SR_obs', oo_.var_list)
+index_SR = strcmp('SR_obs', oo_.var_list);
 
 
  vd = res.variance_decomposition;
