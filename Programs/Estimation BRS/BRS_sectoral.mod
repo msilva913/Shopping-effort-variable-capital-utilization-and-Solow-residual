@@ -91,6 +91,7 @@ var Y           ${Y}$ (long_name='output')
     
     util       ${util}$ (long_name = 'Capacity utilization')
     util_ND    ${util_{ND}}$ (long_name = 'Capacity utilization:ND')
+    util_sc    ${util_{sc}}$ (long_name = 'Capacity utilization:sc')
     util_D     ${util_D}$ (long_name = 'Capacity utilization:D')
 
     g          ${g}$ (long_name = 'Growth rate of stochastic trend')
@@ -119,10 +120,12 @@ var Y           ${Y}$ (long_name='output')
     N_obs
     NC_obs
     NI_obs
+
     util_ND_obs
     util_D_obs
-    w_obs
     util_obs
+
+    w_obs
     D_obs
     h_obs
     K_obs
@@ -493,9 +496,12 @@ SR = (Y_mc/Y)*Y_mc/(K_mc(-1)^(1-labor_share)*N_mc^(labor_share)) + (Y_sc/Y)*Y_sc
 [name = 'Capacity utilization']
 util_ND = A_mc*D_mc^phi*(Z_mc_ss*exp(g)^(-alpha_K)*exp(Z_C)*(h_mc*K_mc(-1))^alpha_K*N_mc^alpha_N-nu_mc)/(Z_mc_ss*exp(g)^(-alpha_K)*exp(Z_C)*K_mc(-1)^alpha_K*N_mc^alpha_N-nu_mc);
 
+util_sc = A_sc*D_sc^phi*(Z_sc_ss*exp(g)^(-alpha_K)*exp(Z_C)*(h_sc*K_sc(-1))^alpha_K*N_sc^alpha_N-nu_sc)/(Z_sc_ss*exp(g)^(-alpha_K)*exp(Z_C)*K_sc(-1)^alpha_K*N_sc^alpha_N-nu_sc);
+
 util_D = A_I*D_I^phi*(Z_I_ss*exp(g)^(-alpha_K)*exp(Z_I)*(h_I*K_I(-1))^alpha_K*N_I^alpha_N-nu_I)/(Z_I_ss*exp(g)^(-alpha_K)*exp(Z_I)*K_I(-1)^alpha_K*N_I^alpha_N-nu_I);
 
-util = (Y_mc/(Y_mc+I))*util_ND + (I/(Y_mc+I))*util_D;
+//util = (Y_mc/(Y_mc+I))*util_ND + (I/(Y_mc+I))*util_D;
+util = (Y_mc*util_ND + Y_sc*util_sc + I*util_D)/Y;
  
 % Exogenous processes
 [name='stochastic trend process']
@@ -688,6 +694,7 @@ steady_state_model;
 
     util_ND = Psi;
     util_D = Psi;
+    util_sc = Psi;
     util = Psi;
 
     Z_C = 0;
@@ -838,9 +845,9 @@ varobs NC_obs, NI_obs, C_obs, I_obs, p_I_obs, util_ND_obs, util_D_obs;
 
 estimation(tex, optim=('MaxIter', 200), 
 datafile=observables_sectoral, 
-//mode_file=BRS_sectoral_mode, 
+mode_file=BRS_sectoral_mode, 
 //nograph,
-//load_mh_file, 
+load_mh_file, 
 //mh_recover,
 mcmc_jumping_covariance=prior_variance,
 
@@ -851,15 +858,15 @@ mh_jscale=0.006,
 mh_init_scale =0.0001,
 //mh_jscale=0.1,
 mode_check, 
-mh_replic=150000, 
-//mh_replic=0,
+//mh_replic=150000, 
+mh_replic=0,
 mh_nblocks=2, 
 //bayesian_irf,
 //irf=100,
 mh_drop=0.3, 
 //moments_varendo,
 prior_trunc=0)
-Y_obs, Y_N_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_ND_obs, util_D_obs, h_obs, w_obs;
+Y_obs, Y_N_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_ND_obs, util_D_obs, util_obs, h_obs, w_obs;
 //log_Y, log_Y_N, log_I, log_p_I, log_C, log_N, log_NC, log_NI, util;
 
 
@@ -882,7 +889,7 @@ collect_latex_files;
 % Stochastic simulation -> for conditional FEVD and IRF
 stoch_simul (order=1, nofunctions, irf=0, periods=0)
 //conditional_variance_decomposition=[1 4 8 40])
-Y_obs, Y_N_obs, SR_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_ND_obs, util_D_obs, w_obs;
+Y_obs, Y_N_obs, SR_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_ND_obs, util_D_obs, util_obs, h_obs, w_obs;
 //log_Y, log_Y_N, log_SR, log_I, log_p_I, log_C, log_N, log_NC, log_NI, log_util_ND, log_util_D;
 
 % Save artificial data 
