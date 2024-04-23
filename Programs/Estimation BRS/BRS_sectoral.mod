@@ -7,6 +7,8 @@ var Y           ${Y}$ (long_name='output')
     Y_mc        ${Y_{mc}}$ (long_name = 'consumption non-durable goods')
     Y_sc        $Y_{sc}}$ (long_name = 'consumption services')
 
+    SR          ${SR}$ (long_name='aggregate share-weighted Solow residual')
+
     I           ${I}$ (long_name = 'investment')
     I_mc         ${I_C}$ (long_name = 'investment:mc')
     I_sc         ${I_C}$ (long_name = 'investment:sc')
@@ -485,6 +487,9 @@ W = (N_C/N)*W_C + (N_I/N)*W_I;
 [name = 'Output (base-year prices)']
 Y = C + p_I_ss*I;
 
+[name = 'Solow residual']
+SR = (Y_mc/Y)*Y_mc/(K_mc(-1)^(1-labor_share)*N_mc^(labor_share)) + (Y_sc/Y)*Y_sc/(K_sc(-1)^(1-labor_share)*N_sc^(labor_share)) +(I/Y)*I/(K_I(-1)^(1-labor_share)*N_I^(labor_share));
+
 [name = 'Capacity utilization']
 util_ND = A_mc*D_mc^phi*(Z_mc_ss*exp(g)^(-alpha_K)*exp(Z_C)*(h_mc*K_mc(-1))^alpha_K*N_mc^alpha_N-nu_mc)/(Z_mc_ss*exp(g)^(-alpha_K)*exp(Z_C)*K_mc(-1)^alpha_K*N_mc^alpha_N-nu_mc);
 
@@ -557,7 +562,7 @@ log_util_D = log(util_D) - steady_state(log(util_D));
 log_W = log(W) - steady_state(log(W));
 
 [name = 'Definition of log Solow residual']
-log_SR = log_Y - (1-labor_share)*log_K(-1) - labor_share*log_N;
+log_SR = log(SR) - steady_state(log(SR));
 
 % Observation variables: first differences (demeaned) -> link to data in first differences (p. 58 of Pfeifer's Observation Equations)
 C_obs = log_C - log_C(-1) + g - g_bar ;
@@ -566,7 +571,7 @@ Y_obs = log_Y - log_Y(-1) + g - g_bar ;
 Y_N_obs = log_Y_N - log_Y_N(-1) + g - g_bar ;
 K_obs = log_K - log_K(-1) + g - g_bar;
 w_obs = log_W - log_W(-1) +g - g_bar;
-SR_obs = Y_obs - labor_share*N_obs - (1-labor_share)*K_obs(-1);
+SR_obs = log_SR - log_SR(-1) + g - g_bar;
 
 % Stationary variables
 p_I_obs = log_p_I - log_p_I(-1);
@@ -597,6 +602,8 @@ steady_state_model;
     C = 1-I_Y;
     Y_mc = (1-omega_sc)*C;
     Y_sc = omega_sc*C;
+
+
     D = phi^(eta/(1+eta));
     D_mc = (1-I_Y)*(1-omega_sc)*D;
     D_sc = (1-I_Y)*omega_sc*D;
@@ -620,6 +627,8 @@ steady_state_model;
     N_mc = (1-omega_sc)*N_C;
     N_sc = (omega_sc)*N_C;
     N_comp = N;
+
+    SR = (Y_mc/Y)*Y_mc/(K_mc^(1-labor_share)*N_mc^(labor_share)) + (Y_sc/Y)*Y_sc/(K_sc^(1-labor_share)*N_sc^(labor_share)) +(I/Y)*I/(K_I^(1-labor_share)*N_I^(labor_share));
 
     nu_mc_ss = nu_R*Y_mc/Psi;
     nu_sc_ss = nu_R*Y_sc/Psi;
@@ -835,7 +844,7 @@ datafile=observables_sectoral,
 //mh_recover,
 mcmc_jumping_covariance=prior_variance,
 
-mode_compute=4,
+mode_compute=0,
 presample=0, 
 lik_init=2,
 mh_jscale=0.006, 
