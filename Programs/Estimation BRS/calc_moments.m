@@ -1,7 +1,7 @@
 function [moments] = calc_moments(res)
     %Calculate summary standard deviations, correlations, and autocorrelations
     
-    std_vars = {'C_obs', 'I_obs', 'NC_obs', 'NI_obs', 'p_I_obs', 'util_ND_obs', 'util_D_obs'};
+    std_vars = {'C_obs', 'I_obs', 'NC_obs', 'NI_obs', 'p_I_obs', 'util_ND_obs', 'util_D_obs' 'util_obs', 'SR_obs'};
     var_cov = res.var;
     std_array = [];
     std_devs = sqrt(diag(var_cov));
