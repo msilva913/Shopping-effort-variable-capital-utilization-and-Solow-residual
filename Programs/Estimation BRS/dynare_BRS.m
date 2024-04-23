@@ -7,6 +7,25 @@ dynare BRS_sectoral.mod
 res = oo_
 mom_bas = calc_moments(res)
 save('mom_bas', 'mom_bas')
+
+var_cov = 100^2*oo_.var;
+vars = diag(var_cov); % Diagonal of variances
+var_array = [];
+var_names = {'SR_obs', 'util_obs', 'D_obs', 'h_obs'};
+% Populate variances
+for i = 1:length(var_names)
+    x = var_names{i};
+    index = strcmp(x, oo_.var_list);
+    var_x = vars(index);
+    var_array = vertcat(var_array, var_x)
+end
+
+posterior_means = oo_.posterior_mean;
+phi = posterior_means.parameters.phi
+
+ratio_util = var_array(2)/var_array(1);
+ratio_D = phi^2*var_array(3)/var_array(2);
+
 %% Remove fixed cost
 dynare BRS_sectoral_wo_fixed_cost.mod
 %% Remove vcu

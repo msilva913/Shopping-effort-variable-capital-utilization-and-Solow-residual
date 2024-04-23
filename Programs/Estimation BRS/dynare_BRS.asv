@@ -5,21 +5,43 @@ addpath c:\dynare\5.4\matlab
 %%
 dynare BRS_sectoral.mod
 res = oo_
-mom_sectoral = calc_moments(res)
-save
-%% Remove utilization variables and re-estimate
-dynare BRS_sectoral_rest.mod 
-%% Baseline RBC model comparision -> shut down shopping effort and goods market frictions
-dynare RBC_sectoral.mod
+mom_bas = calc_moments(res)
+save('mom_bas', 'mom_bas')
+
+var_cov = 100^2*oo_.var;
+vars = diag(var_cov); % Diagonal of variances
+var_array = [];
+var_names = {'SR_obs', 'util_obs', 'D_obs', 'h_obs'};
+% Populate variances
+for i = 1:length(var_names)
+    x = var_names{i};
+    index = strcmp(x, oo_.var_list);
+    var_x = vars(index);
+    var_array = vertcat(var_array, var_x)
+end
+
+posterior_means = oo_.posterior_mean;
+phi = posterior_means.parameters.phi
+
+ratio_util = var_array(2)/var_array(1);
+ratio_D = phi^2*var_array(3)/var_array(2);
+
+%% Remove fixed cost
+dynare BRS_sectoral_wo_fixed_cost.mod
+%% Remove vcu
+dynare BRS_sectoral_wo_vcu.mod
+%% Remove goods market frictions
+dynare BRS_sectoral_wo_gmf.mod
 
 
+%% Proof of concept exercise in BRS
+%% Basic BRS (general replication)
+%dynare BRS_growth.mod
 
-%% Aggregate data for comparison to BRS
-dynare BRS_aggregate.mod
-
-res = oo_
-calc_moments(res)
-
+%% Basic BRS: estimate phi and eta
+dynare BRS_growth_id.mod
+%% estimate BRS with utilization
+dynare BRS_util.mod 
 % save('SR', 'SR_obs')
 % save('SR_util', 'SR_util_obs')
 % save('Y', 'Y_obs')

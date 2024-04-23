@@ -115,6 +115,7 @@ var Y           ${Y}$ (long_name='output')
     C_obs
     I_obs
     Y_obs
+    SR_obs
     Y_N_obs
     p_I_obs
     N_obs
@@ -866,7 +867,7 @@ mh_nblocks=2,
 mh_drop=0.3, 
 //moments_varendo,
 prior_trunc=0)
-Y_obs, Y_N_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_ND_obs, util_D_obs, util_obs, h_obs, w_obs;
+Y_obs, Y_N_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_ND_obs, util_D_obs, SR_obs, util_obs, D_obs, h_obs;
 //log_Y, log_Y_N, log_I, log_p_I, log_C, log_N, log_NC, log_NI, util;
 
 
@@ -889,7 +890,7 @@ collect_latex_files;
 % Stochastic simulation -> for conditional FEVD and IRF
 stoch_simul (order=1, nofunctions, irf=0, periods=0)
 //conditional_variance_decomposition=[1 4 8 40])
-Y_obs, Y_N_obs, SR_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_ND_obs, util_D_obs, util_obs, h_obs, w_obs;
+Y_obs, Y_N_obs, SR_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_ND_obs, util_D_obs, SR_obs, util_obs, D_obs, h_obs;
 //log_Y, log_Y_N, log_SR, log_I, log_p_I, log_C, log_N, log_NC, log_NI, log_util_ND, log_util_D;
 
 % Save artificial data 
