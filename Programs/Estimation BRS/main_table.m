@@ -1,4 +1,4 @@
-function [out, HPD] = main_table(res)
+function [out, HPD] = main_table(res, M)
 % Generates main output
  %1) Marginal density
  marginal_density = res.MarginalDensity.LaplaceApproximation;
@@ -15,29 +15,32 @@ HPD = [HPD_inf.phi, posterior_mean.phi, HPD_sup.phi];
 %disp(['Upper bound of 90% HPDI: ', num2str(upper_quantile)]);
 
 %3) FEVD
-index_Y = strcmp('Y_obs', oo_.var_list);
-index_SR = strcmp('SR_obs', oo_.var_list);
+index_Y = strcmp('Y_obs', res.var_list);
+index_SR = strcmp('SR_obs', res.var_list);
 
 
  vd = res.variance_decomposition;
- shock_names = M_.exo_names
- demand_shocks = {'e_D', 'e_D_news', 'e_DI', 'e_DI_news'}
+ shock_names = M.exo_names;
+ demand_shocks = {'e_D', 'e_D_news', 'e_DI', 'e_DI_news'};
  FEVD_Y = 0.0;
  FEVD_SR = 0.0;
 
  for i = 1:length(demand_shocks)
-    shock_indices = strcmp(demand_shocks{i},shock_names)
+    shock_indices = strcmp(demand_shocks{i},shock_names);
     FEVD_Y = FEVD_Y + vd(index_Y, shock_indices);
     FEVD_SR = FEVD_SR + vd(index_SR, shock_indices);
  end
 
 
  % Var(util)/Var(SR)
+var_cov = res.var;
+vars = diag(var_cov);
 var_names = {'SR_obs', 'util_obs'};
+var_array = [];
 % Populate variances
 for i = 1:length(var_names)
     x = var_names{i};
-    index = strcmp(x, oo_.var_list);
+    index = strcmp(x, res.var_list);
     var_x = vars(index);
     var_array = vertcat(var_array, var_x);
 end
@@ -45,19 +48,18 @@ ratio_util = var_array(2)/var_array(1);
     
 % General standard deviations
 std_vars = {'Y_obs', 'util_ND_obs', 'util_D_obs', 'NC_obs', 'NI_obs'};
-var_cov = res.var;
 std_array = [];
-std_devs = sqrt(diag(var_cov));
+std_devs = sqrt(vars);
     
 for i = 1:length(std_vars)
     x = std_vars{i}
     index = strcmp(x, res.var_list);
-    std_x = std_devs(index)
-    std_array = vertcat(std_array, std_x)
+    std_x = std_devs(index);
+    std_array = vertcat(std_array, std_x);
 end
     
    
-corr_pairs = {'C_obs', 'I_obs'; 'util_ND_obs', 'util_D_obs'; 'NC_obs', 'NI_obs'}
+corr_pairs = {'C_obs', 'I_obs'; 'util_ND_obs', 'util_D_obs'; 'NC_obs', 'NI_obs'};
 
 correlations = zeros(size(corr_pairs, 1), 1);
 for i = 1:size(corr_pairs, 1)

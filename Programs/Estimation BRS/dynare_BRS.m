@@ -4,10 +4,14 @@ addpath c:\dynare\5.4\matlab
 %% Main model estimated with sectoral data 
 %%
 dynare BRS_sectoral.mod
-res = oo_
+res = oo_;
+M = M_;
+save('res', 'res');
+save('M', 'M');
+
 mom_bas = calc_moments(res)
 save('mom_bas', 'mom_bas')
-
+% Main output
 out, HPD = main_tables(res);
 
 % var_cov = 100^2*oo_.var;
@@ -37,6 +41,14 @@ out, HPD = main_tables(res);
 dynare BRS_sectoral_wo_fixed_cost.mod
 %% Remove vcu
 dynare BRS_sectoral_wo_vcu.mod
+res_wo_vcu = oo_;
+M_wo_vcu = M_;
+save('res_wo_vcu', 'res_wo_vcu');
+save('M_wo_vcu', 'M_wo_vcu');
+[out, HPD] = main_table(res_wo_vcu, M_wo_vcu);
+
+%% Remove search demand shocks
+
 %% Remove goods market frictions
 dynare BRS_sectoral_wo_gmf.mod
 
