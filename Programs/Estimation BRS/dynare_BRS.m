@@ -48,7 +48,15 @@ save('M_wo_vcu', 'M_wo_vcu');
 [out, HPD] = main_table(res_wo_vcu, M_wo_vcu);
 
 %% Remove search demand shocks
-
+dynare BRS_sectoral_wo_demand_shocks.mod 
+res_wo_dem = oo_;
+M_wo_dem = M_;
+mom_wo_dem = calc_moments(res_wo_dem)
+save('res_wo_dem', 'res_wo_dem');
+save('M_wo_dem', 'M_wo_dem');
+[out, HPD] = main_table(res_wo_dem, M_wo_dem);
+%% Examine ability to fit data without utilization
+dynare BRS_sectoral_KK.mod 
 %% Remove goods market frictions
 dynare BRS_sectoral_wo_gmf.mod
 
