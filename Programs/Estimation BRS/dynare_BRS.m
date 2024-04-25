@@ -58,6 +58,8 @@ save('M_wo_dem', 'M_wo_dem');
 [out, HPD] = main_table(res_wo_dem, M_wo_dem);
 %% Examine ability to fit data without utilization
 dynare BRS_sectoral_KK.mod 
+res_KK = oo_;
+mom_KK = calc_moments(res_KK)
 %% Remove goods market frictions
 dynare BRS_sectoral_wo_gmf.mod
 
