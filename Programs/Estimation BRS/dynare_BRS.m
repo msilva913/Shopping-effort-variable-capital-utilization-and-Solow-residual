@@ -8,7 +8,8 @@ res = oo_;
 M = M_;
 save('res', 'res');
 save('M', 'M');
-
+posterior_mode = res.posterior_mode.parameters
+save('posterior_mode', 'posterior_mode')
 mom_bas = calc_moments(res)
 save('mom_bas', 'mom_bas')
 % Main output

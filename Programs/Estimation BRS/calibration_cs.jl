@@ -10,19 +10,23 @@ cd(@__DIR__)
 
 @with_kw mutable struct Targets
     # Parameters set exogenously
-    γ::Float64 = 1.5 #Risk aversion
-    r_ann::Float64 = 0.04
+    β::Float64 = 0.99
     g_bar::Float64 = 0.00451
-    ν::Float64 = 0.72 # Frisch elasticity
+    μ::Float64 = 1.15
+
+    # Parameters to be estimated
+    ζ::Float64 = 0.72 # Frisch elasticity
+    σ::Float64 = 1.5 #Risk aversion
+    ϕ::Float64 = 0.32 #elasticity of matching function
+    η::Float64 = 0.20
+    ν_R::Float64 = 0.20 # Fixed cost share
+    ha::Float64 = 0.5 #habit persistence
 
     # Normalizations
     Y::Float64 = 1
     p_i::Float64 = 1
     N::Float64 = 0.30
     Ψ_j::Float64 = 0.81
-
-    # Consumption aggregator (elast. of sub = 0.85)
-    ρ_c::Float64 = (0.85-1)/0.85
 
     # Standard targets
     I_Y::Float64 = 0.20
@@ -31,47 +35,22 @@ cd(@__DIR__)
     labor_share::Float64 = 0.67
 
     # Fixed cost share of output-> assume it holds in each subsector
-    ν_R::Float64 = 0.20
+   
 
     # Targets specific to this economy
-    ϕ::Float64 = 0.32
-    η::Float64 = 0.20
 
-    # Inverse of MRS of labor supply in each sector 
-    θ::Float64 = 0.5
 end
 
-function ϕ_fun(η, m=0.286)
-    return (η+1)*m/(1+η*m)
-end
+
 
 #BRS
-@show ϕ_fun(0.2, 0.286)
-@show ϕ_fun(2.0, 0.286)
-fig, ax = subplots()
-η_space = 0.0:0.1:10.0
-ϕ_space = ϕ_fun.(η_space, 0.286)
-ax.plot(η_space, ϕ_space, lw=2, alpha=0.6, label="(ϕ,η) Locus consistent with m=0.286")
-ax.set_xlabel("η")
-ax.set_ylabel("ϕ")
-ax.legend(fontsize=11)
-display(fig)
-PyPlot.savefig("shopping_curve.pdf")
-
-############
-function na_fun(n_c, n_i, ω=0.8, θ=0.5)
-    return (ω^(-θ)*n_c^(1+θ)+(1-ω)^(-θ)*n_i^(1+θ))^(1/(1+θ))
-end
-
-
 function calibrate(targets)
-    @unpack γ, r_ann, g_bar, ν, Y, p_i, N, Ψ_j, I_Y, K_Y, S_c, ρ_c, labor_share, ϕ, η, θ, ν_R = targets
+    @unpack β, g_bar, μ, ζ, σ, ϕ, η, ν_R, ha, Y, p_i, N, Ψ_j, I_Y, K_Y, S_c, labor_share = targets
 
     # Discount factor
-    β = 0.99
     #β*(1+g_bar)^(-γ) = 1/(1+r)
     G = exp(g_bar)
-    r = G^γ/β - 1.0
+    r = G^σ/β - 1.0
     #β = (1/(1+r))*G^(γ)
     # upper bound on γ
     #γ = log(1+r)/log(G)
@@ -89,7 +68,7 @@ function calibrate(targets)
 
     K_SR_disc = α_k-(1-labor_share)
     N_SR_disc = α_n - labor_share
-    @assert r+δ ≈ G^(γ)/β + I_Y/K_Y - G
+    @assert r+δ ≈ G^(σ)/β + I_Y/K_Y - G
     # Capital share 
     # R_c=R_i=R in steady state 
     #R_pi = (1-β*(1+g_bar)^(-γ)*(1-δ))/(β*(1+g_bar)^(-γ))
@@ -110,7 +89,7 @@ function calibrate(targets)
     ω_sc = S_c
 
     # Shopping effort 
-    D = ϕ^(η/(1+η)) 
+    D = (ϕ*Y)^(η/(1+η)) 
     D_c = (1-I_Y)*D
     D_sc = ω_sc*D_c
     D_mc = (1-ω_sc)*D_c
@@ -120,7 +99,6 @@ function calibrate(targets)
     A_mc = Ψ_j/D_mc^(ϕ)
     A_sc = Ψ_j/D_sc^ϕ
     A_i = Ψ_j/D_i^(ϕ)
-
 
     # Mean TFP 
     # N_i/N_c = I_Y/(1-I_Y)
@@ -132,8 +110,8 @@ function calibrate(targets)
     Y_mc = (1-ω_sc)*C
     Y_sc = ω_sc*C
 
-    C_agg = ((1-ω_sc)^(1-ρ_c)*Y_mc^ρ_c + ω_sc^(1-ρ_c)*Y_sc^ρ_c)^(1/ρ_c)
-    @assert C ≈ C_agg
+    #C_agg = ((1-ω_sc)^(1-ρ_c)*Y_mc^ρ_c + ω_sc^(1-ρ_c)*Y_sc^ρ_c)^(1/ρ_c)
+    #@assert C ≈ C_agg
 
     # Solve for price using price index 
     # 1 = (ω_mc*p_mc^(-ρ_c/(1-ρ_c)) +ω_sc*p_sc^(-ρ_c/(1-ρ_c))
@@ -141,7 +119,6 @@ function calibrate(targets)
     p_mc = p_sc = 1
 
     # C = p_mc*Y_mc + p_sc*Y_sc
-
 
     K = K_Y*Y*G # transformation of variables
 
@@ -172,12 +149,14 @@ function calibrate(targets)
     # Weight on labor aggregator
     ω = N_c/N
     # Labor composite: imperfect subs. only between c and i 
-    N_a = (ω^(-θ)*N_c^(1+θ)+(1-ω)^(-θ)*N_i^(1+θ))^(1/(1+θ))
+    #N_a = (ω^(-θ)*N_c^(1+θ)+(1-ω)^(-θ)*N_i^(1+θ))^(1/(1+θ))
     # Implied wage
     #W = α_N*(I/N_i)*p_i/(1-ϕ)*(1+ν_R)
     W = labor_share*Y/N
+
     # Level parameter on labor supply
-    θ_n = (1-ϕ)*W/(N_a^(1/ν))
+    S = C*(1-ha) - D^(1+1/η)/(1+1/η)
+    θ_n = (1-ϕ)*W/(N^(1/ζ)*S*μ)
 
 
 
@@ -185,16 +164,17 @@ function calibrate(targets)
     #Π = C + p_i*I -K_c*R_c - K_i*R_i - n*W
     Π = C + p_i*I - N*W*(α_n+α_k)/α_n
     Π_Y = 1 - labor_share*(1+α_k/α_n)
-    return (γ=γ, r=r, β=β, δ=δ, α_n=α_n, α_k=α_k, 
+
+    return (σ=σ, r=r, β=β, δ=δ, α_n=α_n, α_k=α_k, 
     A_mc=A_mc, A_sc=A_sc, A_i=A_i, 
     z_mc=z_mc, z_sc=z_sc, z_i=z_i,
-    ρ_c=ρ_c, ω_sc=ω_sc,
+ ω_sc=ω_sc,
     σ_b=σ_b, ω=ω, θ_n=θ_n,
     Y_mc=Y_mc, Y_sc=Y_sc, C=C, I=I, Y=Y, 
     p_i=p_i, p_mc=p_mc, p_sc=p_sc,
     K_mc=K_mc, K_sc=K_sc, K_c=K_c, K_i=K_i, K=K,
     N_mc=N_mc, N_sc=N_sc, N_c=N_c, N_i=N_i, N=N,
-    W=W, N_a=N_a, 
+    W=W, 
     D_mc=D_mc, D_sc=D_sc, D_c=D_c, D_i=D_i, D=D,
     Q=Q, 
     ν_mc=ν_mc, ν_sc=ν_sc, ν_i=ν_i, 
@@ -202,7 +182,7 @@ function calibrate(targets)
 end
 
 steady_state = function(par)
-    @unpack Y, C, I, K_mc, K_sc, K_c, K_i, N, N_c, N_i, z_mc, z_sc, z_i, W, D, D_c, D_i, Q = par
+    @unpack Y, C, I, K_mc, K_sc, K_c, K_i, N, N_c, N_i, z_mc, z_sc, z_i, W, D, D_mc, D_sc, D_i, Q = par
     return (Y_mc=Y_mc, Y_sc=Y_sc, C=C, I=I, K=K, K_mc=K_mc, K_sc=K_sc, K_i=K_i, 
     N_c=N_c, N_i=N_i, N=N,
     z_mc=z_mc, z_sc=z_sc, z_i=z_i, 
@@ -212,9 +192,81 @@ steady_state = function(par)
 end
 # Back out max on γ
 
-targets = Targets(g_bar = 0.0045, γ=2.0, r_ann=0.04)
-@show cal = calibrate(targets)
-@unpack W, N, Y_mc, Y_sc, C, I, Y, r, ν_mc, ν_sc, ν_i, N_c, N_i, Π, Π_Y, δ, K, K_mc, K_sc, K_i, ρ_c, ω_sc, D_sc, D_i = cal
+
+# To be modified #
+function table(cal, targets)
+    @unpack σ, β, δ, α_n, α_k, A_mc, A_sc, A_i, z_mc, z_sc, z_i, σ_b, ω, θ_n, C, I, Y, K, N, N_c, N_i = cal
+    @unpack g_bar, μ, ζ, Y, p_i, N, Ψ_j, I_Y, K_Y, labor_share, ν_R = targets
+    r = (1-β)/β
+  
+     t=   PlotlyJS.table(
+        header_values=["Targets", "Value", "Parameter", "Calibration"],
+        cells_values = [
+        # Targets
+                       [
+        # Parameters set exogenously
+        "Discount factor",
+        "Average growth rate",
+        "Gross wage markup",
+        "Share of labor hours in consumption",
+
+        # Estimated parameters relevant for dependent parameters
+        "Risk aversion",
+        "Frisch elasticity",
+        "Elasticity of matching function",
+        "Elasticity of shopping effort cost",
+        "Fixed cost share",
+        "Habit persistence", 
+
+        # Normalizations
+        "Steady-state output",
+        "Relative price of services",
+        "Relative price of investment",
+        "Fraction of time spent working",
+        "Capacity utilization of non-durables sector",
+        "Capacity utilization of services sector",
+        "Capacity utilization of investment sector",
+        " Capital utilization rate",
+
+        # Third group: standard targets
+        "Investment share of output",
+        "Physical capital to output ratio",
+        "Labor share of income"
+                       ],
+        # Values
+        round.([β, exp(g_bar*4), μ, ω, σ, ζ, ϕ, η, ν_R, ha, Y, p_sc, p_i, N, Ψ_j, Ψ_j, Ψ_j, 1, I_Y, K_Y/4, labor_share], digits=2),
+        # Parameter
+        [:β, :g_bar, :μ, :ω, :σ, :ζ, :ϕ, :η, :ν_R, :ha, :z_mc, :z_sc, :z_i, :θ_n, :A_mc, :A_sc, :A_i, :σ_b, :δ, :α_k, :α_n], 
+        # Calibration
+        round.([β, g_bar, μ, ω, σ, ζ, ϕ, η, ν_R, ha, z_mc, z_sc, z_i, θ_n, A_mc, A_sc, A_i, σ_b, δ, α_k, α_n, digits=3)
+        ]
+        )
+        p = PlotlyJS.plot(t)
+    return p
+end
+
+# Para = @with_kw (ϕ=0.1, A=0.8, α_2 = 0.0, α_1=0.7, β=0.99, δ_K = 0.025, ρ=2.0,
+#          α_K=0.3, σ=1.0, η=1.0, ψ=1.0, Y=1.0, L=1.0, qC=1.0, qI=1.0)
+
+# Load posterior mode
+using MAT
+posterior_mode = matread("posterior_mode.mat")
+posterior_mode = posterior_mode["posterior_mode"]
+
+σ = posterior_mode["sigma"]
+ζ = posterior_mode["nu"]
+ϕ = posterior_mode["phi"]
+η = posterior_mode["eta"]
+ν_R = posterior_mode["nu_R"]
+ha = posterior_mode["ha"]
+
+targets = Targets(σ=σ, ζ=ζ, ϕ=ϕ, η=η, ν_R=ν_R, ha=ha)
+para = calibrate(targets)
+#ss = steady_state(para)
+tab = table(para, targets)
+
+
+@unpack W, N, Y_mc, Y_sc, C, I, Y, r, ν_mc, ν_sc, ν_i, N_c, N_i, Π, Π_Y, δ, K, K_mc, K_sc, K_i, ρ_c, ω_sc, D_sc, D_i = para
 @unpack g_bar, labor_share, ν_R, Ψ_j, ν_R, p_i, K_Y, I_Y, ϕ, S_c = targets
 #γ_max = log(1+r)/g_bar
 
@@ -232,59 +284,8 @@ targets = Targets(g_bar = 0.0045, γ=2.0, r_ann=0.04)
 # cal_ng = calibrate(targets_ng)
 
 
-# To be modified #
-function table(cal, targets)
-    @unpack γ, β, δ, α_n, α_k, A_c, A_i, z_c, z_i, σ_b, ω, θ_n, C, I, Y, K, N, N_c, N_i, ν_c, ν_i = cal
-    @unpack γ, r_ann, g_bar, ν, Y, p_i, N, Ψ_j, I_Y, K_Y, labor_share, ν_R, θ = targets
-    r = (1-β)/β
-  
-     t=   PlotlyJS.table(
-        header_values=["Targets", "Value", "Parameter", "Calibration"],
-        cells_values = [
-        # Targets
-                       [
-        # Parameters set exogenously
-        "Risk aversion",
-        "Real interest rate",
-        "Average growth rate",
-        "Frisch elasticity",
-        # Normalizations
-        "Steady-state output",
-        "Relative price of investment",
-        "Fraction of time spent working",
-        "Capacity utilization of consumption sector",
-        "Capacity utilization of investment sector",
-        " Capital utilization rate",
-        # Third group: standard targets
-        "Investment share of output",
-        "Physical capital to output ratio",
-        "Labor share of output",
-        "Labor share in consumption ",
-        "Fixed costs in consumption",
-        "Fixed costs in investment",
-                       ],
-        # Values
-        round.([γ, r_ann, exp(g_bar*4), ν, Y, p_i, N, Ψ_j, Ψ_j, 1, I_Y, K_Y/4, labor_share, ω, ν_R, ν_R], digits=2),
-        # Parameter
-        [:γ, :β, :g_bar, :ν, :z_c, :z_i, :θ_n, :A_c, :A_i, :σ_b, :δ, :α_k, :α_n, :ω, :ν_c, :ν_i], 
-        # Calibration
-        round.([γ, β, g_bar, ν, z_c, z_i, θ_n, A_c, A_i, σ_b, δ, α_k, α_n, ω, ν_c, ν_i], digits=3)
-        ]
-        )
-        p = PlotlyJS.plot(t)
-    return p
-end
-
-# Para = @with_kw (ϕ=0.1, A=0.8, α_2 = 0.0, α_1=0.7, β=0.99, δ_K = 0.025, ρ=2.0,
-#          α_K=0.3, σ=1.0, η=1.0, ψ=1.0, Y=1.0, L=1.0, qC=1.0, qI=1.0)
-
-#targets = Targets()
-#para = calibrate(targets)
-#ss = steady_state(para)
-tab = table(cal, targets)
-
 function calibrate_rbc(targets)
-    @unpack γ, r_ann, g_bar, ν, Y, p_i, N, Ψ_j, I_Y, K_Y, labor_share, ϕ, η, θ, ν_R = targets
+    @unpack γ, r_ann, g_bar, ν, Y, p_i, N, Ψ_j, I_Y, K_Y, labor_share, ϕ, η, ν_R = targets
 
     # Discount factor
     #β*(1+g_bar)^(-γ) = 1/(1+r)
@@ -322,8 +323,8 @@ function calibrate_rbc(targets)
     # Weight on labor aggregator
     ω = N_c/N
     # Labor composite 
-    N_a = (ω^(-θ)*N_c^(1+θ)+(1-ω)^(-θ)*N_i^(1+θ))^(1/(1+θ))
-    @assert abs(N_a - N) < 1e-12
+    #N_a = (ω^(-θ)*N_c^(1+θ)+(1-ω)^(-θ)*N_i^(1+θ))^(1/(1+θ))
+    #@assert abs(N_a - N) < 1e-12
     # Implied wage
     #W = α_N*(I/N_i)*p_i/(1-ϕ)*(1+ν_R)
     W = labor_share*Y/N
