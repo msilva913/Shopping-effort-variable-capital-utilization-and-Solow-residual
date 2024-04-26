@@ -18,12 +18,11 @@ HPD = [HPD_inf.phi, posterior_mean.phi, HPD_sup.phi];
 index_Y = strcmp('Y_obs', res.var_list);
 index_SR = strcmp('SR_obs', res.var_list);
 
-
- vd = res.variance_decomposition;
- shock_names = M.exo_names;
- demand_shocks = {'e_D', 'e_D_news', 'e_DI', 'e_DI_news'};
- FEVD_Y = 0.0;
- FEVD_SR = 0.0;
+vd = res.variance_decomposition;
+shock_names = M.exo_names;
+demand_shocks = {'e_D', 'e_D_news', 'e_DI', 'e_DI_news'};
+FEVD_Y = 0.0;
+FEVD_SR = 0.0;
 
  for i = 1:length(demand_shocks)
     shock_indices = strcmp(demand_shocks{i},shock_names);

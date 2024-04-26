@@ -1,0 +1,38 @@
+function [table] = FEVD_sum(res, M)
+
+% Summary of FEVD for shock groups
+    %1) Technology
+    %2) Labor supply
+    %3) Shopping effort
+    %4) Discount factor
+    %5) Wage markups
+technology_shocks = {'e_g', 'e_g_news', 'e_Z', 'e_Z_news', 'e_ZI', 'e_ZI_news'};
+labor_supply_shocks = {'e_N'};
+shopping_effort_shocks = {'e_D', 'e_D_news', 'e_DI', 'e_DI_news'};
+discount_factor_shocks = {'e_b', 'e_b_news'};
+wage_markup_shocks = {'e_muC', 'e_muC_news', 'e_muI', 'e_muI_news'};
+
+shock_group_list = {technology_shocks, labor_supply_shocks, shopping_effort_shocks, discount_factor_shocks, wage_markup_shocks};
+
+vars = {'Y_obs', 'SR_obs', 'I_obs', 'p_I_obs', 'NC_obs', 'NI_obs', 'util_obs', 'D_obs', 'h_obs'};
+nvars = length(vars);
+
+vd = res.variance_decomposition;
+shock_names = M.exo_names;
+
+mat = zeros(nvars, 5);
+
+for i = 1:nvars
+    var_index = strcmp(vars{i}, res.var_list);
+    for j = 1:5
+        % Obtain shock group
+        shock_group = shock_group_list{j};
+        for k=1:length(shock_group)
+            shock_index = strcmp(shock_group{k}, shock_names);
+            % Add shock component to variable i, shock group j
+            mat(i, j) = mat(i, j) + vd(var_index, shock_index);
+        end
+    end
+ end
+row_names = vars;
+col_names = {"technology", "labor supply"}

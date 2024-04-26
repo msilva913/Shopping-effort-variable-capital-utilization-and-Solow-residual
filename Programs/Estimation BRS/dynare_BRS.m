@@ -8,12 +8,16 @@ res = oo_;
 M = M_;
 save('res', 'res');
 save('M', 'M');
-posterior_mode = res.posterior_mode.parameters
-save('posterior_mode', 'posterior_mode')
-mom_bas = calc_moments(res)
-save('mom_bas', 'mom_bas')
+posterior_mode = res.posterior_mode.parameters;
+save('posterior_mode', 'posterior_mode');
+mom_bas = calc_moments(res);
+save('mom_bas', 'mom_bas');
 % Main output
+FEVD_table = FEVD_sum(res, M)
 out, HPD = main_tables(res);
+
+% FEVD
+
 
 % var_cov = 100^2*oo_.var;
 % vars = diag(var_cov); % Diagonal of variances
