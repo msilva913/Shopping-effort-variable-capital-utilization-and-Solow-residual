@@ -6,9 +6,9 @@ function [out, HPD] = main_table(res, M)
 %2) Posterior probability band
  % Access the posterior density samples
 HPD_inf = res.posterior_hpdinf.parameters;
-posterior_mean = res.posterior_mean.parameters;
+posterior_median = res.posterior_median.parameters;
 HPD_sup = res.posterior_hpdsup.parameters;
-HPD = [HPD_inf.phi, posterior_mean.phi, HPD_sup.phi];
+HPD = [HPD_inf.phi, posterior_median.phi, HPD_sup.phi];
 
 % Display the 90% HPDI
 %disp(['Lower bound of 90% HPDI: ', num2str(lower_quantile)]);

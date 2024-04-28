@@ -7,6 +7,8 @@ var Y           ${Y}$ (long_name='output')
     Y_mc        ${Y_{mc}}$ (long_name = 'consumption non-durable goods')
     Y_sc        $Y_{sc}}$ (long_name = 'consumption services')
 
+    SR          ${SR}$ (long_name='aggregate share-weighted Solow residual')
+
     I           ${I}$ (long_name = 'investment')
     I_mc         ${I_C}$ (long_name = 'investment:mc')
     I_sc         ${I_C}$ (long_name = 'investment:sc')
@@ -46,6 +48,7 @@ var Y           ${Y}$ (long_name='output')
     h_mc         ${h_mc}$ (long_name= 'Capital utilization rate:mc')
     h_sc         ${h_sc}$ (long_name= 'Capital utilization rate:sc')
     h_I         ${h_I}$ (long_name= 'Capital utilization rate:I')
+    h           $h$ (long_name = 'Capital utilization rate: average')
 
     delta_mc    ${\delta_{mc}}$ (long_name= 'Capital depreciation rate:mc')
     delta_sc    ${\delta_{sc}}$ (long_name= 'Capital depreciation rate:sc')
@@ -88,6 +91,7 @@ var Y           ${Y}$ (long_name='output')
     
     util       ${util}$ (long_name = 'Capacity utilization')
     util_ND    ${util_{ND}}$ (long_name = 'Capacity utilization:ND')
+    util_sc    ${util_{sc}}$ (long_name = 'Capacity utilization:sc')
     util_D     ${util_D}$ (long_name = 'Capacity utilization:D')
 
     g          ${g}$ (long_name = 'Growth rate of stochastic trend')
@@ -101,6 +105,7 @@ var Y           ${Y}$ (long_name='output')
     log_K
     log_Y_N
     log_D
+    log_h
     log_p_I
     log_util
     log_util_ND
@@ -110,18 +115,21 @@ var Y           ${Y}$ (long_name='output')
     C_obs
     I_obs
     Y_obs
+    SR_obs
     Y_N_obs
     p_I_obs
     N_obs
     NC_obs
     NI_obs
+
     util_ND_obs
     util_D_obs
-    w_obs
     util_obs
+
+    w_obs
     D_obs
+    h_obs
     K_obs
-    SR_obs
   
     ;
 
@@ -473,18 +481,27 @@ I = I_mc + I_sc + I_I;
 [name = 'Shopping composition']
 D = D_mc + D_sc + exp(theta_I)*D_I;
 
+[name = 'Capital utilization composition']
+h = (Y_mc/Y)*h_mc + (Y_sc/Y)*h_sc + (I/Y)*h_I;
+
 [name = 'Aggregate wage']
 W = (N_C/N)*W_C + (N_I/N)*W_I;
 
 [name = 'Output (base-year prices)']
 Y = C + p_I_ss*I;
 
+[name = 'Solow residual']
+SR = (Y_mc/Y)*Y_mc/(K_mc(-1)^(1-labor_share)*N_mc^(labor_share)) + (Y_sc/Y)*Y_sc/(K_sc(-1)^(1-labor_share)*N_sc^(labor_share)) +(I/Y)*I/(K_I(-1)^(1-labor_share)*N_I^(labor_share));
+
 [name = 'Capacity utilization']
 util_ND = A_mc*D_mc^phi*(Z_mc_ss*exp(g)^(-alpha_K)*exp(Z_C)*(h_mc*K_mc(-1))^alpha_K*N_mc^alpha_N-nu_mc)/(Z_mc_ss*exp(g)^(-alpha_K)*exp(Z_C)*K_mc(-1)^alpha_K*N_mc^alpha_N-nu_mc);
 
+util_sc = A_sc*D_sc^phi*(Z_sc_ss*exp(g)^(-alpha_K)*exp(Z_C)*(h_sc*K_sc(-1))^alpha_K*N_sc^alpha_N-nu_sc)/(Z_sc_ss*exp(g)^(-alpha_K)*exp(Z_C)*K_sc(-1)^alpha_K*N_sc^alpha_N-nu_sc);
+
 util_D = A_I*D_I^phi*(Z_I_ss*exp(g)^(-alpha_K)*exp(Z_I)*(h_I*K_I(-1))^alpha_K*N_I^alpha_N-nu_I)/(Z_I_ss*exp(g)^(-alpha_K)*exp(Z_I)*K_I(-1)^alpha_K*N_I^alpha_N-nu_I);
 
-util = (Y_mc/(Y_mc+I))*util_ND + (I/(Y_mc+I))*util_D;
+//util = (Y_mc/(Y_mc+I))*util_ND + (I/(Y_mc+I))*util_D;
+util = (Y_mc*util_ND + Y_sc*util_sc + I*util_D)/Y;
  
 % Exogenous processes
 [name='stochastic trend process']
@@ -535,6 +552,10 @@ log_K = log(K) - steady_state(log(K));
 log_Y_N = log_Y - log_N;
 [name = 'Definition log shopping effort']
 log_D = log(D) - steady_state(log(D));
+
+[name = 'Definition log capital utilization']
+log_h = log(h) - steady_state(log(h));
+
 [name = 'Definition of log relative investment  price']
 log_p_I = log(p_I) - steady_state(log(p_I));
 
@@ -547,7 +568,7 @@ log_util_D = log(util_D) - steady_state(log(util_D));
 log_W = log(W) - steady_state(log(W));
 
 [name = 'Definition of log Solow residual']
-log_SR = log_Y - (1-labor_share)*log_K(-1) - labor_share*log_N;
+log_SR = log(SR) - steady_state(log(SR));
 
 % Observation variables: first differences (demeaned) -> link to data in first differences (p. 58 of Pfeifer's Observation Equations)
 C_obs = log_C - log_C(-1) + g - g_bar ;
@@ -556,7 +577,7 @@ Y_obs = log_Y - log_Y(-1) + g - g_bar ;
 Y_N_obs = log_Y_N - log_Y_N(-1) + g - g_bar ;
 K_obs = log_K - log_K(-1) + g - g_bar;
 w_obs = log_W - log_W(-1) +g - g_bar;
-SR_obs = Y_obs - labor_share*N_obs - (1-labor_share)*K_obs(-1);
+SR_obs = log_SR - log_SR(-1) + g - g_bar;
 
 % Stationary variables
 p_I_obs = log_p_I - log_p_I(-1);
@@ -568,6 +589,7 @@ util_D_obs = log_util_D - log_util_D(-1);
 util_obs = log_util - log_util(-1);
 
 D_obs = log_D - log_D(-1);
+h_obs = log_h - log_h(-1);
 
 
 end;
@@ -586,6 +608,8 @@ steady_state_model;
     C = 1-I_Y;
     Y_mc = (1-omega_sc)*C;
     Y_sc = omega_sc*C;
+
+
     D = phi^(eta/(1+eta));
     D_mc = (1-I_Y)*(1-omega_sc)*D;
     D_sc = (1-I_Y)*omega_sc*D;
@@ -609,6 +633,8 @@ steady_state_model;
     N_mc = (1-omega_sc)*N_C;
     N_sc = (omega_sc)*N_C;
     N_comp = N;
+
+    SR = (Y_mc/Y)*Y_mc/(K_mc^(1-labor_share)*N_mc^(labor_share)) + (Y_sc/Y)*Y_sc/(K_sc^(1-labor_share)*N_sc^(labor_share)) +(I/Y)*I/(K_I^(1-labor_share)*N_I^(labor_share));
 
     nu_mc_ss = nu_R*Y_mc/Psi;
     nu_sc_ss = nu_R*Y_sc/Psi;
@@ -644,6 +670,7 @@ steady_state_model;
     h_mc = 1;
     h_sc = 1;
     h_I = 1;
+    h = 1;
     delta_mc = delta_ss;
     delta_sc = delta_ss;
     delta_I = delta_ss;
@@ -667,6 +694,7 @@ steady_state_model;
 
     util_ND = Psi;
     util_D = Psi;
+    util_sc = Psi;
     util = Psi;
 
     Z_C = 0;
@@ -752,10 +780,12 @@ ha, 0.5, 0.0, 0.95,           BETA_PDF, 0.5, 0.2;
 nu, 0.72, 0.05, 2.0,           GAMMA_PDF, 0.72, 0.25;
 gam, 0.5, 0.0, 1.0,        BETA_PDF, 0.5, 0.2; %Born, Peter, and Pfeifer (2013)
 
-phi, 0.32, 0.00, 0.999,        BETA_PDF, 0.32, 0.2;
-eta, 0.20, 0.00, 10.0,          GAMMA_PDF, 0.2, 0.15;
+phi, 0.8, 0.00, 0.999,        BETA_PDF, 0.32, 0.2;
+eta, 0.567, 0.00, 10.0,          GAMMA_PDF, 0.2, 0.15;
+//m, 0.286, 0.0, 0.95,          GAMMA_PDF, 0.286, 0.2;
 
 xi, 0.85, 0.5, 2.0,        GAMMA_PDF, 0.85, 0.1;
+
 
 sigma_ac, 0.32, 0.0, 10,       INV_GAMMA_PDF, 1, 1; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
 sigma_ai, 0.32, 0.0, 10,       INV_GAMMA_PDF, 1, 1; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
@@ -777,7 +807,7 @@ rho_muC,  0.95, 0.01, 0.99999999,        BETA_PDF, 0.6, 0.2;
 rho_muI,  0.95, 0.01, 0.99999999,        BETA_PDF, 0.6, 0.2;
 
 % Standard errors
-stderr e_g, 0.01, 0.00001, 0.2,  GAMMA_PDF, 0.01, 0.01;
+stderr e_g, 0.01, 0.0000001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 stderr e_g_news, 0.01, 0.00001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 stderr e_Z, 0.01, 0.00001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 stderr e_Z_news, 0.01, 0.00001, 0.2,  GAMMA_PDF, 0.01, 0.01;
@@ -785,7 +815,7 @@ stderr e_ZI, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 stderr e_ZI_news, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 
 stderr e_N, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
-stderr e_D, 0.01, 0.0001, 0.4,  GAMMA_PDF, 0.01, 0.01;
+stderr e_D, 0.01, 0.00001, 0.4,  GAMMA_PDF, 0.01, 0.01;
 stderr e_D_news, 0.01, 0.0001, 0.4,  GAMMA_PDF, 0.01, 0.01;
 stderr e_DI, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 stderr e_DI_news, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
@@ -813,20 +843,20 @@ varobs NC_obs, NI_obs, C_obs, I_obs, p_I_obs, util_ND_obs, util_D_obs;
 
 estimation(tex, optim=('MaxIter', 200), 
 datafile=observables_sectoral, 
-mode_file=BRS_sectoral_mode, 
+mode_file=BRS_sectoral_wo_fixed_cost_mh_mode, %With _mh option uses mode after MCM run
 //nograph,
-//load_mh_file, 
+load_mh_file, 
 //mh_recover,
 mcmc_jumping_covariance=prior_variance,
 
-mode_compute=4,
+mode_compute=0,
 presample=0, 
 lik_init=2,
 mh_jscale=0.006, 
 mh_init_scale =0.0001,
 //mh_jscale=0.1,
 mode_check, 
-mh_replic=130000, 
+mh_replic=100000, 
 //mh_replic=0,
 mh_nblocks=2, 
 //bayesian_irf,
@@ -834,7 +864,7 @@ mh_nblocks=2,
 mh_drop=0.3, 
 //moments_varendo,
 prior_trunc=0)
-Y_obs, Y_N_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_ND_obs, util_D_obs, w_obs;
+Y_obs, Y_N_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_ND_obs, util_D_obs, SR_obs, util_obs, D_obs, h_obs;
 //log_Y, log_Y_N, log_I, log_p_I, log_C, log_N, log_NC, log_NI, util;
 
 
@@ -847,7 +877,7 @@ write_latex_dynamic_model;
 write_latex_parameter_table;
 write_latex_definitions;
 write_latex_prior_table;
-generate_trace_plots(1);
+//generate_trace_plots(1);
 collect_latex_files;
 % if system(['pdflatex -halt-on-error -interaction=batchmode ' M_.fname '_TeX_binder.tex'])
 %     error('TeX-File did not compile.')
@@ -855,10 +885,10 @@ collect_latex_files;
 
 
 % Stochastic simulation -> for conditional FEVD and IRF
-stoch_simul (order=1, nofunctions, irf=0, periods=0)
+stoch_simul (order=1, nofunctions, irf=20, periods=0)
 //conditional_variance_decomposition=[1 4 8 40])
-Y_obs, Y_N_obs, SR_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_ND_obs, util_D_obs, w_obs;
-//log_Y, log_Y_N, log_SR, log_I, log_p_I, log_C, log_N, log_NC, log_NI, log_util_ND, log_util_D;
+Y_obs, Y_N_obs, SR_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_ND_obs, util_D_obs, util_obs, D_obs, h_obs;
+//log_Y, log_Y_N, log_SR, log_I, log_p_I, log_C, log_N, log_NC, log_NI, log_util_ND, log_util_D, log_util, log_D, log_h;
 
 % Save artificial data 
 //save artificial_data.mat 'NC_obs', 'NI_obs', 'C_obs', 'I_obs', 'p_I_obs', 'util_ND_obs', 'util_D_obs', 'w_obs';

@@ -18,7 +18,51 @@ out, HPD = main_tables(res);
 
 % FEVD
 
+%% Remove fixed cost
+dynare BRS_sectoral_wo_fixed_cost.mod
 
+res_wo_fc = oo_;
+M_wo_fc = M_;
+save('res_wo_fc', 'res_wo_fc');
+save('M_wo_fc', 'M_wo_fc');
+%mom_bas = calc_moments(res);
+%save('mom_bas', 'mom_bas');
+% Main output
+FEVD_table = FEVD_sum(res_wo_fc, M_wo_fc);
+[out, HPD] = main_table(res_wo_fc, M_wo_fc);
+%% Remove vcu
+dynare BRS_sectoral_wo_vcu.mod
+res_wo_vcu = oo_;
+M_wo_vcu = M_;
+save('res_wo_vcu', 'res_wo_vcu');
+save('M_wo_vcu', 'M_wo_vcu');
+[out, HPD] = main_table(res_wo_vcu, M_wo_vcu);
+
+%% Remove search demand shocks
+dynare BRS_sectoral_wo_demand_shocks.mod 
+res_wo_dem = oo_;
+M_wo_dem = M_;
+mom_wo_dem = calc_moments(res_wo_dem)
+save('res_wo_dem', 'res_wo_dem');
+save('M_wo_dem', 'M_wo_dem');
+[out, HPD] = main_table(res_wo_dem, M_wo_dem);
+%% Examine ability to fit data without utilization
+dynare BRS_sectoral_KK.mod 
+res_KK = oo_;
+load res_KK.mat
+mom_KK = calc_moments(res_KK)
+%% Remove goods market frictions
+%dynare BRS_sectoral_wo_gmf.mod
+
+
+%% Proof of concept exercise in BRS
+%% Basic BRS (general replication)
+%dynare BRS_growth.mod
+
+%% Basic BRS: estimate phi and eta
+dynare BRS_growth_id.mod
+%% estimate BRS with utilization data
+dynare BRS_util.mod 
 % var_cov = 100^2*oo_.var;
 % vars = diag(var_cov); % Diagonal of variances
 % var_array = [];
@@ -41,53 +85,6 @@ out, HPD = main_tables(res);
 % index_D = strcmp('D_obs', oo_.var_list);
 % index_h = strcmp('h_obs', oo_.var_list);
 % var_cov(index_D, index_h); % negative variance covariance
-
-%% Remove fixed cost
-dynare BRS_sectoral_wo_fixed_cost.mod
-%% Remove vcu
-dynare BRS_sectoral_wo_vcu.mod
-res_wo_vcu = oo_;
-M_wo_vcu = M_;
-save('res_wo_vcu', 'res_wo_vcu');
-save('M_wo_vcu', 'M_wo_vcu');
-[out, HPD] = main_table(res_wo_vcu, M_wo_vcu);
-
-%% Remove search demand shocks
-dynare BRS_sectoral_wo_demand_shocks.mod 
-res_wo_dem = oo_;
-M_wo_dem = M_;
-mom_wo_dem = calc_moments(res_wo_dem)
-save('res_wo_dem', 'res_wo_dem');
-save('M_wo_dem', 'M_wo_dem');
-[out, HPD] = main_table(res_wo_dem, M_wo_dem);
-%% Examine ability to fit data without utilization
-dynare BRS_sectoral_KK.mod 
-res_KK = oo_;
-mom_KK = calc_moments(res_KK)
-%% Remove goods market frictions
-dynare BRS_sectoral_wo_gmf.mod
-
-
-%% Proof of concept exercise in BRS
-%% Basic BRS (general replication)
-%dynare BRS_growth.mod
-
-%% Basic BRS: estimate phi and eta
-dynare BRS_growth_id.mod
-%% estimate BRS with utilization
-dynare BRS_util.mod 
-% save('SR', 'SR_obs')
-% save('SR_util', 'SR_util_obs')
-% save('Y', 'Y_obs')
-% save('L', 'L_obs')
-% save('C', 'C_obs')
-% save('TI', 'TI_obs')
-% save('I', 'I')
-% save('w', 'w_obs')
-% save('L_C', 'L_C')
-% save('S_H', 'S_H')
-% save('p_I', 'p_I_obs' )
-
 % Prior density
 prior = oo_.prior_density.parameters;
 prior_shocks = oo_.prior_density.shocks_std;

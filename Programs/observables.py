@@ -175,6 +175,9 @@ def construct_data(init, final, freq):
     # w/(Y_agg/H)
 
     " Scale by population and price index "
+    c_ND = C_ND/(pop*p_C)
+    c_S = C_S/(pop*p_C)
+    
     c = C/(pop*p_C)
     i = I/(pop*p_I)
     
@@ -203,7 +206,7 @@ def construct_data(init, final, freq):
   
     " Note: these series imply labor productivity in each sector "
     " List of data series "
-    var_load_list = [y, c, i, lc, li, l, lab_prod, p_I, SR, SR_util, util, util_D, util_ND, w] 
+    var_load_list = [y, c, i, lc, li, l, lab_prod, p_I, SR, SR_util, util, util_D, util_ND, w, c_ND, c_S] 
     return var_load_list
 
         
@@ -227,7 +230,7 @@ if __name__ == "__main__":
         save_object(var_load_list, 'var_load_list')
     
     dat = pd.concat(var_load_list, axis=1)
-    lab = ['Y', 'C', 'I', 'NC', 'NI', 'N', "lab_prod", 'p_I', 'SR', 'SR_util', 'util', 'util_D', 'util_ND', 'w']
+    lab = ['Y', 'C', 'I', 'NC', 'NI', 'N', "lab_prod", 'p_I', 'SR', 'SR_util', 'util', 'util_D', 'util_ND', 'w', 'c_ND', 'c_S']
     dat.columns = lab
     """
     Create cycles
