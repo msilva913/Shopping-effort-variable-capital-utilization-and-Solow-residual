@@ -57,9 +57,6 @@ save('M_KK', 'M_KK');
 mom_KK = calc_moments(res_KK);
 [out, HPD] = main_table(res_KK, M_KK);
 FEVD_table = FEVD_sum(res_KK, M_KK, '');
-%% Remove goods market frictions
-%dynare BRS_sectoral_wo_gmf.mod
-
 
 %% Proof of concept exercise in BRS
 %% Basic BRS (general replication)

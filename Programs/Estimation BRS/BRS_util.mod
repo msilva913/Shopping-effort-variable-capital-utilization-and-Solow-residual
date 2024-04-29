@@ -5,6 +5,7 @@
 var Y           ${Y}$ (long_name='output')
     C           ${C}$ (long_name='consumption')
     I           ${I}$ (long_name = 'investment')
+    SR          ${SR}$ (long_name='aggregate share-weighted Solow residual')
     K           ${K}$ (long_name='Capital')
     K_C         ${K_C}$ (long_name='Capital:C')
     K_I         ${K_I}$ (long_name='Capital:I')
@@ -42,6 +43,7 @@ var Y           ${Y}$ (long_name='output')
     log_NC
     log_NI
     log_Y_N
+    log_SR
     log_D
     log_p_I
     log_util
@@ -50,6 +52,7 @@ var Y           ${Y}$ (long_name='output')
     I_obs
     Y_obs
     Y_N_obs
+    SR_obs
     p_I_obs
     NC_obs
     NI_obs
@@ -204,6 +207,9 @@ D = D_C + D_I;
 [name = 'Output (base-year prices)']
 Y = C + p_I_ss*I;
 
+[name = 'Solow residual']
+SR = (C/Y)*C/(K_C(-1)^(1-labor_share)*N_C^(labor_share)) + (I/Y)*I/(K_I(-1)^(1-labor_share)*N_I^(labor_share));
+
 util_C = A_C*D_C^phi;
 
 util_I = A_I*D_I^phi;
@@ -243,6 +249,9 @@ log_NI = log(N_I) - steady_state(log(N_I));
 
 [name='Definition log labor productivity']
 log_Y_N = log_Y - log_N;
+[name = 'Definition of log Solow residual']
+log_SR = log(SR) - steady_state(log(SR));
+
 [name = 'Definition log shopping effort']
 log_D = log(D) - steady_state(log(D));
 [name = 'Definition of log relative investment  price']
@@ -255,6 +264,7 @@ C_obs = log_C - log_C(-1) + g - g_bar;
 I_obs = log_I - log_I(-1) + g - g_bar;
 Y_obs = log_Y - log_Y(-1) + g - g_bar;
 Y_N_obs = log_Y_N - log_Y_N(-1) + g - g_bar;
+SR_obs = log_SR - log_SR(-1) + g - g_bar;
 
 % Stationary
 p_I_obs = log_p_I - log_p_I(-1);
@@ -284,6 +294,8 @@ steady_state_model;
     K_C = (1-I_Y)*K;
     N_I = I_Y*N;
     N_C = (1-I_Y)*N;
+
+    SR = (C/Y)*C/(K_C^(1-labor_share)*N_C^(labor_share)) + (I/Y)*I/(K_I^(1-labor_share)*N_I^(labor_share));
 
     Z_C = 0;
     Z_I = 0;
@@ -405,7 +417,7 @@ mh_drop=0.3,
 //moments_varendo,
 prior_trunc=0,
 tex)
-Y_obs, Y_N_obs, I_obs, p_I_obs, C_obs, util_obs;
+Y_obs, Y_N_obs, SR_obs, I_obs, p_I_obs, C_obs, util_obs;
 //log_I, log_C, log_Y, log_Y_N, log_p_I;
 
 
@@ -425,9 +437,9 @@ collect_latex_files;
 
 %*/
 % Stochastic simulation 
-stoch_simul (order=1, nofunctions, irf=100, periods=0
+stoch_simul (order=1, nofunctions, irf=0, periods=0
 //conditional_variance_decomposition=[1 4 8 40])
 )
-Y_obs, Y_N_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, theta_D, D_obs, util_obs;
+Y_obs, Y_N_obs, SR_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, theta_D, D_obs, util_obs;
 //log_Y, log_Y_N, log_I, log_p_I, log_C;
 
