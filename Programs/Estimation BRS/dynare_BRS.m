@@ -23,8 +23,8 @@ dynare BRS_sectoral_wo_fixed_cost.mod
 
 res_wo_fc = oo_;
 M_wo_fc = M_;
-save('res_wo_fc', 'res_wo_fc');
-save('M_wo_fc', 'M_wo_fc');
+%save('res_wo_fc', 'res_wo_fc');
+%save('M_wo_fc', 'M_wo_fc');
 %mom_bas = calc_moments(res);
 %save('mom_bas', 'mom_bas');
 % Main output
@@ -49,7 +49,7 @@ save('M_wo_dem', 'M_wo_dem');
 %% Examine ability to fit data without utilization
 dynare BRS_sectoral_KK.mod 
 res_KK = oo_;
-load res_KK.mat
+%load res_KK.mat
 mom_KK = calc_moments(res_KK)
 %% Remove goods market frictions
 %dynare BRS_sectoral_wo_gmf.mod

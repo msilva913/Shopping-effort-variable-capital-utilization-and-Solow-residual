@@ -1307,7 +1307,7 @@ options_.mh_drop = 0.3;
 options_.mh_init_scale = 0.0001;
 options_.mh_jscale = 0.006;
 options_.mh_nblck = 2;
-options_.mh_replic = 0;
+options_.mh_replic = 75000;
 options_.mode_check.status = true;
 options_.mode_compute = 0;
 options_.presample = 0;
@@ -1323,7 +1323,7 @@ write_latex_parameter_table;
 write_latex_definitions;
 write_latex_prior_table;
 collect_latex_files;
-options_.irf = 20;
+options_.irf = 0;
 options_.nofunctions = true;
 options_.order = 1;
 options_.periods = 0;
@@ -1355,7 +1355,7 @@ end
 if exist('oo_recursive_', 'var') == 1
   save([M_.dname filesep 'Output' filesep 'BRS_sectoral_results.mat'], 'oo_recursive_', '-append');
 end
-disp('Note: 3 warning(s) encountered in the preprocessor')
+disp('Note: 2 warning(s) encountered in the preprocessor')
 if ~isempty(lastwarn)
   disp('Note: warning(s) encountered in MATLAB/Octave code')
 end
