@@ -14,7 +14,7 @@ mom_bas = calc_moments(res);
 save('mom_bas', 'mom_bas');
 % Main output
 FEVD_table = FEVD_sum(res, M)
-out, HPD = main_tables(res);
+[out, HPD] = main_table(res, M);
 
 % FEVD
 

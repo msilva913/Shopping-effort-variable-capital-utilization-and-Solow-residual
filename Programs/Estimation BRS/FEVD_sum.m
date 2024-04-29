@@ -37,5 +37,6 @@ end
 
 row_names = vars;
 col_names = {'technology', 'labor supply', 'shopping effort', 'discount factor', 'wage markup'};
-FEVD_table = array2table(round(mat, 2), 'RowNames', row_names, 'VariableNames', col_names)
+format bank;
+FEVD_table = array2table(mat, 'RowNames', row_names, 'VariableNames', col_names);
 
