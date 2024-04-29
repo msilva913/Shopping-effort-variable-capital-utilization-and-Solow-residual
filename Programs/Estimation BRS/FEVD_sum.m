@@ -1,4 +1,4 @@
-function [FEVD_table] = FEVD_sum(res, M)
+function [FEVD_table] = FEVD_sum(varargin)
 
 % Summary of FEVD for shock groups
     %1) Technology
@@ -6,6 +6,10 @@ function [FEVD_table] = FEVD_sum(res, M)
     %3) Shopping effort
     %4) Discount factor
     %5) Wage markups
+
+res = varargin{1};
+M = varargin{2};
+
 technology_shocks = {'e_g', 'e_g_news', 'e_Z', 'e_Z_news', 'e_ZI', 'e_ZI_news'};
 labor_supply_shocks = {'e_N'};
 shopping_effort_shocks = {'e_D', 'e_D_news', 'e_DI', 'e_DI_news'};
@@ -13,18 +17,25 @@ discount_factor_shocks = {'e_b', 'e_b_news'};
 wage_markup_shocks = {'e_muC', 'e_muC_news', 'e_muI', 'e_muI_news'};
 
 shock_group_list = {technology_shocks, labor_supply_shocks, shopping_effort_shocks, discount_factor_shocks, wage_markup_shocks};
+col_names = {'technology', 'labor supply', 'shopping effort', 'discount factor', 'wage markup'};
+
+if nargin >= 3
+    shock_group_list = {technology_shocks, labor_supply_shocks, discount_factor_shocks, wage_markup_shocks};
+    col_names = {'technology', 'labor supply', 'discount factor', 'wage markup'};
+end
 
 vars = {'Y_obs', 'SR_obs', 'I_obs', 'p_I_obs', 'NC_obs', 'NI_obs', 'util_obs', 'D_obs', 'h_obs'};
 nvars = length(vars);
+nshocks = length(shock_group_list);
 
 vd = res.variance_decomposition;
 shock_names = M.exo_names;
 
-mat = zeros(nvars, 5);
+mat = zeros(nvars, nshocks);
 
 for i = 1:nvars
     var_index = strcmp(vars{i}, res.var_list);
-    for j = 1:5
+    for j = 1:nshocks
         % Obtain shock group
         shock_group = shock_group_list{j};
         for k=1:length(shock_group)
@@ -36,7 +47,6 @@ for i = 1:nvars
 end
 
 row_names = vars;
-col_names = {'technology', 'labor supply', 'shopping effort', 'discount factor', 'wage markup'};
 format bank;
 FEVD_table = array2table(mat, 'RowNames', row_names, 'VariableNames', col_names);
 

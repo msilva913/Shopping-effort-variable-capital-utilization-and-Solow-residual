@@ -818,20 +818,20 @@ varobs NC_obs, NI_obs, C_obs, I_obs, p_I_obs;
 
 estimation(tex, optim=('MaxIter', 200), 
 datafile=observables_sectoral, 
-//mode_file=BRS_sectoral_wo_demand_shocks_mh_mode, %With _mh option uses mode after MCM run
+mode_file=BRS_sectoral_KK_mh_mode, %With _mh option uses mode after MCM run
 //nograph,
-//load_mh_file, 
+load_mh_file, 
 //mh_recover,
 mcmc_jumping_covariance=prior_variance,
 
-mode_compute=4,
+mode_compute=0,
 presample=0, 
 lik_init=2,
-mh_jscale=0.01, 
+mh_jscale=0.003, 
 mh_init_scale =0.0001,
 //mh_jscale=0.1,
 mode_check, 
-mh_replic=100000, 
+mh_replic=50000, 
 //mh_replic=0,
 mh_nblocks=2, 
 //bayesian_irf,
