@@ -63,21 +63,34 @@ function irf_fun_plot(irf_array, vars_list, vars_list_label; shock, savefig=true
 end
 
 # Standard impulse responses: basic model
-vars_list = ["log_C", "log_I", "log_Y_N", "log_p_I", "log_NC", "log_NI"]
-vars_list_label=[:C, :I, :Y_N, :p_I, :N_C, :N_I]
+#vars_list = ["log_C", "log_I", "log_Y_N", "log_p_I", "log_NC", "log_NI"]
+#vars_list_label=[:C, :I, :Y_N, :p_I, :N_C, :N_I]
+vars_list = ["Y_obs", "SR_obs", "NC_obs", "NI_obs", "util_ND_obs", "util_D_obs"]
+vars_list_label = [:Y, :SR, :N_C, :N_I, :util_ND, :util_D]
 
 x = matopen("irf.mat")
 vars = read(x, "irf")
 irf_dic  = vars
 # Shopping preference shock
-irf_array = irf_fun(vars_list, irf_dic, shock="e_D" )
+irf_array = irf_fun(vars_list, irf_dic, shock="e_D", length=20 )
 irf_fun_plot(irf_array, vars_list, vars_list_label; shock="e_D")
+
+# Stationary technology shock
+irf_array = irf_fun(vars_list, irf_dic, shock="e_Z", length=20 )
+irf_fun_plot(irf_array, vars_list, vars_list_label; shock="e_Z")
+
+# Permanent technology shock
+irf_array = irf_fun(vars_list, irf_dic, shock="e_g", length=20 )
+irf_fun_plot(irf_array, vars_list, vars_list_label; shock="e_g")
+
+# Discount factor shock
+irf_array = irf_fun(vars_list, irf_dic, shock="e_b", length=20 )
+irf_fun_plot(irf_array, vars_list, vars_list_label; shock="e_b")
+
 # Consumption pref shock
 irf_array = irf_fun(vars_list, irf_dic, shock="e_C" )
 irf_fun_plot(irf_array, vars_list, vars_list_label; shock="e_C")
-# Stationary technology shock
-irf_array = irf_fun(vars_list, irf_dic, shock="e_Z" )
-irf_fun_plot(irf_array, vars_list, vars_list_label; shock="e_Z")
+
 # Labor supply shock 
 irf_array = irf_fun(vars_list, irf_dic, shock="e_N" )
 irf_fun_plot(irf_array, vars_list, vars_list_label; shock="e_N")

@@ -16,8 +16,9 @@ save('mom_bas', 'mom_bas');
 FEVD_table = FEVD_sum(res, M)
 [out, HPD] = main_table(res, M);
 
-% FEVD
-
+% Impulse responses
+irf = res.irfs;
+save('irf.mat', 'irf');
 %% Remove fixed cost
 dynare BRS_sectoral_wo_fixed_cost.mod
 
