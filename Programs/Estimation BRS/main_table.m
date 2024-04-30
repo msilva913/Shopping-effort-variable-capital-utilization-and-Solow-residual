@@ -73,9 +73,20 @@ for i = 1:size(corr_pairs, 1)
     correlation = var_cov(index1, index2) / sqrt(var_cov(index1, index1) * var_cov(index2, index2));
     correlations(i) = correlation;
 end
-    
 
-    out = vertcat(marginal_density, FEVD_Y, FEVD_SR, ratio_util, 100*std_array, correlations);
+% Autocorrelations
+autocorr_vars = {'util_ND_obs', 'util_D_obs'}
+    autocorr_array = zeros(length(autocorr_vars), 1);
+    autocorrs_input = res.autocorr{1};
+    for i = 1:length(autocorr_vars)
+        x = autocorr_vars{i}
+        index = strcmp(x, res.var_list);
+        % Compute the autocorrelation using the variance-covariance matrix
+        autocorr = autocorrs_input(index, index);
+        autocorr_array(i) = autocorr;
+    end
+
+    out = vertcat(marginal_density, FEVD_Y, FEVD_SR, ratio_util, 100*std_array, correlations, autocorr_array);
     %format long g
     round(out, 3);
 end
