@@ -260,7 +260,7 @@ if __name__ == "__main__":
     
     # Stacked moments
     stds = cycle_growth.std(axis=0)
-    stds = 100*stds[["C", "I", "NC", "NI", "p_I", "util_ND", "util_D"]]
+    stds = 100*stds[["Y", "C", "I", "NC", "NI", "p_I", "util_ND", "util_D"]]
     stds = pd.DataFrame(stds)
     stds.index = ["std(C)", "std(I)", "std(NC)", "std(NI)", "std(p_I)", "std(util_ND)", "std(util_D)"]
     corrs = np.zeros((7, 1))
