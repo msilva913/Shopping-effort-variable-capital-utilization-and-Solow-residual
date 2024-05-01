@@ -1326,9 +1326,10 @@ collect_latex_files;
 options_.irf = 20;
 options_.nofunctions = true;
 options_.order = 1;
-options_.periods = 0;
+options_.periods = 223;
 var_list_ = {'Y_obs';'Y_N_obs';'SR_obs';'I_obs';'p_I_obs';'C_obs';'NC_obs';'NI_obs';'util_ND_obs';'util_D_obs';'util_obs';'D_obs';'h_obs'};
 [info, oo_, options_, M_] = stoch_simul(M_, options_, oo_, var_list_);
+save artificial_data.mat 'NC_obs', 'NI_obs', 'C_obs', 'I_obs', 'p_I_obs', 'util_ND_obs', 'util_D_obs', 'w_obs';
 
 
 oo_.time = toc(tic0);

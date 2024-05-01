@@ -59,6 +59,8 @@ mom_KK = calc_moments(res_KK);
 [out, HPD] = main_table(res_KK, M_KK);
 FEVD_table = FEVD_sum(res_KK, M_KK, '');
 
+%% Estimate main model on artificial data
+dynare BRS_sectoral_artificial_data.mod 
 %% Proof of concept exercise in BRS
 %% Basic BRS (general replication)
 %dynare BRS_growth.mod
