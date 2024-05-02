@@ -91,6 +91,7 @@ for j = 1:2
     summ_tables{j} = array2table(cols, 'RowNames', fields, 'VariableNames', col_names);
 end
 
+format short;
 table_ident = vertcat(summ_tables{1}, summ_tables{2})
 %% Proof of concept exercise in BRS
 %% Basic BRS (general replication)
