@@ -10,6 +10,7 @@ posterior_median = res.posterior_median.parameters;
 HPD_sup = res.posterior_hpdsup.parameters;
 HPD = [HPD_inf.phi, posterior_median.phi, HPD_sup.phi];
 
+
 % Display the 90% HPDI
 %disp(['Lower bound of 90% HPDI: ', num2str(lower_quantile)]);
 %disp(['Upper bound of 90% HPDI: ', num2str(upper_quantile)]);

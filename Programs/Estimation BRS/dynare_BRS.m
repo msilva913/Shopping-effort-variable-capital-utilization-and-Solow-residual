@@ -61,6 +61,37 @@ FEVD_table = FEVD_sum(res_KK, M_KK, '');
 
 %% Estimate main model on artificial data
 dynare BRS_sectoral_artificial_data.mod 
+res_art = oo_;
+M_art = M_;
+save('res_art', 'res_art');
+save('M_art', 'M_art');
+load res.mat
+
+summ_tables = cell(2, 1);
+parameter_types = {'parameters', 'shocks_std'};
+for j = 1:2
+    p = parameter_types{j};
+    HPD_inf = getfield(res_art.posterior_hpdinf, p);
+    posterior_median = getfield(res_art.posterior_median, p);
+    HPD_sup = getfield(res_art.posterior_hpdsup, p);
+    
+    HPD_inf_array = cell2mat(struct2cell(HPD_inf));
+    posterior_median_array = cell2mat(struct2cell(posterior_median));
+    HPD_sup_array = cell2mat(struct2cell(HPD_sup));
+    
+    % True values
+    true_values = getfield(res.posterior_mean, p);
+    true_values_array = cell2mat(struct2cell(true_values));
+
+    % Field names
+    fields = fieldnames(HPD_inf);
+    cols = [true_values_array posterior_median_array  HPD_inf_array  HPD_sup_array];
+
+    col_names = ["True value", "Median", "5%", "95%"];
+    summ_tables{j} = array2table(cols, 'RowNames', fields, 'VariableNames', col_names);
+end
+
+table_ident = vertcat(summ_tables{1}, summ_tables{2})
 %% Proof of concept exercise in BRS
 %% Basic BRS (general replication)
 %dynare BRS_growth.mod
