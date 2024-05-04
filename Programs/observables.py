@@ -427,6 +427,13 @@ if __name__ == "__main__":
     util_series = cycle[["util_Fern", "util", "Y"]]
     mom_util = moments(100*util_series)
     print(mom_util.to_latex())
-   
-
+    
+    "Artificial data from estimation"
+    art_data = sio.loadmat("artificial_data.mat")
+    var_names = ['C_obs', 'I_obs', 'NC_obs', 'NI_obs', 'p_I_obs', 'util_D_obs', 'util_ND_obs']
+    # Express as list of series
+    var_list = [pd.Series(art_data[key].flatten()) for key in var_names]
+    art_data = pd.concat(var_list, axis=1)
+    art_data.columns = var_names
+    mom_art_data = moments(100*art_data, lab=['I_obs', 'NI_obs'], lags=[1])
 
