@@ -4,10 +4,13 @@ addpath c:\dynare\5.4\matlab
 %% Main model estimated with sectoral data 
 %%
 dynare BRS_sectoral.mod
+load res
+load M
 res = oo_;
 M = M_;
-save('res', 'res');
-save('M', 'M');
+%save('res', 'res');
+%save('M', 'M');
+
 posterior_mode = res.posterior_mode.parameters;
 save('posterior_mode', 'posterior_mode');
 mom_bas = calc_moments(res);
@@ -21,7 +24,8 @@ irf = res.irfs;
 save('irf.mat', 'irf');
 %% Remove fixed cost
 dynare BRS_sectoral_wo_fixed_cost.mod
-
+load res_wo_fc 
+load M_wo_fc
 res_wo_fc = oo_;
 M_wo_fc = M_;
 %save('res_wo_fc', 'res_wo_fc');
@@ -33,6 +37,8 @@ FEVD_table = FEVD_sum(res_wo_fc, M_wo_fc);
 [out, HPD] = main_table(res_wo_fc, M_wo_fc);
 %% Remove vcu
 dynare BRS_sectoral_wo_vcu.mod
+load res_wo_vcu
+load M_wo_vcu
 res_wo_vcu = oo_;
 M_wo_vcu = M_;
 %save('res_wo_vcu', 'res_wo_vcu');
@@ -41,6 +47,8 @@ M_wo_vcu = M_;
 
 %% Remove search demand shocks
 dynare BRS_sectoral_wo_demand_shocks.mod 
+load res_wo_dem
+load M_wo_dem
 res_wo_dem = oo_;
 M_wo_dem = M_;
 mom_wo_dem = calc_moments(res_wo_dem)
@@ -50,6 +58,8 @@ save('M_wo_dem', 'M_wo_dem');
 FEVD_table = FEVD_sum(res_wo_dem, M_wo_dem, '');
 %% Examine ability to fit data without utilization
 dynare BRS_sectoral_KK.mod 
+load res_KK
+load M_KK
 res_KK = oo_;
 M_KK = M_;
 save('res_KK', 'res_KK');
