@@ -8,8 +8,8 @@ load res
 load M
 res = oo_;
 M = M_;
-%save('res', 'res');
-%save('M', 'M');
+save('res', 'res');
+save('M', 'M');
 
 posterior_mode = res.posterior_mode.parameters;
 save('posterior_mode', 'posterior_mode');
@@ -22,6 +22,10 @@ FEVD_table = FEVD_sum(res, M)
 % Impulse responses
 irf = res.irfs;
 save('irf.mat', 'irf');
+
+% Smoothed variables
+smoothed_var = res.SmoothedVariables;
+save('smoothed_var','smoothed_var')
 %% Remove fixed cost
 dynare BRS_sectoral_wo_fixed_cost.mod
 load res_wo_fc 

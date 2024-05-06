@@ -262,7 +262,7 @@ if __name__ == "__main__":
     stds = cycle_growth.std(axis=0)
     stds = 100*stds[["Y", "C", "I", "NC", "NI", "p_I", "util_ND", "util_D"]]
     stds = pd.DataFrame(stds)
-    stds.index = ["std(C)", "std(I)", "std(NC)", "std(NI)", "std(p_I)", "std(util_ND)", "std(util_D)"]
+    stds.index = ["std(Y)", "std(C)", "std(I)", "std(NC)", "std(NI)", "std(p_I)", "std(util_ND)", "std(util_D)"]
     corrs = np.zeros((7, 1))
     corr_mat = cycle_growth.corr()
     corrs[0] = corr_mat['C']['I']
@@ -294,7 +294,7 @@ if __name__ == "__main__":
     " Choose specific variable set "
     #cycle_red = cycle[["Y", "I", "lab_prod", "SR", "p_I", "SR_util", "cu"]]
 
-    mom_data = moments(100*cycle, lab=['I', 'LI']) 
+    mom_data = moments(100*cycle, lab=['I', 'NI']) 
     print(mom_data.style.format(precision=2).to_latex())
     
     " Save moments "
@@ -337,9 +337,9 @@ if __name__ == "__main__":
     linestyle = ['-', ':', '-.']
     # Hours
     fig, ax = plt.subplots(figsize=(11, 4))
-    ax.plot(100*cycle.LC, linestyle[0], label= "Hours: consumption", lw=2, alpha=0.7)
-    ax.plot(100*cycle.LI, linestyle[1], label= "Hours: investment", lw=2, alpha=0.7)
-    ax.plot(100*cycle.L, linestyle[2], label= "Hours: aggregate", lw=2, alpha=0.7)
+    ax.plot(100*cycle.NC, linestyle[0], label= "Hours: consumption", lw=2, alpha=0.7)
+    ax.plot(100*cycle.NI, linestyle[1], label= "Hours: investment", lw=2, alpha=0.7)
+    ax.plot(100*cycle.N, linestyle[2], label= "Hours: aggregate", lw=2, alpha=0.7)
     ax.legend(loc="upper right")
     ax.xaxis.set_major_locator(years)
     ax.xaxis.set_major_formatter(years_fmt)
@@ -370,30 +370,8 @@ if __name__ == "__main__":
     
     cycle.mean()
     
-    " Dynamic correlations "
+
    
-    colors = ["red", "green", "blue"]
-    nlags = 8
-    nleads = 8
-    var_labels = (["SR", "Y"], ["SR_util", "Y"], ["SR", "SR_util"])
-    ylabels = (r'$Corr(SR_t, Y_{t+\Delta})$', r'$Corr(SR_t^{util}, Y_{t+\Delta})$', r'$Corr(SR_t, SR_{t+\Delta}^{util}$')
-    fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(18, 6))
-    # Loop over variables
-    for (i, var_label) in enumerate(var_labels):
-        rs = pd.Series([crosscorr(cycle[var_label[0]], cycle[var_label[1]], -lag) for lag in range(-nlags, nleads)])
-        offset = np.floor(len(rs)/2)-np.argmax(rs)
-        ax.axhline(y=0.0, color="black", linestyle="--")
-        ax.plot(rs, linestyle[i], label=ylabels[i], alpha=0.7, linewidth=2.5, color=colors[i])
-        ax.axvline(np.argmax(abs(rs)),linestyle='--', color=colors[i])
-        ax.set_xlabel(r'$\Delta$ (quarters)', fontsize=14)
-        #ax[i].set_ylabel(ylabels[i], fontsize=14)
-    ax.set_xticks(range(0, len(rs)))
-    ax.set_xticklabels(range(-nlags, nleads))
-    ax.set_title("Dynamic correlations", fontsize=12)
-    ax.legend(loc = "upper right", fontsize=14)
-    ax.axvline(nlags, color="black")
-    plt.tight_layout()
-    plt.savefig("dynamic_correlations_SR_Y.pdf")
     
     
     " Two types of Solow residual "
@@ -409,8 +387,10 @@ if __name__ == "__main__":
     ax.legend(fontsize=11)
     plt.savefig("TFP_comparison.pdf")
     
+    
     " Compare Fernald utilization vs capacity utilization "
     cycle["util_Fern"] = cycle.SR - cycle.SR_util
+    
     
     fig, ax = plt.subplots(figsize=(11, 4))
     ax.plot(100*cycle.util_Fern, linestyle[1], label="Utilization (Fernald)", lw=2, alpha=0.6, color="blue")
@@ -428,12 +408,66 @@ if __name__ == "__main__":
     mom_util = moments(100*util_series)
     print(mom_util.to_latex())
     
-    "Artificial data from estimation"
-    art_data = sio.loadmat("artificial_data.mat")
-    var_names = ['C_obs', 'I_obs', 'NC_obs', 'NI_obs', 'p_I_obs', 'util_D_obs', 'util_ND_obs']
+    
+    " Compare with technology series "
+    smoothed_vars = sio.loadmat("smoothed_var.mat")
+    smoothed_vars = smoothed_vars['smoothed_var']
+    var_names = ['util_obs', 'SR_obs', 'tech_obs', 'D_obs', 'h_obs']
     # Express as list of series
-    var_list = [pd.Series(art_data[key].flatten()) for key in var_names]
-    art_data = pd.concat(var_list, axis=1)
-    art_data.columns = var_names
-    mom_art_data = moments(100*art_data, lab=['I_obs', 'NI_obs'], lags=[1])
+    var_list = [pd.Series(smoothed_vars[key][0][0].flatten()) for key in var_names]
+    smoothed_data = pd.concat(var_list, axis=1)
+    smoothed_data.columns = var_names
+    smoothed_data.index = cycle_growth.index
+    smoothed_data = np.exp(smoothed_data.cumsum())
+    smoothed_data_mom = moments(100*smoothed_data, lab=['SR_obs'], lags=[1])
+    
+    tech_sum = np.exp(smoothed_data.tech_obs.cumsum())
+    SR_util = np.exp(cycle_growth.SR_util.cumsum())
+    tech_sum = tech_sum.pct_change(periods=4)*100
+    SR_util = SR_util.pct_change(periods=4)*100
+    
+
+    fig, ax = plt.subplots()
+    ax.plot(smoothed_data.tech_obs, label="Smoothed model-based technology series")
+    ax.plot(smoothed_data.SR_obs, label="Fernald utilization-adjusted Solow residual")
+    ax.xaxis.set_major_locator(years)
+    ax.xaxis.set_major_formatter(years_fmt)
+    ax.set_ylabel("4 Quarter Percentage Change")
+    ax.grid(True)
+    plt.tight_layout()
+    ax.legend(fontsize=11)
+    
+    # Shopping effort
+    D_sum = np.exp(smoothed_data.D_obs.cumsum())
+    D_sum = D_sum.pct_change(periods=1)*100
+    fig, ax = plt.subplots()
+    ax.plot(D_sum.loc['2004':'2019'])
+    
+    
+    
+    " Dynamic correlations "
+    # colors = ["red", "green", "blue"]
+    # nlags = 8
+    # nleads = 8
+    # var_labels = (["SR", "Y"], ["SR_util", "Y"], ["SR", "SR_util"])
+    # ylabels = (r'$Corr(SR_t, Y_{t+\Delta})$', r'$Corr(SR_t^{util}, Y_{t+\Delta})$', r'$Corr(SR_t, SR_{t+\Delta}^{util}$')
+    # fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(18, 6))
+    # # Loop over variables
+    # for (i, var_label) in enumerate(var_labels):
+    #     rs = pd.Series([crosscorr(cycle[var_label[0]], cycle[var_label[1]], -lag) for lag in range(-nlags, nleads)])
+    #     offset = np.floor(len(rs)/2)-np.argmax(rs)
+    #     ax.axhline(y=0.0, color="black", linestyle="--")
+    #     ax.plot(rs, linestyle[i], label=ylabels[i], alpha=0.7, linewidth=2.5, color=colors[i])
+    #     ax.axvline(np.argmax(abs(rs)),linestyle='--', color=colors[i])
+    #     ax.set_xlabel(r'$\Delta$ (quarters)', fontsize=14)
+    #     #ax[i].set_ylabel(ylabels[i], fontsize=14)
+    # ax.set_xticks(range(0, len(rs)))
+    # ax.set_xticklabels(range(-nlags, nleads))
+    # ax.set_title("Dynamic correlations", fontsize=12)
+    # ax.legend(loc = "upper right", fontsize=14)
+    # ax.axvline(nlags, color="black")
+    # plt.tight_layout()
+    # plt.savefig("dynamic_correlations_SR_Y.pdf")
+    
+
 

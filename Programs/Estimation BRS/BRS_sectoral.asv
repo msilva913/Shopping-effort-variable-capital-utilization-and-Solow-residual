@@ -30,8 +30,6 @@ var Y           ${Y}$ (long_name='output')
     //Z_sc         ${Z_{sc}$ (long_name='Tech:sc')
     u_ZI
     Z_I         ${Z_I}$ (long_name='Tech:I')
-    tech         ${tech}$ (long_name = 'General technology measure')
-    
 
     theta_N     ${\theta_N}$ (long_name='Labor disutility')
     theta_D     ${\theta_D}$ (long_name='Shopping disutility')
@@ -86,8 +84,7 @@ var Y           ${Y}$ (long_name='output')
     Q_I          ${Q}$ (long_name = 'Relative price of capital:I')
     x_mc          ${x}$ (long_name = 'Growth rate of investment:mc')
     x_sc          ${x}$ (long_name = 'Growth rate of investment:sc')
-    x_I          ${x}$ (long_name = 'Growth rate of investment:I')  
-
+    x_I          ${x}$ (long_name = 'Growth rate of investment:I')
 
 
     log_SR         (long_name='Solow residual')
@@ -114,8 +111,7 @@ var Y           ${Y}$ (long_name='output')
     log_util_ND
     log_util_D
     log_W
-    log_tech
-
+    
     C_obs
     I_obs
     Y_obs
@@ -129,7 +125,6 @@ var Y           ${Y}$ (long_name='output')
     util_ND_obs
     util_D_obs
     util_obs
-    tech_obs
 
     w_obs
     D_obs
@@ -509,7 +504,7 @@ util_D = A_I*D_I^phi*(Z_I_ss*exp(g)^(-alpha_K)*exp(Z_I)*(h_I*K_I(-1))^alpha_K*N_
 util = (Y_mc*util_ND + Y_sc*util_sc + I*util_D)/Y;
 
 [name = 'General technology measure']
-tech = (C/Y)*exp(Z_C) + (I/Y)*exp(Z_I);
+Tech = (C/Y)*exp*(Z_C) + (I/Y)*exp(Z_I);
  
 % Exogenous processes
 [name='stochastic trend process']
@@ -578,8 +573,7 @@ log_W = log(W) - steady_state(log(W));
 [name = 'Definition of log Solow residual']
 log_SR = log(SR) - steady_state(log(SR));
 
-[name = 'Definition of log technology']
-log_tech = log(tech) - steady_state(log(tech));
+[name = 'DEfini
 
 % Observation variables: first differences (demeaned) -> link to data in first differences (p. 58 of Pfeifer's Observation Equations)
 C_obs = log_C - log_C(-1) + g - g_bar ;
@@ -589,7 +583,6 @@ Y_N_obs = log_Y_N - log_Y_N(-1) + g - g_bar ;
 K_obs = log_K - log_K(-1) + g - g_bar;
 w_obs = log_W - log_W(-1) +g - g_bar;
 SR_obs = log_SR - log_SR(-1) + g - g_bar;
-tech_obs = log_tech - log_tech(-1) + g - g_bar;
 
 % Stationary variables
 p_I_obs = log_p_I - log_p_I(-1);
@@ -675,8 +668,6 @@ steady_state_model;
     delta_ss = I_Y/K_Y + 1 - exp(g_bar);
     sigma_b_ss = r_ss + delta_ss;
     alpha_K_ss = (r_ss+delta_ss)*K_Y/(1+nu_R);
-
-    tech = 1;
 
     g = g_bar;
 
@@ -901,10 +892,10 @@ collect_latex_files;
 
 
 % Stochastic simulation -> for conditional FEVD and IRF
-stoch_simul (order=1, nofunctions, irf=20, periods=0)
+stoch_simul (order=1, nofunctions, irf=20, periods=223)
 //conditional_variance_decomposition=[1 4 8 40])
-Y_obs, Y_N_obs, SR_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_ND_obs, util_D_obs, util_obs, D_obs, h_obs, tech_obs;
+Y_obs, Y_N_obs, SR_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_ND_obs, util_D_obs, util_obs, D_obs, h_obs;
 //log_Y, log_Y_N, log_SR, log_I, log_p_I, log_C, log_N, log_NC, log_NI, log_util_ND, log_util_D, log_util, log_D, log_h;
 
 % Save artificial data 
-//save('artificial_data.mat', 'NC_obs', 'NI_obs', 'C_obs', 'I_obs', 'p_I_obs', 'util_ND_obs', 'util_D_obs', 'w_obs');
+save('artificial_data.mat', 'NC_obs', 'NI_obs', 'C_obs', 'I_obs', 'p_I_obs', 'util_ND_obs', 'util_D_obs', 'w_obs');

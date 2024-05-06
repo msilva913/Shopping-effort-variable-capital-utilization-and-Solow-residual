@@ -43,11 +43,11 @@ end
 
 
 function irf_fun_plot(irf_array, vars_list, vars_list_label; shock, savefig=true)
-    fig = plt.figure(figsize=(20, 8))
+    fig = plt.figure(figsize=(16, 10))
     periods = 1:length(irf_array[1][:,1])
     for (i, key) in enumerate(vars_list)
         irf = irf_array[i]
-        ax = fig.add_subplot(2, 3, i)
+        ax = fig.add_subplot(3, 3, i)
         ax.plot(periods, irf, linewidth=3, color="teal")
         ax.tick_params(labelsize=12)
         ax.yaxis.set_major_formatter(matplotlib.ticker.PercentFormatter())
@@ -65,8 +65,8 @@ end
 # Standard impulse responses: basic model
 #vars_list = ["log_C", "log_I", "log_Y_N", "log_p_I", "log_NC", "log_NI"]
 #vars_list_label=[:C, :I, :Y_N, :p_I, :N_C, :N_I]
-vars_list = ["Y_obs", "SR_obs", "NC_obs", "NI_obs", "util_ND_obs", "util_D_obs"]
-vars_list_label = [:Y, :SR, :N_C, :N_I, :util_ND, :util_D]
+vars_list = ["C_obs", "I_obs", "NC_obs", "NI_obs", "SR_obs", "util_ND_obs", "util_D_obs", "D_obs", "h_obs"]
+vars_list_label = [:C, :I, :N_C, :N_I, :SR, :util_ND, :util_D, :D, :h]
 
 x = matopen("irf.mat")
 vars = read(x, "irf")
@@ -87,13 +87,7 @@ irf_fun_plot(irf_array, vars_list, vars_list_label; shock="e_g")
 irf_array = irf_fun(vars_list, irf_dic, shock="e_b", length=20 )
 irf_fun_plot(irf_array, vars_list, vars_list_label; shock="e_b")
 
-# Consumption pref shock
-irf_array = irf_fun(vars_list, irf_dic, shock="e_C" )
-irf_fun_plot(irf_array, vars_list, vars_list_label; shock="e_C")
 
-# Labor supply shock 
-irf_array = irf_fun(vars_list, irf_dic, shock="e_N" )
-irf_fun_plot(irf_array, vars_list, vars_list_label; shock="e_N")
 
 # Standard impulse responses 
 x = matopen("irf.mat")
