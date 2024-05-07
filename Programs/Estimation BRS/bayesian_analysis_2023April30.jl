@@ -7,6 +7,7 @@ using Printf
 using DataFrames
 using PrettyPrinting
 using PlotlyJS
+using PyPlot
 using MAT
 using TexTables
 using PyFormattedStrings
@@ -15,8 +16,8 @@ using Dates
 
 homedir()
 include("time_series_fun.jl")
-cd(raw"C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS")
-#cd(raw"C:\Users\TJSEM\Github\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS")
+#cd(raw"C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS")
+cd(raw"C:\Users\TJSEM\Github\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS")
 
 function cumulate(x)
     irf_levels = 100*cumsum(x)
@@ -24,23 +25,6 @@ function cumulate(x)
 end
 
 extract_series(str, dic::Dict) = vec(dic[str])
-
-function irf_fun(vars_list, irf_dic::Dict; shock, length=80, cumulate_resp=false)
-    irf_array = []
-    periods = 1:length
-    for (i, key) in enumerate(vars_list)
-        str = key*"_"*shock
-        x = extract_series(str, irf_dic)[periods]
-        if cumulate_resp == false
-         irf_level = 100.0*x
-    else
-        irf_level = cumulate(x)
-    end
-        push!(irf_array, irf_level)
-    end
-return irf_array
-end
-
 
 function irf_fun_plot(irf_array, vars_list, vars_list_label; shock, savefig=true)
     fig = plt.figure(figsize=(16, 10))
@@ -88,6 +72,23 @@ irf_array = irf_fun(vars_list, irf_dic, shock="e_b", length=20 )
 irf_fun_plot(irf_array, vars_list, vars_list_label; shock="e_b")
 
 
+# In levels
+irf_array = irf_fun(vars_list, irf_dic, shock="e_b", length=20, cumulate_resp=true )
+irf_fun_plot(irf_array, vars_list, vars_list_label; shock="e_b", savefig=false)
+
+# I-specific shopping shock
+irf_array = irf_fun(vars_list, irf_dic, shock="e_DI", length=20 )
+irf_fun_plot(irf_array, vars_list, vars_list_label; shock="e_DI")
+# Shopping preference shock
+
+
+# Wage markup shock
+
+irf_array = irf_fun(vars_list, irf_dic, shock="e_muC", length=20 )
+irf_fun_plot(irf_array, vars_list, vars_list_label; shock="e_muC")
+
+irf_array = irf_fun(vars_list, irf_dic, shock="e_muI", length=20 )
+irf_fun_plot(irf_array, vars_list, vars_list_label; shock="e_muI")
 
 # Standard impulse responses 
 x = matopen("irf.mat")
@@ -95,28 +96,7 @@ vars = read(x, "irf")
 irf_dic  = vars
 
 
-# String matching
-# Technology shocks (in levels)
 
-
-
-
-irf_array = irf_fun(vars, irf_dic, shock="e_g" )
-irf_fun_plot(irf_array, vars; shock="e_g")
-
-
-# General shopping shock
-irf_e_D = irf_fun(vars, irf_dic, shock="e_D" )
-irf_fun_plot(irf_e_D, vars, shock="e_D")
-
-# Consumption shock
-irf_e_C = irf_fun(vars, irf_dic, shock="e_C" )
-irf_fun_plot(irf_e_C, vars, shock="e_C")
-
-# Labor supply shock
-irf_e_N = irf_fun(vars, irf_dic, shock="e_N" )
-irf_fun_plot(irf_e_N, vars, shock="e_N")
-##############
 
 
 

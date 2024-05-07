@@ -1,4 +1,4 @@
-function [FEVD_table] = FEVD_sum(varargin)
+function [CFEVD_table] = CFEVD_sum(varargin)
 
 % Summary of FEVD for shock groups
     %1) Technology
@@ -36,25 +36,33 @@ end
 nvars = length(vars);
 nshocks = length(shock_group_list);
 
-vd = res.variance_decomposition;
+cvd = 100.*res.conditional_variance_decomposition;
+% Align with shock horizon in first dimension
+cvd = permute(cvd, [2 1 3]);
 shock_names = M.exo_names;
 
-mat = zeros(nvars, nshocks);
+tables = {};
+% Loop over forecast horizon
+for h = 1:4
+    cvd = cvd(h, :, :);
+    cvd = squeeze(cvd);
+    mat = zeros(nvars, nshocks);
 
-for i = 1:nvars
-    var_index = strcmp(vars{i}, res.var_list);
-    for j = 1:nshocks
-        % Obtain shock group
-        shock_group = shock_group_list{j};
-        for k=1:length(shock_group)
-            shock_index = strcmp(shock_group{k}, shock_names);
-            % Add shock component to variable i, shock group j
-            mat(i, j) = mat(i, j) + vd(var_index, shock_index);
+    for i = 1:nvars
+        var_index = strcmp(vars{i}, res.var_list);
+        for j = 1:nshocks
+            % Obtain shock group
+            shock_group = shock_group_list{j};
+            for k=1:length(shock_group)
+                shock_index = strcmp(shock_group{k}, shock_names);
+                % Add shock component to variable i, shock group j
+                mat(i, j) = mat(i, j) + cvd(var_index, shock_index);
+            end
         end
     end
+
+    row_names = vars;
+    format bank;
+    CFEVD_table = array2table(mat, 'RowNames', row_names, 'VariableNames', col_names);
+    tables{end+1} = CFEVD_table;
 end
-
-row_names = vars;
-format bank;
-FEVD_table = array2table(mat, 'RowNames', row_names, 'VariableNames', col_names);
-

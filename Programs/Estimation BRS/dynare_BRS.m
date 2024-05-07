@@ -16,7 +16,8 @@ save('posterior_mode', 'posterior_mode');
 mom_bas = calc_moments(res);
 save('mom_bas', 'mom_bas');
 % Main output
-FEVD_table = FEVD_sum(res, M)
+FEVD_table = FEVD_sum(res, M, 'growth');
+FEVD_table_level = FEVD_sum(res, M, 'level');
 % Decompose FEVD of demand and technology into components
 FEVD_dem = decompose_demand(res, M);
 FEVD_tech = decompose_technology(res, M)
@@ -29,6 +30,12 @@ save('irf.mat', 'irf');
 % Smoothed variables
 smoothed_var = res.SmoothedVariables;
 save('smoothed_var','smoothed_var')
+
+% CFEVD
+tables = CFEVD_sum(res, M, 'level');
+%C_obs,Y_obs, SR_obs, TI_obs, NE, L ;
+%CFEVD = CFEVD(:, :, 1:(end-2));
+save('CFEVD.mat', 'CFEVD');
 %% Remove fixed cost
 dynare BRS_sectoral_wo_fixed_cost.mod
 load res_wo_fc 

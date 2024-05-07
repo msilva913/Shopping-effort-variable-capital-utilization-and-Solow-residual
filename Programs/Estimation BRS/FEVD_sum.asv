@@ -9,7 +9,6 @@ function [FEVD_table] = FEVD_sum(varargin)
 
 res = varargin{1};
 M = varargin{2};
-spec = varargin{3};
 
 technology_shocks = {'e_g', 'e_g_news', 'e_Z', 'e_Z_news', 'e_ZI', 'e_ZI_news'};
 labor_supply_shocks = {'e_N'};
@@ -20,19 +19,12 @@ wage_markup_shocks = {'e_muC', 'e_muC_news', 'e_muI', 'e_muI_news'};
 shock_group_list = {technology_shocks, labor_supply_shocks, shopping_effort_shocks, discount_factor_shocks, wage_markup_shocks};
 col_names = {'technology', 'labor supply', 'shopping effort', 'discount factor', 'wage markup'};
 
-if nargin >= 4
-    shock_group_list = {technology_shocks, labor_supply_shocks, discount_factor_shocks, wage_markup_shocks};
-    col_names = {'technology', 'labor supply', 'discount factor', 'wage markup'};
+if nargin >= 3
+    %shock_group_list = {technology_shocks, labor_supply_shocks, discount_factor_shocks, wage_markup_shocks};
+    %col_names = {'technology', 'labor supply', 'discount factor', 'wage markup'};
 end
 
-if strcmp(spec,'growth')
-    vars = {'Y_obs', 'SR_obs', 'I_obs', 'p_I_obs', 'NC_obs', 'NI_obs', 'util_obs', 'D_obs', 'h_obs'};
-
-else
-    vars = {'log_Y', 'log_SR', 'log_I', 'log_p_I', 'log_NC', 'log_NI', 'log_util', 'log_D', 'log_h'};
-end
-
-
+vars = {'Y_obs', 'SR_obs', 'I_obs', 'p_I_obs', 'NC_obs', 'NI_obs', 'util_obs', 'D_obs', 'h_obs'};
 nvars = length(vars);
 nshocks = length(shock_group_list);
 
