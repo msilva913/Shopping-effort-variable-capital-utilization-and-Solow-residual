@@ -1,0 +1,338 @@
+Starting Dynare (version 5.4).
+Calling Dynare with arguments: none
+Starting preprocessing of the model file ...
+WARNING: in the 'steady_state_model' block, variable 'log_h' is not assigned a value
+WARNING: in the 'steady_state_model' block, variable 'log_tech' is not assigned a value
+WARNING: in the 'steady_state_model' block, variable 'tech_obs' is not assigned a value
+WARNING: in the 'steady_state_model' block, variable 'h_obs' is not assigned a value
+Substitution of exo lags: added 32 auxiliary variables and equations.
+Found 138 equation(s).
+Evaluating expressions...done
+Computing static model derivatives (order 1).
+Computing dynamic model derivatives (order 1).
+Processing outputs ...
+done
+Preprocessing completed.
+
+
+
+
+
+Residuals of the static equations:
+
+Equation number 1 : 0 : Labor composite
+Equation number 2 : 0 : Labor leisure:C
+Equation number 3 : 0 : Labor leisure:I
+Equation number 4 : 0 : Marginal utility of wealth
+Equation number 5 : 0 : Demand curve: mc
+Equation number 6 : 0 : Demand curve: sc
+Equation number 7 : 0 : Shopping:mc
+Equation number 8 : 0 : Shopping:sc
+Equation number 9 : 0 : Shopping:I
+Equation number 10 : 0 : Composite utility term
+Equation number 11 : 0 : Law of motion of wealth effects variable
+Equation number 12 : 0 : Consumption CES aggregator
+Equation number 13 : 0 : Investment adjustment cost function:mc
+Equation number 14 : 0 : Investment adjustment cost function:mc
+Equation number 15 : 0 : Investment adjustment cost function:I
+Equation number 16 : 0 : Investment adjustment cost function: derivative mc
+Equation number 17 : 0 : Investment adjustment cost function: derivative mc
+Equation number 18 : 0 : Investment adjustment cost function: derivative I
+Equation number 19 : 0 : Investment growth:mc
+Equation number 20 : 0 : Investment growth:mc
+Equation number 21 : 0 : Investment growth:I
+Equation number 22 : 0 : Depreciation rate: mc
+Equation number 23 : 0 : Depreciation rate: sc
+Equation number 24 : 0 : Depreciation rate: I
+Equation number 25 : 0 : Depreciation rate derivative: mc
+Equation number 26 : 0 : Depreciation rate derivative: sc
+Equation number 27 : 0 : Depreciation rate derivative: I
+Equation number 28 : 0 : Tobins Q: mc
+Equation number 29 : 0 : Tobins Q: sc
+Equation number 30 : 0 : Tobins Q: I
+Equation number 31 : 0 : Euler equation: mc
+Equation number 32 : 0 : Euler equation: sc
+Equation number 33 : 0 : Euler equation: I
+Equation number 34 : 0 : Utilization: mc
+Equation number 35 : 0 : Utilization: sc
+Equation number 36 : 0 : Utilization: I
+Equation number 37 : 0 : Non-durable goods production
+Equation number 38 : 0 : Services production
+Equation number 39 : 0 : Investment production
+Equation number 40 : 0 : Capital law of motion:mc
+Equation number 41 : 0 : Capital law of motion:sc
+Equation number 42 : 0 : Capital law of motion:I
+Equation number 43 : 0 : Labor demand:mc
+Equation number 44 : 0 : Labor demand:sc
+Equation number 45 : 0 : Labor demand:I
+Equation number 46 : 0 : Capital demand:mc
+Equation number 47 : 0 : Capital demand:sc
+Equation number 48 : 0 : Capital demand:I
+Equation number 49 : 0 : Labor composition
+Equation number 50 : 0 : Labor composition: C
+Equation number 51 : 0 : Capital composition
+Equation number 52 : 0 : Investment composition
+Equation number 53 : 0 : Shopping composition
+Equation number 54 : 0 : Capital utilization composition
+Equation number 55 : 0 : Aggregate wage
+Equation number 56 : 0 : Output (base-year prices)
+Equation number 57 : 0 : Solow residual
+Equation number 58 : 0 : Capacity utilization
+Equation number 59 : 0 : util_sc
+Equation number 60 : 0 : util_D
+Equation number 61 : 0 : util
+Equation number 62 : 0 : General technology measure
+Equation number 63 : 0 : stochastic trend process
+Equation number 64 : 0 : Stationary TFP process
+Equation number 65 : 0 : Independent component of I-specific tech
+Equation number 66 : 0 : Investment-specific TFP process
+Equation number 67 : 0 : Labor supply process
+Equation number 68 : 0 : Shopping effort process
+Equation number 69 : 0 : Relative shopping effort process
+Equation number 70 : 0 : Consumption preference process
+Equation number 71 : 0 : Wage-markup process: C
+Equation number 72 : 0 : Wage-markup process: I
+Equation number 73 : 0 : Definition log output
+Equation number 74 : 0 : Definition log consumption
+Equation number 75 : 0 : Definition log investment
+Equation number 76 : 0 : Definition log hours
+Equation number 77 : 0 : log_NC
+Equation number 78 : 0 : log_NI
+Equation number 79 : 0 : log capital
+Equation number 80 : 0 : Definition log labor productivity
+Equation number 81 : 0 : Definition log shopping effort
+Equation number 82 : 0 : Definition log capital utilization
+Equation number 83 : 0 : Definition of log relative investment  price
+Equation number 84 : 0 : Definition of log capacity utilization
+Equation number 85 : 0 : log_util_ND
+Equation number 86 : 0 : log_util_D
+Equation number 87 : 0 : Definition of log wages
+Equation number 88 : 0 : Definition of log Solow residual
+Equation number 89 : 0 : Definition of log technology
+Equation number 90 : 0 : C_obs
+Equation number 91 : 0 : I_obs
+Equation number 92 : 0 : Y_obs
+Equation number 93 : 0 : Y_N_obs
+Equation number 94 : 0 : K_obs
+Equation number 95 : 0 : w_obs
+Equation number 96 : 0 : SR_obs
+Equation number 97 : 0 : tech_obs
+Equation number 98 : 0 : p_I_obs
+Equation number 99 : 0 : N_obs
+Equation number 100 : 0 : NC_obs
+Equation number 101 : 0 : NI_obs
+Equation number 102 : 0 : util_ND_obs
+Equation number 103 : 0 : util_D_obs
+Equation number 104 : 0 : util_obs
+Equation number 105 : 0 : D_obs
+Equation number 106 : 0 : h_obs
+
+
+
+STEADY-STATE RESULTS:
+
+Y                 		 1
+C                 		 0.8
+Y_mc              		 0.28
+Y_sc              		 0.52
+SR                		 1.01397
+I                 		 0.2
+I_mc              		 0.056
+I_sc              		 0.104
+I_I               		 0.04
+K                 		 11.0496
+K_mc              		 3.09389
+K_sc              		 5.7458
+K_I               		 2.20992
+N                 		 0.3
+N_mc              		 0.084
+N_sc              		 0.156
+N_C               		 0.24
+N_I               		 0.06
+N_comp            		 0.3
+Z_C               		 0
+u_ZI              		 0
+Z_I               		 0
+tech              		 1
+theta_N           		 0
+theta_D           		 0
+theta_I           		 0
+theta_b           		 0
+mu_C              		 0
+mu_I              		 0
+R_mc              		 0.0483892
+R_sc              		 0.0483892
+R_I               		 0.0483892
+W_C               		 2.23333
+W_I               		 2.23333
+W                 		 2.23333
+h_mc              		 1
+h_sc              		 1
+h_I               		 1
+h                 		 1
+delta_mc          		 0.0136717
+delta_sc          		 0.0136717
+delta_I           		 0.0136717
+delta_mc_pr       		 0.0329046
+delta_sc_pr       		 0.0329046
+delta_I_pr        		 0.0329046
+Smc               		 0
+Ssc               		 0
+Si                		 0
+Smc_pr            		 0
+Ssc_pr            		 0
+Si_pr             		 0
+D                 		 0.845079
+D_mc              		 0.236622
+D_sc              		 0.439441
+D_I               		 0.169016
+Gam               		 0.506887
+zeta              		 0.672727
+p_mc              		 1
+p_sc              		 1
+p_I               		 1
+lam               		 2.64659
+Q_mc              		 1.47059
+Q_sc              		 1.47059
+Q_I               		 1.47059
+x_mc              		 1.00451
+x_sc              		 1.00451
+x_I               		 1.00451
+log_SR            		 0
+util              		 0.81
+util_ND           		 0.81
+util_sc           		 0.81
+util_D            		 0.81
+g                 		 0.0045
+log_Y             		 0
+log_C             		 0
+log_I             		 0
+log_N             		 0
+log_NC            		 0
+log_NI            		 0
+log_K             		 0
+log_Y_N           		 0
+log_D             		 0
+log_h             		 0
+log_p_I           		 0
+log_util          		 0
+log_util_ND       		 0
+log_util_D        		 0
+log_W             		 0
+log_tech          		 0
+C_obs             		 0
+I_obs             		 0
+Y_obs             		 0
+SR_obs            		 0
+Y_N_obs           		 0
+p_I_obs           		 0
+N_obs             		 0
+NC_obs            		 0
+NI_obs            		 0
+util_ND_obs       		 0
+util_D_obs        		 0
+util_obs          		 0
+tech_obs          		 0
+w_obs             		 0
+D_obs             		 0
+h_obs             		 0
+K_obs             		 0
+
+EIGENVALUES:
+         Modulus             Real        Imaginary
+
+               0                0                0
+               0                0                0
+       1.273e-20       -1.273e-20                0
+       1.273e-20       -1.273e-20                0
+       3.367e-20       -3.367e-20                0
+       3.562e-20        3.562e-20                0
+       7.759e-20        7.759e-20                0
+       8.551e-20        8.551e-20                0
+       1.221e-19        1.221e-19                0
+       2.013e-19        2.013e-19                0
+       2.278e-19       -2.278e-19                0
+       2.786e-19       -2.786e-19                0
+       3.194e-19        3.194e-19                0
+       1.078e-18       -1.078e-18                0
+       1.501e-18        1.501e-18                0
+       1.602e-18        1.602e-18                0
+       1.754e-18       -1.754e-18                0
+       1.917e-18        1.917e-18                0
+       2.051e-18       -2.051e-18                0
+       2.094e-18        2.094e-18                0
+       6.025e-18       -6.025e-18                0
+       7.291e-18        7.291e-18                0
+       7.414e-18       -7.414e-18                0
+       8.286e-18        8.286e-18                0
+       9.122e-18       -9.122e-18                0
+       9.331e-18       -9.331e-18                0
+       1.373e-17       -1.373e-17                0
+       1.477e-17        1.477e-17                0
+       1.805e-17        1.805e-17                0
+       1.896e-17        1.896e-17                0
+       2.316e-17       -2.316e-17                0
+       2.545e-17       -2.545e-17                0
+       2.579e-17       -2.579e-17                0
+       2.744e-17       -2.744e-17                0
+       3.071e-17        3.071e-17                0
+       3.139e-17        3.139e-17                0
+       3.203e-17       -3.203e-17                0
+       5.264e-17        5.264e-17                0
+       5.764e-17       -5.764e-17                0
+       5.808e-17       -5.808e-17                0
+       7.192e-17       -7.192e-17                0
+       7.564e-17        7.564e-17                0
+       8.119e-17       -8.119e-17                0
+       8.734e-17        8.734e-17                0
+       1.011e-16        1.011e-16                0
+       1.167e-16        1.167e-16                0
+       1.593e-16        1.593e-16                0
+       5.118e-16       -5.118e-16                0
+       8.519e-16        8.519e-16                0
+         0.07293          0.07293                0
+             0.1              0.1                0
+          0.4527           0.4527                0
+          0.6022           0.6022                0
+             0.9              0.9                0
+             0.9              0.9                0
+             0.9              0.9                0
+             0.9              0.9                0
+             0.9              0.9                0
+             0.9              0.9                0
+             0.9              0.9                0
+             0.9              0.9                0
+          0.9387           0.9364          0.06531
+          0.9387           0.9364         -0.06531
+          0.9409           0.9388          0.06279
+          0.9409           0.9388         -0.06279
+          0.9915           0.9915                0
+           1.022            1.022                0
+           1.078            1.076          0.07209
+           1.078            1.076         -0.07209
+           1.081            1.078           0.0752
+           1.081            1.078          -0.0752
+           1.724            1.724                0
+       7.297e+16       -7.297e+16                0
+       8.414e+16       -8.414e+16                0
+       1.056e+17        1.056e+17                0
+       1.402e+17        1.402e+17                0
+       1.419e+17        1.419e+17                0
+       1.473e+17        1.473e+17                0
+       1.932e+17       -1.932e+17                0
+       2.736e+17       -2.736e+17                0
+       3.405e+17       -3.405e+17                0
+       1.115e+18        1.115e+18                0
+       1.101e+20        1.101e+20                0
+       1.297e+45        1.297e+45                0
+       2.059e+45       -2.059e+45                0
+       2.992e+46        2.992e+46                0
+
+
+There are 20 eigenvalue(s) larger than 1 in modulus 
+for 20 forward-looking variable(s)
+
+The rank condition is verified.
+
+
+dynare_estimation_init:: The steady state at the initial parameters cannot be computed.

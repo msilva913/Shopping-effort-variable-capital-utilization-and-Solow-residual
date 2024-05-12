@@ -83,6 +83,10 @@ mom_KK = calc_moments(res_KK);
 [out, HPD] = main_table(res_KK, M_KK);
 FEVD_table = FEVD_sum(res_KK, M_KK, '');
 
+%% Estimate general model but with fitting cross sectional price dispersion
+dynare BRS_price_dispersion.mod
+
+
 %% Estimate main model on artificial data
 dynare BRS_sectoral_artificial_data.mod 
 res_art = oo_;

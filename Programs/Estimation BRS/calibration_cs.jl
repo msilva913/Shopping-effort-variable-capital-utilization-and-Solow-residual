@@ -195,10 +195,24 @@ end
 function m_func(ϕ, η)
     return ϕ/(η*(1-ϕ)+1)
 end
-
+m = 0.15/0.524
 η_func(m, ϕ) = (ϕ-m)/(m*(1-ϕ))
-@show η_func(0.2816, 0.32)
+@show η_func(m, 0.3249)
 
+fig, ax = plt.subplots()
+ϕ_vals = 0.0:0.1:0.99
+η_vals = η_func.(m, ϕ_vals)
+
+ϕ_fun(η, m=m) = (η+1)*m/(1+η*m)
+
+#BRS
+@show ϕ_fun(0.20, m)
+@show ϕ_fun(2.0, 0.286)
+
+fig, ax = plt.subplots()
+ax.plot(ϕ_vals, η_vals, label="Values consistent with price dispersion")
+plt.show()
+display(fig)
 
 # To be modified #
 function table(cal, targets)
