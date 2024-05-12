@@ -192,6 +192,13 @@ steady_state = function(par)
 end
 # Back out max on γ
 
+function m_func(ϕ, η)
+    return ϕ/(η*(1-ϕ)+1)
+end
+
+η_func(m, ϕ) = (ϕ-m)/(m*(1-ϕ))
+@show η_func(0.2816, 0.32)
+
 
 # To be modified #
 function table(cal, targets)
