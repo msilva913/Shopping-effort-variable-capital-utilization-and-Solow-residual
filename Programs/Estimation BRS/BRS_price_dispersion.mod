@@ -189,9 +189,9 @@ parameters
     nu_R   ${\nu_R}$ (long_name = 'Fixed cost share')
     ha     ${ha}$ (long_name = 'Habit persistence')
 
-    phi  ${\phi}$ (long_name = 'Shopping matching function elasticity')
+    //phi  ${\phi}$ (long_name = 'Shopping matching function elasticity')
     m    ${m}$    (long_name = 'Ratio of price dispersion to consumption dispersion')
-    //eta  ${\eta}$ (long_name = 'Shopping disutility')
+    eta  ${\eta}$ (long_name = 'Shopping disutility')
     Psi  ${\Psi}$ (long_name = 'Matching utilization')
 
     theta ${\theta}$ (long_name = 'Inverse intersectoral elasticity of labor supply')
@@ -237,7 +237,8 @@ labor_share = 0.67;
 nu_R = 0.2; % share of fixed costs in output
 
 m = 0.15/0.524;
-phi = 0.32;
+eta = 0.2;
+//phi = 0.32;
 
 Psi = 0.81;
 
@@ -271,8 +272,8 @@ model;
 #r = exp(g_bar)^(sigma)/beta - 1;
 
 # sigma_b = r + delta;
-//#phi = (eta+1)*m/(1+eta*m);
-#eta = (phi-m)/(m*(1-phi));
+#phi = (eta+1)*m/(1+eta*m);
+//#eta = (phi-m)/(m*(1-phi));
 
 #rho = (xi-1)/xi;
 
@@ -616,7 +617,9 @@ steady_state_model;
     p_mc = 1.0;
     p_sc = 1.0;
  
-    eta_ss = (phi-m)/(m*(1-phi));
+    //eta_ss = (phi-m)/(m*(1-phi));
+    phi_ss = (eta+1)*m/(1+eta*m);
+
 
     I = I_Y;
     C = 1-I_Y;
@@ -624,7 +627,7 @@ steady_state_model;
     Y_sc = omega_sc*C;
 
 
-    D = phi^(eta_ss/(1+eta_ss));
+    D = phi_ss^(eta/(1+eta));
     D_mc = (1-I_Y)*(1-omega_sc)*D;
     D_sc = (1-I_Y)*omega_sc*D;
     D_I = I_Y*D;
@@ -633,9 +636,9 @@ steady_state_model;
     I_sc = I*C*(omega_sc);
     I_I = I*I_Y;
     
-    A_mc_ss = Psi/D_mc^phi;
-    A_sc_ss = Psi/D_sc^phi;
-    A_I_ss = Psi/D_I^phi;
+    A_mc_ss = Psi/D_mc^phi_ss;
+    A_sc_ss = Psi/D_sc^phi_ss;
+    A_I_ss = Psi/D_I^phi_ss;
 
     //K = K_Y;
     K = K_Y*exp(g_bar);
@@ -655,19 +658,19 @@ steady_state_model;
     nu_I_ss = nu_R*I/Psi;
    
 
-    alpha_N_ss = (1-phi)*labor_share/(1+nu_R);
+    alpha_N_ss = (1-phi_ss)*labor_share/(1+nu_R);
     W_C = labor_share*Y/N;
     W_I = W_C;
     W = W_C;
 
     rho_ss = (xi-1)/xi;
     
-    zeta = C*(1-ha) - D^(1+1/eta_ss)/(1+1/eta_ss);
-    theta_N_s = (1-phi)*W_C/(N^(1/nu)*zeta*mu_ss);
+    zeta = C*(1-ha) - D^(1+1/eta)/(1+1/eta);
+    theta_N_s = (1-phi_ss)*W_C/(N^(1/nu)*zeta*mu_ss);
     //Gam^(-sigma)*theta_N_ss*exp(theta_N)*(N_comp)^(1/nu)*(N_C/N_comp)^theta*omega^(-theta) = lam*W_C/(mu_ss*exp(mu_C)*zeta);
-    Gam = (C*(1-ha) - D^(1+1/eta_ss)/(1+1/eta_ss) - theta_N_s*N_comp^(1+1/nu)/(1+1/nu)*zeta);
+    Gam = (C*(1-ha) - D^(1+1/eta)/(1+1/eta) - theta_N_s*N_comp^(1+1/nu)/(1+1/nu)*zeta);
 
-    lam = Gam^(-sigma)*(1-phi);
+    lam = Gam^(-sigma)*(1-phi_ss);
    
    
     //r_ss = (1+r_ann)^(1/4) - 1.0;
@@ -695,7 +698,7 @@ steady_state_model;
     delta_sc_pr = sigma_b_ss;
     delta_I_pr = sigma_b_ss;
 
-    Q_mc = p_I/(1-phi);
+    Q_mc = p_I/(1-phi_ss);
     Q_sc = Q_mc;
     Q_I = Q_mc;
     x_mc = exp(g_bar);
@@ -796,9 +799,8 @@ ha, 0.5, 0.0, 0.95,           BETA_PDF, 0.5, 0.2;
 nu, 0.72, 0.05, 2.0,           GAMMA_PDF, 0.72, 0.25;
 gam, 0.5, 0.0, 1.0,        BETA_PDF, 0.5, 0.2; %Born, Peter, and Pfeifer (2013)
 
-phi, 0.5, m, 0.999,        BETA_PDF, 0.5, 0.1, m, 1.0;
-//eta, 0.567, 0.00, 10.0,          GAMMA_PDF, 0.2, 0.15;
-//m, 0.286, 0.0, 0.95,          GAMMA_PDF, 0.286, 0.2;
+//phi, 0.5, m, 0.999,        BETA_PDF, 0.5, 0.1, m, 1.0;
+eta, 0.567, 0.00, 10.0,          GAMMA_PDF, 0.2, 0.15;
 
 xi, 0.85, 0.5, 2.0,        GAMMA_PDF, 0.85, 0.1;
 
@@ -861,20 +863,20 @@ varobs NC_obs, NI_obs, C_obs, I_obs, p_I_obs, util_ND_obs, util_D_obs;
 
 estimation(tex, optim=('MaxIter', 200), 
 datafile=observables_sectoral, 
-//mode_file=BRS_sectoral_mh_mode, %With _mh option uses mode after MCM run
+mode_file=BRS_price_dispersion_mh_mode, %With _mh option uses mode after MCM run
 //nograph,
-//load_mh_file, 
+load_mh_file, 
 //mh_recover,
 mcmc_jumping_covariance=prior_variance,
 
-mode_compute=1,
+mode_compute=0,
 presample=0, 
 lik_init=2,
 mh_jscale=0.006, 
 mh_init_scale =0.0001,
 //mh_jscale=0.1,
 mode_check, 
-mh_replic=200000, 
+mh_replic=100000, 
 //mh_replic=0,
 mh_nblocks=2, 
 //bayesian_irf,
@@ -905,8 +907,8 @@ collect_latex_files;
 % Stochastic simulation -> for conditional FEVD and IRF
 stoch_simul (order=1, nofunctions, irf=20, periods=0,
 conditional_variance_decomposition=[1 4 8 40])
-//Y_obs, Y_N_obs, SR_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_ND_obs, util_D_obs, util_obs, D_obs, h_obs, tech_obs,
-log_Y, log_Y_N, log_SR, log_I, log_p_I, log_C, log_N, log_NC, log_NI, log_util_ND, log_util_D, log_util, log_D, log_h, log_tech;
+Y_obs, Y_N_obs, SR_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_ND_obs, util_D_obs, util_obs, D_obs, h_obs, tech_obs;
+//log_Y, log_Y_N, log_SR, log_I, log_p_I, log_C, log_N, log_NC, log_NI, log_util_ND, log_util_D, log_util, log_D, log_h, log_tech;
 
 % Save artificial data 
 //save('artificial_data.mat', 'NC_obs', 'NI_obs', 'C_obs', 'I_obs', 'p_I_obs', 'util_ND_obs', 'util_D_obs', 'w_obs');

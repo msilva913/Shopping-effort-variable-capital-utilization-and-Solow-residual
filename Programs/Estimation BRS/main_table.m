@@ -1,5 +1,8 @@
-function [out, HPD] = main_table(res, M)
+function [out, HPD] = main_table(varargin)
 % Generates main output
+
+res = varargin{1};
+M = varargin{2};
  %1) Marginal density
  marginal_density = res.MarginalDensity.LaplaceApproximation;
 
@@ -8,8 +11,11 @@ function [out, HPD] = main_table(res, M)
 HPD_inf = res.posterior_hpdinf.parameters;
 posterior_median = res.posterior_median.parameters;
 HPD_sup = res.posterior_hpdsup.parameters;
-HPD = [HPD_inf.phi, posterior_median.phi, HPD_sup.phi];
-
+if nargin == 2
+    HPD = [HPD_inf.phi, posterior_median.phi, HPD_sup.phi];
+else
+    HPD = missing;
+end
 
 % Display the 90% HPDI
 %disp(['Lower bound of 90% HPDI: ', num2str(lower_quantile)]);
