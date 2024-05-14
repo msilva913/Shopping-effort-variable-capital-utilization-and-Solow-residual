@@ -418,7 +418,7 @@ if __name__ == "__main__":
     smoothed_data = pd.concat(var_list, axis=1)
     smoothed_data.columns = var_names
     smoothed_data.index = cycle_growth.index
-    smoothed_data = np.exp(smoothed_data.cumsum())
+    
     smoothed_data_mom = moments(100*smoothed_data, lab=['SR_obs'], lags=[1])
     
     tech_sum = np.exp(smoothed_data.tech_obs.cumsum())

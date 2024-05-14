@@ -18,7 +18,7 @@ discount_factor_shocks = {'e_b', 'e_b_news'};
 wage_markup_shocks = {'e_muC', 'e_muC_news', 'e_muI', 'e_muI_news'};
 
 shock_group_list = {technology_shocks, labor_supply_shocks, shopping_effort_shocks, discount_factor_shocks, wage_markup_shocks};
-col_names = {'technology', 'labor supply', 'shopping effort', 'discount factor', 'wage markup'};
+col_names = {'Technology', 'Labor Supply', 'Shopping Effort', 'Discount Factor', 'Wage Markup'};
 
 if nargin >= 4
     shock_group_list = {technology_shocks, labor_supply_shocks, discount_factor_shocks, wage_markup_shocks};
@@ -54,7 +54,8 @@ for i = 1:nvars
     end
 end
 
-row_names = vars;
+%row_names = vars;
+row_names = {'Y', 'SR', 'I', 'p_i', 'n_c', 'n_i', 'util', 'D', 'h'};
 format bank;
 FEVD_table = array2table(mat, 'RowNames', row_names, 'VariableNames', col_names);
 

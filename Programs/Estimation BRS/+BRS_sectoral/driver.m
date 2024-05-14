@@ -1345,8 +1345,7 @@ options_.irf = 20;
 options_.nofunctions = true;
 options_.order = 1;
 options_.periods = 0;
-options_.conditional_variance_decomposition = [1;4;8;40;];
-var_list_ = {'log_Y';'log_Y_N';'log_SR';'log_I';'log_p_I';'log_C';'log_N';'log_NC';'log_NI';'log_util_ND';'log_util_D';'log_util';'log_D';'log_h';'log_tech'};
+var_list_ = {'Y_obs';'Y_N_obs';'SR_obs';'I_obs';'p_I_obs';'C_obs';'NC_obs';'NI_obs';'util_ND_obs';'util_D_obs';'util_obs';'D_obs';'h_obs';'tech_obs'};
 [info, oo_, options_, M_] = stoch_simul(M_, options_, oo_, var_list_);
 
 
