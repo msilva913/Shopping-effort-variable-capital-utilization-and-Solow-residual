@@ -216,7 +216,7 @@ display(fig)
 
 # To be modified #
 function table(cal, targets)
-    @unpack σ, β, δ, α_n, α_k, A_mc, A_sc, A_i, z_mc, z_sc, z_i, σ_b, ω, θ_n, C, I, Y, K, N, N_c, N_i = cal
+    @unpack σ, β, δ, α_n, α_k, A_mc, A_sc, A_i, z_mc, z_sc, z_i, σ_b, ω, θ_n, C, I, Y, K, N, N_c, N_i, p_sc = cal
     @unpack g_bar, μ, ζ, Y, p_i, N, Ψ_j, I_Y, K_Y, labor_share, ν_R = targets
     r = (1-β)/β
   
@@ -255,11 +255,11 @@ function table(cal, targets)
         "Labor share of income"
                        ],
         # Values
-        round.([β, exp(g_bar*4), μ, ω, σ, ζ, ϕ, η, ν_R, ha, Y, p_sc, p_i, N, Ψ_j, Ψ_j, Ψ_j, 1, I_Y, K_Y/4, labor_share], digits=2),
+        round.([β, exp(g_bar*4), μ, ω, σ, ζ, ϕ, η, ν_R, ha, Y, p_sc, p_i, N, Ψ_j, Ψ_j, Ψ_j, 1, I_Y, K_Y/4, labor_share], sigdigits=2),
         # Parameter
         [:β, :g_bar, :μ, :ω, :σ, :ζ, :ϕ, :η, :ν_R, :ha, :z_mc, :z_sc, :z_i, :θ_n, :A_mc, :A_sc, :A_i, :σ_b, :δ, :α_k, :α_n], 
         # Calibration
-        round.([β, g_bar, μ, ω, σ, ζ, ϕ, η, ν_R, ha, z_mc, z_sc, z_i, θ_n, A_mc, A_sc, A_i, σ_b, δ, α_k, α_n, digits=3)
+        round.([β, g_bar, μ, ω, σ, ζ, ϕ, η, ν_R, ha, z_mc, z_sc, z_i, θ_n, A_mc, A_sc, A_i, σ_b, δ, α_k, α_n], sigdigits=2)
         ]
         )
         p = PlotlyJS.plot(t)
