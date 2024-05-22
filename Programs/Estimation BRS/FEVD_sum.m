@@ -56,6 +56,8 @@ end
 
 %row_names = vars;
 row_names = {'Y', 'SR', 'I', 'p_i', 'n_c', 'n_i', 'util', 'D', 'h'};
+%round(mat,3,'significant')
 format bank;
+%form_mat = arrayfun(@(x) sprintf('%.3g', x), mat, 'UniformOutput', false);
 FEVD_table = array2table(mat, 'RowNames', row_names, 'VariableNames', col_names);
 
