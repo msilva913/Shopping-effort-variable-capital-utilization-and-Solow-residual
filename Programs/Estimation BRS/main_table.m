@@ -94,6 +94,6 @@ autocorr_vars = {'util_ND_obs', 'util_D_obs'}
     end
 
     out = vertcat(marginal_density, FEVD_Y, FEVD_SR, ratio_util, 100*std_array, correlations, autocorr_array);
-    %format long g
-    round(out, 3);
+    format bank
+    %round(out, 3);
 end

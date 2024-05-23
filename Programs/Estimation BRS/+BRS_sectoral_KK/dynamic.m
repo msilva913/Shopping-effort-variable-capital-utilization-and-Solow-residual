@@ -1,5 +1,5 @@
 function [residual, g1, g2, g3] = dynamic(y, x, params, steady_state, it_)
-    T = NaN(112, 1);
+    T = NaN(114, 1);
     if nargout <= 1
         residual = BRS_sectoral_KK.dynamic_resid(T, y, x, params, steady_state, it_, true);
     elseif nargout == 2

@@ -443,7 +443,7 @@ W = (N_C/N)*W_C + (N_I/N)*W_I;
 Y = C + p_I_ss*I;
 
 [name = 'Solow residual']
-SR = (Y_mc/Y)*Y_mc/(K_mc(-1)^(1-labor_share)*N_mc^(labor_share)) + (Y_sc/Y)*Y_sc/(K_sc(-1)^(1-labor_share)*N_sc^(labor_share)) +(I/Y)*I/(K_I(-1)^(1-labor_share)*N_I^(labor_share));
+SR = exp(g)^(1-labor_share)*((Y_mc/Y)*Y_mc/(K_mc(-1)^(1-labor_share)*N_mc^(labor_share)) + (Y_sc/Y)*Y_sc/(K_sc(-1)^(1-labor_share)*N_sc^(labor_share)) +(I/Y)*I/(K_I(-1)^(1-labor_share)*N_I^(labor_share)));
 
 [name = 'Capacity utilization']
 util_ND = A_mc*D_mc^phi;
@@ -522,7 +522,7 @@ Y_obs = log_Y - log_Y(-1) + g - g_bar ;
 Y_N_obs = log_Y_N - log_Y_N(-1) + g - g_bar ;
 K_obs = log_K - log_K(-1) + g - g_bar;
 w_obs = log_W - log_W(-1) +g - g_bar;
-SR_obs = log_SR - log_SR(-1) + g - g_bar;
+SR_obs = log_SR - log_SR(-1) + labor_share*(g - g_bar);
 
 % Stationary variables
 p_I_obs = log_p_I - log_p_I(-1);
@@ -576,7 +576,7 @@ steady_state_model;
     N_sc = (omega_sc)*N_C;
     N_comp = N;
 
-    SR = (Y_mc/Y)*Y_mc/(K_mc^(1-labor_share)*N_mc^(labor_share)) + (Y_sc/Y)*Y_sc/(K_sc^(1-labor_share)*N_sc^(labor_share)) +(I/Y)*I/(K_I^(1-labor_share)*N_I^(labor_share));
+    SR = exp(g_bar)^(1-labor_share)*((Y_mc/Y)*Y_mc/(K_mc^(1-labor_share)*N_mc^(labor_share)) + (Y_sc/Y)*Y_sc/(K_sc^(1-labor_share)*N_sc^(labor_share)) +(I/Y)*I/(K_I^(1-labor_share)*N_I^(labor_share)));
 
     nu_mc_ss = nu_R*Y_mc/Psi;
     nu_sc_ss = nu_R*Y_sc/Psi;
@@ -785,8 +785,8 @@ mh_jscale=0.006,
 mh_init_scale =0.0001,
 //mh_jscale=0.1,
 mode_check, 
-mh_replic=100000, 
-//mh_replic=0,
+//mh_replic=100000, 
+mh_replic=0,
 mh_nblocks=2, 
 //bayesian_irf,
 //irf=100,

@@ -42,8 +42,8 @@ load res_wo_fc
 load M_wo_fc
 res_wo_fc = oo_;
 M_wo_fc = M_;
-%save('res_wo_fc', 'res_wo_fc');
-%save('M_wo_fc', 'M_wo_fc');
+save('res_wo_fc', 'res_wo_fc');
+save('M_wo_fc', 'M_wo_fc');
 %mom_bas = calc_moments(res);
 %save('mom_bas', 'mom_bas');
 % Main output
@@ -55,8 +55,8 @@ load res_wo_vcu
 load M_wo_vcu
 res_wo_vcu = oo_;
 M_wo_vcu = M_;
-%save('res_wo_vcu', 'res_wo_vcu');
-%save('M_wo_vcu', 'M_wo_vcu');
+save('res_wo_vcu', 'res_wo_vcu');
+save('M_wo_vcu', 'M_wo_vcu');
 [out, HPD] = main_table(res_wo_vcu, M_wo_vcu);
 
 %% Remove search demand shocks
@@ -65,9 +65,9 @@ load res_wo_dem
 load M_wo_dem
 res_wo_dem = oo_;
 M_wo_dem = M_;
-mom_wo_dem = calc_moments(res_wo_dem)
 save('res_wo_dem', 'res_wo_dem');
 save('M_wo_dem', 'M_wo_dem');
+mom_wo_dem = calc_moments(res_wo_dem)
 [out, HPD] = main_table(res_wo_dem, M_wo_dem);
 FEVD_table = FEVD_sum(res_wo_dem, M_wo_dem, '');
 %% Examine ability to fit data without utilization
@@ -81,7 +81,7 @@ save('M_KK', 'M_KK');
 %load res_KK.mat
 mom_KK = calc_moments(res_KK);
 [out, HPD] = main_table(res_KK, M_KK);
-FEVD_table = FEVD_sum(res_KK, M_KK, '');
+%FEVD_table = FEVD_sum(res_KK, M_KK, '');
 
 %% Estimate general model but with fitting cross sectional price dispersion
 dynare BRS_price_dispersion.mod
