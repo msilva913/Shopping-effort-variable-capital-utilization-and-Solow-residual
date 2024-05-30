@@ -81,7 +81,7 @@ save('M_KK', 'M_KK');
 %load res_KK.mat
 mom_KK = calc_moments(res_KK);
 [out, HPD] = main_table(res_KK, M_KK);
-%FEVD_table = FEVD_sum(res_KK, M_KK, '');
+FEVD_table = FEVD_sum(res_KK, M_KK, '');
 
 %% Estimate general model but with fitting cross sectional price dispersion
 dynare BRS_price_dispersion.mod
@@ -90,7 +90,8 @@ res_pd = oo_;
 M_pd = M_;
 save('res_pd', 'res_pd');
 save('M_pd', 'M_pd');
-
+load res_pd
+load M_pd
 posterior_mean = res_pd.posterior_mean.parameters;
 
 % Main output
