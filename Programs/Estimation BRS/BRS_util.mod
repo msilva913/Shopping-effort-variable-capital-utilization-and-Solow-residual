@@ -208,7 +208,7 @@ D = D_C + D_I;
 Y = C + p_I_ss*I;
 
 [name = 'Solow residual']
-SR = (C/Y)*C/(K_C(-1)^(1-labor_share)*N_C^(labor_share)) + (I/Y)*I/(K_I(-1)^(1-labor_share)*N_I^(labor_share));
+SR = exp(g)^(1-labor_share)*((C/Y)*C/(K_C(-1)^(1-labor_share)*N_C^(labor_share)) + (I/Y)*I/(K_I(-1)^(1-labor_share)*N_I^(labor_share)));
 
 util_C = A_C*D_C^phi;
 
@@ -264,7 +264,7 @@ C_obs = log_C - log_C(-1) + g - g_bar;
 I_obs = log_I - log_I(-1) + g - g_bar;
 Y_obs = log_Y - log_Y(-1) + g - g_bar;
 Y_N_obs = log_Y_N - log_Y_N(-1) + g - g_bar;
-SR_obs = log_SR - log_SR(-1) + g - g_bar;
+SR_obs = log_SR - log_SR(-1) + labor_share*(g - g_bar);
 
 % Stationary
 p_I_obs = log_p_I - log_p_I(-1);
@@ -295,7 +295,7 @@ steady_state_model;
     N_I = I_Y*N;
     N_C = (1-I_Y)*N;
 
-    SR = (C/Y)*C/(K_C^(1-labor_share)*N_C^(labor_share)) + (I/Y)*I/(K_I^(1-labor_share)*N_I^(labor_share));
+    SR = exp(g_bar)^(1-labor_share)*((C/Y)*C/(K_C^(1-labor_share)*N_C^(labor_share)) + (I/Y)*I/(K_I^(1-labor_share)*N_I^(labor_share)));
 
     Z_C = 0;
     Z_I = 0;

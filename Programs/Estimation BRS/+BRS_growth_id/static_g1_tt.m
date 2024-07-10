@@ -13,14 +13,14 @@ function T = static_g1_tt(T, y, x, params)
 %   T         [#temp variables by 1]  double   vector of temporary terms
 %
 
-assert(length(T) >= 40);
+assert(length(T) >= 42);
 
 T = BRS_growth_id.static_resid_tt(T, y, x, params);
 
-T(36) = exp(y(15))*getPowerDeriv(y(19),1/params(9),1);
-T(37) = T(3)*getPowerDeriv(y(20),params(8),1);
-T(38) = T(4)*getPowerDeriv(y(21),params(8),1);
-T(39) = getPowerDeriv(y(22),(-params(1)),1);
-T(40) = exp(y(24))*getPowerDeriv(exp(y(24)),(-T(1)),1);
+T(38) = exp(y(15))*getPowerDeriv(y(19),1/params(9),1);
+T(39) = T(3)*getPowerDeriv(y(20),params(8),1);
+T(40) = T(4)*getPowerDeriv(y(21),params(8),1);
+T(41) = getPowerDeriv(y(22),(-params(1)),1);
+T(42) = exp(y(24))*getPowerDeriv(exp(y(24)),(-T(1)),1);
 
 end

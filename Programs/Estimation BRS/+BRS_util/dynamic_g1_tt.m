@@ -18,13 +18,13 @@ function T = dynamic_g1_tt(T, y, x, params, steady_state, it_)
 %   T           [#temp variables by 1]       double  vector of temporary terms
 %
 
-assert(length(T) >= 40);
+assert(length(T) >= 42);
 
 T = BRS_util.dynamic_resid_tt(T, y, x, params, steady_state, it_);
 
-T(37) = exp(y(33))*getPowerDeriv(y(37),1/params(9),1);
-T(38) = T(18)*getPowerDeriv(y(38),params(8),1);
-T(39) = T(19)*getPowerDeriv(y(39),params(8),1);
-T(40) = exp(y(42))*getPowerDeriv(exp(y(42)),(-T(17)),1);
+T(39) = exp(y(33))*getPowerDeriv(y(37),1/params(9),1);
+T(40) = T(20)*getPowerDeriv(y(38),params(8),1);
+T(41) = T(21)*getPowerDeriv(y(39),params(8),1);
+T(42) = exp(y(42))*getPowerDeriv(exp(y(42)),(-T(19)),1);
 
 end

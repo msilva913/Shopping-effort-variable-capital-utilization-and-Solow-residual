@@ -14,7 +14,7 @@ HPD_sup = res.posterior_hpdsup.parameters;
 if nargin == 2
     HPD = [HPD_inf.phi, posterior_median.phi, HPD_sup.phi];
 else
-    HPD = [HPD_inf.eta, posterior]
+    HPD = missing;
 end
 
 % Display the 90% HPDI
@@ -94,6 +94,6 @@ autocorr_vars = {'util_ND_obs', 'util_D_obs'}
     end
 
     out = vertcat(marginal_density, FEVD_Y, FEVD_SR, ratio_util, 100*std_array, correlations, autocorr_array);
-    %format long g
-    round(out, 3);
+    format long g
+    %round(out, 3);
 end

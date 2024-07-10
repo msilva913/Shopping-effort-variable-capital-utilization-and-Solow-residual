@@ -491,7 +491,7 @@ W = (N_C/N)*W_C + (N_I/N)*W_I;
 Y = C + p_I_ss*I;
 
 [name = 'Solow residual']
-SR = (Y_mc/Y)*Y_mc/(K_mc(-1)^(1-labor_share)*N_mc^(labor_share)) + (Y_sc/Y)*Y_sc/(K_sc(-1)^(1-labor_share)*N_sc^(labor_share)) +(I/Y)*I/(K_I(-1)^(1-labor_share)*N_I^(labor_share));
+SR = exp(g)^(1-labor_share)*((Y_mc/Y)*Y_mc/(K_mc(-1)^(1-labor_share)*N_mc^(labor_share)) + (Y_sc/Y)*Y_sc/(K_sc(-1)^(1-labor_share)*N_sc^(labor_share)) +(I/Y)*I/(K_I(-1)^(1-labor_share)*N_I^(labor_share)));
 
 [name = 'Capacity utilization']
 util_ND = A_mc*D_mc^phi*(Z_mc_ss*exp(g)^(-alpha_K)*exp(Z_C)*(h_mc*K_mc(-1))^alpha_K*N_mc^alpha_N-nu_mc)/(Z_mc_ss*exp(g)^(-alpha_K)*exp(Z_C)*K_mc(-1)^alpha_K*N_mc^alpha_N-nu_mc);
@@ -576,7 +576,7 @@ I_obs = log_I - log_I(-1) + g - g_bar ;
 Y_obs = log_Y - log_Y(-1) + g - g_bar ;
 Y_N_obs = log_Y_N - log_Y_N(-1) + g - g_bar ;
 K_obs = log_K - log_K(-1) + g - g_bar;
-w_obs = log_W - log_W(-1) +g - g_bar;
+w_obs = log_W - log_W(-1) +labor_share*(g - g_bar);
 SR_obs = log_SR - log_SR(-1) + g - g_bar;
 
 % Stationary variables
@@ -634,7 +634,7 @@ steady_state_model;
     N_sc = (omega_sc)*N_C;
     N_comp = N;
 
-    SR = (Y_mc/Y)*Y_mc/(K_mc^(1-labor_share)*N_mc^(labor_share)) + (Y_sc/Y)*Y_sc/(K_sc^(1-labor_share)*N_sc^(labor_share)) +(I/Y)*I/(K_I^(1-labor_share)*N_I^(labor_share));
+    SR = exp(g_bar)^(1-labor_share)*((Y_mc/Y)*Y_mc/(K_mc^(1-labor_share)*N_mc^(labor_share)) + (Y_sc/Y)*Y_sc/(K_sc^(1-labor_share)*N_sc^(labor_share)) +(I/Y)*I/(K_I^(1-labor_share)*N_I^(labor_share)));
 
     nu_mc_ss = nu_R*Y_mc/Psi;
     nu_sc_ss = nu_R*Y_sc/Psi;
@@ -856,8 +856,8 @@ mh_jscale=0.006,
 mh_init_scale =0.0001,
 //mh_jscale=0.1,
 mode_check, 
-mh_replic=100000, 
-//mh_replic=0,
+//mh_replic=100000, 
+mh_replic=0,
 mh_nblocks=2, 
 //bayesian_irf,
 //irf=100,
@@ -885,7 +885,7 @@ collect_latex_files;
 
 
 % Stochastic simulation -> for conditional FEVD and IRF
-stoch_simul (order=1, nofunctions, irf=20, periods=0)
+stoch_simul (order=1, nofunctions, irf=0, periods=0)
 //conditional_variance_decomposition=[1 4 8 40])
 Y_obs, Y_N_obs, SR_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_ND_obs, util_D_obs, util_obs, D_obs, h_obs;
 //log_Y, log_Y_N, log_SR, log_I, log_p_I, log_C, log_N, log_NC, log_NI, log_util_ND, log_util_D, log_util, log_D, log_h;

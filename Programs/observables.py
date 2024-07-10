@@ -20,12 +20,9 @@ from time_series_functions import (moments, filter_transform, crosscorr)
 
 # Price deflators
 
-
-
 def save_object(obj, filename):
     with open(filename, 'wb') as output:
         pickle.dump(obj, output, pickle.HIGHEST_PROTOCOL)  
-
 
 
 def construct_data(init, final, freq):
@@ -307,7 +304,6 @@ if __name__ == "__main__":
     years = mdates.YearLocator(5, month=1)
     years_fmt = mdates.DateFormatter('%Y')
     
- 
     
     " Plot "
     def plot_cycle(cycle, comp_variable="LI"):
@@ -331,9 +327,8 @@ if __name__ == "__main__":
         plt.savefig('output_comovement_simp.pdf')
         plt.tight_layout()
         plt.show()
-    
- 
-    
+        
+        
     linestyle = ['-', ':', '-.']
     # Hours
     fig, ax = plt.subplots(figsize=(11, 4))
@@ -403,6 +398,20 @@ if __name__ == "__main__":
     plt.tight_layout()
     ax.legend(fontsize=11)
     plt.savefig("utilization_series_comparison.pdf")
+    
+    " For condensed slides (utilization and output jointly)"
+    fig, ax = plt.subplots(figsize=(11, 4))
+    ax.plot(100*cycle.util_D, linestyle[1], label= "Utilization: durables", lw=2, alpha=0.7, color="blue")
+    ax.plot(100*cycle.util_ND, linestyle[2], label= "Utilization: nondurables", lw=2, alpha=0.7, color="green")
+    ax.plot(100*cycle.Y, label="Real output (consumption plus investment)", lw=2, alpha=0.6, color="black")
+    ax.legend(loc="upper right")
+    ax.xaxis.set_major_locator(years)
+    ax.xaxis.set_major_formatter(years_fmt)
+    ax.set_ylabel("%")
+    ax.grid(True)
+    plt.tight_layout()
+    plt.savefig("utilization_output.pdf")
+    plt.show()
     
     util_series = cycle[["util_Fern", "util", "Y"]]
     mom_util = moments(100*util_series)
