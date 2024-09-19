@@ -3,16 +3,7 @@
 
 
 Programs/Estimation BRS/BRS_growth.asv
-*.tex
-
-Programs/Estimation BRS/BRS_growth_res/checksum
-Programs/Estimation BRS/BRS_growth_res/graphs/BRS_growth_res_CheckPlots.tex
-Programs/Estimation BRS/BRS_growth_res/graphs/BRS_growth_res_CheckPlots1.eps
-Programs/Estimation BRS/BRS_growth_res/graphs/BRS_growth_res_CheckPlots2.eps
-Programs/Estimation BRS/BRS_growth_res/graphs/BRS_growth_res_HistoricalAndSmoothedVariables.tex
-Programs/Estimation BRS/BRS_growth_res/graphs/BRS_growth_res_HistoricalAndSmoothedVariables1.eps
-Programs/Estimation BRS/BRS_growth_res/graphs/BRS_growth_res_IRF.tex
-Programs/Estimation BRS/BRS_growth_res/graphs/BRS_growth_res_IRF_e_D1.eps
+*.eps
 *.xlsx
 Programs/Estimation BRS/BRS_gen.asv
 Programs/Estimation BRS/res_wo_vcu.mat
@@ -31,25 +22,7 @@ Programs/Estimation BRS/M_pd.mat
 Programs/Estimation BRS/M_KK.mat
 Programs/Estimation BRS/M.mat
 Programs/Estimation BRS/dynare_BRS.m
-Programs/Estimation BRS/BRS_util/Output/BRS_util_udiag4.eps
-Programs/Estimation BRS/BRS_util/Output/BRS_util_udiag3.eps
-Programs/Estimation BRS/BRS_util/Output/BRS_util_udiag2.eps
-Programs/Estimation BRS/BRS_util/Output/BRS_util_udiag1.eps
-Programs/Estimation BRS/BRS_util/Output/BRS_util_results.mat
-Programs/Estimation BRS/BRS_util/Output/BRS_util_PriorsAndPosteriors2.eps
-Programs/Estimation BRS/BRS_util/Output/BRS_util_PriorsAndPosteriors1.eps
-Programs/Estimation BRS/BRS_util/Output/BRS_util_pindx.mat
-Programs/Estimation BRS/BRS_util/Output/BRS_util_params.mat
-Programs/Estimation BRS/BRS_util/Output/BRS_util_mh_mode.mat
-Programs/Estimation BRS/BRS_util/Output/BRS_util_mean.mat
-Programs/Estimation BRS/BRS_util/Output/BRS_util_mdiag.eps
-Programs/Estimation BRS/BRS_util/modecheck/check_plot_data.mat
-Programs/Estimation BRS/BRS_util/graphs/BRS_util_SmoothedShocks1.eps
-Programs/Estimation BRS/BRS_util/graphs/BRS_util_Priors2.eps
-Programs/Estimation BRS/BRS_util/graphs/BRS_util_Priors1.eps
-Programs/Estimation BRS/BRS_util/graphs/BRS_util_HistoricalAndSmoothedVariables1.eps
-Programs/Estimation BRS/BRS_util/graphs/BRS_util_CheckPlots2.eps
-Programs/Estimation BRS/BRS_util/graphs/BRS_util_CheckPlots1.eps
+
 Programs/Estimation BRS/BRS_util/checksum
 Programs/Estimation BRS/BRS_util.mod
 Programs/Estimation BRS/BRS_util.log

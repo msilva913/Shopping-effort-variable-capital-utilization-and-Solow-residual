@@ -1,0 +1,244 @@
+\begin{center}
+\begin{longtable}{ccc}
+\caption{Endogenous}\\%
+\hline%
+\multicolumn{1}{c}{\textbf{Variable}} &
+\multicolumn{1}{c}{\textbf{\LaTeX}} &
+\multicolumn{1}{c}{\textbf{Description}}\\%
+\hline\hline%
+\endfirsthead
+\multicolumn{3}{c}{{\tablename} \thetable{} -- Continued}\\%
+\hline%
+\multicolumn{1}{c}{\textbf{Variable}} &
+\multicolumn{1}{c}{\textbf{\LaTeX}} &
+\multicolumn{1}{c}{\textbf{Description}}\\%
+\hline\hline%
+\endhead
+\texttt{Y} & ${Y}$ & output\\
+\texttt{C} & ${C}$ & consumption\\
+\texttt{Y\_mc} & ${Y_{mc}}$ & consumption non-durable goods\\
+\texttt{Y\_sc} & $Y_{sc}}$ & consumption services\\
+\texttt{SR} & ${SR}$ & aggregate share-weighted Solow residual\\
+\texttt{I} & ${I}$ & investment\\
+\texttt{I\_mc} & ${I_C}$ & investment:mc\\
+\texttt{I\_sc} & ${I_C}$ & investment:sc\\
+\texttt{I\_I} & ${I_I}$ & investment:I\\
+\texttt{K} & ${K}$ & Capital\\
+\texttt{K\_mc} & ${K_{mc}}$ & Capital:mc\\
+\texttt{K\_sc} & ${K_{sc}}$ & Capital:sc\\
+\texttt{K\_I} & ${K_I}$ & Capital:I\\
+\texttt{N} & ${N}$ & Hours\\
+\texttt{N\_mc} & ${N_{mc}}$ & Hours:mc\\
+\texttt{N\_sc} & ${N_{sc}}$ & Hours:sc\\
+\texttt{N\_C} & ${N_C}$ & Hours:C\\
+\texttt{N\_I} & ${N_I}$ & Hours:I\\
+\texttt{N\_comp} & ${N}$ & Labor CES aggregate\\
+\texttt{Z\_C} & ${Z_{C}}$ & Tech:mc\\
+\texttt{u\_ZI} & $u\_ZI$ & u\_ZI\\
+\texttt{Z\_I} & ${Z_I}$ & Tech:I\\
+\texttt{tech} & ${tech}$ & General technology measure\\
+\texttt{theta\_N} & ${\theta_N}$ & Labor disutility\\
+\texttt{theta\_D} & ${\theta_D}$ & Shopping disutility\\
+\texttt{theta\_I} & ${\theta_I}$ & Relative shopping disutility\\
+\texttt{theta\_b} & ${\theta_b}$ & Discount factor shock\\
+\texttt{mu\_C} & ${\mu_C}$ & mu\_C\\
+\texttt{mu\_I} & $\mu_I}$ & mu\_I\\
+\texttt{R\_mc} & ${R_{mc}}$ & Capital rental rate:mc\\
+\texttt{R\_sc} & ${R_{sc}}$ & Capital rental rate:sc\\
+\texttt{R\_I} & ${R_I}$ & Capital rental rate:I\\
+\texttt{W\_C} & ${W_C}$ & Real wage:C\\
+\texttt{W\_I} & ${W_I}$ & Real wage:I\\
+\texttt{W} & ${W}$ & Real wage\\
+\texttt{h\_mc} & ${h_mc}$ & Capital utilization rate:mc\\
+\texttt{h\_sc} & ${h_sc}$ & Capital utilization rate:sc\\
+\texttt{h\_I} & ${h_I}$ & Capital utilization rate:I\\
+\texttt{h} & $h$ & Capital utilization rate: average\\
+\texttt{delta\_mc} & ${\delta_{mc}}$ & Capital depreciation rate:mc\\
+\texttt{delta\_sc} & ${\delta_{sc}}$ & Capital depreciation rate:sc\\
+\texttt{delta\_I} & ${\delta_I}$ & Capital depreciation rate:I\\
+\texttt{delta\_mc\_pr} & ${\delta_{mc,pr}$ & Capital depreciation rate derivative:mc\\
+\texttt{delta\_sc\_pr} & ${\delta_{sc,pr}}$ & Capital depreciation rate derivative:sc\\
+\texttt{delta\_I\_pr} & ${\delta_{I,pr}}$ & Capital depreciation rate derivative:I\\
+\texttt{Smc} & $S$ & Investment adjustment cost:mc\\
+\texttt{Ssc} & $S$ & Investment adjustment cost:sc\\
+\texttt{Si} & $S$ & Investment adjustment cost:I\\
+\texttt{Smc\_pr} & $S_pr$ & Derivative investment adjustment cost:mc\\
+\texttt{Ssc\_pr} & $S_pr$ & Derivative investment adjustment cost:sc\\
+\texttt{Si\_pr} & $S_pr$ & Derivative investment adjustment cost:I\\
+\texttt{D} & ${D}$ & Shopping effort\\
+\texttt{D\_mc} & ${D_{mc}}$ & Shopping effort:mc\\
+\texttt{D\_sc} & ${D_{sc}}$ & Shopping effort:sc\\
+\texttt{D\_I} & ${D_I}$ & Shopping effort:I\\
+\texttt{Gam} & ${\Gamma}$ & Composite utility term\\
+\texttt{zeta} & ${\zeta}$ & Wealth effects parameter\\
+\texttt{p\_mc} & ${p_{mc}}$ & Relative non-durable price\\
+\texttt{p\_sc} & ${p_{sc}}$ & Relative service price\\
+\texttt{p\_I} & ${p_I}$ & Relative investment price\\
+\texttt{lam} & ${\lambda}$ & Marginal utility of wealth\\
+\texttt{Q\_mc} & ${Q}$ & Relative price of capital:mc\\
+\texttt{Q\_sc} & ${Q}$ & Relative price of capital:sc\\
+\texttt{Q\_I} & ${Q}$ & Relative price of capital:I\\
+\texttt{x\_mc} & ${x}$ & Growth rate of investment:mc\\
+\texttt{x\_sc} & ${x}$ & Growth rate of investment:sc\\
+\texttt{x\_I} & ${x}$ & Growth rate of investment:I\\
+\texttt{log\_SR} & $log\_SR$ & Solow residual\\
+\texttt{util} & ${util}$ & Capacity utilization\\
+\texttt{util\_ND} & ${util_{ND}}$ & Capacity utilization:ND\\
+\texttt{util\_sc} & ${util_{sc}}$ & Capacity utilization:sc\\
+\texttt{util\_D} & ${util_D}$ & Capacity utilization:D\\
+\texttt{g} & ${g}$ & Growth rate of stochastic trend\\
+\texttt{log\_Y} & $log\_Y$ & log\_Y\\
+\texttt{log\_C} & $log\_C$ & log\_C\\
+\texttt{log\_I} & $log\_I$ & log\_I\\
+\texttt{log\_N} & $log\_N$ & log\_N\\
+\texttt{log\_NC} & $log\_NC$ & log\_NC\\
+\texttt{log\_NI} & $log\_NI$ & log\_NI\\
+\texttt{log\_K} & $log\_K$ & log\_K\\
+\texttt{log\_Y\_N} & $log\_Y\_N$ & log\_Y\_N\\
+\texttt{log\_D} & $log\_D$ & log\_D\\
+\texttt{log\_h} & $log\_h$ & log\_h\\
+\texttt{log\_p\_I} & $log\_p\_I$ & log\_p\_I\\
+\texttt{log\_util} & $log\_util$ & log\_util\\
+\texttt{log\_util\_ND} & $log\_util\_ND$ & log\_util\_ND\\
+\texttt{log\_util\_D} & $log\_util\_D$ & log\_util\_D\\
+\texttt{log\_W} & $log\_W$ & log\_W\\
+\texttt{log\_tech} & $log\_tech$ & log\_tech\\
+\texttt{C\_obs} & $C\_obs$ & C\_obs\\
+\texttt{I\_obs} & $I\_obs$ & I\_obs\\
+\texttt{Y\_obs} & $Y\_obs$ & Y\_obs\\
+\texttt{SR\_obs} & $SR\_obs$ & SR\_obs\\
+\texttt{Y\_N\_obs} & $Y\_N\_obs$ & Y\_N\_obs\\
+\texttt{p\_I\_obs} & $p\_I\_obs$ & p\_I\_obs\\
+\texttt{N\_obs} & $N\_obs$ & N\_obs\\
+\texttt{NC\_obs} & $NC\_obs$ & NC\_obs\\
+\texttt{NI\_obs} & $NI\_obs$ & NI\_obs\\
+\texttt{util\_ND\_obs} & $util\_ND\_obs$ & util\_ND\_obs\\
+\texttt{util\_D\_obs} & $util\_D\_obs$ & util\_D\_obs\\
+\texttt{util\_obs} & $util\_obs$ & util\_obs\\
+\texttt{tech\_obs} & $tech\_obs$ & tech\_obs\\
+\texttt{w\_obs} & $w\_obs$ & w\_obs\\
+\texttt{D\_obs} & $D\_obs$ & D\_obs\\
+\texttt{h\_obs} & $h\_obs$ & h\_obs\\
+\texttt{K\_obs} & $K\_obs$ & K\_obs\\
+\texttt{AUX\_EXO\_LAG\_107\_0} & $AUX\_EXO\_LAG\_107\_0$ & AUX\_EXO\_LAG\_107\_0\\
+\texttt{AUX\_EXO\_LAG\_107\_1} & $AUX\_EXO\_LAG\_107\_1$ & AUX\_EXO\_LAG\_107\_1\\
+\texttt{AUX\_EXO\_LAG\_107\_2} & $AUX\_EXO\_LAG\_107\_2$ & AUX\_EXO\_LAG\_107\_2\\
+\texttt{AUX\_EXO\_LAG\_107\_3} & $AUX\_EXO\_LAG\_107\_3$ & AUX\_EXO\_LAG\_107\_3\\
+\texttt{AUX\_EXO\_LAG\_109\_0} & $AUX\_EXO\_LAG\_109\_0$ & AUX\_EXO\_LAG\_109\_0\\
+\texttt{AUX\_EXO\_LAG\_109\_1} & $AUX\_EXO\_LAG\_109\_1$ & AUX\_EXO\_LAG\_109\_1\\
+\texttt{AUX\_EXO\_LAG\_109\_2} & $AUX\_EXO\_LAG\_109\_2$ & AUX\_EXO\_LAG\_109\_2\\
+\texttt{AUX\_EXO\_LAG\_109\_3} & $AUX\_EXO\_LAG\_109\_3$ & AUX\_EXO\_LAG\_109\_3\\
+\texttt{AUX\_EXO\_LAG\_111\_0} & $AUX\_EXO\_LAG\_111\_0$ & AUX\_EXO\_LAG\_111\_0\\
+\texttt{AUX\_EXO\_LAG\_111\_1} & $AUX\_EXO\_LAG\_111\_1$ & AUX\_EXO\_LAG\_111\_1\\
+\texttt{AUX\_EXO\_LAG\_111\_2} & $AUX\_EXO\_LAG\_111\_2$ & AUX\_EXO\_LAG\_111\_2\\
+\texttt{AUX\_EXO\_LAG\_111\_3} & $AUX\_EXO\_LAG\_111\_3$ & AUX\_EXO\_LAG\_111\_3\\
+\texttt{AUX\_EXO\_LAG\_114\_0} & $AUX\_EXO\_LAG\_114\_0$ & AUX\_EXO\_LAG\_114\_0\\
+\texttt{AUX\_EXO\_LAG\_114\_1} & $AUX\_EXO\_LAG\_114\_1$ & AUX\_EXO\_LAG\_114\_1\\
+\texttt{AUX\_EXO\_LAG\_114\_2} & $AUX\_EXO\_LAG\_114\_2$ & AUX\_EXO\_LAG\_114\_2\\
+\texttt{AUX\_EXO\_LAG\_114\_3} & $AUX\_EXO\_LAG\_114\_3$ & AUX\_EXO\_LAG\_114\_3\\
+\texttt{AUX\_EXO\_LAG\_116\_0} & $AUX\_EXO\_LAG\_116\_0$ & AUX\_EXO\_LAG\_116\_0\\
+\texttt{AUX\_EXO\_LAG\_116\_1} & $AUX\_EXO\_LAG\_116\_1$ & AUX\_EXO\_LAG\_116\_1\\
+\texttt{AUX\_EXO\_LAG\_116\_2} & $AUX\_EXO\_LAG\_116\_2$ & AUX\_EXO\_LAG\_116\_2\\
+\texttt{AUX\_EXO\_LAG\_116\_3} & $AUX\_EXO\_LAG\_116\_3$ & AUX\_EXO\_LAG\_116\_3\\
+\texttt{AUX\_EXO\_LAG\_118\_0} & $AUX\_EXO\_LAG\_118\_0$ & AUX\_EXO\_LAG\_118\_0\\
+\texttt{AUX\_EXO\_LAG\_118\_1} & $AUX\_EXO\_LAG\_118\_1$ & AUX\_EXO\_LAG\_118\_1\\
+\texttt{AUX\_EXO\_LAG\_118\_2} & $AUX\_EXO\_LAG\_118\_2$ & AUX\_EXO\_LAG\_118\_2\\
+\texttt{AUX\_EXO\_LAG\_118\_3} & $AUX\_EXO\_LAG\_118\_3$ & AUX\_EXO\_LAG\_118\_3\\
+\texttt{AUX\_EXO\_LAG\_120\_0} & $AUX\_EXO\_LAG\_120\_0$ & AUX\_EXO\_LAG\_120\_0\\
+\texttt{AUX\_EXO\_LAG\_120\_1} & $AUX\_EXO\_LAG\_120\_1$ & AUX\_EXO\_LAG\_120\_1\\
+\texttt{AUX\_EXO\_LAG\_120\_2} & $AUX\_EXO\_LAG\_120\_2$ & AUX\_EXO\_LAG\_120\_2\\
+\texttt{AUX\_EXO\_LAG\_120\_3} & $AUX\_EXO\_LAG\_120\_3$ & AUX\_EXO\_LAG\_120\_3\\
+\texttt{AUX\_EXO\_LAG\_122\_0} & $AUX\_EXO\_LAG\_122\_0$ & AUX\_EXO\_LAG\_122\_0\\
+\texttt{AUX\_EXO\_LAG\_122\_1} & $AUX\_EXO\_LAG\_122\_1$ & AUX\_EXO\_LAG\_122\_1\\
+\texttt{AUX\_EXO\_LAG\_122\_2} & $AUX\_EXO\_LAG\_122\_2$ & AUX\_EXO\_LAG\_122\_2\\
+\texttt{AUX\_EXO\_LAG\_122\_3} & $AUX\_EXO\_LAG\_122\_3$ & AUX\_EXO\_LAG\_122\_3\\
+\hline%
+\end{longtable}
+\end{center}
+\begin{center}
+\begin{longtable}{ccc}
+\caption{Exogenous}\\%
+\hline%
+\multicolumn{1}{c}{\textbf{Variable}} &
+\multicolumn{1}{c}{\textbf{\LaTeX}} &
+\multicolumn{1}{c}{\textbf{Description}}\\%
+\hline\hline%
+\endfirsthead
+\multicolumn{3}{c}{{\tablename} \thetable{} -- Continued}\\%
+\hline%
+\multicolumn{1}{c}{\textbf{Variable}} &
+\multicolumn{1}{c}{\textbf{\LaTeX}} &
+\multicolumn{1}{c}{\textbf{Description}}\\%
+\hline\hline%
+\endhead
+\texttt{e\_g} & ${e_g}$ & Labor-augmenting-technology growth shock\\
+\texttt{e\_g\_news} & ${e_{g,-4}}$ & Labor-augmenting-technology growth shock: news\\
+\texttt{e\_Z} & ${e_Z}$ & TFP shock\\
+\texttt{e\_Z\_news} & ${e_{Z,-4}}$ & TFP shock: news\\
+\texttt{e\_ZI} & ${e_{ZI}}$ & Investment-specific tech shock\\
+\texttt{e\_ZI\_news} & ${e_{ZI,-4}}$ & Investment-specific tech shock: news\\
+\texttt{e\_N} & ${e_N}$ & Labor supply shock\\
+\texttt{e\_D} & ${e_D}$ & Shopping disutility shock\\
+\texttt{e\_D\_news} & ${e_{D,4}}$ & Shopping disutility shock: news\\
+\texttt{e\_DI} & ${e_DI}$ & Relative investment shopping disutility shock\\
+\texttt{e\_DI\_news} & ${e_{DI,-4}}$ & Relative investment shopping disutility shock: news\\
+\texttt{e\_b} & ${e_b}$ & Discount factor shock\\
+\texttt{e\_b\_news} & ${e_{b,-4}}$ & Discount factor shock\\
+\texttt{e\_muC} & ${e_{muC}}$ & Wage markup shock: C\\
+\texttt{e\_muC\_news} & ${e_{muC,-4}}$ & Wage markup shock: C: news\\
+\texttt{e\_muI} & ${e_{muI}}$ & Wage markup shock: I\\
+\texttt{e\_muI\_news} & ${e_{muI,-4}}$ & Wage markup shock: I: news\\
+\hline%
+\end{longtable}
+\end{center}
+\begin{center}
+\begin{longtable}{ccc}
+\caption{Parameters}\\%
+\hline%
+\multicolumn{1}{c}{\textbf{Variable}} &
+\multicolumn{1}{c}{\textbf{\LaTeX}} &
+\multicolumn{1}{c}{\textbf{Description}}\\%
+\hline\hline%
+\endfirsthead
+\multicolumn{3}{c}{{\tablename} \thetable{} -- Continued}\\%
+\hline%
+\multicolumn{1}{c}{\textbf{Variable}} &
+\multicolumn{1}{c}{\textbf{\LaTeX}} &
+\multicolumn{1}{c}{\textbf{Description}}\\%
+\hline\hline%
+\endhead
+\texttt{sigma} & ${\sigma}$ & Risk aversion\\
+\texttt{beta} & ${\beta}$ & Discount factor\\
+\texttt{g\_bar} & ${\overline{g}}$ & Quarterly trend growth rate\\
+\texttt{nu} & $\nu$ & Frisch elasticity\\
+\texttt{gam} & $\gamma$ & wealth effect on labor supply\\
+\texttt{xi} & $\xi$ & elasticity of substitution between non-durables and services\\
+\texttt{omega\_sc} & $\omega_{sc}$ & Weight of services in aggregator\\
+\texttt{mu\_ss} & $\mu_{ss}$ & steady-state wage markup\\
+\texttt{sigma\_ac} & ${\sigma_{ac}}$ & Inverse elasticity of marginal utilization cost wrt rental rate:C\\
+\texttt{sigma\_ai} & ${\sigma_{ai}}$ & Inverse elasticity of marginal utilization cost wrt rental rate:I\\
+\texttt{Psi\_C} & ${\Psi_{C}}$ & Investment adjustment cost parameter:non-durable goods\\
+\texttt{Psi\_I} & ${\Psi_I}$ & Investment adjustment cost parameter:I\\
+\texttt{I\_Y} & ${I_Y}$ & Investment-output ratio\\
+\texttt{K\_Y} & ${K_Y}$ & Capital-output ratio (quarterly)\\
+\texttt{labor\_share} & $(labor share)$ & Labor share\\
+\texttt{nu\_R} & ${\nu_R}$ & Fixed cost share\\
+\texttt{ha} & ${ha}$ & Habit persistence\\
+\texttt{m} & ${m}$ & Ratio of price dispersion to consumption dispersion\\
+\texttt{eta} & ${\eta}$ & Shopping disutility\\
+\texttt{Psi} & ${\Psi}$ & Matching utilization\\
+\texttt{theta} & ${\theta}$ & Inverse intersectoral elasticity of labor supply\\
+\texttt{rho\_g} & ${\rho_g}$ & persistence TFP growth shock\\
+\texttt{rho\_Z} & ${\rho_Z}$ & persistence TFP shock\\
+\texttt{rho\_ZI} & ${\rho_{ZI}}$ & persistence I-specific shock\\
+\texttt{rho\_N} & ${\rho_N}$ & persistence labor supply shock\\
+\texttt{rho\_D} & ${\rho_D}$ & persistence shopping effort shock\\
+\texttt{rho\_DI} & ${\rho_{DI}}$ & persistence relative shopping effort shock\\
+\texttt{rho\_b} & ${\rho_b}$ & persistence discount factor shock\\
+\texttt{rho\_muC} & ${\rho_{muC}}$ & persistence wage markup shock:C\\
+\texttt{rho\_muI} & ${\rho_{muI}}$ & persistence wage markup shock:I\\
+\texttt{p\_I\_ss} & $p\_I\_ss$ & p\_I\_ss\\
+\texttt{N\_ss} & $N\_ss$ & N\_ss\\
+\hline%
+\end{longtable}
+\end{center}

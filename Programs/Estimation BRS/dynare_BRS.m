@@ -1,6 +1,8 @@
 clc;
 clear;
 addpath c:\dynare\5.4\matlab
+%% Make preferences GHH in consumption, shopping effort, and labor supply
+
 %% Main model estimated with sectoral data 
 %%
 dynare BRS_sectoral.mod
