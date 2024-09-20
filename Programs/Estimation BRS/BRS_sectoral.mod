@@ -73,7 +73,7 @@ var Y           ${Y}$ (long_name='output')
     D_I         ${D_I}$ (long_name='Shopping effort:I')
 
     Gam        ${\Gamma}$ (long_name = 'Composite utility term')
-    zeta       ${\zeta}$ (long_name = 'Wealth effects parameter')
+    //zeta       ${\zeta}$ (long_name = 'Wealth effects parameter')
     
     p_mc       ${p_{mc}}$ (long_name = 'Relative non-durable price')
     p_sc       ${p_{sc}}$ (long_name = 'Relative service price')
@@ -171,7 +171,6 @@ parameters
     beta  ${\beta}$    (long_name='Discount factor')
     g_bar  ${\overline{g}}$ (long_name = 'Quarterly trend growth rate')
     nu     $\nu$       (long_name = 'Frisch elasticity')
-    gam $\gamma$ (long_name = 'wealth effect on labor supply')
 
     xi  $\xi$    (long_name = 'elasticity of substitution between non-durables and services')
     omega_sc $\omega_{sc}$ (long_name = 'Weight of services in aggregator')
@@ -219,7 +218,6 @@ beta = 0.99; % discount factor
 g_bar = 0.0045; % quarterly growth rate
 //sigma_max = (1/4)*log(1+r_ann)/g_bar;
 nu = 0.72; % Frisch
-gam = 0.5;
 ha = 0.1;
 mu_ss = 1.15; % steady-state wage markup
 
@@ -314,17 +312,16 @@ model;
 #Z_sc_ss = (Y_sc_ss/(Psi) + nu_sc)/(exp(g_bar)^(-alpha_K)*K_sc_ss^(alpha_K)*N_sc_ss^(alpha_N));
 #Z_I_ss = (I_ss/Psi+nu_I)/(exp(g_bar)^(-alpha_K)*K_I_ss^(alpha_K)*N_I_ss^(alpha_N));
 
-#zeta_ss = C_ss*(1-ha) - D_ss^(1+1/eta)/(1+1/eta);
-#theta_N_ss = (1-phi)*W_ss/(N_ss^(1/nu)*zeta_ss*mu_ss);
+#theta_N_ss = (1-phi)*W_ss/(N_ss^(1/nu)*mu_ss);
 
 [name = 'Labor composite']
 N_comp = (omega^(-theta)*N_C^(1+theta) + (1-omega)^(-theta)*N_I^(1+theta))^(1/(1+theta));
 
 [name='Labor leisure:C']
-theta_N_ss*exp(theta_N)*(N_comp)^(1/nu)*(N_C/N_comp)^theta*omega^(-theta) = (1-phi)*W_C/(mu_ss*exp(mu_C)*zeta);
+theta_N_ss*exp(theta_N)*(N_comp)^(1/nu)*(N_C/N_comp)^theta*omega^(-theta) = (1-phi)*W_C/(mu_ss*exp(mu_C));
 
 [name='Labor leisure:I']
-theta_N_ss*exp(theta_N)*(N_comp)^(1/nu)*(N_I/N_comp)^theta*(1-omega)^(-theta)  = (1-phi)*W_I/(mu_ss*exp(mu_I)*zeta);
+theta_N_ss*exp(theta_N)*(N_comp)^(1/nu)*(N_I/N_comp)^theta*(1-omega)^(-theta)  = (1-phi)*W_I/(mu_ss*exp(mu_I));
 
 
 [name='Marginal utility of wealth']
@@ -346,10 +343,7 @@ exp(theta_D)*D^(1/eta) = phi*p_sc*Y_sc/D_sc;
 exp(theta_D)*D^(1/eta)*exp(theta_I) = phi*p_I*I/D_I;
 
 [name = 'Composite utility term']
-Gam = C-ha*C(-1) - exp(theta_D)*D^(1+1/eta)/(1+1/eta) - theta_N_ss*exp(theta_N)*N_comp^(1+1/nu)/(1+1/nu)*zeta;
-
-[name = 'Law of motion of wealth effects variable']
-zeta =  (C-ha*C(-1) - exp(theta_D)*D^(1+1/eta)/(1+1/eta))^(gam)*zeta(-1)^(1-gam);
+Gam = C-ha*C(-1) - exp(theta_D)*D^(1+1/eta)/(1+1/eta) - theta_N_ss*exp(theta_N)*N_comp^(1+1/nu)/(1+1/nu);
 
 [name = 'Consumption CES aggregator']
 C = (omega_sc^(1-rho)*Y_sc^rho + (1-omega_sc)^(1-rho)*Y_mc^rho)^(1/rho);
@@ -660,10 +654,10 @@ steady_state_model;
 
     rho_ss = (xi-1)/xi;
     
-    zeta = C*(1-ha) - D^(1+1/eta)/(1+1/eta);
-    theta_N_s = (1-phi)*W_C/(N^(1/nu)*zeta*mu_ss);
+    //zeta = C*(1-ha) - D^(1+1/eta)/(1+1/eta);
+    theta_N_s = (1-phi)*W_C/(N^(1/nu)*mu_ss);
     //Gam^(-sigma)*theta_N_ss*exp(theta_N)*(N_comp)^(1/nu)*(N_C/N_comp)^theta*omega^(-theta) = lam*W_C/(mu_ss*exp(mu_C)*zeta);
-    Gam = (C*(1-ha) - D^(1+1/eta)/(1+1/eta) - theta_N_s*N_comp^(1+1/nu)/(1+1/nu)*zeta);
+    Gam = (C*(1-ha) - D^(1+1/eta)/(1+1/eta) - theta_N_s*N_comp^(1+1/nu)/(1+1/nu));
 
     lam = Gam^(-sigma)*(1-phi);
    
@@ -792,7 +786,7 @@ estimated_params;
 sigma, 1.5, 1.0, 4.0,             BETA_PDF, 1.5, 0.25, 1.0, 4.0;
 ha, 0.5, 0.0, 0.95,           BETA_PDF, 0.5, 0.2;
 nu, 0.72, 0.05, 2.0,           GAMMA_PDF, 0.72, 0.25;
-gam, 0.5, 0.0, 1.0,        BETA_PDF, 0.5, 0.2; %Born, Peter, and Pfeifer (2013)
+//gam, 0.5, 0.0, 1.0,        BETA_PDF, 0.5, 0.2; %Born, Peter, and Pfeifer (2013)
 
 phi, 0.8, 0.00, 0.999,        BETA_PDF, 0.32, 0.2;
 eta, 0.567, 0.00, 10.0,          GAMMA_PDF, 0.2, 0.15;
@@ -872,8 +866,8 @@ mh_jscale=0.006,
 mh_init_scale =0.0001,
 //mh_jscale=0.1,
 mode_check, 
-//mh_replic=75000, 
-mh_replic=0,
+mh_replic=100000, 
+//mh_replic=0,
 mh_nblocks=2, 
 //bayesian_irf,
 //irf=100,
