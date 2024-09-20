@@ -22,6 +22,6 @@ function g3 = dynamic_g3(T, y, x, params, steady_state, it_, T_flag)
 if T_flag
     T = BRS_util.dynamic_g3_tt(T, y, x, params, steady_state, it_);
 end
-g3 = sparse([],[],[],49,456533);
+g3 = sparse([],[],[],53,571787);
 
 end

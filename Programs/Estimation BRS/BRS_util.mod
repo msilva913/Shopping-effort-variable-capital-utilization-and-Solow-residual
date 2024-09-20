@@ -47,6 +47,8 @@ var Y           ${Y}$ (long_name='output')
     log_D
     log_p_I
     log_util
+    log_util_C
+    log_util_I
 
     C_obs
     I_obs
@@ -59,6 +61,8 @@ var Y           ${Y}$ (long_name='output')
     N_obs
     D_obs
     util_obs
+    util_C_obs
+    util_I_obs
     ;
 
 varexo e_g ${e_g}$ (long_name= 'TFP shock')
@@ -258,6 +262,8 @@ log_D = log(D) - steady_state(log(D));
 log_p_I = log(p_I) - steady_state(log(p_I));
 [name = 'Definition log util']
 log_util = log(util) - steady_state(log(util));
+log_util_C = log(util_C) - steady_state(log(util_C));
+log_util_I = log(util_I) - steady_state(log(util_I));
 
 % Observation variables: first differences (demeaned) -> link to data in first differences
 C_obs = log_C - log_C(-1) + g - g_bar;
@@ -273,6 +279,8 @@ NC_obs = log_NC - log_NC(-1);
 NI_obs = log_NI - log_NI(-1);
 D_obs = log_D - log_D(-1);
 util_obs = log_util - log_util(-1);
+util_C_obs = log_util_C - log_util_C(-1);
+util_I_obs = log_util_I - log_util_I(-1);
 
 end;
 
@@ -440,6 +448,6 @@ collect_latex_files;
 stoch_simul (order=1, nofunctions, irf=0, periods=0
 //conditional_variance_decomposition=[1 4 8 40])
 )
-Y_obs, Y_N_obs, SR_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, theta_D, D_obs, util_obs;
+Y_obs, Y_N_obs, SR_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, theta_D, D_obs, util_obs util_C_obs, util_I_obs;
 //log_Y, log_Y_N, log_I, log_p_I, log_C;
 

@@ -41,11 +41,11 @@ function [ys_, params, info] = steadystate(ys_, exo_, params)
     ys_(36)=0;
     ys_(37)=0;
     ys_(38)=0;
-    ys_(39)=0;
-    ys_(40)=0;
     ys_(41)=0;
+    ys_(42)=0;
+    ys_(43)=0;
     lab_prod_obs=0;
-    ys_(47)=0;
-    ys_(44)=0;
+    ys_(49)=0;
+    ys_(46)=0;
     % Auxiliary equations
 end

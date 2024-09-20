@@ -4,13 +4,17 @@ Starting preprocessing of the model file ...
 WARNING: in the 'steady_state_model' block, variable 'log_NC' is not assigned a value
 WARNING: in the 'steady_state_model' block, variable 'log_NI' is not assigned a value
 WARNING: in the 'steady_state_model' block, variable 'log_SR' is not assigned a value
+WARNING: in the 'steady_state_model' block, variable 'log_util_C' is not assigned a value
+WARNING: in the 'steady_state_model' block, variable 'log_util_I' is not assigned a value
 WARNING: in the 'steady_state_model' block, variable 'Y_N_obs' is not assigned a value
 WARNING: in the 'steady_state_model' block, variable 'SR_obs' is not assigned a value
 WARNING: in the 'steady_state_model' block, variable 'NC_obs' is not assigned a value
 WARNING: in the 'steady_state_model' block, variable 'NI_obs' is not assigned a value
 WARNING: in the 'steady_state_model' block, variable 'D_obs' is not assigned a value
 WARNING: in the 'steady_state_model' block, variable 'util_obs' is not assigned a value
-Found 49 equation(s).
+WARNING: in the 'steady_state_model' block, variable 'util_C_obs' is not assigned a value
+WARNING: in the 'steady_state_model' block, variable 'util_I_obs' is not assigned a value
+Found 53 equation(s).
 Evaluating expressions...done
 Computing static model derivatives (order 1).
 Computing dynamic model derivatives (order 1).
@@ -62,87 +66,97 @@ Equation number 35 : 0 : Definition of log Solow residual
 Equation number 36 : 0 : Definition log shopping effort
 Equation number 37 : 0 : Definition of log relative investment  price
 Equation number 38 : 0 : Definition log util
-Equation number 39 : 0 : C_obs
-Equation number 40 : 0 : I_obs
-Equation number 41 : 0 : Y_obs
-Equation number 42 : 0 : Y_N_obs
-Equation number 43 : 0 : SR_obs
-Equation number 44 : 0 : p_I_obs
-Equation number 45 : 0 : N_obs
-Equation number 46 : 0 : NC_obs
-Equation number 47 : 0 : NI_obs
-Equation number 48 : 0 : D_obs
-Equation number 49 : 0 : util_obs
+Equation number 39 : 0 : log_util_C
+Equation number 40 : 0 : log_util_I
+Equation number 41 : 0 : C_obs
+Equation number 42 : 0 : I_obs
+Equation number 43 : 0 : Y_obs
+Equation number 44 : 0 : Y_N_obs
+Equation number 45 : 0 : SR_obs
+Equation number 46 : 0 : p_I_obs
+Equation number 47 : 0 : N_obs
+Equation number 48 : 0 : NC_obs
+Equation number 49 : 0 : NI_obs
+Equation number 50 : 0 : D_obs
+Equation number 51 : 0 : util_obs
+Equation number 52 : 0 : util_C_obs
+Equation number 53 : 0 : util_I_obs
 
 
 
 STEADY-STATE RESULTS:
 
-Y        		 1
-C        		 0.8
-I        		 0.2
-SR       		 1.01547
-K        		 11.0496
-K_C      		 8.83969
-K_I      		 2.20992
-N        		 0.3
-N_C      		 0.24
-N_I      		 0.06
-Z_C      		 0
-u_ZI     		 0
-Z_I      		 0
-theta_N  		 0
-theta_D  		 0
-R_C      		 0.0483892
-R_I      		 0.0483892
-W        		 2.23333
-D        		 0.827037
-D_C      		 0.66163
-D_I      		 0.165407
-Gam      		 0.55595
-p_I      		 1
-g        		 0.0045
-util_C   		 0.81
-util_I   		 0.81
-util     		 0.81
-log_Y    		 0
-log_C    		 0
-log_I    		 0
-log_N    		 0
-log_NC   		 0
-log_NI   		 0
-log_Y_N  		 0
-log_SR   		 0
-log_D    		 0
-log_p_I  		 0
-log_util 		 0
-C_obs    		 0
-I_obs    		 0
-Y_obs    		 0
-Y_N_obs  		 0
-SR_obs   		 0
-p_I_obs  		 0
-NC_obs   		 0
-NI_obs   		 0
-N_obs    		 0
-D_obs    		 0
-util_obs 		 0
+Y          		 1
+C          		 0.8
+I          		 0.2
+SR         		 1.01547
+K          		 11.0496
+K_C        		 8.83969
+K_I        		 2.20992
+N          		 0.3
+N_C        		 0.24
+N_I        		 0.06
+Z_C        		 0
+u_ZI       		 0
+Z_I        		 0
+theta_N    		 0
+theta_D    		 0
+R_C        		 0.0483892
+R_I        		 0.0483892
+W          		 2.23333
+D          		 0.827037
+D_C        		 0.66163
+D_I        		 0.165407
+Gam        		 0.55595
+p_I        		 1
+g          		 0.0045
+util_C     		 0.81
+util_I     		 0.81
+util       		 0.81
+log_Y      		 0
+log_C      		 0
+log_I      		 0
+log_N      		 0
+log_NC     		 0
+log_NI     		 0
+log_Y_N    		 0
+log_SR     		 0
+log_D      		 0
+log_p_I    		 0
+log_util   		 0
+log_util_C 		 0
+log_util_I 		 0
+C_obs      		 0
+I_obs      		 0
+Y_obs      		 0
+Y_N_obs    		 0
+SR_obs     		 0
+p_I_obs    		 0
+NC_obs     		 0
+NI_obs     		 0
+N_obs      		 0
+D_obs      		 0
+util_obs   		 0
+util_C_obs 		 0
+util_I_obs 		 0
 
 EIGENVALUES:
          Modulus             Real        Imaginary
 
                0                0                0
                0                0                0
-       9.871e-21       -9.871e-21                0
-       5.118e-19       -5.118e-19                0
-       1.031e-17       -1.031e-17                0
-       1.041e-17        1.041e-17                0
-       1.429e-17       -1.429e-17                0
-       5.219e-17       -5.219e-17                0
-        2.12e-16        -2.12e-16                0
-       2.292e-15       -2.292e-15                0
-        5.58e-09        -5.58e-09                0
-        5.58e-09         5.58e-09                0
+        2.54e-20        -2.54e-20                0
+        3.81e-19        -3.81e-19                0
+       4.522e-18        4.522e-18                0
+       5.948e-18        5.948e-18                0
+       8.196e-18        8.196e-18                0
+        8.22e-18         8.22e-18                0
+       1.471e-17       -1.471e-17                0
+       1.537e-17        1.537e-17                0
+       1.319e-16        1.319e-16                0
+       4.816e-15        4.816e-15                0
+       3.396e-09       -1.455e-16        3.396e-09
+       3.396e-09       -1.455e-16       -3.396e-09
              0.1              0.1                0
              0.9              0.9                0
              0.9              0.9                0
@@ -150,10 +164,10 @@ EIGENVALUES:
              0.9              0.9                0
           0.9845           0.9845                0
            1.031            1.031                0
-       1.189e+17       -1.189e+17                0
-       1.222e+17        1.222e+17                0
-       2.414e+17       -2.414e+17                0
-       4.967e+17       -4.967e+17                0
+       5.147e+16        5.147e+16                0
+       6.446e+17        6.446e+17                0
+        1.59e+18         1.59e+18                0
+       7.786e+18       -7.786e+18                0
 
 
 There are 5 eigenvalue(s) larger than 1 in modulus 
@@ -172,7 +186,7 @@ the estimated_params_init block, or use another optimization routine.
 [Warning: The results below are most likely wrong!] 
 [> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation_1', 'C:\dynare\5.4\matlab\dynare_estimation_1.m', 318)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare_estimation_1.m',318,0)">line 318</a>)
 In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation', 'C:\dynare\5.4\matlab\dynare_estimation.m', 118)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare_estimation.m',118,0)">line 118</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('BRS_util.driver', 'C:\Users\TJSEM\Github\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_util\driver.m', 555)" style="font-weight:bold">BRS_util.driver</a> (<a href="matlab: opentoline('C:\Users\TJSEM\Github\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_util\driver.m',555,0)">line 555</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('BRS_util.driver', 'C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_util\driver.m', 579)" style="font-weight:bold">BRS_util.driver</a> (<a href="matlab: opentoline('C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_util\driver.m',579,0)">line 579</a>)
 In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare', 'C:\dynare\5.4\matlab\dynare.m', 278)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare.m',278,0)">line 278</a>)] 
 
 MODE CHECK
@@ -181,7 +195,7 @@ Fval obtained by the minimization routine (minus the posterior/likelihood)): -35
 [Warning: Matrix is singular, close to singular or badly scaled. Results may be inaccurate. RCOND = NaN.] 
 [> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation_1', 'C:\dynare\5.4\matlab\dynare_estimation_1.m', 341)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare_estimation_1.m',341,0)">line 341</a>)
 In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation', 'C:\dynare\5.4\matlab\dynare_estimation.m', 118)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare_estimation.m',118,0)">line 118</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('BRS_util.driver', 'C:\Users\TJSEM\Github\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_util\driver.m', 555)" style="font-weight:bold">BRS_util.driver</a> (<a href="matlab: opentoline('C:\Users\TJSEM\Github\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_util\driver.m',555,0)">line 555</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('BRS_util.driver', 'C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_util\driver.m', 579)" style="font-weight:bold">BRS_util.driver</a> (<a href="matlab: opentoline('C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_util\driver.m',579,0)">line 579</a>)
 In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare', 'C:\dynare\5.4\matlab\dynare.m', 278)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare.m',278,0)">line 278</a>)
 ] 
 
@@ -276,11 +290,11 @@ e_D           0.010       0.0075      0.0068      0.0081     invg       0.1000
 
 MODEL SUMMARY
 
-  Number of variables:         49
+  Number of variables:         53
   Number of stochastic shocks: 5
-  Number of state variables:   18
+  Number of state variables:   20
   Number of jumpers:           5
-  Number of static variables:  27
+  Number of static variables:  29
 
 
 MATRIX OF COVARIANCE OF EXOGENOUS SHOCKS
@@ -294,66 +308,74 @@ e_D          0.000000  0.000000  0.000000  0.000000  0.000056
 
 
 THEORETICAL MOMENTS
-VARIABLE         MEAN  STD. DEV.   VARIANCE
-Y_obs          0.0000     0.0141     0.0002
-Y_N_obs        0.0000     0.0125     0.0002
-SR_obs         0.0000     0.0110     0.0001
-I_obs          0.0000     0.0238     0.0006
-p_I_obs        0.0000     0.0101     0.0001
-C_obs          0.0000     0.0130     0.0002
-NC_obs         0.0000     0.0103     0.0001
-NI_obs         0.0000     0.0185     0.0003
-theta_D        0.0000     0.0200     0.0004
-D_obs          0.0000     0.0169     0.0003
-util_obs       0.0000     0.0149     0.0002
+VARIABLE           MEAN  STD. DEV.   VARIANCE
+Y_obs            0.0000     0.0141     0.0002
+Y_N_obs          0.0000     0.0125     0.0002
+SR_obs           0.0000     0.0110     0.0001
+I_obs            0.0000     0.0238     0.0006
+p_I_obs          0.0000     0.0101     0.0001
+C_obs            0.0000     0.0130     0.0002
+NC_obs           0.0000     0.0103     0.0001
+NI_obs           0.0000     0.0185     0.0003
+theta_D          0.0000     0.0200     0.0004
+D_obs            0.0000     0.0169     0.0003
+util_obs         0.0000     0.0149     0.0002
+util_C_obs       0.0000     0.0139     0.0002
+util_I_obs       0.0000     0.0221     0.0005
 
 
 
 VARIANCE DECOMPOSITION (in percent)
-               e_g     e_Z    e_ZI     e_N     e_D
-Y_obs         0.95   31.76    3.02    0.68   63.59
-Y_N_obs      39.77   14.00    2.37   16.89   26.97
-SR_obs       26.70    9.14    2.45    7.66   54.05
-I_obs         0.23   21.38   11.70    0.53   66.16
-p_I_obs       0.01   24.95   62.24    0.07   12.74
-C_obs         1.24   44.83    2.09    0.62   51.22
-NC_obs       39.53   17.93    0.58   35.14    6.82
-NI_obs       13.97   20.33    0.18   13.81   51.70
-theta_D       0.00    0.00    0.00    0.00  100.00
-D_obs        36.59    9.37    0.53    0.20   53.31
-util_obs     36.59    9.37    0.53    0.20   53.31
+                 e_g     e_Z    e_ZI     e_N     e_D
+Y_obs           0.95   31.76    3.02    0.68   63.59
+Y_N_obs        39.77   14.00    2.37   16.89   26.97
+SR_obs         26.70    9.14    2.45    7.66   54.05
+I_obs           0.23   21.38   11.70    0.53   66.16
+p_I_obs         0.01   24.95   62.24    0.07   12.74
+C_obs           1.24   44.83    2.09    0.62   51.22
+NC_obs         39.53   17.93    0.58   35.14    6.82
+NI_obs         13.97   20.33    0.18   13.81   51.70
+theta_D         0.00    0.00    0.00    0.00  100.00
+D_obs          36.59    9.37    0.53    0.20   53.31
+util_obs       36.59    9.37    0.53    0.20   53.31
+util_C_obs     41.83   14.95    0.61    0.16   42.46
+util_I_obs     17.78   12.31    0.24    0.29   69.38
 
 
 
 MATRIX OF CORRELATIONS
-Variables       Y_obs   Y_N_obs    SR_obs     I_obs   p_I_obs     C_obs    NC_obs    NI_obs   theta_D     D_obs  util_obs
-Y_obs          1.0000    0.6741    0.7987    0.8388   -0.0371    0.9685    0.4161    0.6108   -0.1983    0.7121    0.7121
-Y_N_obs        0.6741    1.0000    0.9535    0.5641   -0.0938    0.6535   -0.3635    0.0121   -0.1341    0.0978    0.0978
-SR_obs         0.7987    0.9535    1.0000    0.6980   -0.0748    0.7608   -0.1757    0.2244   -0.1581    0.3043    0.3043
-I_obs          0.8388    0.5641    0.6980    1.0000   -0.3393    0.6769    0.2399    0.7609   -0.2034    0.6391    0.6391
-p_I_obs       -0.0371   -0.0938   -0.0748   -0.3393    1.0000    0.1049    0.0502    0.0624    0.0545    0.0734    0.0734
-C_obs          0.9685    0.6535    0.7608    0.6769    0.1049    1.0000    0.4529    0.4779   -0.1752    0.6706    0.6706
-NC_obs         0.4161   -0.3635   -0.1757    0.2399    0.0502    0.4529    1.0000    0.5762   -0.0698    0.7138    0.7138
-NI_obs         0.6108    0.0121    0.2244    0.7609    0.0624    0.4779    0.5762    1.0000   -0.1480    0.7901    0.7901
-theta_D       -0.1983   -0.1341   -0.1581   -0.2034    0.0545   -0.1752   -0.0698   -0.1480    1.0000   -0.1589   -0.1589
-D_obs          0.7121    0.0978    0.3043    0.6391    0.0734    0.6706    0.7138    0.7901   -0.1589    1.0000    1.0000
-util_obs       0.7121    0.0978    0.3043    0.6391    0.0734    0.6706    0.7138    0.7901   -0.1589    1.0000    1.0000
+Variables          Y_obs     Y_N_obs      SR_obs       I_obs     p_I_obs       C_obs      NC_obs      NI_obs     theta_D       D_obs    util_obs  util_C_obs  util_I_obs
+Y_obs             1.0000      0.6741      0.7987      0.8388     -0.0371      0.9685      0.4161      0.6108     -0.1983      0.7121      0.7121      0.6784      0.7039
+Y_N_obs           0.6741      1.0000      0.9535      0.5641     -0.0938      0.6535     -0.3635      0.0121     -0.1341      0.0978      0.0978      0.0547      0.1930
+SR_obs            0.7987      0.9535      1.0000      0.6980     -0.0748      0.7608     -0.1757      0.2244     -0.1581      0.3043      0.3043      0.2521      0.3958
+I_obs             0.8388      0.5641      0.6980      1.0000     -0.3393      0.6769      0.2399      0.7609     -0.2034      0.6391      0.6391      0.5413      0.8012
+p_I_obs          -0.0371     -0.0938     -0.0748     -0.3393      1.0000      0.1049      0.0502      0.0624      0.0545      0.0734      0.0734      0.0710      0.0698
+C_obs             0.9685      0.6535      0.7608      0.6769      0.1049      1.0000      0.4529      0.4779     -0.1752      0.6706      0.6706      0.6698      0.5854
+NC_obs            0.4161     -0.3635     -0.1757      0.2399      0.0502      0.4529      1.0000      0.5762     -0.0698      0.7138      0.7138      0.7651      0.4922
+NI_obs            0.6108      0.0121      0.2244      0.7609      0.0624      0.4779      0.5762      1.0000     -0.1480      0.7901      0.7901      0.6919      0.9334
+theta_D          -0.1983     -0.1341     -0.1581     -0.2034      0.0545     -0.1752     -0.0698     -0.1480      1.0000     -0.1589     -0.1589     -0.1456     -0.1715
+D_obs             0.7121      0.0978      0.3043      0.6391      0.0734      0.6706      0.7138      0.7901     -0.1589      1.0000      1.0000      0.9856      0.9060
+util_obs          0.7121      0.0978      0.3043      0.6391      0.0734      0.6706      0.7138      0.7901     -0.1589      1.0000      1.0000      0.9856      0.9060
+util_C_obs        0.6784      0.0547      0.2521      0.5413      0.0710      0.6698      0.7651      0.6919     -0.1456      0.9856      0.9856      1.0000      0.8214
+util_I_obs        0.7039      0.1930      0.3958      0.8012      0.0698      0.5854      0.4922      0.9334     -0.1715      0.9060      0.9060      0.8214      1.0000
 
 
 
 COEFFICIENTS OF AUTOCORRELATION
-Order             1        2        3        4        5
-Y_obs        0.2383   0.2915   0.2923   0.2932   0.2941
-Y_N_obs      0.2077   0.1497   0.1344   0.1312   0.1308
-SR_obs       0.0832   0.0690   0.0595   0.0581   0.0585
-I_obs        0.1997   0.1229   0.1237   0.1246   0.1254
-p_I_obs      0.1108   0.1370   0.1331   0.1292   0.1255
-C_obs        0.2755   0.3294   0.3300   0.3308   0.3315
-NC_obs       0.1805   0.1078   0.0910   0.0874   0.0868
-NI_obs      -0.0137   0.0234   0.0199   0.0198   0.0204
-theta_D      0.9281   0.8614   0.7994   0.7419   0.6886
-D_obs        0.1067   0.0920   0.0781   0.0756   0.0756
-util_obs     0.1067   0.0920   0.0781   0.0756   0.0756
-Total computing time : 0h01m37s
-Note: 9 warning(s) encountered in the preprocessor
+Order               1        2        3        4        5
+Y_obs          0.2383   0.2915   0.2923   0.2932   0.2941
+Y_N_obs        0.2077   0.1497   0.1344   0.1312   0.1308
+SR_obs         0.0832   0.0690   0.0595   0.0581   0.0585
+I_obs          0.1997   0.1229   0.1237   0.1246   0.1254
+p_I_obs        0.1108   0.1370   0.1331   0.1292   0.1255
+C_obs          0.2755   0.3294   0.3300   0.3308   0.3315
+NC_obs         0.1805   0.1078   0.0910   0.0874   0.0868
+NI_obs        -0.0137   0.0234   0.0199   0.0198   0.0204
+theta_D        0.9281   0.8614   0.7994   0.7419   0.6886
+D_obs          0.1067   0.0920   0.0781   0.0756   0.0756
+util_obs       0.1067   0.0920   0.0781   0.0756   0.0756
+util_C_obs     0.1504   0.1092   0.0923   0.0891   0.0889
+util_I_obs    -0.0026   0.0316   0.0267   0.0265   0.0273
+Total computing time : 0h01m07s
+Note: 13 warning(s) encountered in the preprocessor
 Note: warning(s) encountered in MATLAB/Octave code
