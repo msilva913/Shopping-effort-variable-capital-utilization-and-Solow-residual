@@ -179,8 +179,7 @@ parameters
 
     sigma_ac ${\sigma_{ac}}$ (long_name = 'Inverse elasticity of marginal utilization cost wrt rental rate:C')
     sigma_ai ${\sigma_{ai}}$ (long_name = 'Inverse elasticity of marginal utilization cost wrt rental rate:I')
-    Psi_C ${\Psi_{C}}$ (long_name = 'Investment adjustment cost parameter:non-durable goods')
-    Psi_I ${\Psi_I}$ (long_name = 'Investment adjustment cost parameter:I')
+    Psi_K ${\Psi_{K}}$ (long_name = 'Investment adjustment cost parameter')
    
     I_Y    ${I_Y}$   (long_name = 'Investment-output ratio')
     K_Y    ${K_Y}$   (long_name = 'Capital-output ratio (quarterly)')
@@ -218,7 +217,7 @@ beta = 0.99; % discount factor
 g_bar = 0.0045; % quarterly growth rate
 //sigma_max = (1/4)*log(1+r_ann)/g_bar;
 nu = 0.72; % Frisch
-ha = 0.1;
+ha = 0.0;
 mu_ss = 1.15; % steady-state wage markup
 
 xi = 0.85; % elasticity of substitution between non-durables and services
@@ -226,8 +225,7 @@ omega_sc = 0.65;
 
 sigma_ac = 0.32; % inverse of elasticity of capital utilization wrt rental rate
 sigma_ai = 0.32;
-Psi_C = 1.5;
-Psi_I = 1.5;
+Psi_K = 1.5;
 
 I_Y = 0.20;
 K_Y = 11;
@@ -352,22 +350,22 @@ C = (omega_sc^(1-rho)*Y_sc^rho + (1-omega_sc)^(1-rho)*Y_mc^rho)^(1/rho);
 //C = p_mc*Y_mc + p_sc*Y_sc;
 
 [name = 'Investment adjustment cost function:mc']
-Smc =Psi_C/2*(x_mc-exp(g_bar))^2;
+Smc =Psi_K/2*(x_mc-exp(g_bar))^2;
 
 [name = 'Investment adjustment cost function:mc']
-Ssc =Psi_C/2*(x_sc-exp(g_bar))^2;
+Ssc =Psi_K/2*(x_sc-exp(g_bar))^2;
 
 [name = 'Investment adjustment cost function:I']
-Si =Psi_I/2*(x_I-exp(g_bar))^2;
+Si =Psi_K/2*(x_I-exp(g_bar))^2;
 
 [name = 'Investment adjustment cost function: derivative mc']
-Smc_pr = Psi_C*(x_mc-exp(g_bar));
+Smc_pr = Psi_K*(x_mc-exp(g_bar));
 
 [name = 'Investment adjustment cost function: derivative mc']
-Ssc_pr = Psi_C*(x_sc-exp(g_bar));
+Ssc_pr = Psi_K*(x_sc-exp(g_bar));
 
 [name = 'Investment adjustment cost function: derivative I']
-Si_pr = Psi_I*(x_I-exp(g_bar));
+Si_pr = Psi_K*(x_I-exp(g_bar));
 
 [name = 'Investment growth:mc']
 x_mc = I_mc/I_mc(-1)*exp(g);
@@ -799,8 +797,7 @@ nu_R, 0.20, 0.01, 0.5,        BETA_PDF, 0.2, 0.1;
 
 sigma_ac, 0.32, 0.0, 10,       INV_GAMMA_PDF, 1, 1; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
 sigma_ai, 0.32, 0.0, 10,       INV_GAMMA_PDF, 1, 1; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
-Psi_C, 1.5, 0.0, 50,           GAMMA_PDF, 4, 1.0; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
-Psi_I, 1.5, 0.0, 50,           GAMMA_PDF, 4, 1.0; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
+Psi_K, 1.5, 0.0, 50,           GAMMA_PDF, 4, 1.0; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
 
 theta, 0.5, .00, 10,   GAMMA_PDF, 1, 0.5; %Katayama and Kim 2018, based on Horvath (2000)
 
@@ -853,13 +850,13 @@ varobs NC_obs, NI_obs, C_obs, I_obs, p_I_obs, util_ND_obs, util_D_obs;
 
 estimation(tex, optim=('MaxIter', 200), 
 datafile=observables_sectoral, 
-mode_file=BRS_sectoral_mh_mode, %With _mh option uses mode after MCM run
+//mode_file=BRS_sectoral_mh_mode, %With _mh option uses mode after MCM run
 //nograph,
-load_mh_file, 
+//load_mh_file, 
 //mh_recover,
 mcmc_jumping_covariance=prior_variance,
 
-mode_compute=0,
+mode_compute=4,
 presample=0, 
 lik_init=2,
 mh_jscale=0.006, 
