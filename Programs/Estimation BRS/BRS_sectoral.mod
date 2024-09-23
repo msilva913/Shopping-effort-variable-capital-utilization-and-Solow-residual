@@ -43,6 +43,8 @@ var Y           ${Y}$ (long_name='output')
     R_sc         ${R_{sc}}$ (long_name='Capital rental rate:sc')
     R_I         ${R_I}$ (long_name='Capital rental rate:I')
     W          ${W}$ (long_name='Real wage')
+    W_C
+    W_I
 
     h_mc         ${h_mc}$ (long_name= 'Capital utilization rate:mc')
     h_sc         ${h_sc}$ (long_name= 'Capital utilization rate:sc')
@@ -298,7 +300,10 @@ model;
 #theta_N_ss = (1-phi)*W_ss/(N_ss^(1/nu)*mu_ss);
 
 [name='Labor leisure']
-theta_N_ss*exp(theta_N)*N^(1/nu) = (1-phi)*W/(mu_ss*exp(mu_C));
+theta_N_ss*exp(theta_N)*N^(1/nu) = (1-phi)*W_C/(mu_ss*exp(mu_C));
+
+[name='Equality of worker wage rate']
+W_C/(mu_ss*exp(mu_C)) = W_I/(mu_ss*exp(mu_I));
 
 
 [name='Marginal utility of wealth']
@@ -425,13 +430,13 @@ K_I*exp(g) = (1-Si)*I_I*exp(g) + (1-delta_I)*K_I(-1);
 
 
 [name = 'Labor demand:mc']
-(1-phi)*W/p_mc = alpha_N*(Y_mc+A_mc*D_mc^phi*nu_mc)/N_mc;
+(1-phi)*W_C/p_mc = alpha_N*(Y_mc+A_mc*D_mc^phi*nu_mc)/N_mc;
 
 [name = 'Labor demand:sc']
-(1-phi)*W/p_sc = alpha_N*(Y_sc+A_sc*D_sc^phi*nu_sc)/N_sc;
+(1-phi)*W_C/p_sc = alpha_N*(Y_sc+A_sc*D_sc^phi*nu_sc)/N_sc;
 
 [name = 'Labor demand:I']
-(1-phi)*W/p_I = alpha_N*(I+A_I*D_I^phi*nu_I)/N_I;
+(1-phi)*W_I/p_I = alpha_N*(I+A_I*D_I^phi*nu_I)/N_I;
 
 [name = 'Capital demand:mc']
 (1-phi)*R_mc/p_mc = exp(g)*alpha_K*(Y_mc+A_mc*D_mc^phi*nu_mc)/(h_mc*K_mc(-1));
