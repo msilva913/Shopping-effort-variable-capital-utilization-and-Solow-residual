@@ -38,6 +38,8 @@ tables = CFEVD_sum(res, M, 'level');
 %C_obs,Y_obs, SR_obs, TI_obs, NE, L ;
 %CFEVD = CFEVD(:, :, 1:(end-2));
 save('CFEVD.mat', 'CFEVD');
+%% Remove investment adjustment cost 
+dynare BRS_sectoral_wo_inv_adj_cost.mod 
 %% Remove fixed cost
 dynare BRS_sectoral_wo_fixed_cost.mod
 load res_wo_fc 
