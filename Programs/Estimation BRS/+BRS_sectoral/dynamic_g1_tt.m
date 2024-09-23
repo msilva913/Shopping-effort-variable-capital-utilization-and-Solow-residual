@@ -22,28 +22,28 @@ assert(length(T) >= 109);
 
 T = BRS_sectoral.dynamic_resid_tt(T, y, x, params, steady_state, it_);
 
-T(87) = 1/y(66);
+T(87) = 1/y(34);
 T(88) = getPowerDeriv(T(38),1/T(1),1);
-T(89) = getPowerDeriv(y(101)*y(5),T(44),1);
-T(90) = getPowerDeriv(y(102)*y(6),T(44),1);
-T(91) = getPowerDeriv(y(103)*y(7),T(44),1);
-T(92) = getPowerDeriv(y(80),T(2),1);
+T(89) = getPowerDeriv(y(69)*y(5),T(44),1);
+T(90) = getPowerDeriv(y(70)*y(6),T(44),1);
+T(91) = getPowerDeriv(y(71)*y(7),T(44),1);
+T(92) = getPowerDeriv(y(48),T(2),1);
 T(93) = T(62)*T(66)*T(92);
-T(94) = getPowerDeriv(y(81),T(2),1);
+T(94) = getPowerDeriv(y(49),T(2),1);
 T(95) = T(68)*T(71)*T(94);
 T(96) = getPowerDeriv(T(57),1/(1+params(19)),1);
-T(97) = getPowerDeriv(y(82)/y(84),params(19),1);
-T(98) = getPowerDeriv(y(83)/y(84),params(19),1);
-T(99) = getPowerDeriv(y(83),T(2),1);
+T(97) = getPowerDeriv(y(50)/y(52),params(19),1);
+T(98) = getPowerDeriv(y(51)/y(52),params(19),1);
+T(99) = getPowerDeriv(y(51),T(2),1);
 T(100) = T(73)*T(76)*T(99);
-T(101) = T(58)*getPowerDeriv(y(84),T(4),1);
-T(102) = exp(y(90))*getPowerDeriv(y(117),1/params(17),1);
-T(103) = T(45)*getPowerDeriv(y(118),params(16),1);
-T(104) = T(46)*getPowerDeriv(y(119),params(16),1);
-T(105) = T(47)*getPowerDeriv(y(120),params(16),1);
-T(106) = T(13)*params(2)*exp(y(92))*(-y(215))/(y(125)*y(125));
-T(107) = T(13)*params(2)*exp(y(92))*1/y(125);
+T(101) = T(58)*getPowerDeriv(y(52),T(4),1);
+T(102) = exp(y(58))*getPowerDeriv(y(85),1/params(17),1);
+T(103) = T(45)*getPowerDeriv(y(86),params(16),1);
+T(104) = T(46)*getPowerDeriv(y(87),params(16),1);
+T(105) = T(47)*getPowerDeriv(y(88),params(16),1);
+T(106) = T(13)*params(2)*exp(y(60))*(-y(151))/(y(93)*y(93));
+T(107) = T(13)*params(2)*exp(y(60))*1/y(93);
 T(108) = T(12)*getPowerDeriv(T(12),(-T(44)),1);
-T(109) = params(2)*exp(y(92))*y(215)/y(125)*exp(y(222))*getPowerDeriv(exp(y(222)),(-params(1)),1);
+T(109) = params(2)*exp(y(60))*y(151)/y(93)*exp(y(158))*getPowerDeriv(exp(y(158)),(-params(1)),1);
 
 end
