@@ -24,7 +24,6 @@ var Y           ${Y}$ (long_name='output')
     N_sc         ${N_{sc}}$ (long_name='Hours:sc')
     N_C         ${N_C}$ (long_name= 'Hours:C')
     N_I         ${N_I}$ (long_name='Hours:I')
-    N_comp           ${N}$ (long_name= 'Labor CES aggregate')
 
     Z_C         ${Z_{C}}$ (long_name='Tech:mc')
     //Z_sc         ${Z_{sc}$ (long_name='Tech:sc')
@@ -43,8 +42,6 @@ var Y           ${Y}$ (long_name='output')
     R_mc         ${R_{mc}}$ (long_name='Capital rental rate:mc')
     R_sc         ${R_{sc}}$ (long_name='Capital rental rate:sc')
     R_I         ${R_I}$ (long_name='Capital rental rate:I')
-    W_C           ${W_C}$ (long_name='Real wage:C')
-    W_I           ${W_I}$ (long_name='Real wage:I')
     W          ${W}$ (long_name='Real wage')
 
     h_mc         ${h_mc}$ (long_name= 'Capital utilization rate:mc')
@@ -145,7 +142,6 @@ varexo e_g ${e_g}$ (long_name= 'Labor-augmenting-technology growth shock')
        e_N ${e_N}$ (long_name= 'Labor supply shock')
 
        e_D ${e_D}$ (long_name = 'Shopping disutility shock')
-       e_D_news ${e_{D,4}}$ (long_name = 'Shopping disutility shock: news')
        e_DI ${e_DI}$ (long_name = 'Relative investment shopping disutility shock')
 
        e_b ${e_b}$ (long_name = 'Discount factor shock')
@@ -184,8 +180,6 @@ parameters
     //m    ${m}$    (long_name = 'Ratio of price dispersion to consumption dispersion')
     eta  ${\eta}$ (long_name = 'Shopping disutility')
     Psi  ${\Psi}$ (long_name = 'Matching utilization')
-
-    theta ${\theta}$ (long_name = 'Inverse intersectoral elasticity of labor supply')
 
     rho_g    ${\rho_g}$  (long_name='persistence TFP growth shock')
     rho_Z   ${\rho_Z}$  (long_name='persistence TFP shock')
@@ -229,8 +223,6 @@ nu_R = 0.2; % share of fixed costs in output
 eta = 0.20;
 phi = 0.32;
 Psi = 0.81;
-
-theta = 0.5;
 
 p_I_ss = 1.0;
 N_ss = 0.30;
@@ -305,14 +297,8 @@ model;
 
 #theta_N_ss = (1-phi)*W_ss/(N_ss^(1/nu)*mu_ss);
 
-[name = 'Labor composite']
-N_comp = (omega^(-theta)*N_C^(1+theta) + (1-omega)^(-theta)*N_I^(1+theta))^(1/(1+theta));
-
-[name='Labor leisure:C']
-theta_N_ss*exp(theta_N)*(N_comp)^(1/nu)*(N_C/N_comp)^theta*omega^(-theta) = (1-phi)*W_C/(mu_ss*exp(mu_C));
-
-[name='Labor leisure:I']
-theta_N_ss*exp(theta_N)*(N_comp)^(1/nu)*(N_I/N_comp)^theta*(1-omega)^(-theta)  = (1-phi)*W_I/(mu_ss*exp(mu_I));
+[name='Labor leisure']
+theta_N_ss*exp(theta_N)*N^(1/nu) = (1-phi)*W/(mu_ss*exp(mu_C));
 
 
 [name='Marginal utility of wealth']
@@ -334,7 +320,7 @@ exp(theta_D)*D^(1/eta) = phi*p_sc*Y_sc/D_sc;
 exp(theta_D)*D^(1/eta)*exp(theta_I) = phi*p_I*I/D_I;
 
 [name = 'Composite utility term']
-Gam = C-ha*C(-1) - exp(theta_D)*D^(1+1/eta)/(1+1/eta) - theta_N_ss*exp(theta_N)*N_comp^(1+1/nu)/(1+1/nu);
+Gam = C-ha*C(-1) - exp(theta_D)*D^(1+1/eta)/(1+1/eta) - theta_N_ss*exp(theta_N)*N^(1+1/nu)/(1+1/nu);
 
 [name = 'Consumption CES aggregator']
 C = (omega_sc^(1-rho)*Y_sc^rho + (1-omega_sc)^(1-rho)*Y_mc^rho)^(1/rho);
@@ -439,13 +425,13 @@ K_I*exp(g) = (1-Si)*I_I*exp(g) + (1-delta_I)*K_I(-1);
 
 
 [name = 'Labor demand:mc']
-(1-phi)*W_C/p_mc = alpha_N*(Y_mc+A_mc*D_mc^phi*nu_mc)/N_mc;
+(1-phi)*W/p_mc = alpha_N*(Y_mc+A_mc*D_mc^phi*nu_mc)/N_mc;
 
 [name = 'Labor demand:sc']
-(1-phi)*W_C/p_sc = alpha_N*(Y_sc+A_sc*D_sc^phi*nu_sc)/N_sc;
+(1-phi)*W/p_sc = alpha_N*(Y_sc+A_sc*D_sc^phi*nu_sc)/N_sc;
 
 [name = 'Labor demand:I']
-(1-phi)*W_I/p_I = alpha_N*(I+A_I*D_I^phi*nu_I)/N_I;
+(1-phi)*W/p_I = alpha_N*(I+A_I*D_I^phi*nu_I)/N_I;
 
 [name = 'Capital demand:mc']
 (1-phi)*R_mc/p_mc = exp(g)*alpha_K*(Y_mc+A_mc*D_mc^phi*nu_mc)/(h_mc*K_mc(-1));
@@ -639,16 +625,14 @@ steady_state_model;
    
 
     alpha_N_ss = (1-phi)*labor_share/(1+nu_R);
-    W_C = labor_share*Y/N;
-    W_I = W_C;
-    W = W_C;
+    W = labor_share*Y/N;
+ 
 
     rho_ss = (xi-1)/xi;
     
     //zeta = C*(1-ha) - D^(1+1/eta)/(1+1/eta);
     theta_N_s = (1-phi)*W_C/(N^(1/nu)*mu_ss);
-    //Gam^(-sigma)*theta_N_ss*exp(theta_N)*(N_comp)^(1/nu)*(N_C/N_comp)^theta*omega^(-theta) = lam*W_C/(mu_ss*exp(mu_C)*zeta);
-    Gam = (C*(1-ha) - D^(1+1/eta)/(1+1/eta) - theta_N_s*N_comp^(1+1/nu)/(1+1/nu));
+    Gam = (C*(1-ha) - D^(1+1/eta)/(1+1/eta) - theta_N_s*N^(1+1/nu)/(1+1/nu));
 
     lam = Gam^(-sigma)*(1-phi);
    
@@ -707,8 +691,8 @@ steady_state_model;
     mu_I = 0;
 
    
-    R_mc = W_C*exp(g)*(alpha_K_ss/alpha_N_ss)*N_mc/K_mc;
-    R_sc = W_C*exp(g)*(alpha_K_ss/alpha_N_ss)*N_sc/K_sc;
+    R_mc = W*exp(g)*(alpha_K_ss/alpha_N_ss)*N_mc/K_mc;
+    R_sc = W*exp(g)*(alpha_K_ss/alpha_N_ss)*N_sc/K_sc;
     R_I = R_mc;
     
    
@@ -792,8 +776,6 @@ sigma_ac, 0.32, 0.0, 10,       INV_GAMMA_PDF, 1, 1; % Schmitt-Grohe and Uribe (2
 sigma_ai, 0.32, 0.0, 10,       INV_GAMMA_PDF, 1, 1; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
 Psi_K, 1.5, 0.0, 50,           GAMMA_PDF, 4, 1.0; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
 
-theta, 0.5, .00, 10,   GAMMA_PDF, 1, 0.5; %Katayama and Kim 2018, based on Horvath (2000)
-
 
 % Persistence parameters
 rho_g,  0.1, 0.0001, 0.9,        BETA_PDF, 0.1, 0.05;
@@ -809,23 +791,16 @@ rho_muI,  0.95, 0.01, 0.99999999,        BETA_PDF, 0.6, 0.2;
 % Standard errors
 stderr e_g, 0.01, 0.0000001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 stderr e_Z, 0.01, 0.00001, 0.2,  GAMMA_PDF, 0.01, 0.01;
-stderr e_Z_news, 0.01, 0.00001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 stderr e_ZI, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
-stderr e_ZI_news, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 
 stderr e_N, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 stderr e_D, 0.01, 0.00001, 0.4,  GAMMA_PDF, 0.01, 0.01;
-stderr e_D_news, 0.01, 0.0001, 0.4,  GAMMA_PDF, 0.01, 0.01;
 stderr e_DI, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
-stderr e_DI_news, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 
 stderr e_b, 0.01, 0.0001, 0.4,  GAMMA_PDF, 0.01, 0.01;
-stderr e_b_news, 0.01, 0.0001, 0.4,  GAMMA_PDF, 0.01, 0.01;
 
 stderr e_muC, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
-stderr e_muC_news, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 stderr e_muI, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
-stderr e_muI_news, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 
 //stderr w_obs, 0.01, 0.0001, 0.05,  GAMMA_PDF, 0.01, 0.01;
 
@@ -842,13 +817,13 @@ varobs NC_obs, NI_obs, C_obs, I_obs, p_I_obs, util_ND_obs, util_D_obs;
 
 estimation(tex, optim=('MaxIter', 200), 
 datafile=observables_sectoral, 
-//mode_file=BRS_sectoral_mh_mode, %With _mh option uses mode after MCM run
+mode_file=BRS_sectoral_mh_mode, %With _mh option uses mode after MCM run
 //nograph,
-//load_mh_file, 
+load_mh_file, 
 //mh_recover,
 mcmc_jumping_covariance=prior_variance,
 
-mode_compute=4,
+mode_compute=0,
 presample=0, 
 lik_init=2,
 mh_jscale=0.006, 
