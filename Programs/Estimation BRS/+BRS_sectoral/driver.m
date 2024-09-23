@@ -1015,7 +1015,7 @@ end
 if exist('oo_recursive_', 'var') == 1
   save([M_.dname filesep 'Output' filesep 'BRS_sectoral_results.mat'], 'oo_recursive_', '-append');
 end
-disp('Note: 6 warning(s) encountered in the preprocessor')
+disp('Note: 4 warning(s) encountered in the preprocessor')
 if ~isempty(lastwarn)
   disp('Note: warning(s) encountered in MATLAB/Octave code')
 end

@@ -630,6 +630,8 @@ steady_state_model;
 
     alpha_N_ss = (1-phi)*labor_share/(1+nu_R);
     W = labor_share*Y/N;
+    W_C = W;
+    W_I = W;
  
 
     rho_ss = (xi-1)/xi;
