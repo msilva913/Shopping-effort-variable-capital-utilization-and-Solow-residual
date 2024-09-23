@@ -465,6 +465,9 @@ D = D_mc + D_sc + exp(theta_I)*D_I;
 [name = 'Capital utilization composition']
 h = (Y_mc/Y)*h_mc + (Y_sc/Y)*h_sc + (I/Y)*h_I;
 
+[name = 'Aggregate wage']
+W = (N_C/N)*W_C + (N_I/N)*W_I;
+
 [name = 'Output (base-year prices)']
 Y = C + p_I_ss*I;
 
