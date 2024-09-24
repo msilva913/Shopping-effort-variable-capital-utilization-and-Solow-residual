@@ -10,7 +10,7 @@ function [FEVD_table] = decompose_technology(varargin)
 res = varargin{1};
 M = varargin{2};
 
-technology_shocks = {'e_g', 'e_g_news', 'e_Z', 'e_Z_news', 'e_ZI', 'e_ZI_news'};
+technology_shocks = {'e_g', 'e_Z', 'e_ZI'};
 col_names = {'technology'}
 nshocks = length(technology_shocks);
 

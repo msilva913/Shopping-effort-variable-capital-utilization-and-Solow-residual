@@ -11,11 +11,11 @@ res = varargin{1};
 M = varargin{2};
 spec = varargin{3};
 
-technology_shocks = {'e_g', 'e_g_news', 'e_Z', 'e_Z_news', 'e_ZI', 'e_ZI_news'};
+technology_shocks = {'e_g', 'e_Z', 'e_ZI'};
 labor_supply_shocks = {'e_N'};
-shopping_effort_shocks = {'e_D', 'e_D_news', 'e_DI', 'e_DI_news'};
-discount_factor_shocks = {'e_b', 'e_b_news'};
-wage_markup_shocks = {'e_muC', 'e_muC_news', 'e_muI', 'e_muI_news'};
+shopping_effort_shocks = {'e_D', 'e_DI'};
+discount_factor_shocks = {'e_b'};
+wage_markup_shocks = {'e_muC', 'e_muI'};
 
 shock_group_list = {technology_shocks, labor_supply_shocks, shopping_effort_shocks, discount_factor_shocks, wage_markup_shocks};
 col_names = {'Technology', 'Labor Supply', 'Shopping Effort', 'Discount Factor', 'Wage Markup'};

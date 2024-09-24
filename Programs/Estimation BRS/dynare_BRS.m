@@ -19,7 +19,7 @@ mom_bas = calc_moments(res);
 save('mom_bas', 'mom_bas');
 % Main output
 FEVD_table = FEVD_sum(res, M, 'growth');
-FEVD_table_level = FEVD_sum(res, M, 'level');
+%FEVD_table_level = FEVD_sum(res, M, 'level');
 % Decompose FEVD of demand and technology into components
 FEVD_dem = decompose_demand(res, M);
 FEVD_tech = decompose_technology(res, M)

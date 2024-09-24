@@ -10,7 +10,7 @@ function [FEVD_table] = decompose_technology(varargin)
 res = varargin{1};
 M = varargin{2};
 
-shopping_effort_shocks = {'e_D', 'e_D_news', 'e_DI', 'e_DI_news'};
+shopping_effort_shocks = {'e_D', 'e_DI'};
 nshocks = length(shopping_effort_shocks);
 
 vars = {'Y_obs', 'SR_obs', 'I_obs', 'p_I_obs', 'NC_obs', 'NI_obs', 'util_obs', 'D_obs', 'h_obs'};

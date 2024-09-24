@@ -4,7 +4,7 @@ function [out, HPD] = main_table(varargin)
 res = varargin{1};
 M = varargin{2};
  %1) Marginal density
- marginal_density = res.MarginalDensity.ModifiedHarmonicMean;
+ marginal_density = res.MarginalDensity.LaplaceApproximation;
 
 %2) Posterior probability band
  % Access the posterior density samples
@@ -27,7 +27,7 @@ index_SR = strcmp('SR_obs', res.var_list);
 
 vd = res.variance_decomposition;
 shock_names = M.exo_names;
-demand_shocks = {'e_D', 'e_D_news', 'e_DI', 'e_DI_news'};
+demand_shocks = {'e_D', 'e_DI'};
 FEVD_Y = 0.0;
 FEVD_SR = 0.0;
 
