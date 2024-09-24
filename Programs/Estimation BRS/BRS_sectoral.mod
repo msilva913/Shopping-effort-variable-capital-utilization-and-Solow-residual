@@ -37,9 +37,8 @@ var Y           ${Y}$ (long_name='output')
     theta_D     ${\theta_D}$ (long_name='Shopping disutility')
     theta_I     ${\theta_I}$ (long_name ='Relative shopping disutility')
     theta_b     ${\theta_b}$ (long_name='Discount factor shock')
-    mu_C        ${\mu_C}$
-    mu_I        $\mu_I}$
-
+    mu        ${\mu}$
+ 
     R_mc         ${R_{mc}}$ (long_name='Capital rental rate:mc')
     R_sc         ${R_{sc}}$ (long_name='Capital rental rate:sc')
     R_I         ${R_I}$ (long_name='Capital rental rate:I')
@@ -149,12 +148,7 @@ varexo e_g ${e_g}$ (long_name= 'Labor-augmenting-technology growth shock')
 
        e_b ${e_b}$ (long_name = 'Discount factor shock')
 
-       e_muC ${e_{muC}}$ (long_name = 'Wage markup shock: C')
-       e_muI ${e_{muI}}$ (long_name = 'Wage markup shock: I')
-
-
-       % News shocks
-   
+       e_mu ${e_{muC}}$ (long_name = 'Wage markup shock')
    
     ;
     
@@ -193,8 +187,7 @@ parameters
     rho_D    ${\rho_D}$  (long_name='persistence shopping effort shock')
     rho_DI   ${\rho_{DI}}$ (long_name='persistence relative shopping effort shock')
     rho_b    ${\rho_b}$  (long_name='persistence discount factor shock')
-    rho_muC  ${\rho_{muC}}$ (long_name='persistence wage markup shock:C')
-    rho_muI  ${\rho_{muI}}$ (long_name='persistence wage markup shock:I')
+    rho_mu  ${\rho_{mu}}$ (long_name='persistence wage markup shock:')
 
     p_I_ss
     N_ss
@@ -241,8 +234,7 @@ rho_N = 0.9;
 rho_D = 0.9;
 rho_DI = 0.9;
 rho_b = 0.9;
-rho_muC = 0.9;
-rho_muI = 0.9;
+rho_mu = 0.9;
 
 %----------------------------------------------------------------
 % enter model equations
@@ -308,10 +300,10 @@ model;
 N_comp = (omega^(-theta)*N_C^(1+theta) + (1-omega)^(-theta)*N_I^(1+theta))^(1/(1+theta));
 
 [name='Labor leisure:C']
-theta_N_ss*exp(theta_N)*(N_comp)^(1/nu)*(N_C/N_comp)^theta*omega^(-theta) = (1-phi)*W_C/(mu_ss*exp(mu_C));
+theta_N_ss*exp(theta_N)*(N_comp)^(1/nu)*(N_C/N_comp)^theta*omega^(-theta) = (1-phi)*W_C/(mu_ss*exp(mu));
 
 [name='Labor leisure:I']
-theta_N_ss*exp(theta_N)*(N_comp)^(1/nu)*(N_I/N_comp)^theta*(1-omega)^(-theta)  = (1-phi)*W_I/(mu_ss*exp(mu_I));
+theta_N_ss*exp(theta_N)*(N_comp)^(1/nu)*(N_I/N_comp)^theta*(1-omega)^(-theta)  = (1-phi)*W_I/(mu_ss*exp(mu));
 
 
 [name='Marginal utility of wealth']
@@ -520,12 +512,8 @@ theta_I = rho_DI*theta_I(-1) - e_DI;
 [name='Consumption preference process']
 theta_b = rho_b*theta_b(-1) + e_b;
 
-[name = 'Wage-markup process: C']
-mu_C = rho_muC*mu_C(-1) + e_muC;
-
-[name = 'Wage-markup process: I']
-mu_I = rho_muI*mu_I(-1) + e_muI;
-
+[name = 'Wage-markup process']
+mu = rho_mu*mu(-1) + e_mu;
 
 [name='Definition log output']
 log_Y = log(Y) - steady_state(log(Y));
@@ -702,8 +690,7 @@ steady_state_model;
     theta_D = 0;
     theta_b = 0;
     theta_I = 0;
-    mu_C = 0;
-    mu_I = 0;
+    mu = 0;
 
    
     R_mc = W_C*exp(g)*(alpha_K_ss/alpha_N_ss)*N_mc/K_mc;
@@ -802,8 +789,7 @@ rho_N,  0.6, 0.01, 0.9999,        BETA_PDF, 0.6, 0.2;
 rho_D,  0.9, 0.01, 0.9999,        BETA_PDF, 0.6, 0.2;
 rho_DI, 0.9, 0.01, 0.9999,          BETA_PDF, 0.6, 0.2;
 rho_b,  0.95, 0.01, 0.99999999,        BETA_PDF, 0.6, 0.2;
-rho_muC,  0.95, 0.01, 0.99999999,        BETA_PDF, 0.6, 0.2;
-rho_muI,  0.95, 0.01, 0.99999999,        BETA_PDF, 0.6, 0.2;
+rho_mu,  0.95, 0.01, 0.99999999,        BETA_PDF, 0.6, 0.2;
 
 % Standard errors
 stderr e_g, 0.01, 0.0000001, 0.2,  GAMMA_PDF, 0.01, 0.01;
@@ -816,8 +802,7 @@ stderr e_DI, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 
 stderr e_b, 0.01, 0.0001, 0.4,  GAMMA_PDF, 0.01, 0.01;
 
-stderr e_muC, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
-stderr e_muI, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
+stderr e_mu, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 
 //stderr w_obs, 0.01, 0.0001, 0.05,  GAMMA_PDF, 0.01, 0.01;
 
@@ -843,7 +828,7 @@ mcmc_jumping_covariance=prior_variance,
 mode_compute=0,
 presample=0, 
 lik_init=2,
-mh_jscale=0.006, 
+mh_jscale=0.003, 
 mh_init_scale =0.0001,
 //mh_jscale=0.1,
 mode_check, 
