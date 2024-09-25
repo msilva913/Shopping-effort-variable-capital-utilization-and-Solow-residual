@@ -39,15 +39,21 @@ tables = CFEVD_sum(res, M, 'level');
 %CFEVD = CFEVD(:, :, 1:(end-2));
 save('CFEVD.mat', 'CFEVD');
 %% Remove limited factor mobility
-dynare BRS_sectoral_perfect_mobility.mod 
+%dynare BRS_sectoral_perfect_mobility.mod 
 res_pm = oo_;
 M_pm = M_;
 save('res_pm', 'res_pm');
 save('M_pm', 'M_pm');
 %FEVD_table = FEVD_sum(res_pm, M_pm);
 [out, HPD] = main_table(res_pm, M_pm);
-%% Common wage markup
-
+%% Common wage markup shock
+dynare BRS_sectoral_com_wage_markup.mod 
+res_cwm = oo_;
+M_cwm = M_;
+save('res_cwm', 'res_cwm');
+save('M_cwm', 'M_cwm');
+%FEVD_table = FEVD_sum(res_pm, M_pm);
+[out, HPD] = main_table(res_cwm, M_cwm);
 %% Remove investment adjustment cost 
 dynare BRS_sectoral_wo_inv_adj_cost.mod 
 %% Remove fixed cost
