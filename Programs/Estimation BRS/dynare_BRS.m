@@ -39,6 +39,7 @@ tables = CFEVD_sum(res, M, 'level');
 %CFEVD = CFEVD(:, :, 1:(end-2));
 save('CFEVD.mat', 'CFEVD');
 %% Remove limited factor mobility
+dynare BRS_sectoral_perfect_mobility.mod 
 %% Remove investment adjustment cost 
 dynare BRS_sectoral_wo_inv_adj_cost.mod 
 %% Remove fixed cost

@@ -154,9 +154,8 @@ function calibrate(targets)
     #W = α_N*(I/N_i)*p_i/(1-ϕ)*(1+ν_R)
     W = labor_share*Y/N
 
-    # Level parameter on labor supply
-    S = C*(1-ha) - D^(1+1/η)/(1+1/η)
-    θ_n = (1-ϕ)*W/(N^(1/ζ)*S*μ)
+    # Level parameter on labor supply (GHH)
+    θ_n = (1-ϕ)*W/(N^(1/ζ)*μ)
 
 
 
@@ -190,7 +189,7 @@ steady_state = function(par)
     D_mc=D_mc, D_sc=D_sc, D_i=D_i, D=D,
     Q=Q)
 end
-# Back out max on γ
+
 
 function m_func(ϕ, η)
     return ϕ/(η*(1-ϕ)+1)
@@ -205,6 +204,7 @@ fig, ax = plt.subplots()
 
 ϕ_fun(η, m=m) = (η+1)*m/(1+η*m)
 
+@show m_func(ϕ, η)
 #BRS
 @show ϕ_fun(0.20, m)
 @show ϕ_fun(2.0, 0.286)
@@ -259,7 +259,7 @@ function table(cal, targets)
         # Parameter
         [:β, :g_bar, :μ, :ω, :σ, :ζ, :ϕ, :η, :ν_R, :ha, :z_mc, :z_sc, :z_i, :θ_n, :A_mc, :A_sc, :A_i, :σ_b, :δ, :α_k, :α_n], 
         # Calibration
-        round.([β, g_bar, μ, ω, σ, ζ, ϕ, η, ν_R, ha, z_mc, z_sc, z_i, θ_n, A_mc, A_sc, A_i, σ_b, δ, α_k, α_n], sigdigits=2)
+        round.([β, g_bar, μ, ω, σ, ζ, ϕ, η, ν_R, ha, z_mc, z_sc, z_i, θ_n, A_mc, A_sc, A_i, σ_b, δ, α_k, α_n], sigdigits=3)
         ]
         )
         p = PlotlyJS.plot(t)
@@ -287,7 +287,7 @@ para = calibrate(targets)
 tab = table(para, targets)
 
 
-@unpack W, N, Y_mc, Y_sc, C, I, Y, r, ν_mc, ν_sc, ν_i, N_c, N_i, Π, Π_Y, δ, K, K_mc, K_sc, K_i, ρ_c, ω_sc, D_sc, D_i = para
+@unpack W, N, Y_mc, Y_sc, C, I, Y, r, ν_mc, ν_sc, ν_i, N_c, N_i, Π, Π_Y, δ, K, K_mc, K_sc, K_i, ω_sc, D_sc, D_i = para
 @unpack g_bar, labor_share, ν_R, Ψ_j, ν_R, p_i, K_Y, I_Y, ϕ, S_c = targets
 #γ_max = log(1+r)/g_bar
 
