@@ -46,6 +46,8 @@ save('res_pm', 'res_pm');
 save('M_pm', 'M_pm');
 %FEVD_table = FEVD_sum(res_pm, M_pm);
 [out, HPD] = main_table(res_pm, M_pm);
+%% Common wage markup
+
 %% Remove investment adjustment cost 
 dynare BRS_sectoral_wo_inv_adj_cost.mod 
 %% Remove fixed cost
