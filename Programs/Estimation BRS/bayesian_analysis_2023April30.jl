@@ -17,7 +17,8 @@ using Dates
 homedir()
 include("time_series_fun.jl")
 #cd(raw"C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS")
-cd(raw"C:\Users\TJSEM\Github\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS")
+#cd(raw"C:\Users\TJSEM\Github\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS")
+cd(@__DIR__)
 
 function cumulate(x)
     irf_levels = 100*cumsum(x)
@@ -26,13 +27,27 @@ end
 
 extract_series(str, dic::Dict) = vec(dic[str])
 
+irf_array = irf_fun(vars_list, irf_dic, shock="e_D", length=20 )
+
+function irf_fun(vars, irf_dic; shock="e_D", length=20)
+    periods = 1:len
+    irf_array = []
+    for (i, key) in enumerate(vars)
+        str = key*"_"*shock
+        irf = irf_dic[str]
+        push!(irf_array, irf)
+    end
+    return irf_array
+end
+
 function irf_fun_plot(irf_array, vars_list, vars_list_label; shock, savefig=true)
     fig = plt.figure(figsize=(16, 10))
-    periods = 1:length(irf_array[1][:,1])
+    periods = 1:length(irf_array[1][:])
+    periods = 1:length(irf_array[1])
     for (i, key) in enumerate(vars_list)
-        irf = irf_array[i]
+        irf = transpose(irf_array[i])
         ax = fig.add_subplot(3, 3, i)
-        ax.plot(periods, irf, linewidth=3, color="teal")
+        ax.plot(periods, 100*irf, linewidth=3, color="teal")
         ax.tick_params(labelsize=12)
         ax.yaxis.set_major_formatter(matplotlib.ticker.PercentFormatter())
         ax.set_title(vars_list_label[i])
@@ -55,6 +70,9 @@ vars_list_label = [:C, :I, :N_C, :N_I, :SR, :util_ND, :util_D, :D, :h]
 x = matopen("irf.mat")
 vars = read(x, "irf")
 irf_dic  = vars
+
+
+
 # Shopping preference shock
 irf_array = irf_fun(vars_list, irf_dic, shock="e_D", length=20 )
 irf_fun_plot(irf_array, vars_list, vars_list_label; shock="e_D")
