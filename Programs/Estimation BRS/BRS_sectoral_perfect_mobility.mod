@@ -824,16 +824,16 @@ varobs NC_obs, NI_obs, C_obs, I_obs, p_I_obs, util_ND_obs, util_D_obs;
 
 estimation(tex, optim=('MaxIter', 200), 
 datafile=observables_sectoral, 
-///mode_file=BRS_sectoral_mode, %With _mh option uses mode after MCM run
+mode_file=BRS_sectoral_perfect_mobility_mh_mode, %With _mh option uses mode after MCM run
 //nograph,
-//load_mh_file, 
+load_mh_file, 
 //mh_recover,
 mcmc_jumping_covariance=prior_variance,
 
-mode_compute=4,
+mode_compute=0,
 presample=0, 
 lik_init=2,
-mh_jscale=0.003, 
+mh_jscale=0.005, 
 mh_init_scale =0.0001,
 //mh_jscale=0.1,
 mode_check, 
