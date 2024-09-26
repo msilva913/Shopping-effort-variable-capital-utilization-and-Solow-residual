@@ -266,390 +266,53 @@ for 14 forward-looking variable(s)
 The rank condition is verified.
 
 
-The posterior mode file BRS_sectoral_mh_mode has been generated using another specification of the model or another model!
-Your mode file contains estimates for 29 parameters, while you are attempting to estimate only 27 parameters:
---> Parameter sigma_ac is not estimated according to the current mod file.
---> Parameter sigma_ai is not estimated according to the current mod file.
-
-Initial value of the log posterior (or likelihood): 4423.4655
------------------
-f at the beginning of new iteration,     -4423.4654524291
-Predicted improvement:     8455.324586178
-lambda =          1; f =        -4423.2826856
-lambda =    0.33333; f =        -4423.4479868
-lambda =    0.11111; f =        -4423.4641748
-lambda =   0.037037; f =        -4423.4654330
-lambda =   0.012346; f =        -4423.4654522
-lambda =  0.0041152; f =        -4423.4654524
-lambda =  0.0013717; f =        -4423.4654524
-lambda = 0.00045725; f =        -4429.4612523
-lambda = 0.00088394; f =        -4432.3377104
-Norm of dx     1.3004
-----
-Improvement on iteration 1 =        8.872257962
------------------
-f at the beginning of new iteration,     -4432.3377103914
-Predicted improvement:     2410.590182675
-lambda =          1; f =        -4432.1468192
-lambda =    0.33333; f =        -4432.3198399
-lambda =    0.11111; f =        -4432.3364690
-lambda =   0.037037; f =        -4432.3376883
-lambda =   0.012346; f =        -4432.3377101
-lambda =  0.0041152; f =        -4432.3377104
-lambda =  0.0013717; f =        -4432.3377104
-lambda = 0.00045725; f =        -4432.3377104
-lambda = 0.00015242; f =        -4433.0505771
-lambda = 0.00029465; f =        -4433.6765210
-lambda = 0.00056961; f =        -4432.3377104
-lambda = 0.00038354; f =        -4434.0484927
-lambda = 0.00048626; f =        -4432.3377104
-lambda = 0.00042173; f =        -4432.3377104
-lambda =  0.0003872; f =        -4434.0634823
-lambda = 0.00040756; f =        -4434.1464733
-lambda =   0.000429; f =        -4432.3377104
-lambda = 0.00041601; f =        -4434.1806517
-lambda = 0.00042375; f =        -4432.3377104
-lambda = 0.00041909; f =        -4434.1930953
-Norm of dx    0.78718
-Cliff.  Perturbing search direction.
-Predicted improvement:     3098.903537065
-lambda =          1; f =        -4431.7961821
-lambda =    0.33333; f =        -4432.2839912
-lambda =    0.11111; f =        -4432.3330366
-lambda =   0.037037; f =        -4432.3374722
-lambda =   0.012346; f =        -4432.3377099
-lambda =  0.0041152; f =        -4432.3377103
-lambda =  0.0013717; f =        -4432.3377104
-lambda = 0.00045725; f =        -4432.3377104
-lambda = 0.00015242; f =        -4433.2412416
-lambda = 0.00029465; f =        -4434.0097517
-lambda = 0.00056961; f =        -4432.3377104
-lambda = 0.00038354; f =        -4432.3377104
-lambda = 0.00030252; f =        -4432.3377104
-lambda = 0.00029699; f =        -4432.3377104
-Norm of dx     1.0369
-Cliff again.  Try traversing
-Predicted improvement:  2943621.056728513
-lambda =          1; f =       444691.2331586
-lambda =    0.33333; f =        45422.7367533
-lambda =    0.11111; f =         1093.1892941
-lambda =   0.037037; f =        -3821.3225920
-lambda =   0.012346; f =        -4364.7965160
-lambda =  0.0041152; f =        -4424.9031598
-lambda =  0.0013717; f =        -4431.5341452
-lambda = 0.00045725; f =        -4432.2554695
-lambda = 0.00015242; f =        -4432.3305429
-lambda = 5.0805e-05; f =        -4432.3373442
-lambda = 1.6935e-05; f =        -4432.3377030
-lambda =  5.645e-06; f =        -4298.1710865
-lambda = 1.8817e-06; f =        -4419.7534754
-lambda = 6.2723e-07; f =        -4433.1060669
-lambda = 2.0908e-07; f =        -4433.2718858
-lambda = 4.0418e-07; f =        -4433.5127852
-Norm of dx     2426.4
-----
-Improvement on iteration 2 =        1.855384912
-back and forth on step length never finished
------------------
-f at the beginning of new iteration,     -4434.1930953036
-Predicted improvement:     2410.590182675
-lambda =          1; f =        -4434.0020346
-lambda =    0.33333; f =        -4434.1751744
-lambda =    0.11111; f =        -4434.1918414
-lambda =   0.037037; f =        -4434.1930717
-lambda =   0.012346; f =        -4434.1930950
-lambda =  0.0041152; f =        -4434.1930953
-lambda =  0.0013717; f =        -4434.1930953
-lambda = 0.00045725; f =        -4434.1930953
-lambda = 0.00015242; f =        -4434.1930953
-lambda = 5.0805e-05; f =        -4434.1930953
-lambda = 1.6935e-05; f =        -4434.1930953
-Norm of dx    0.78718
-----
-Improvement on iteration 3 =        0.000000000
-improvement < crit termination
-
-Final value of minus the log posterior (or likelihood):-4434.193095 
-
-POSTERIOR KERNEL OPTIMIZATION PROBLEM!
- (minus) the hessian matrix at the "mode" is not positive definite!
-=> posterior variance of the estimated parameters are not positive.
-You should try to change the initial values of the parameters using
-the estimated_params_init block, or use another optimization routine.
-[Warning: The results below are most likely wrong!] 
-[> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation_1', 'C:\dynare\5.4\matlab\dynare_estimation_1.m', 318)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare_estimation_1.m',318,0)">line 318</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation', 'C:\dynare\5.4\matlab\dynare_estimation.m', 118)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare_estimation.m',118,0)">line 118</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('BRS_sectoral_wo_vcu.driver', 'C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_sectoral_wo_vcu\driver.m', 911)" style="font-weight:bold">BRS_sectoral_wo_vcu.driver</a> (<a href="matlab: opentoline('C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_sectoral_wo_vcu\driver.m',911,0)">line 911</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare', 'C:\dynare\5.4\matlab\dynare.m', 278)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare.m',278,0)">line 278</a>)] 
+Initial value of the log posterior (or likelihood): 4659.7979
 
 MODE CHECK
 
-Fval obtained by the minimization routine (minus the posterior/likelihood)): -4434.193095
-[Warning: Matrix is singular, close to singular or badly scaled. Results may be inaccurate. RCOND = NaN.] 
-[> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation_1', 'C:\dynare\5.4\matlab\dynare_estimation_1.m', 341)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare_estimation_1.m',341,0)">line 341</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation', 'C:\dynare\5.4\matlab\dynare_estimation.m', 118)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare_estimation.m',118,0)">line 118</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('BRS_sectoral_wo_vcu.driver', 'C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_sectoral_wo_vcu\driver.m', 911)" style="font-weight:bold">BRS_sectoral_wo_vcu.driver</a> (<a href="matlab: opentoline('C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_sectoral_wo_vcu\driver.m',911,0)">line 911</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare', 'C:\dynare\5.4\matlab\dynare.m', 278)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare.m',278,0)">line 278</a>)
-] 
+Fval obtained by the minimization routine (minus the posterior/likelihood)): -4659.797896
 
 RESULTS FROM POSTERIOR ESTIMATION
 parameters
         prior mean     mode    s.d.  prior pstdev
 
-sigma       1.5000   1.4242     NaN   beta 0.2500 
-ha          0.5000   0.7196     NaN   beta 0.2000 
-nu          0.7200   1.1213     NaN   gamm 0.2500 
-phi         0.3200   0.8408     NaN   beta 0.2000 
-eta         0.2000   0.2404     NaN   gamm 0.1500 
-xi          0.8500   0.7694     NaN   gamm 0.1000 
-nu_R        0.2000   0.1065     NaN   beta 0.1000 
-Psi_K       4.0000  11.9210     NaN   gamm 1.0000 
-theta       1.0000   1.4610     NaN   gamm 0.5000 
-rho_g       0.1000   0.6458     NaN   beta 0.0500 
-rho_Z       0.6000   0.7839     NaN   beta 0.2000 
-rho_ZI      0.6000   0.8267     NaN   beta 0.2000 
-rho_N       0.6000   0.9938     NaN   beta 0.2000 
-rho_D       0.6000   0.9134     NaN   beta 0.2000 
-rho_DI      0.6000   0.9847     NaN   beta 0.2000 
-rho_b       0.6000   0.9086     NaN   beta 0.2000 
-rho_muC     0.6000   0.8378     NaN   beta 0.2000 
-rho_muI     0.6000   0.9994     NaN   beta 0.2000 
+sigma       1.5000   1.0344  0.1257   beta 0.2500 
+ha          0.5000   0.0858  0.1887   beta 0.2000 
+nu          0.7200   0.6606  0.1139   gamm 0.2500 
+phi         0.3200   0.3965  0.1280   beta 0.2000 
+eta         0.2000   0.3112  0.0525   gamm 0.1500 
+xi          0.8500   0.8927  0.0727   gamm 0.1000 
+nu_R        0.2000   0.4958  0.0666   beta 0.1000 
+Psi_K       4.0000   0.2194  2.8994   gamm 1.0000 
+theta       1.0000   0.7439  0.4026   gamm 0.5000 
+rho_g       0.1000   0.3879  0.0326   beta 0.0500 
+rho_Z       0.6000   0.7494  0.0443   beta 0.2000 
+rho_ZI      0.6000   0.8856  0.0330   beta 0.2000 
+rho_N       0.6000   0.9722  0.0084   beta 0.2000 
+rho_D       0.6000   0.9600  0.0158   beta 0.2000 
+rho_DI      0.6000   0.9650  0.0136   beta 0.2000 
+rho_b       0.6000   0.9707  0.0326   beta 0.2000 
+rho_muC     0.6000   0.9653  0.2387   beta 0.2000 
+rho_muI     0.6000   0.9279  0.0336   beta 0.2000 
 
 standard deviation of shocks
         prior mean     mode    s.d.  prior pstdev
 
-e_g         0.0100   0.0050     NaN   gamm 0.0100 
-e_Z         0.0100   0.0092     NaN   gamm 0.0100 
-e_ZI        0.0100   0.0186     NaN   gamm 0.0100 
-e_N         0.0100   0.0063     NaN   gamm 0.0100 
-e_D         0.0100   0.1270     NaN   gamm 0.0100 
-e_DI        0.0100   0.0164     NaN   gamm 0.0100 
-e_b         0.0100   0.0200     NaN   gamm 0.0100 
-e_muC       0.0100   0.0001     NaN   gamm 0.0100 
-e_muI       0.0100   0.0278     NaN   gamm 0.0100 
+e_g         0.0100   0.0123  0.0016   gamm 0.0100 
+e_Z         0.0100   0.0046  0.0007   gamm 0.0100 
+e_ZI        0.0100   0.0109  0.0013   gamm 0.0100 
+e_N         0.0100   0.0111  0.0012   gamm 0.0100 
+e_D         0.0100   0.1200  0.0181   gamm 0.0100 
+e_DI        0.0100   0.0322  0.0036   gamm 0.0100 
+e_b         0.0100   0.0004  0.0026   gamm 0.0100 
+e_muC       0.0100   0.0005  0.0004   gamm 0.0100 
+e_muI       0.0100   0.0166  0.0050   gamm 0.0100 
 
 
-Log data density [Laplace approximation] is NaN.
+Log data density [Laplace approximation] is 4563.619490.
 
-Estimation::mcmc: Multiple chains mode.
-Estimation::mcmc: Old mh-files successfully erased!
-Estimation::mcmc: Old metropolis.log file successfully erased!
-Estimation::mcmc: Creation of a new metropolis.log file.
-Estimation::mcmc: Searching for initial values...
-Estimation::mcmc: Initial values found!
+Estimation::mcmc: I am loading past Metropolis-Hastings simulations...
+Estimation::mcmc: Recovering the previous proposal density.
+Estimation::mcmc: I am writing a new mh-history file... Done.
+Estimation::mcmc: Ok. I have loaded 200000 simulations.
 
-Estimation::mcmc: Write details about the MCMC... Ok!
-Estimation::mcmc: Details about the MCMC are available in BRS_sectoral_wo_vcu/metropolis\BRS_sectoral_wo_vcu_mh_history_0.mat
-
-
-Estimation::mcmc: Number of mh files: 1 per block.
-Estimation::mcmc: Total number of generated files: 2.
-Estimation::mcmc: Total number of iterations: 200000.
-Estimation::mcmc: Current acceptance ratio per chain: 
-                                                       Chain  1: 63.0805%
-                                                       Chain  2: 65.8255%
-Estimation::mcmc: Total number of MH draws per chain: 200000.
-Estimation::mcmc: Total number of generated MH files: 1.
-Estimation::mcmc: I'll use mh-files 1 to 1.
-Estimation::mcmc: In MH-file number 1 I'll start at line 60001.
-Estimation::mcmc: Finally I keep 140000 draws per chain.
-
-
-
-MCMC Inefficiency factors per block
-Parameter       Block 1     Block 2
-SE_e_g          658.856     691.911
-SE_e_Z          436.291     615.133
-SE_e_ZI         507.929     686.770
-SE_e_N          650.287     670.984
-SE_e_D          737.739     745.267
-SE_e_DI         725.326     718.247
-SE_e_b          729.858     704.393
-SE_e_muC        378.475     266.352
-SE_e_muI        697.031     743.638
-sigma           741.034     737.522
-ha              746.030     738.048
-nu              734.706     738.095
-phi             730.233     742.174
-eta             714.032     672.188
-xi              742.550     744.300
-nu_R            661.931     744.389
-Psi_K           747.178     747.375
-theta           727.823     745.830
-rho_g           740.611     737.066
-rho_Z           710.108     706.800
-rho_ZI          655.586     665.881
-rho_N           364.007     229.872
-rho_D           549.921     489.216
-rho_DI          568.490     444.267
-rho_b           696.188     687.961
-rho_muC         570.475     741.018
-rho_muI         683.363     469.975
-
-Estimation::mcmc::diagnostics: Univariate convergence diagnostic, Brooks and Gelman (1998):
-    Parameter 1...  Done! 
-    Parameter 2...  Done! 
-    Parameter 3...  Done! 
-    Parameter 4...  Done! 
-    Parameter 5...  Done! 
-    Parameter 6...  Done! 
-    Parameter 7...  Done! 
-    Parameter 8...  Done! 
-    Parameter 9...  Done! 
-    Parameter 10...  Done! 
-    Parameter 11...  Done! 
-    Parameter 12...  Done! 
-    Parameter 13...  Done! 
-    Parameter 14...  Done! 
-    Parameter 15...  Done! 
-    Parameter 16...  Done! 
-    Parameter 17...  Done! 
-    Parameter 18...  Done! 
-    Parameter 19...  Done! 
-    Parameter 20...  Done! 
-    Parameter 21...  Done! 
-    Parameter 22...  Done! 
-    Parameter 23...  Done! 
-    Parameter 24...  Done! 
-    Parameter 25...  Done! 
-    Parameter 26...  Done! 
-    Parameter 27...  Done! 
-
-Estimation::marginal density: I'm computing the posterior mean and covariance...  Done!
-Estimation::marginal density: I'm computing the posterior log marginal density (modified harmonic mean)... Done!
-
-
-ESTIMATION RESULTS
-
-Log data density is 4437.623572.
-
-parameters
-          prior mean   post. mean        90% HPD interval    prior       pstdev
-
-sigma          1.500       1.3316      1.1375      1.5338     beta       0.2500
-ha             0.500       0.6321      0.3244      0.8346     beta       0.2000
-nu             0.720       0.8099      0.6430      0.9917     gamm       0.2500
-phi            0.320       0.6190      0.4319      0.8535     beta       0.2000
-eta            0.200       0.1768      0.1006      0.2533     gamm       0.1500
-xi             0.850       0.8287      0.7095      0.9392     gamm       0.1000
-nu_R           0.200       0.4519      0.3362      0.5000     beta       0.1000
-Psi_K          4.000       5.8774      0.1431      9.3598     gamm       1.0000
-theta          1.000       0.5792      0.1997      1.4029     gamm       0.5000
-rho_g          0.100       0.4420      0.3880      0.4806     beta       0.0500
-rho_Z          0.600       0.7897      0.7209      0.8669     beta       0.2000
-rho_ZI         0.600       0.9170      0.8633      0.9715     beta       0.2000
-rho_N          0.600       0.9859      0.9741      0.9998     beta       0.2000
-rho_D          0.600       0.9575      0.9326      0.9832     beta       0.2000
-rho_DI         0.600       0.9842      0.9637      0.9999     beta       0.2000
-rho_b          0.600       0.9256      0.8716      0.9796     beta       0.2000
-rho_muC        0.600       0.7435      0.4153      0.9906     beta       0.2000
-rho_muI        0.600       0.9567      0.9059      0.9998     beta       0.2000
-
-standard deviation of shocks
-          prior mean   post. mean        90% HPD interval    prior       pstdev
-
-e_g            0.010       0.0096      0.0068      0.0121     gamm       0.0100
-e_Z            0.010       0.0055      0.0044      0.0066     gamm       0.0100
-e_ZI           0.010       0.0117      0.0097      0.0137     gamm       0.0100
-e_N            0.010       0.0095      0.0075      0.0114     gamm       0.0100
-e_D            0.010       0.1439      0.1218      0.1704     gamm       0.0100
-e_DI           0.010       0.0239      0.0179      0.0295     gamm       0.0100
-e_b            0.010       0.0044      0.0002      0.0078     gamm       0.0100
-e_muC          0.010       0.0006      0.0001      0.0012     gamm       0.0100
-e_muI          0.010       0.0160      0.0113      0.0262     gamm       0.0100
-
-MODEL SUMMARY
-
-  Number of variables:         93
-  Number of stochastic shocks: 9
-  Number of state variables:   32
-  Number of jumpers:           14
-  Number of static variables:  48
-
-
-MATRIX OF COVARIANCE OF EXOGENOUS SHOCKS
-Variables         e_g       e_Z      e_ZI       e_N       e_D      e_DI       e_b     e_muC     e_muI
-e_g          0.000091  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000
-e_Z          0.000000  0.000030  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000
-e_ZI         0.000000  0.000000  0.000137  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000
-e_N          0.000000  0.000000  0.000000  0.000090  0.000000  0.000000  0.000000  0.000000  0.000000
-e_D          0.000000  0.000000  0.000000  0.000000  0.020715  0.000000  0.000000  0.000000  0.000000
-e_DI         0.000000  0.000000  0.000000  0.000000  0.000000  0.000573  0.000000  0.000000  0.000000
-e_b          0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000019  0.000000  0.000000
-e_muC        0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000
-e_muI        0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000257
-
-
-
-THEORETICAL MOMENTS
-VARIABLE            MEAN  STD. DEV.   VARIANCE
-Y_obs             0.0000     0.0211     0.0004
-Y_N_obs           0.0000     0.0152     0.0002
-SR_obs            0.0000     0.0168     0.0003
-I_obs             0.0000     0.0334     0.0011
-p_I_obs           0.0000     0.0284     0.0008
-C_obs             0.0000     0.0203     0.0004
-NC_obs            0.0000     0.0091     0.0001
-NI_obs            0.0000     0.0229     0.0005
-util_ND_obs       0.0000     0.0147     0.0002
-util_D_obs        0.0000     0.0254     0.0006
-util_obs          0.0000     0.0154     0.0002
-D_obs             0.0000     0.0245     0.0006
-tech_obs          0.0000     0.0123     0.0002
-
-
-
-VARIANCE DECOMPOSITION (in percent)
-                  e_g     e_Z    e_ZI     e_N     e_D    e_DI     e_b   e_muC   e_muI
-Y_obs            9.20   21.45    2.28    0.39   64.73    1.88    0.06    0.00    0.02
-Y_N_obs         26.72   18.15    6.60    4.89   38.97    4.17    0.09    0.02    0.41
-SR_obs          19.08   20.54    4.87    1.17   51.00    3.23    0.00    0.00    0.11
-I_obs            2.79   24.88   10.52    0.23   40.00    9.23   12.30    0.00    0.05
-p_I_obs          0.49   12.63   46.01    0.00    0.37   37.02    2.29    0.00    1.19
-C_obs           13.01   20.47    1.06    0.38   62.40    0.88    1.79    0.00    0.01
-NC_obs           1.42    8.45    2.94   26.19   54.82    1.91    3.93    0.16    0.18
-NI_obs           5.77   10.93   19.28    4.59   22.16    8.56   16.99    0.00   11.71
-util_ND_obs      0.35    0.27    1.38    0.00   94.61    1.11    2.24    0.00    0.04
-util_D_obs       3.48    4.22    8.33    0.02   52.51   17.76   13.39    0.00    0.28
-util_obs         0.08    0.39    0.00    0.01   95.94    3.57    0.00    0.00    0.00
-D_obs            0.08    0.41    0.00    0.01   99.49    0.00    0.00    0.00    0.00
-tech_obs        75.69   20.51    3.80    0.00    0.00    0.00    0.00    0.00    0.00
-
-
-
-MATRIX OF CORRELATIONS
-Variables            Y_obs      Y_N_obs       SR_obs        I_obs      p_I_obs        C_obs       NC_obs       NI_obs  util_ND_obs   util_D_obs     util_obs        D_obs     tech_obs
-Y_obs               1.0000       0.9063       0.9642       0.8082      -0.1151       0.9701       0.7589       0.3949       0.8122       0.6482       0.8335       0.8226       0.5006
-Y_N_obs             0.9063       1.0000       0.9816       0.7295      -0.2704       0.8803       0.4788       0.0932       0.6581       0.4721       0.6578       0.6302       0.6904
-SR_obs              0.9642       0.9816       1.0000       0.7744      -0.2127       0.9374       0.6078       0.2176       0.7396       0.5544       0.7471       0.7256       0.6282
-I_obs               0.8082       0.7295       0.7744       1.0000      -0.2857       0.6411       0.5193       0.4777       0.5638       0.7752       0.6856       0.6482       0.3184
-p_I_obs            -0.1151      -0.2704      -0.2127      -0.2857       1.0000      -0.0323      -0.1132       0.5489      -0.0923       0.0669      -0.0485       0.0693      -0.1408
-C_obs               0.9701       0.8803       0.9374       0.6411      -0.0323       1.0000       0.7749       0.3178       0.8261       0.5253       0.8037       0.8048       0.5211
-NC_obs              0.7589       0.4788       0.6078       0.5193      -0.1132       0.7749       1.0000       0.3240       0.7946       0.4842       0.7660       0.7594       0.0710
-NI_obs              0.3949       0.0932       0.2176       0.4777       0.5489       0.3178       0.3240       1.0000       0.2985       0.6529       0.4428       0.4948      -0.1020
-util_ND_obs         0.8122       0.6581       0.7396       0.5638      -0.0923       0.8261       0.7946       0.2985       1.0000       0.6143       0.9657       0.9676       0.0360
-util_D_obs          0.6482       0.4721       0.5544       0.7752       0.0669       0.5253       0.4842       0.6529       0.6143       1.0000       0.7981       0.7369      -0.0745
-util_obs            0.8335       0.6578       0.7471       0.6856      -0.0485       0.8037       0.7660       0.4428       0.9657       0.7981       1.0000       0.9813       0.0030
-D_obs               0.8226       0.6302       0.7256       0.6482       0.0693       0.8048       0.7594       0.4948       0.9676       0.7369       0.9813       1.0000       0.0030
-tech_obs            0.5006       0.6904       0.6282       0.3184      -0.1408       0.5211       0.0710      -0.1020       0.0360      -0.0745       0.0030       0.0030       1.0000
-
-
-
-COEFFICIENTS OF AUTOCORRELATION
-Order                1        2        3        4        5
-Y_obs           0.0236   0.0035  -0.0047  -0.0076  -0.0084
-Y_N_obs         0.1154   0.0473   0.0175   0.0046  -0.0009
-SR_obs          0.0747   0.0249   0.0025  -0.0076  -0.0121
-I_obs           0.3370   0.2466   0.1741   0.1171   0.0730
-p_I_obs         0.0075  -0.0038  -0.0108  -0.0151  -0.0176
-C_obs           0.0182  -0.0145  -0.0247  -0.0256  -0.0230
-NC_obs          0.0015  -0.0067  -0.0117  -0.0144  -0.0155
-NI_obs          0.0889   0.0433   0.0171   0.0010  -0.0092
-util_ND_obs    -0.0238  -0.0222  -0.0208  -0.0195  -0.0185
-util_D_obs      0.1817   0.1119   0.0657   0.0344   0.0129
-util_obs       -0.0195  -0.0190  -0.0184  -0.0178  -0.0171
-D_obs          -0.0203  -0.0197  -0.0191  -0.0183  -0.0176
-tech_obs        0.3340   0.1453   0.0615   0.0241   0.0074
-Total computing time : 0h51m52s
-Note: 2 warning(s) encountered in the preprocessor
-Note: warning(s) encountered in MATLAB/Octave code
