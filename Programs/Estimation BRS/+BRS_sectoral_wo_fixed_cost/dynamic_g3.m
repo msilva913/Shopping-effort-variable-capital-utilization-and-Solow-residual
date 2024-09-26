@@ -22,6 +22,6 @@ function g3 = dynamic_g3(T, y, x, params, steady_state, it_, T_flag)
 if T_flag
     T = BRS_sectoral_wo_fixed_cost.dynamic_g3_tt(T, y, x, params, steady_state, it_);
 end
-g3 = sparse([],[],[],135,13312053);
+g3 = sparse([],[],[],105,4657463);
 
 end
