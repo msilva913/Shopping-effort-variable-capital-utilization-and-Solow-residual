@@ -69,6 +69,8 @@ save('M_wo_fc', 'M_wo_fc');
 % Main output
 FEVD_table = FEVD_sum(res_wo_fc, M_wo_fc);
 [out, HPD] = main_table(res_wo_fc, M_wo_fc);
+
+
 %% Remove vcu
 dynare BRS_sectoral_wo_vcu.mod
 load res_wo_vcu
