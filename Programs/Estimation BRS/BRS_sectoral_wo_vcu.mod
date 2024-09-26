@@ -30,6 +30,8 @@ var Y           ${Y}$ (long_name='output')
     //Z_sc         ${Z_{sc}$ (long_name='Tech:sc')
     u_ZI
     Z_I         ${Z_I}$ (long_name='Tech:I')
+    tech         ${tech}$ (long_name = 'General technology measure')
+    
 
     theta_N     ${\theta_N}$ (long_name='Labor disutility')
     theta_D     ${\theta_D}$ (long_name='Shopping disutility')
@@ -58,7 +60,7 @@ var Y           ${Y}$ (long_name='output')
     D_I         ${D_I}$ (long_name='Shopping effort:I')
 
     Gam        ${\Gamma}$ (long_name = 'Composite utility term')
-    zeta       ${\zeta}$ (long_name = 'Wealth effects parameter')
+    //zeta       ${\zeta}$ (long_name = 'Wealth effects parameter')
     
     p_mc       ${p_{mc}}$ (long_name = 'Relative non-durable price')
     p_sc       ${p_{sc}}$ (long_name = 'Relative service price')
@@ -69,16 +71,17 @@ var Y           ${Y}$ (long_name='output')
     Q_mc          ${Q}$ (long_name = 'Relative price of capital:mc')
     Q_sc          ${Q}$ (long_name = 'Relative price of capital:sc')
     Q_I          ${Q}$ (long_name = 'Relative price of capital:I')
-
     x_mc          ${x}$ (long_name = 'Growth rate of investment:mc')
     x_sc          ${x}$ (long_name = 'Growth rate of investment:sc')
-    x_I          ${x}$ (long_name = 'Growth rate of investment:I')
+    x_I          ${x}$ (long_name = 'Growth rate of investment:I')  
+
 
 
     log_SR         (long_name='Solow residual')
     
     util       ${util}$ (long_name = 'Capacity utilization')
     util_ND    ${util_{ND}}$ (long_name = 'Capacity utilization:ND')
+    util_sc    ${util_{sc}}$ (long_name = 'Capacity utilization:sc')
     util_D     ${util_D}$ (long_name = 'Capacity utilization:D')
 
     g          ${g}$ (long_name = 'Growth rate of stochastic trend')
@@ -97,7 +100,8 @@ var Y           ${Y}$ (long_name='output')
     log_util_ND
     log_util_D
     log_W
-    
+    log_tech
+
     C_obs
     I_obs
     Y_obs
@@ -107,36 +111,31 @@ var Y           ${Y}$ (long_name='output')
     N_obs
     NC_obs
     NI_obs
+
     util_ND_obs
     util_D_obs
-    w_obs
     util_obs
+    tech_obs
+
+    w_obs
     D_obs
     K_obs
   
     ;
 
 varexo e_g ${e_g}$ (long_name= 'Labor-augmenting-technology growth shock')
-       e_g_news ${e_{g,-4}}$ (long_name= 'Labor-augmenting-technology growth shock: news')
        e_Z ${e_Z}$ (long_name= 'TFP shock')
-       e_Z_news ${e_{Z,-4}}$ (long_name= 'TFP shock: news')
        e_ZI ${e_{ZI}}$ (long_name= 'Investment-specific tech shock')
-       e_ZI_news ${e_{ZI,-4}}$ (long_name= 'Investment-specific tech shock: news')
        
        e_N ${e_N}$ (long_name= 'Labor supply shock')
 
        e_D ${e_D}$ (long_name = 'Shopping disutility shock')
-       e_D_news ${e_{D,4}}$ (long_name = 'Shopping disutility shock: news')
        e_DI ${e_DI}$ (long_name = 'Relative investment shopping disutility shock')
-       e_DI_news ${e_{DI,-4}}$ (long_name = 'Relative investment shopping disutility shock: news')
 
        e_b ${e_b}$ (long_name = 'Discount factor shock')
-       e_b_news ${e_{b,-4}}$ (long_name = 'Discount factor shock')
 
        e_muC ${e_{muC}}$ (long_name = 'Wage markup shock: C')
-       e_muC_news ${e_{muC,-4}}$ (long_name = 'Wage markup shock: C: news')
        e_muI ${e_{muI}}$ (long_name = 'Wage markup shock: I')
-       e_muI_news ${e_{muI,-4}}$ (long_name = 'Wage markup shock: I: news')
 
 
        % News shocks
@@ -149,15 +148,12 @@ parameters
     beta  ${\beta}$    (long_name='Discount factor')
     g_bar  ${\overline{g}}$ (long_name = 'Quarterly trend growth rate')
     nu     $\nu$       (long_name = 'Frisch elasticity')
-    gam $\gamma$ (long_name = 'wealth effect on labor supply')
 
     xi  $\xi$    (long_name = 'elasticity of substitution between non-durables and services')
     omega_sc $\omega_{sc}$ (long_name = 'Weight of services in aggregator')
 
     mu_ss    $\mu_{ss}$ (long_name = 'steady-state wage markup')
-
-    Psi_C ${\Psi_{C}}$ (long_name = 'Investment adjustment cost parameter:non-durable goods')
-    Psi_I ${\Psi_I}$ (long_name = 'Investment adjustment cost parameter:I')
+    Psi_K ${\Psi_{K}}$ (long_name = 'Investment adjustment cost parameter')
    
     I_Y    ${I_Y}$   (long_name = 'Investment-output ratio')
     K_Y    ${K_Y}$   (long_name = 'Capital-output ratio (quarterly)')
@@ -195,8 +191,7 @@ beta = 0.99; % discount factor
 g_bar = 0.0045; % quarterly growth rate
 //sigma_max = (1/4)*log(1+r_ann)/g_bar;
 nu = 0.72; % Frisch
-gam = 0.5;
-ha = 0.1;
+ha = 0.0;
 mu_ss = 1.15; % steady-state wage markup
 
 xi = 0.85; % elasticity of substitution between non-durables and services
@@ -204,8 +199,7 @@ omega_sc = 0.65;
 
 sigma_ac = 0.32; % inverse of elasticity of capital utilization wrt rental rate
 sigma_ai = 0.32;
-Psi_C = 1.5;
-Psi_I = 1.5;
+Psi_K = 1.5;
 
 I_Y = 0.20;
 K_Y = 11;
@@ -290,17 +284,16 @@ model;
 #Z_sc_ss = (Y_sc_ss/(Psi) + nu_sc)/(exp(g_bar)^(-alpha_K)*K_sc_ss^(alpha_K)*N_sc_ss^(alpha_N));
 #Z_I_ss = (I_ss/Psi+nu_I)/(exp(g_bar)^(-alpha_K)*K_I_ss^(alpha_K)*N_I_ss^(alpha_N));
 
-#zeta_ss = C_ss*(1-ha) - D_ss^(1+1/eta)/(1+1/eta);
-#theta_N_ss = (1-phi)*W_ss/(N_ss^(1/nu)*zeta_ss*mu_ss);
+#theta_N_ss = (1-phi)*W_ss/(N_ss^(1/nu)*mu_ss);
 
 [name = 'Labor composite']
 N_comp = (omega^(-theta)*N_C^(1+theta) + (1-omega)^(-theta)*N_I^(1+theta))^(1/(1+theta));
 
 [name='Labor leisure:C']
-theta_N_ss*exp(theta_N)*(N_comp)^(1/nu)*(N_C/N_comp)^theta*omega^(-theta) = (1-phi)*W_C/(mu_ss*exp(mu_C)*zeta);
+theta_N_ss*exp(theta_N)*(N_comp)^(1/nu)*(N_C/N_comp)^theta*omega^(-theta) = (1-phi)*W_C/(mu_ss*exp(mu_C));
 
 [name='Labor leisure:I']
-theta_N_ss*exp(theta_N)*(N_comp)^(1/nu)*(N_I/N_comp)^theta*(1-omega)^(-theta)  = (1-phi)*W_I/(mu_ss*exp(mu_I)*zeta);
+theta_N_ss*exp(theta_N)*(N_comp)^(1/nu)*(N_I/N_comp)^theta*(1-omega)^(-theta)  = (1-phi)*W_I/(mu_ss*exp(mu_I));
 
 
 [name='Marginal utility of wealth']
@@ -322,10 +315,7 @@ exp(theta_D)*D^(1/eta) = phi*p_sc*Y_sc/D_sc;
 exp(theta_D)*D^(1/eta)*exp(theta_I) = phi*p_I*I/D_I;
 
 [name = 'Composite utility term']
-Gam = C-ha*C(-1) - exp(theta_D)*D^(1+1/eta)/(1+1/eta) - theta_N_ss*exp(theta_N)*N_comp^(1+1/nu)/(1+1/nu)*zeta;
-
-[name = 'Law of motion of wealth effects variable']
-zeta =  (C-ha*C(-1) - exp(theta_D)*D^(1+1/eta)/(1+1/eta))^(gam)*zeta(-1)^(1-gam);
+Gam = C-ha*C(-1) - exp(theta_D)*D^(1+1/eta)/(1+1/eta) - theta_N_ss*exp(theta_N)*N_comp^(1+1/nu)/(1+1/nu);
 
 [name = 'Consumption CES aggregator']
 C = (omega_sc^(1-rho)*Y_sc^rho + (1-omega_sc)^(1-rho)*Y_mc^rho)^(1/rho);
@@ -334,22 +324,22 @@ C = (omega_sc^(1-rho)*Y_sc^rho + (1-omega_sc)^(1-rho)*Y_mc^rho)^(1/rho);
 //C = p_mc*Y_mc + p_sc*Y_sc;
 
 [name = 'Investment adjustment cost function:mc']
-Smc =Psi_C/2*(x_mc-exp(g_bar))^2;
+Smc =Psi_K/2*(x_mc-exp(g_bar))^2;
 
 [name = 'Investment adjustment cost function:mc']
-Ssc =Psi_C/2*(x_sc-exp(g_bar))^2;
+Ssc =Psi_K/2*(x_sc-exp(g_bar))^2;
 
 [name = 'Investment adjustment cost function:I']
-Si =Psi_I/2*(x_I-exp(g_bar))^2;
+Si =Psi_K/2*(x_I-exp(g_bar))^2;
 
 [name = 'Investment adjustment cost function: derivative mc']
-Smc_pr = Psi_C*(x_mc-exp(g_bar));
+Smc_pr = Psi_K*(x_mc-exp(g_bar));
 
 [name = 'Investment adjustment cost function: derivative mc']
-Ssc_pr = Psi_C*(x_sc-exp(g_bar));
+Ssc_pr = Psi_K*(x_sc-exp(g_bar));
 
 [name = 'Investment adjustment cost function: derivative I']
-Si_pr = Psi_I*(x_I-exp(g_bar));
+Si_pr = Psi_K*(x_I-exp(g_bar));
 
 [name = 'Investment growth:mc']
 x_mc = I_mc/I_mc(-1)*exp(g);
@@ -359,7 +349,6 @@ x_sc = I_sc/I_sc(-1)*exp(g);
 
 [name = 'Investment growth:I']
 x_I = I_I/I_I(-1)*exp(g);
-
 
 [name = 'Tobins Q: mc']
 p_I/(1-phi) = Q_mc*(1-Smc_pr*x_mc-Smc) + 
@@ -382,8 +371,6 @@ Q_sc = beta*exp(theta_b)*(lam(+1)/lam)*exp(g(+1))^(-sigma)*(R_sc(+1) + (1-delta)
 [name = 'Euler equation: I']
 Q_I = beta*exp(theta_b)*(lam(+1)/lam)*exp(g(+1))^(-sigma)*(R_I(+1) + (1-delta)*Q_I(+1));
 
-
-
 [name = 'Non-durable goods production']
 Y_mc = A_mc*(D_mc)^phi*(Z_mc_ss*exp(g)^(-alpha_K)*exp(Z_C)*(K_mc(-1))^alpha_K*(N_mc)^alpha_N-nu_mc);
 
@@ -392,6 +379,7 @@ Y_sc = A_sc*(D_sc)^phi*(Z_sc_ss*exp(g)^(-alpha_K)*exp(Z_C)*(K_sc(-1))^alpha_K*(N
 
 [name = 'Investment production']
 I = A_I*(D_I)^phi*(Z_I_ss*exp(g)^(-alpha_K)*exp(Z_I)*(K_I(-1))^alpha_K*(N_I)^alpha_N-nu_I);
+
 
 [name = 'Capital law of motion:mc']
 K_mc*exp(g) = (1-Smc)*I_mc*exp(g) + (1-delta)*K_mc(-1);
@@ -447,20 +435,23 @@ SR = exp(g)^(1-labor_share)*((Y_mc/Y)*Y_mc/(K_mc(-1)^(1-labor_share)*N_mc^(labor
 
 [name = 'Capacity utilization']
 util_ND = A_mc*D_mc^phi;
-
 util_D = A_I*D_I^phi;
+util_sc = A_sc*D_sc^phi;
 
-util = (Y_mc/(Y_mc+I))*util_ND + (I/(Y_mc+I))*util_D;
+util = (Y_mc*util_ND + Y_sc*util_sc + I*util_D)/Y;
+
+[name = 'General technology measure']
+tech = (C/Y)*exp(Z_C) + (I/Y)*exp(Z_I);
  
 % Exogenous processes
 [name='stochastic trend process']
-g = (1-rho_g)*g_bar + rho_g*g(-1) + e_g + e_g_news(-4);
+g = (1-rho_g)*g_bar + rho_g*g(-1) + e_g;
 
 [name='Stationary TFP process']
-Z_C = rho_Z*Z_C(-1) + e_Z + e_Z_news(-4);
+Z_C = rho_Z*Z_C(-1) + e_Z;
 
 [name='Independent component of I-specific tech']
-u_ZI = rho_ZI*Z_I(-1) + e_ZI + e_ZI_news(-4);
+u_ZI = rho_ZI*Z_I(-1) + e_ZI;
 
 [name ='Investment-specific TFP process']
 Z_I = Z_C + u_ZI;
@@ -469,19 +460,19 @@ Z_I = Z_C + u_ZI;
 theta_N = rho_N*theta_N(-1) - e_N;
 
 [name ='Shopping effort process']
-theta_D = rho_D*theta_D(-1) - e_D - e_D_news(-4);
+theta_D = rho_D*theta_D(-1) - e_D;
 
 [name ='Relative shopping effort process']
-theta_I = rho_DI*theta_I(-1) - e_DI - e_DI_news(-4);
+theta_I = rho_DI*theta_I(-1) - e_DI;
 
 [name='Consumption preference process']
-theta_b = rho_b*theta_b(-1) + e_b + e_b_news(-4);
+theta_b = rho_b*theta_b(-1) + e_b;
 
 [name = 'Wage-markup process: C']
-mu_C = rho_muC*mu_C(-1) + e_muC + e_muC_news(-4);
+mu_C = rho_muC*mu_C(-1) + e_muC;
 
 [name = 'Wage-markup process: I']
-mu_I = rho_muI*mu_I(-1) + e_muI + e_muI_news(-4);
+mu_I = rho_muI*mu_I(-1) + e_muI;
 
 
 [name='Definition log output']
@@ -501,6 +492,7 @@ log_K = log(K) - steady_state(log(K));
 log_Y_N = log_Y - log_N;
 [name = 'Definition log shopping effort']
 log_D = log(D) - steady_state(log(D));
+
 [name = 'Definition of log relative investment  price']
 log_p_I = log(p_I) - steady_state(log(p_I));
 
@@ -515,6 +507,9 @@ log_W = log(W) - steady_state(log(W));
 [name = 'Definition of log Solow residual']
 log_SR = log(SR) - steady_state(log(SR));
 
+[name = 'Definition of log technology']
+log_tech = log(tech) - steady_state(log(tech));
+
 % Observation variables: first differences (demeaned) -> link to data in first differences (p. 58 of Pfeifer's Observation Equations)
 C_obs = log_C - log_C(-1) + g - g_bar ;
 I_obs = log_I - log_I(-1) + g - g_bar ;
@@ -523,6 +518,7 @@ Y_N_obs = log_Y_N - log_Y_N(-1) + g - g_bar ;
 K_obs = log_K - log_K(-1) + g - g_bar;
 w_obs = log_W - log_W(-1) +g - g_bar;
 SR_obs = log_SR - log_SR(-1) + labor_share*(g - g_bar);
+tech_obs = log_tech - log_tech(-1) + g - g_bar;
 
 % Stationary variables
 p_I_obs = log_p_I - log_p_I(-1);
@@ -552,6 +548,8 @@ steady_state_model;
     C = 1-I_Y;
     Y_mc = (1-omega_sc)*C;
     Y_sc = omega_sc*C;
+
+
     D = phi^(eta/(1+eta));
     D_mc = (1-I_Y)*(1-omega_sc)*D;
     D_sc = (1-I_Y)*omega_sc*D;
@@ -590,10 +588,10 @@ steady_state_model;
 
     rho_ss = (xi-1)/xi;
     
-    zeta = C*(1-ha) - D^(1+1/eta)/(1+1/eta);
-    theta_N_s = (1-phi)*W_C/(N^(1/nu)*zeta*mu_ss);
+    //zeta = C*(1-ha) - D^(1+1/eta)/(1+1/eta);
+    theta_N_s = (1-phi)*W_C/(N^(1/nu)*mu_ss);
     //Gam^(-sigma)*theta_N_ss*exp(theta_N)*(N_comp)^(1/nu)*(N_C/N_comp)^theta*omega^(-theta) = lam*W_C/(mu_ss*exp(mu_C)*zeta);
-    Gam = (C*(1-ha) - D^(1+1/eta)/(1+1/eta) - theta_N_s*N_comp^(1+1/nu)/(1+1/nu)*zeta);
+    Gam = (C*(1-ha) - D^(1+1/eta)/(1+1/eta) - theta_N_s*N_comp^(1+1/nu)/(1+1/nu));
 
     lam = Gam^(-sigma)*(1-phi);
    
@@ -606,8 +604,9 @@ steady_state_model;
     sigma_b_ss = r_ss + delta_ss;
     alpha_K_ss = (r_ss+delta_ss)*K_Y/(1+nu_R);
 
-    g = g_bar;
+    tech = 1;
 
+    g = g_bar;
 
     Q_mc = p_I/(1-phi);
     Q_sc = Q_mc;
@@ -624,6 +623,7 @@ steady_state_model;
 
     util_ND = Psi;
     util_D = Psi;
+    util_sc = Psi;
     util = Psi;
 
     Z_C = 0;
@@ -707,10 +707,10 @@ estimated_params;
 sigma, 1.5, 1.0, 4.0,             BETA_PDF, 1.5, 0.25, 1.0, 4.0;
 ha, 0.5, 0.0, 0.95,           BETA_PDF, 0.5, 0.2;
 nu, 0.72, 0.05, 2.0,           GAMMA_PDF, 0.72, 0.25;
-gam, 0.5, 0.0, 1.0,        BETA_PDF, 0.5, 0.2; %Born, Peter, and Pfeifer (2013)
+//gam, 0.5, 0.0, 1.0,        BETA_PDF, 0.5, 0.2; %Born, Peter, and Pfeifer (2013)
 
-phi, 0.32, 0.00, 0.999,        BETA_PDF, 0.32, 0.2;
-eta, 0.20, 0.00, 10.0,          GAMMA_PDF, 0.2, 0.15;
+phi, 0.8, 0.00, 0.999,        BETA_PDF, 0.32, 0.2;
+eta, 0.567, 0.00, 10.0,          GAMMA_PDF, 0.2, 0.15;
 //m, 0.286, 0.0, 0.95,          GAMMA_PDF, 0.286, 0.2;
 
 xi, 0.85, 0.5, 2.0,        GAMMA_PDF, 0.85, 0.1;
@@ -718,8 +718,7 @@ xi, 0.85, 0.5, 2.0,        GAMMA_PDF, 0.85, 0.1;
 
 nu_R, 0.20, 0.01, 0.5,        BETA_PDF, 0.2, 0.1;
 
-Psi_C, 1.5, 0.0, 50,           GAMMA_PDF, 4, 1.0; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
-Psi_I, 1.5, 0.0, 50,           GAMMA_PDF, 4, 1.0; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
+Psi_K, 1.5, 0.0, 50,           GAMMA_PDF, 4, 1.0; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
 
 theta, 0.5, .00, 10,   GAMMA_PDF, 1, 0.5; %Katayama and Kim 2018, based on Horvath (2000)
 
@@ -736,26 +735,18 @@ rho_muC,  0.95, 0.01, 0.99999999,        BETA_PDF, 0.6, 0.2;
 rho_muI,  0.95, 0.01, 0.99999999,        BETA_PDF, 0.6, 0.2;
 
 % Standard errors
-stderr e_g, 0.01, 0.00001, 0.2,  GAMMA_PDF, 0.01, 0.01;
-stderr e_g_news, 0.01, 0.00001, 0.2,  GAMMA_PDF, 0.01, 0.01;
+stderr e_g, 0.01, 0.0000001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 stderr e_Z, 0.01, 0.00001, 0.2,  GAMMA_PDF, 0.01, 0.01;
-stderr e_Z_news, 0.01, 0.00001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 stderr e_ZI, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
-stderr e_ZI_news, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 
 stderr e_N, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
-stderr e_D, 0.01, 0.0001, 0.4,  GAMMA_PDF, 0.01, 0.01;
-stderr e_D_news, 0.01, 0.0001, 0.4,  GAMMA_PDF, 0.01, 0.01;
+stderr e_D, 0.01, 0.00001, 0.4,  GAMMA_PDF, 0.01, 0.01;
 stderr e_DI, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
-stderr e_DI_news, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 
 stderr e_b, 0.01, 0.0001, 0.4,  GAMMA_PDF, 0.01, 0.01;
-stderr e_b_news, 0.01, 0.0001, 0.4,  GAMMA_PDF, 0.01, 0.01;
 
 stderr e_muC, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
-stderr e_muC_news, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 stderr e_muI, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
-stderr e_muI_news, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 
 //stderr w_obs, 0.01, 0.0001, 0.05,  GAMMA_PDF, 0.01, 0.01;
 
@@ -772,28 +763,28 @@ varobs NC_obs, NI_obs, C_obs, I_obs, p_I_obs, util_ND_obs, util_D_obs;
 
 estimation(tex, optim=('MaxIter', 200), 
 datafile=observables_sectoral, 
-mode_file=BRS_sectoral_wo_vcu_mh_mode, 
+mode_file=BRS_sectoral_mh_mode, %With _mh option uses mode after MCM run
 //nograph,
-load_mh_file, 
+//load_mh_file, 
 //mh_recover,
 mcmc_jumping_covariance=prior_variance,
 
-mode_compute=0,
+mode_compute=4,
 presample=0, 
 lik_init=2,
 mh_jscale=0.006, 
 mh_init_scale =0.0001,
 //mh_jscale=0.1,
 mode_check, 
-//mh_replic=100000, 
-mh_replic=0,
+mh_replic=200000, 
+//mh_replic=0,
 mh_nblocks=2, 
 //bayesian_irf,
 //irf=100,
 mh_drop=0.3, 
 //moments_varendo,
 prior_trunc=0)
-Y_obs, Y_N_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_ND_obs, util_D_obs, w_obs;
+Y_obs, Y_N_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_ND_obs, util_D_obs, SR_obs, util_obs, D_obs;
 //log_Y, log_Y_N, log_I, log_p_I, log_C, log_N, log_NC, log_NI, util;
 
 
@@ -806,7 +797,7 @@ write_latex_dynamic_model;
 write_latex_parameter_table;
 write_latex_definitions;
 write_latex_prior_table;
-generate_trace_plots(1);
+//generate_trace_plots(1);
 collect_latex_files;
 % if system(['pdflatex -halt-on-error -interaction=batchmode ' M_.fname '_TeX_binder.tex'])
 %     error('TeX-File did not compile.')
@@ -814,10 +805,10 @@ collect_latex_files;
 
 
 % Stochastic simulation -> for conditional FEVD and IRF
-stoch_simul (order=1, nofunctions, irf=0, periods=0)
+stoch_simul (order=1, nofunctions, irf=20, periods=0)
 //conditional_variance_decomposition=[1 4 8 40])
-Y_obs, Y_N_obs, SR_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_ND_obs, util_D_obs, util_obs, D_obs;
-//log_Y, log_Y_N, log_SR, log_I, log_p_I, log_C, log_N, log_NC, log_NI, log_util_ND, log_util_D;
+Y_obs, Y_N_obs, SR_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_ND_obs, util_D_obs, util_obs, D_obs, tech_obs;
+//log_Y, log_Y_N, log_SR, log_I, log_p_I, log_C, log_N, log_NC, log_NI, log_util_ND, log_util_D, log_util, log_D, log_tech;
 
 % Save artificial data 
-//save artificial_data.mat 'NC_obs', 'NI_obs', 'C_obs', 'I_obs', 'p_I_obs', 'util_ND_obs', 'util_D_obs', 'w_obs';
+//save('artificial_data.mat', 'NC_obs', 'NI_obs', 'C_obs', 'I_obs', 'p_I_obs', 'util_ND_obs', 'util_D_obs', 'w_obs');

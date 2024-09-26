@@ -1,5 +1,5 @@
 function [residual, g1, g2, g3] = dynamic(y, x, params, steady_state, it_)
-    T = NaN(89, 1);
+    T = NaN(84, 1);
     if nargout <= 1
         residual = BRS_sectoral_wo_vcu.dynamic_resid(T, y, x, params, steady_state, it_, true);
     elseif nargout == 2

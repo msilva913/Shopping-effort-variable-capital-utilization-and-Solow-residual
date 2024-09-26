@@ -445,7 +445,7 @@ collect_latex_files;
 
 %*/
 % Stochastic simulation 
-stoch_simul (order=1, nofunctions, irf=0, periods=0
+stoch_simul (order=1, nofunctions, irf=20, periods=0
 //conditional_variance_decomposition=[1 4 8 40])
 )
 Y_obs, Y_N_obs, SR_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, theta_D, D_obs, util_obs util_C_obs, util_I_obs;

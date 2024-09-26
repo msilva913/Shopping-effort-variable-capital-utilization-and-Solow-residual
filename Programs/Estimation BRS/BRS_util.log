@@ -376,6 +376,6 @@ D_obs          0.1067   0.0920   0.0781   0.0756   0.0756
 util_obs       0.1067   0.0920   0.0781   0.0756   0.0756
 util_C_obs     0.1504   0.1092   0.0923   0.0891   0.0889
 util_I_obs    -0.0026   0.0316   0.0267   0.0265   0.0273
-Total computing time : 0h01m07s
+Total computing time : 0h01m13s
 Note: 13 warning(s) encountered in the preprocessor
 Note: warning(s) encountered in MATLAB/Octave code

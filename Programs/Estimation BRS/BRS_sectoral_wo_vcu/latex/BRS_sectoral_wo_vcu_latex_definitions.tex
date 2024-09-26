@@ -36,6 +36,7 @@
 \texttt{Z\_C} & ${Z_{C}}$ & Tech:mc\\
 \texttt{u\_ZI} & $u\_ZI$ & u\_ZI\\
 \texttt{Z\_I} & ${Z_I}$ & Tech:I\\
+\texttt{tech} & ${tech}$ & General technology measure\\
 \texttt{theta\_N} & ${\theta_N}$ & Labor disutility\\
 \texttt{theta\_D} & ${\theta_D}$ & Shopping disutility\\
 \texttt{theta\_I} & ${\theta_I}$ & Relative shopping disutility\\
@@ -59,7 +60,6 @@
 \texttt{D\_sc} & ${D_{sc}}$ & Shopping effort:sc\\
 \texttt{D\_I} & ${D_I}$ & Shopping effort:I\\
 \texttt{Gam} & ${\Gamma}$ & Composite utility term\\
-\texttt{zeta} & ${\zeta}$ & Wealth effects parameter\\
 \texttt{p\_mc} & ${p_{mc}}$ & Relative non-durable price\\
 \texttt{p\_sc} & ${p_{sc}}$ & Relative service price\\
 \texttt{p\_I} & ${p_I}$ & Relative investment price\\
@@ -73,6 +73,7 @@
 \texttt{log\_SR} & $log\_SR$ & Solow residual\\
 \texttt{util} & ${util}$ & Capacity utilization\\
 \texttt{util\_ND} & ${util_{ND}}$ & Capacity utilization:ND\\
+\texttt{util\_sc} & ${util_{sc}}$ & Capacity utilization:sc\\
 \texttt{util\_D} & ${util_D}$ & Capacity utilization:D\\
 \texttt{g} & ${g}$ & Growth rate of stochastic trend\\
 \texttt{log\_Y} & $log\_Y$ & log\_Y\\
@@ -89,6 +90,7 @@
 \texttt{log\_util\_ND} & $log\_util\_ND$ & log\_util\_ND\\
 \texttt{log\_util\_D} & $log\_util\_D$ & log\_util\_D\\
 \texttt{log\_W} & $log\_W$ & log\_W\\
+\texttt{log\_tech} & $log\_tech$ & log\_tech\\
 \texttt{C\_obs} & $C\_obs$ & C\_obs\\
 \texttt{I\_obs} & $I\_obs$ & I\_obs\\
 \texttt{Y\_obs} & $Y\_obs$ & Y\_obs\\
@@ -100,42 +102,11 @@
 \texttt{NI\_obs} & $NI\_obs$ & NI\_obs\\
 \texttt{util\_ND\_obs} & $util\_ND\_obs$ & util\_ND\_obs\\
 \texttt{util\_D\_obs} & $util\_D\_obs$ & util\_D\_obs\\
-\texttt{w\_obs} & $w\_obs$ & w\_obs\\
 \texttt{util\_obs} & $util\_obs$ & util\_obs\\
+\texttt{tech\_obs} & $tech\_obs$ & tech\_obs\\
+\texttt{w\_obs} & $w\_obs$ & w\_obs\\
 \texttt{D\_obs} & $D\_obs$ & D\_obs\\
 \texttt{K\_obs} & $K\_obs$ & K\_obs\\
-\texttt{AUX\_EXO\_LAG\_91\_0} & $AUX\_EXO\_LAG\_91\_0$ & AUX\_EXO\_LAG\_91\_0\\
-\texttt{AUX\_EXO\_LAG\_91\_1} & $AUX\_EXO\_LAG\_91\_1$ & AUX\_EXO\_LAG\_91\_1\\
-\texttt{AUX\_EXO\_LAG\_91\_2} & $AUX\_EXO\_LAG\_91\_2$ & AUX\_EXO\_LAG\_91\_2\\
-\texttt{AUX\_EXO\_LAG\_91\_3} & $AUX\_EXO\_LAG\_91\_3$ & AUX\_EXO\_LAG\_91\_3\\
-\texttt{AUX\_EXO\_LAG\_93\_0} & $AUX\_EXO\_LAG\_93\_0$ & AUX\_EXO\_LAG\_93\_0\\
-\texttt{AUX\_EXO\_LAG\_93\_1} & $AUX\_EXO\_LAG\_93\_1$ & AUX\_EXO\_LAG\_93\_1\\
-\texttt{AUX\_EXO\_LAG\_93\_2} & $AUX\_EXO\_LAG\_93\_2$ & AUX\_EXO\_LAG\_93\_2\\
-\texttt{AUX\_EXO\_LAG\_93\_3} & $AUX\_EXO\_LAG\_93\_3$ & AUX\_EXO\_LAG\_93\_3\\
-\texttt{AUX\_EXO\_LAG\_95\_0} & $AUX\_EXO\_LAG\_95\_0$ & AUX\_EXO\_LAG\_95\_0\\
-\texttt{AUX\_EXO\_LAG\_95\_1} & $AUX\_EXO\_LAG\_95\_1$ & AUX\_EXO\_LAG\_95\_1\\
-\texttt{AUX\_EXO\_LAG\_95\_2} & $AUX\_EXO\_LAG\_95\_2$ & AUX\_EXO\_LAG\_95\_2\\
-\texttt{AUX\_EXO\_LAG\_95\_3} & $AUX\_EXO\_LAG\_95\_3$ & AUX\_EXO\_LAG\_95\_3\\
-\texttt{AUX\_EXO\_LAG\_98\_0} & $AUX\_EXO\_LAG\_98\_0$ & AUX\_EXO\_LAG\_98\_0\\
-\texttt{AUX\_EXO\_LAG\_98\_1} & $AUX\_EXO\_LAG\_98\_1$ & AUX\_EXO\_LAG\_98\_1\\
-\texttt{AUX\_EXO\_LAG\_98\_2} & $AUX\_EXO\_LAG\_98\_2$ & AUX\_EXO\_LAG\_98\_2\\
-\texttt{AUX\_EXO\_LAG\_98\_3} & $AUX\_EXO\_LAG\_98\_3$ & AUX\_EXO\_LAG\_98\_3\\
-\texttt{AUX\_EXO\_LAG\_100\_0} & $AUX\_EXO\_LAG\_100\_0$ & AUX\_EXO\_LAG\_100\_0\\
-\texttt{AUX\_EXO\_LAG\_100\_1} & $AUX\_EXO\_LAG\_100\_1$ & AUX\_EXO\_LAG\_100\_1\\
-\texttt{AUX\_EXO\_LAG\_100\_2} & $AUX\_EXO\_LAG\_100\_2$ & AUX\_EXO\_LAG\_100\_2\\
-\texttt{AUX\_EXO\_LAG\_100\_3} & $AUX\_EXO\_LAG\_100\_3$ & AUX\_EXO\_LAG\_100\_3\\
-\texttt{AUX\_EXO\_LAG\_102\_0} & $AUX\_EXO\_LAG\_102\_0$ & AUX\_EXO\_LAG\_102\_0\\
-\texttt{AUX\_EXO\_LAG\_102\_1} & $AUX\_EXO\_LAG\_102\_1$ & AUX\_EXO\_LAG\_102\_1\\
-\texttt{AUX\_EXO\_LAG\_102\_2} & $AUX\_EXO\_LAG\_102\_2$ & AUX\_EXO\_LAG\_102\_2\\
-\texttt{AUX\_EXO\_LAG\_102\_3} & $AUX\_EXO\_LAG\_102\_3$ & AUX\_EXO\_LAG\_102\_3\\
-\texttt{AUX\_EXO\_LAG\_104\_0} & $AUX\_EXO\_LAG\_104\_0$ & AUX\_EXO\_LAG\_104\_0\\
-\texttt{AUX\_EXO\_LAG\_104\_1} & $AUX\_EXO\_LAG\_104\_1$ & AUX\_EXO\_LAG\_104\_1\\
-\texttt{AUX\_EXO\_LAG\_104\_2} & $AUX\_EXO\_LAG\_104\_2$ & AUX\_EXO\_LAG\_104\_2\\
-\texttt{AUX\_EXO\_LAG\_104\_3} & $AUX\_EXO\_LAG\_104\_3$ & AUX\_EXO\_LAG\_104\_3\\
-\texttt{AUX\_EXO\_LAG\_106\_0} & $AUX\_EXO\_LAG\_106\_0$ & AUX\_EXO\_LAG\_106\_0\\
-\texttt{AUX\_EXO\_LAG\_106\_1} & $AUX\_EXO\_LAG\_106\_1$ & AUX\_EXO\_LAG\_106\_1\\
-\texttt{AUX\_EXO\_LAG\_106\_2} & $AUX\_EXO\_LAG\_106\_2$ & AUX\_EXO\_LAG\_106\_2\\
-\texttt{AUX\_EXO\_LAG\_106\_3} & $AUX\_EXO\_LAG\_106\_3$ & AUX\_EXO\_LAG\_106\_3\\
 \hline%
 \end{longtable}
 \end{center}
@@ -156,22 +127,14 @@
 \hline\hline%
 \endhead
 \texttt{e\_g} & ${e_g}$ & Labor-augmenting-technology growth shock\\
-\texttt{e\_g\_news} & ${e_{g,-4}}$ & Labor-augmenting-technology growth shock: news\\
 \texttt{e\_Z} & ${e_Z}$ & TFP shock\\
-\texttt{e\_Z\_news} & ${e_{Z,-4}}$ & TFP shock: news\\
 \texttt{e\_ZI} & ${e_{ZI}}$ & Investment-specific tech shock\\
-\texttt{e\_ZI\_news} & ${e_{ZI,-4}}$ & Investment-specific tech shock: news\\
 \texttt{e\_N} & ${e_N}$ & Labor supply shock\\
 \texttt{e\_D} & ${e_D}$ & Shopping disutility shock\\
-\texttt{e\_D\_news} & ${e_{D,4}}$ & Shopping disutility shock: news\\
 \texttt{e\_DI} & ${e_DI}$ & Relative investment shopping disutility shock\\
-\texttt{e\_DI\_news} & ${e_{DI,-4}}$ & Relative investment shopping disutility shock: news\\
 \texttt{e\_b} & ${e_b}$ & Discount factor shock\\
-\texttt{e\_b\_news} & ${e_{b,-4}}$ & Discount factor shock\\
 \texttt{e\_muC} & ${e_{muC}}$ & Wage markup shock: C\\
-\texttt{e\_muC\_news} & ${e_{muC,-4}}$ & Wage markup shock: C: news\\
 \texttt{e\_muI} & ${e_{muI}}$ & Wage markup shock: I\\
-\texttt{e\_muI\_news} & ${e_{muI,-4}}$ & Wage markup shock: I: news\\
 \hline%
 \end{longtable}
 \end{center}
@@ -195,12 +158,10 @@
 \texttt{beta} & ${\beta}$ & Discount factor\\
 \texttt{g\_bar} & ${\overline{g}}$ & Quarterly trend growth rate\\
 \texttt{nu} & $\nu$ & Frisch elasticity\\
-\texttt{gam} & $\gamma$ & wealth effect on labor supply\\
 \texttt{xi} & $\xi$ & elasticity of substitution between non-durables and services\\
 \texttt{omega\_sc} & $\omega_{sc}$ & Weight of services in aggregator\\
 \texttt{mu\_ss} & $\mu_{ss}$ & steady-state wage markup\\
-\texttt{Psi\_C} & ${\Psi_{C}}$ & Investment adjustment cost parameter:non-durable goods\\
-\texttt{Psi\_I} & ${\Psi_I}$ & Investment adjustment cost parameter:I\\
+\texttt{Psi\_K} & ${\Psi_{K}}$ & Investment adjustment cost parameter\\
 \texttt{I\_Y} & ${I_Y}$ & Investment-output ratio\\
 \texttt{K\_Y} & ${K_Y}$ & Capital-output ratio (quarterly)\\
 \texttt{labor\_share} & $(labor share)$ & Labor share\\

@@ -18,6 +18,6 @@ function g2 = static_g2(T, y, x, params, T_flag)
 if T_flag
     T = BRS_sectoral_wo_vcu.static_g2_tt(T, y, x, params);
 end
-g2 = sparse([],[],[],122,14884);
+g2 = sparse([],[],[],93,8649);
 
 end

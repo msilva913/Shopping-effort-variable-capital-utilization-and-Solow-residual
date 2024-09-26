@@ -44,6 +44,8 @@ res_pm = oo_;
 M_pm = M_;
 save('res_pm', 'res_pm');
 save('M_pm', 'M_pm');
+load res_pm
+load M_pm
 %FEVD_table = FEVD_sum(res_pm, M_pm);
 [out, HPD] = main_table(res_pm, M_pm);
 %% Common wage markup shock
