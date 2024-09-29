@@ -581,7 +581,7 @@ write_latex_parameter_table;
 write_latex_definitions;
 write_latex_prior_table;
 collect_latex_files;
-options_.irf = 0;
+options_.irf = 20;
 options_.nofunctions = true;
 options_.order = 1;
 options_.periods = 0;

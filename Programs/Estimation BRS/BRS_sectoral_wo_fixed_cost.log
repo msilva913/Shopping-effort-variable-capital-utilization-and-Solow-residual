@@ -2,9 +2,10 @@ Starting Dynare (version 5.4).
 Calling Dynare with arguments: none
 Starting preprocessing of the model file ...
 WARNING: in the 'steady_state_model' block, variable 'log_h' is not assigned a value
+WARNING: in the 'steady_state_model' block, variable 'log_tech' is not assigned a value
+WARNING: in the 'steady_state_model' block, variable 'tech_obs' is not assigned a value
 WARNING: in the 'steady_state_model' block, variable 'h_obs' is not assigned a value
-Substitution of exo lags: added 32 auxiliary variables and equations.
-Found 135 equation(s).
+Found 105 equation(s).
 Evaluating expressions...done
 Computing static model derivatives (order 1).
 Computing dynamic model derivatives (order 1).
@@ -28,57 +29,57 @@ Equation number 7 : 0 : Shopping:mc
 Equation number 8 : 0 : Shopping:sc
 Equation number 9 : 0 : Shopping:I
 Equation number 10 : 0 : Composite utility term
-Equation number 11 : 0 : Law of motion of wealth effects variable
-Equation number 12 : 0 : Consumption CES aggregator
+Equation number 11 : 0 : Consumption CES aggregator
+Equation number 12 : 0 : Investment adjustment cost function:mc
 Equation number 13 : 0 : Investment adjustment cost function:mc
-Equation number 14 : 0 : Investment adjustment cost function:mc
-Equation number 15 : 0 : Investment adjustment cost function:I
+Equation number 14 : 0 : Investment adjustment cost function:I
+Equation number 15 : 0 : Investment adjustment cost function: derivative mc
 Equation number 16 : 0 : Investment adjustment cost function: derivative mc
-Equation number 17 : 0 : Investment adjustment cost function: derivative mc
-Equation number 18 : 0 : Investment adjustment cost function: derivative I
+Equation number 17 : 0 : Investment adjustment cost function: derivative I
+Equation number 18 : 0 : Investment growth:mc
 Equation number 19 : 0 : Investment growth:mc
-Equation number 20 : 0 : Investment growth:mc
-Equation number 21 : 0 : Investment growth:I
-Equation number 22 : 0 : Depreciation rate: mc
-Equation number 23 : 0 : Depreciation rate: sc
-Equation number 24 : 0 : Depreciation rate: I
-Equation number 25 : 0 : Depreciation rate derivative: mc
-Equation number 26 : 0 : Depreciation rate derivative: sc
-Equation number 27 : 0 : Depreciation rate derivative: I
-Equation number 28 : 0 : Tobins Q: mc
-Equation number 29 : 0 : Tobins Q: sc
-Equation number 30 : 0 : Tobins Q: I
-Equation number 31 : 0 : Euler equation: mc
-Equation number 32 : 0 : Euler equation: sc
-Equation number 33 : 0 : Euler equation: I
-Equation number 34 : 0 : Utilization: mc
-Equation number 35 : 0 : Utilization: sc
-Equation number 36 : 0 : Utilization: I
-Equation number 37 : 0 : Non-durable goods production
-Equation number 38 : 0 : Services production
-Equation number 39 : 0 : Investment production
-Equation number 40 : 0 : Capital law of motion:mc
-Equation number 41 : 0 : Capital law of motion:sc
-Equation number 42 : 0 : Capital law of motion:I
-Equation number 43 : 0 : Labor demand:mc
-Equation number 44 : 0 : Labor demand:sc
-Equation number 45 : 0 : Labor demand:I
-Equation number 46 : 0 : Capital demand:mc
-Equation number 47 : 0 : Capital demand:sc
-Equation number 48 : 0 : Capital demand:I
-Equation number 49 : 0 : Labor composition
-Equation number 50 : 0 : Labor composition: C
-Equation number 51 : 0 : Capital composition
-Equation number 52 : 0 : Investment composition
-Equation number 53 : 0 : Shopping composition
-Equation number 54 : 0 : Capital utilization composition
-Equation number 55 : 0 : Aggregate wage
-Equation number 56 : 0 : Output (base-year prices)
-Equation number 57 : 0 : Solow residual
-Equation number 58 : 0 : Capacity utilization
-Equation number 59 : 0 : util_sc
-Equation number 60 : 0 : util_D
-Equation number 61 : 0 : util
+Equation number 20 : 0 : Investment growth:I
+Equation number 21 : 0 : Depreciation rate: mc
+Equation number 22 : 0 : Depreciation rate: sc
+Equation number 23 : 0 : Depreciation rate: I
+Equation number 24 : 0 : Depreciation rate derivative: mc
+Equation number 25 : 0 : Depreciation rate derivative: sc
+Equation number 26 : 0 : Depreciation rate derivative: I
+Equation number 27 : 0 : Tobins Q: mc
+Equation number 28 : 0 : Tobins Q: sc
+Equation number 29 : 0 : Tobins Q: I
+Equation number 30 : 0 : Euler equation: mc
+Equation number 31 : 0 : Euler equation: sc
+Equation number 32 : 0 : Euler equation: I
+Equation number 33 : 0 : Utilization: mc
+Equation number 34 : 0 : Utilization: sc
+Equation number 35 : 0 : Utilization: I
+Equation number 36 : 0 : Non-durable goods production
+Equation number 37 : 0 : Services production
+Equation number 38 : 0 : Investment production
+Equation number 39 : 0 : Capital law of motion:mc
+Equation number 40 : 0 : Capital law of motion:sc
+Equation number 41 : 0 : Capital law of motion:I
+Equation number 42 : 0 : Labor demand:mc
+Equation number 43 : 0 : Labor demand:sc
+Equation number 44 : 0 : Labor demand:I
+Equation number 45 : 0 : Capital demand:mc
+Equation number 46 : 0 : Capital demand:sc
+Equation number 47 : 0 : Capital demand:I
+Equation number 48 : 0 : Labor composition
+Equation number 49 : 0 : Labor composition: C
+Equation number 50 : 0 : Capital composition
+Equation number 51 : 0 : Investment composition
+Equation number 52 : 0 : Shopping composition
+Equation number 53 : 0 : Capital utilization composition
+Equation number 54 : 0 : Aggregate wage
+Equation number 55 : 0 : Output (base-year prices)
+Equation number 56 : 0 : Solow residual
+Equation number 57 : 0 : Capacity utilization
+Equation number 58 : 0 : util_sc
+Equation number 59 : 0 : util_D
+Equation number 60 : 0 : util
+Equation number 61 : 0 : General technology measure
 Equation number 62 : 0 : stochastic trend process
 Equation number 63 : 0 : Stationary TFP process
 Equation number 64 : 0 : Independent component of I-specific tech
@@ -105,186 +106,158 @@ Equation number 84 : 0 : log_util_ND
 Equation number 85 : 0 : log_util_D
 Equation number 86 : 0 : Definition of log wages
 Equation number 87 : 0 : Definition of log Solow residual
-Equation number 88 : 0 : C_obs
-Equation number 89 : 0 : I_obs
-Equation number 90 : 0 : Y_obs
-Equation number 91 : 0 : Y_N_obs
-Equation number 92 : 0 : K_obs
-Equation number 93 : 0 : w_obs
-Equation number 94 : 0 : SR_obs
-Equation number 95 : 0 : p_I_obs
-Equation number 96 : 0 : N_obs
-Equation number 97 : 0 : NC_obs
-Equation number 98 : 0 : NI_obs
-Equation number 99 : 0 : util_ND_obs
-Equation number 100 : 0 : util_D_obs
-Equation number 101 : 0 : util_obs
-Equation number 102 : 0 : D_obs
-Equation number 103 : 0 : h_obs
+Equation number 88 : 0 : Definition of log technology
+Equation number 89 : 0 : C_obs
+Equation number 90 : 0 : I_obs
+Equation number 91 : 0 : Y_obs
+Equation number 92 : 0 : Y_N_obs
+Equation number 93 : 0 : K_obs
+Equation number 94 : 0 : w_obs
+Equation number 95 : 0 : SR_obs
+Equation number 96 : 0 : tech_obs
+Equation number 97 : 0 : p_I_obs
+Equation number 98 : 0 : N_obs
+Equation number 99 : 0 : NC_obs
+Equation number 100 : 0 : NI_obs
+Equation number 101 : 0 : util_ND_obs
+Equation number 102 : 0 : util_D_obs
+Equation number 103 : 0 : util_obs
+Equation number 104 : 0 : D_obs
+Equation number 105 : 0 : h_obs
 
 
 
 STEADY-STATE RESULTS:
 
-Y                 		 1
-C                 		 0.8
-Y_mc              		 0.28
-Y_sc              		 0.52
-SR                		 1.01547
-I                 		 0.2
-I_mc              		 0.056
-I_sc              		 0.104
-I_I               		 0.04
-K                 		 11.0496
-K_mc              		 3.09389
-K_sc              		 5.7458
-K_I               		 2.20992
-N                 		 0.3
-N_mc              		 0.084
-N_sc              		 0.156
-N_C               		 0.24
-N_I               		 0.06
-N_comp            		 0.3
-Z_C               		 0
-u_ZI              		 0
-Z_I               		 0
-theta_N           		 0
-theta_D           		 0
-theta_I           		 0
-theta_b           		 0
-mu_C              		 0
-mu_I              		 0
-R_mc              		 0.0483892
-R_sc              		 0.0483892
-R_I               		 0.0483892
-W_C               		 2.23333
-W_I               		 2.23333
-W                 		 2.23333
-h_mc              		 1
-h_sc              		 1
-h_I               		 1
-h                 		 1
-delta_mc          		 0.0136717
-delta_sc          		 0.0136717
-delta_I           		 0.0136717
-delta_mc_pr       		 0.0329046
-delta_sc_pr       		 0.0329046
-delta_I_pr        		 0.0329046
-Smc               		 0
-Ssc               		 0
-Si                		 0
-Smc_pr            		 0
-Ssc_pr            		 0
-Si_pr             		 0
-D                 		 0.827037
-D_mc              		 0.23157
-D_sc              		 0.430059
-D_I               		 0.165407
-Gam               		 0.500826
-zeta              		 0.666667
-p_mc              		 1
-p_sc              		 1
-p_I               		 1
-lam               		 2.71103
-Q_mc              		 1.47059
-Q_sc              		 1.47059
-Q_I               		 1.47059
-x_mc              		 1.00451
-x_sc              		 1.00451
-x_I               		 1.00451
-log_SR            		 0
-util              		 0.81
-util_ND           		 0.81
-util_sc           		 0.81
-util_D            		 0.81
-g                 		 0.0045
-log_Y             		 0
-log_C             		 0
-log_I             		 0
-log_N             		 0
-log_NC            		 0
-log_NI            		 0
-log_K             		 0
-log_Y_N           		 0
-log_D             		 0
-log_h             		 0
-log_p_I           		 0
-log_util          		 0
-log_util_ND       		 0
-log_util_D        		 0
-log_W             		 0
-C_obs             		 0
-I_obs             		 0
-Y_obs             		 0
-SR_obs            		 0
-Y_N_obs           		 0
-p_I_obs           		 0
-N_obs             		 0
-NC_obs            		 0
-NI_obs            		 0
-util_ND_obs       		 0
-util_D_obs        		 0
-util_obs          		 0
-w_obs             		 0
-D_obs             		 0
-h_obs             		 0
-K_obs             		 0
+Y           		 1
+C           		 0.8
+Y_mc        		 0.28
+Y_sc        		 0.52
+SR          		 1.01547
+I           		 0.2
+I_mc        		 0.056
+I_sc        		 0.104
+I_I         		 0.04
+K           		 11.0496
+K_mc        		 3.09389
+K_sc        		 5.7458
+K_I         		 2.20992
+N           		 0.3
+N_mc        		 0.084
+N_sc        		 0.156
+N_C         		 0.24
+N_I         		 0.06
+N_comp      		 0.3
+Z_C         		 0
+u_ZI        		 0
+Z_I         		 0
+tech        		 1
+theta_N     		 0
+theta_D     		 0
+theta_I     		 0
+theta_b     		 0
+mu_C        		 0
+mu_I        		 0
+R_mc        		 0.0483892
+R_sc        		 0.0483892
+R_I         		 0.0483892
+W_C         		 2.23333
+W_I         		 2.23333
+W           		 2.23333
+h_mc        		 1
+h_sc        		 1
+h_I         		 1
+h           		 1
+delta_mc    		 0.0136717
+delta_sc    		 0.0136717
+delta_I     		 0.0136717
+delta_mc_pr 		 0.0329046
+delta_sc_pr 		 0.0329046
+delta_I_pr  		 0.0329046
+Smc         		 0
+Ssc         		 0
+Si          		 0
+Smc_pr      		 0
+Ssc_pr      		 0
+Si_pr       		 0
+D           		 0.827037
+D_mc        		 0.23157
+D_sc        		 0.430059
+D_I         		 0.165407
+Gam         		 0.580826
+p_mc        		 1
+p_sc        		 1
+p_I         		 1
+lam         		 2.01565
+Q_mc        		 1.47059
+Q_sc        		 1.47059
+Q_I         		 1.47059
+x_mc        		 1.00451
+x_sc        		 1.00451
+x_I         		 1.00451
+log_SR      		 0
+util        		 0.81
+util_ND     		 0.81
+util_sc     		 0.81
+util_D      		 0.81
+g           		 0.0045
+log_Y       		 0
+log_C       		 0
+log_I       		 0
+log_N       		 0
+log_NC      		 0
+log_NI      		 0
+log_K       		 0
+log_Y_N     		 0
+log_D       		 0
+log_h       		 0
+log_p_I     		 0
+log_util    		 0
+log_util_ND 		 0
+log_util_D  		 0
+log_W       		 0
+log_tech    		 0
+C_obs       		 0
+I_obs       		 0
+Y_obs       		 0
+SR_obs      		 0
+Y_N_obs     		 0
+p_I_obs     		 0
+N_obs       		 0
+NC_obs      		 0
+NI_obs      		 0
+util_ND_obs 		 0
+util_D_obs  		 0
+util_obs    		 0
+tech_obs    		 0
+w_obs       		 0
+D_obs       		 0
+h_obs       		 0
+K_obs       		 0
 
 EIGENVALUES:
          Modulus             Real        Imaginary
 
                0                0                0
                0                0                0
-        2.82e-20         2.82e-20                0
-       3.149e-20       -3.149e-20                0
-       3.753e-20        3.753e-20                0
-       5.696e-20       -5.696e-20                0
-         1.4e-19         -1.4e-19                0
-       1.553e-19       -1.553e-19                0
-       1.973e-19       -1.973e-19                0
-       2.142e-19       -2.142e-19                0
-       2.172e-19        2.172e-19                0
-        3.28e-19        -3.28e-19                0
-       4.957e-19        4.957e-19                0
-       5.141e-19        5.141e-19                0
-       6.911e-19        6.911e-19                0
-        7.46e-19        -7.46e-19                0
-       9.605e-19        9.605e-19                0
-        2.21e-18         2.21e-18                0
-       2.276e-18        2.276e-18                0
-       2.554e-18        2.554e-18                0
-        2.81e-18        -2.81e-18                0
-       3.643e-18        3.643e-18                0
-        4.08e-18         4.08e-18                0
-       4.663e-18        4.663e-18                0
-       6.579e-18        6.579e-18                0
-       8.056e-18        8.056e-18                0
-       8.596e-18       -8.596e-18                0
-       1.124e-17       -1.124e-17                0
-       1.529e-17        1.529e-17                0
-       2.141e-17        2.141e-17                0
-       2.158e-17        2.158e-17                0
-       2.269e-17        2.269e-17                0
-        2.71e-17         2.71e-17                0
-       2.734e-17        2.734e-17                0
-       4.007e-17       -4.007e-17                0
-       4.339e-17        4.339e-17                0
-       5.207e-17       -5.207e-17                0
-       5.758e-17        5.758e-17                0
-       7.619e-17       -7.619e-17                0
-       1.388e-16        1.388e-16                0
-       1.467e-16        1.467e-16                0
-       1.477e-16        1.477e-16                0
-       1.616e-16        1.616e-16                0
-        1.73e-16        -1.73e-16                0
-       2.303e-16        2.303e-16                0
-       2.545e-16        2.545e-16                0
-       3.698e-16        3.698e-16                0
-       6.686e-16        6.686e-16                0
-         0.08032          0.08032                0
+       2.765e-19        2.765e-19                0
+       3.572e-18       -3.572e-18                0
+       4.896e-18       -4.896e-18                0
+        5.97e-18        -5.97e-18                0
+       6.206e-18        6.206e-18                0
+       6.772e-18       -6.772e-18                0
+       1.267e-17        1.267e-17                0
+       1.613e-17        1.613e-17                0
+       1.887e-17        1.887e-17                0
+       2.508e-17       -2.508e-17                0
+       2.726e-17        2.726e-17                0
+       7.822e-17       -7.822e-17                0
+       1.064e-16        1.064e-16                0
+       2.771e-16        2.771e-16                0
+       1.046e-15        1.046e-15                0
+       1.141e-15       -1.141e-15                0
              0.1              0.1                0
-           0.451            0.451                0
-          0.6289           0.6289                0
+          0.6166           0.6166                0
              0.9              0.9                0
              0.9              0.9                0
              0.9              0.9                0
@@ -295,28 +268,28 @@ EIGENVALUES:
              0.9              0.9                0
           0.9389           0.9366          0.06515
           0.9389           0.9366         -0.06515
-           0.942             0.94           0.0616
-           0.942             0.94          -0.0616
-          0.9906           0.9906                0
+          0.9416           0.9396          0.06201
+          0.9416           0.9396         -0.06201
+          0.9928           0.9928                0
            1.022            1.022                0
-           1.077            1.075          0.07062
-           1.077            1.075         -0.07062
+           1.078            1.075          0.07096
+           1.078            1.075         -0.07096
            1.081            1.078          0.07499
            1.081            1.078         -0.07499
-           1.643            1.643                0
-         1.6e+16          1.6e+16                0
-       1.182e+17        1.182e+17                0
-       1.326e+17        1.326e+17                0
-       2.279e+17       -2.279e+17                0
-       3.411e+17       -3.411e+17                0
-       3.414e+17        3.414e+17                0
-       6.705e+17        6.705e+17                0
-       9.959e+17       -9.959e+17                0
-       1.119e+18        1.119e+18                0
-       2.755e+18       -2.755e+18                0
-       9.017e+18       -9.017e+18                0
-       1.681e+45       -1.681e+45                0
-       4.167e+45       -4.167e+45                0
+           1.645            1.645                0
+       4.058e+16       -4.058e+16                0
+       8.449e+16       -8.449e+16                0
+       1.877e+17        1.877e+17                0
+        2.89e+17         2.89e+17                0
+       3.301e+17        3.301e+17                0
+       3.455e+17       -3.455e+17                0
+       4.736e+17       -4.736e+17                0
+       5.687e+17       -5.687e+17                0
+        6.65e+17         6.65e+17                0
+       1.233e+18        1.233e+18                0
+       1.861e+18       -1.861e+18                0
+       1.098e+46       -1.098e+46                0
+       8.234e+46       -8.234e+46                0
              Inf              Inf                0
 
 
@@ -326,110 +299,102 @@ for 20 forward-looking variable(s)
 The rank condition is verified.
 
 
-Initial value of the log posterior (or likelihood): 4664.5019
+Initial value of the log posterior (or likelihood): 4663.6422
 
 MODE CHECK
 
-Fval obtained by the minimization routine (minus the posterior/likelihood)): -4664.501928
+Fval obtained by the minimization routine (minus the posterior/likelihood)): -4663.642169
 
 RESULTS FROM POSTERIOR ESTIMATION
 parameters
-           prior mean     mode    s.d.  prior pstdev
+         prior mean     mode    s.d.  prior pstdev
 
-sigma          1.5000   1.9114  0.1726   beta 0.2500 
-ha             0.5000   0.3641  0.0497   beta 0.2000 
-nu             0.7200   1.6626  0.1507   gamm 0.2500 
-gam            0.5000   0.3456  0.0663   beta 0.2000 
-phi            0.3200   0.9191  0.0386   beta 0.2000 
-eta            0.2000   0.5590  0.0777   gamm 0.1500 
-xi             0.8500   0.9019  0.0738   gamm 0.1000 
-sigma_ac       1.0000   0.5789  0.2164   invg 1.0000 
-sigma_ai       1.0000   0.6397  0.1305   invg 1.0000 
-Psi_C          4.0000   4.4034  0.5828   gamm 1.0000 
-Psi_I          4.0000   4.2227  1.2624   gamm 1.0000 
-theta          1.0000   1.5391  0.1734   gamm 0.5000 
-rho_g          0.1000   0.4536  0.0605   beta 0.0500 
-rho_Z          0.6000   0.6905  0.0594   beta 0.2000 
-rho_ZI         0.6000   0.9728  0.0141   beta 0.2000 
-rho_N          0.6000   0.9923  0.0070   beta 0.2000 
-rho_D          0.6000   0.9343  0.0142   beta 0.2000 
-rho_DI         0.6000   0.9908  0.0089   beta 0.2000 
-rho_b          0.6000   0.9506  0.0417   beta 0.2000 
-rho_muC        0.6000   0.6736  0.0292   beta 0.2000 
-rho_muI        0.6000   0.9747  0.0173   beta 0.2000 
+sigma        1.5000   1.2916  0.1593   beta 0.2500 
+ha           0.5000   0.7329  0.0236   beta 0.2000 
+nu           0.7200   1.2123  0.1124   gamm 0.2500 
+phi          0.3200   0.9327  0.0437   beta 0.2000 
+eta          0.2000   0.2341  0.0265   gamm 0.1500 
+xi           0.8500   0.8313  0.0616   gamm 0.1000 
+sigma_ac     1.0000   1.3392  0.2744   invg 1.0000 
+sigma_ai     1.0000   0.3816  0.0791   invg 1.0000 
+Psi_K        4.0000  14.0459  1.3114   gamm 1.0000 
+theta        1.0000   1.3713  0.1587   gamm 0.5000 
+rho_g        0.1000   0.5859  0.0407   beta 0.0500 
+rho_Z        0.6000   0.7672  0.0351   beta 0.2000 
+rho_ZI       0.6000   0.8584  0.0263   beta 0.2000 
+rho_N        0.6000   0.9904  0.0066   beta 0.2000 
+rho_D        0.6000   0.8830  0.0264   beta 0.2000 
+rho_DI       0.6000   0.9849  0.0080   beta 0.2000 
+rho_b        0.6000   0.9150  0.0209   beta 0.2000 
+rho_muC      0.6000   0.8302  0.1268   beta 0.2000 
+rho_muI      0.6000   0.9990  0.0157   beta 0.2000 
 
 standard deviation of shocks
-           prior mean     mode    s.d.  prior pstdev
+         prior mean     mode    s.d.  prior pstdev
 
-e_g            0.0100   0.0008  0.0012   gamm 0.0100 
-e_g_news       0.0100   0.0101  0.0015   gamm 0.0100 
-e_Z            0.0100   0.0052  0.0007   gamm 0.0100 
-e_Z_news       0.0100   0.0048  0.0011   gamm 0.0100 
-e_ZI           0.0100   0.0145  0.0008   gamm 0.0100 
-e_ZI_news      0.0100   0.0026  0.0015   gamm 0.0100 
-e_N            0.0100   0.0058  0.0006   gamm 0.0100 
-e_D            0.0100   0.0364  0.0043   gamm 0.0100 
-e_D_news       0.0100   0.0022  0.0051   gamm 0.0100 
-e_DI           0.0100   0.0018  0.0015   gamm 0.0100 
-e_DI_news      0.0100   0.0199  0.0011   gamm 0.0100 
-e_b            0.0100   0.0001  0.0007   gamm 0.0100 
-e_b_news       0.0100   0.0017  0.0017   gamm 0.0100 
-e_muC          0.0100   0.0001  0.0008   gamm 0.0100 
-e_muC_news     0.0100   0.0004  0.0009   gamm 0.0100 
-e_muI          0.0100   0.0219  0.0075   gamm 0.0100 
-e_muI_news     0.0100   0.0158  0.0050   gamm 0.0100 
+e_g          0.0100   0.0045  0.0004   gamm 0.0100 
+e_Z          0.0100   0.0096  0.0006   gamm 0.0100 
+e_ZI         0.0100   0.0191  0.0012   gamm 0.0100 
+e_N          0.0100   0.0060  0.0006   gamm 0.0100 
+e_D          0.0100   0.1387  0.0129   gamm 0.0100 
+e_DI         0.0100   0.0152  0.0009   gamm 0.0100 
+e_b          0.0100   0.0143  0.0055   gamm 0.0100 
+e_muC        0.0100   0.0009  0.0005   gamm 0.0100 
+e_muI        0.0100   0.0262  0.0026   gamm 0.0100 
 
 
-Log data density [Laplace approximation] is 4516.851618.
+Log data density [Laplace approximation] is 4563.938919.
 
-Estimation::mcmc: Total number of MH draws per chain: 250000.
+Estimation::mcmc: I am loading past Metropolis-Hastings simulations...
+Estimation::mcmc: Recovering the previous proposal density.
+Estimation::mcmc: I am writing a new mh-history file... Done.
+Estimation::mcmc: Ok. I have loaded 300000 simulations.
+
+
+Estimation::mcmc: Number of mh files: 1 per block.
+Estimation::mcmc: Total number of generated files: 2.
+Estimation::mcmc: Total number of iterations: 400000.
+Estimation::mcmc: Current acceptance ratio per chain: 
+                                                       Chain  1: 62.63%
+                                                       Chain  2: 61.619%
+Estimation::mcmc: Total number of MH draws per chain: 400000.
 Estimation::mcmc: Total number of generated MH files: 1.
 Estimation::mcmc: I'll use mh-files 1 to 1.
-Estimation::mcmc: In MH-file number 1 I'll start at line 75001.
-Estimation::mcmc: Finally I keep 175000 draws per chain.
+Estimation::mcmc: In MH-file number 1 I'll start at line 120001.
+Estimation::mcmc: Finally I keep 280000 draws per chain.
 
 
 
 MCMC Inefficiency factors per block
-Parameter           Block 1     Block 2
-SE_e_g              635.403     636.531
-SE_e_g_news         611.192     616.080
-SE_e_Z              514.802     521.861
-SE_e_Z_news         612.147     543.146
-SE_e_ZI             559.888     494.610
-SE_e_ZI_news        670.872     663.834
-SE_e_N              514.240     570.444
-SE_e_D              713.319     718.792
-SE_e_D_news         707.035     744.244
-SE_e_DI             668.084     689.002
-SE_e_DI_news        620.303     603.941
-SE_e_b              522.021     544.380
-SE_e_b_news         654.473     720.088
-SE_e_muC            548.779     586.840
-SE_e_muC_news       591.938     589.674
-SE_e_muI            737.992     745.631
-SE_e_muI_news       734.923     737.095
-sigma               736.128     746.840
-ha                  690.326     698.873
-nu                  741.315     721.889
-gam                 716.037     707.894
-phi                 704.795     696.994
-eta                 725.116     731.394
-xi                  745.453     743.076
-sigma_ac            696.915     715.307
-sigma_ai            641.114     645.836
-Psi_C               739.378     738.368
-Psi_I               743.998     746.429
-theta               718.215     722.541
-rho_g               743.253     745.573
-rho_Z               732.409     715.435
-rho_ZI              490.098     521.767
-rho_N               363.274     308.448
-rho_D               523.549     456.179
-rho_DI              376.486     455.958
-rho_b               678.735     722.088
-rho_muC             709.798     584.338
-rho_muI             622.555     568.200
+Parameter       Block 1     Block 2
+SE_e_g          400.886     348.661
+SE_e_Z          418.026     458.239
+SE_e_ZI         673.287     683.793
+SE_e_N          572.610     562.727
+SE_e_D          741.592     744.431
+SE_e_DI         582.733     574.565
+SE_e_b          724.579     743.338
+SE_e_muC        338.116     458.782
+SE_e_muI        725.486     728.548
+sigma           745.614     745.591
+ha              711.400     718.701
+nu              740.609     744.698
+phi             715.993     713.758
+eta             704.418     720.247
+xi              725.887     744.505
+sigma_ac        735.331     728.890
+sigma_ai        633.592     587.865
+Psi_K           742.779     745.518
+theta           735.243     732.959
+rho_g           747.860     746.910
+rho_Z           702.123     688.564
+rho_ZI          676.346     657.429
+rho_N           175.426     297.619
+rho_D           657.809     676.668
+rho_DI          288.956     286.861
+rho_b           654.799     638.742
+rho_muC         748.335     746.057
+rho_muI         468.977     591.196
 
 Estimation::mcmc::diagnostics: Univariate convergence diagnostic, Brooks and Gelman (1998):
     Parameter 1...  Done! 
@@ -460,16 +425,6 @@ Estimation::mcmc::diagnostics: Univariate convergence diagnostic, Brooks and Gel
     Parameter 26...  Done! 
     Parameter 27...  Done! 
     Parameter 28...  Done! 
-    Parameter 29...  Done! 
-    Parameter 30...  Done! 
-    Parameter 31...  Done! 
-    Parameter 32...  Done! 
-    Parameter 33...  Done! 
-    Parameter 34...  Done! 
-    Parameter 35...  Done! 
-    Parameter 36...  Done! 
-    Parameter 37...  Done! 
-    Parameter 38...  Done! 
 
 Estimation::marginal density: I'm computing the posterior mean and covariance...  Done!
 Estimation::marginal density: I'm computing the posterior log marginal density (modified harmonic mean)... Done!
@@ -477,153 +432,139 @@ Estimation::marginal density: I'm computing the posterior log marginal density (
 
 ESTIMATION RESULTS
 
-Log data density is 4516.186067.
+Log data density is 4565.378140.
 
 parameters
-             prior mean   post. mean        90% HPD interval    prior       pstdev
+           prior mean   post. mean        90% HPD interval    prior       pstdev
 
-sigma             1.500       2.0474      1.7927      2.3452     beta       0.2500
-ha                0.500       0.3591      0.2813      0.4294     beta       0.2000
-nu                0.720       1.6713      1.4701      1.9494     gamm       0.2500
-gam               0.500       0.3676      0.2646      0.4811     beta       0.2000
-phi               0.320       0.8929      0.8355      0.9566     beta       0.2000
-eta               0.200       0.5831      0.4692      0.7025     gamm       0.1500
-xi                0.850       0.9676      0.8695      1.1436     gamm       0.1000
-sigma_ac          1.000       0.7584      0.3950      1.0919     invg       1.0000
-sigma_ai          1.000       0.6057      0.3975      0.8148     invg       1.0000
-Psi_C             4.000       5.0461      4.2315      6.0307     gamm       1.0000
-Psi_I             4.000       4.1024      2.4147      6.1506     gamm       1.0000
-theta             1.000       1.5995      1.3496      1.8879     gamm       0.5000
-rho_g             0.100       0.4553      0.3658      0.5556     beta       0.0500
-rho_Z             0.600       0.6396      0.5449      0.7426     beta       0.2000
-rho_ZI            0.600       0.9681      0.9458      0.9911     beta       0.2000
-rho_N             0.600       0.9872      0.9773      0.9993     beta       0.2000
-rho_D             0.600       0.9475      0.9248      0.9707     beta       0.2000
-rho_DI            0.600       0.9912      0.9783      0.9999     beta       0.2000
-rho_b             0.600       0.9079      0.8424      0.9685     beta       0.2000
-rho_muC           0.600       0.9664      0.9325      0.9997     beta       0.2000
-rho_muI           0.600       0.9747      0.9486      0.9995     beta       0.2000
+sigma           1.500       1.4632      1.1776      1.7416     beta       0.2500
+ha              0.500       0.7273      0.6871      0.7698     beta       0.2000
+nu              0.720       1.2242      0.9325      1.4902     gamm       0.2500
+phi             0.320       0.9198      0.8522      0.9886     beta       0.2000
+eta             0.200       0.2340      0.1867      0.2813     gamm       0.1500
+xi              0.850       0.8576      0.7417      0.9400     gamm       0.1000
+sigma_ac        1.000       1.6549      1.1028      2.1405     invg       1.0000
+sigma_ai        1.000       0.4300      0.2836      0.5703     invg       1.0000
+Psi_K           4.000      13.1816     11.4019     15.1367     gamm       1.0000
+theta           1.000       1.5157      1.1949      1.7737     gamm       0.5000
+rho_g           0.100       0.5476      0.4489      0.6548     beta       0.0500
+rho_Z           0.600       0.7786      0.7185      0.8390     beta       0.2000
+rho_ZI          0.600       0.8538      0.8062      0.8966     beta       0.2000
+rho_N           0.600       0.9910      0.9821      0.9999     beta       0.2000
+rho_D           0.600       0.9051      0.8604      0.9508     beta       0.2000
+rho_DI          0.600       0.9808      0.9684      0.9944     beta       0.2000
+rho_b           0.600       0.9214      0.8882      0.9561     beta       0.2000
+rho_muC         0.600       0.6757      0.2522      0.9948     beta       0.2000
+rho_muI         0.600       0.9856      0.9667      1.0000     beta       0.2000
 
 standard deviation of shocks
-             prior mean   post. mean        90% HPD interval    prior       pstdev
+           prior mean   post. mean        90% HPD interval    prior       pstdev
 
-e_g               0.010       0.0015      0.0000      0.0032     gamm       0.0100
-e_g_news          0.010       0.0106      0.0080      0.0129     gamm       0.0100
-e_Z               0.010       0.0048      0.0036      0.0060     gamm       0.0100
-e_Z_news          0.010       0.0050      0.0033      0.0069     gamm       0.0100
-e_ZI              0.010       0.0146      0.0133      0.0159     gamm       0.0100
-e_ZI_news         0.010       0.0021      0.0001      0.0043     gamm       0.0100
-e_N               0.010       0.0055      0.0047      0.0064     gamm       0.0100
-e_D               0.010       0.0336      0.0273      0.0404     gamm       0.0100
-e_D_news          0.010       0.0055      0.0001      0.0147     gamm       0.0100
-e_DI              0.010       0.0020      0.0001      0.0041     gamm       0.0100
-e_DI_news         0.010       0.0203      0.0184      0.0221     gamm       0.0100
-e_b               0.010       0.0010      0.0001      0.0020     gamm       0.0100
-e_b_news          0.010       0.0033      0.0007      0.0063     gamm       0.0100
-e_muC             0.010       0.0012      0.0001      0.0023     gamm       0.0100
-e_muC_news        0.010       0.0012      0.0001      0.0024     gamm       0.0100
-e_muI             0.010       0.0132      0.0001      0.0221     gamm       0.0100
-e_muI_news        0.010       0.0248      0.0177      0.0338     gamm       0.0100
+e_g             0.010       0.0045      0.0038      0.0052     gamm       0.0100
+e_Z             0.010       0.0100      0.0090      0.0109     gamm       0.0100
+e_ZI            0.010       0.0207      0.0181      0.0233     gamm       0.0100
+e_N             0.010       0.0061      0.0049      0.0071     gamm       0.0100
+e_D             0.010       0.1319      0.1124      0.1525     gamm       0.0100
+e_DI            0.010       0.0154      0.0138      0.0168     gamm       0.0100
+e_b             0.010       0.0122      0.0051      0.0203     gamm       0.0100
+e_muC           0.010       0.0007      0.0001      0.0013     gamm       0.0100
+e_muI           0.010       0.0282      0.0233      0.0326     gamm       0.0100
 
 MODEL SUMMARY
 
-  Number of variables:         135
-  Number of stochastic shocks: 17
-  Number of state variables:   65
+  Number of variables:         105
+  Number of stochastic shocks: 9
+  Number of state variables:   33
   Number of jumpers:           20
-  Number of static variables:  51
+  Number of static variables:  53
 
 
 MATRIX OF COVARIANCE OF EXOGENOUS SHOCKS
-Variables            e_g    e_g_news         e_Z    e_Z_news        e_ZI   e_ZI_news         e_N         e_D    e_D_news        e_DI   e_DI_news         e_b    e_b_news       e_muC  e_muC_news       e_muI  e_muI_news
-e_g             0.000002    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000
-e_g_news        0.000000    0.000112    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000
-e_Z             0.000000    0.000000    0.000023    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000
-e_Z_news        0.000000    0.000000    0.000000    0.000025    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000
-e_ZI            0.000000    0.000000    0.000000    0.000000    0.000214    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000
-e_ZI_news       0.000000    0.000000    0.000000    0.000000    0.000000    0.000005    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000
-e_N             0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000030    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000
-e_D             0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.001129    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000
-e_D_news        0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000030    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000
-e_DI            0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000004    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000
-e_DI_news       0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000412    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000
-e_b             0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000001    0.000000    0.000000    0.000000    0.000000    0.000000
-e_b_news        0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000011    0.000000    0.000000    0.000000    0.000000
-e_muC           0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000001    0.000000    0.000000    0.000000
-e_muC_news      0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000001    0.000000    0.000000
-e_muI           0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000175    0.000000
-e_muI_news      0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000000    0.000614
+Variables         e_g       e_Z      e_ZI       e_N       e_D      e_DI       e_b     e_muC     e_muI
+e_g          0.000020  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000
+e_Z          0.000000  0.000099  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000
+e_ZI         0.000000  0.000000  0.000427  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000
+e_N          0.000000  0.000000  0.000000  0.000037  0.000000  0.000000  0.000000  0.000000  0.000000
+e_D          0.000000  0.000000  0.000000  0.000000  0.017392  0.000000  0.000000  0.000000  0.000000
+e_DI         0.000000  0.000000  0.000000  0.000000  0.000000  0.000236  0.000000  0.000000  0.000000
+e_b          0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000149  0.000000  0.000000
+e_muC        0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000
+e_muI        0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000793
 
 
 
 THEORETICAL MOMENTS
 VARIABLE            MEAN  STD. DEV.   VARIANCE
-Y_obs             0.0000     0.0163     0.0003
-Y_N_obs           0.0000     0.0145     0.0002
-SR_obs            0.0000     0.0167     0.0003
-I_obs             0.0000     0.0378     0.0014
-p_I_obs           0.0000     0.0241     0.0006
-C_obs             0.0000     0.0135     0.0002
-NC_obs            0.0000     0.0063     0.0000
-NI_obs            0.0000     0.0192     0.0004
-util_ND_obs       0.0000     0.0110     0.0001
-util_D_obs        0.0000     0.0325     0.0011
-util_obs          0.0000     0.0134     0.0002
-D_obs             0.0000     0.0168     0.0003
-h_obs             0.0000     0.0251     0.0006
+Y_obs             0.0000     0.0139     0.0002
+Y_N_obs           0.0000     0.0097     0.0001
+SR_obs            0.0000     0.0099     0.0001
+I_obs             0.0000     0.0381     0.0015
+p_I_obs           0.0000     0.0286     0.0008
+C_obs             0.0000     0.0103     0.0001
+NC_obs            0.0000     0.0066     0.0000
+NI_obs            0.0000     0.0222     0.0005
+util_ND_obs       0.0000     0.0121     0.0001
+util_D_obs        0.0000     0.0354     0.0013
+util_obs          0.0000     0.0136     0.0002
+D_obs             0.0000     0.0274     0.0008
+h_obs             0.0000     0.0634     0.0040
+tech_obs          0.0000     0.0123     0.0002
 
 
 
 VARIANCE DECOMPOSITION (in percent)
-                      e_g    e_g_news         e_Z    e_Z_news        e_ZI   e_ZI_news         e_N         e_D    e_D_news        e_DI   e_DI_news         e_b    e_b_news       e_muC  e_muC_news       e_muI  e_muI_news
-Y_obs                0.48       16.24        9.89        7.62        5.52        0.08        0.03       50.77        0.99        0.10        6.83        0.14        1.26        0.00        0.00        0.01        0.05
-Y_N_obs              0.73       25.86        6.75        4.87        4.51        0.06        5.06       35.31        0.66        0.08        4.73        0.48        6.10        0.13        0.13        1.04        3.50
-SR_obs               1.09       42.46        6.16        4.56        3.41        0.04        1.59       32.16        0.61        0.06        3.52        0.24        2.64        0.04        0.04        0.32        1.06
-I_obs                0.09        4.37       12.21        8.82       16.60        0.24        0.02       32.49        0.63        0.27       18.60        0.28        5.36        0.00        0.00        0.00        0.01
-p_I_obs              0.00        0.23        7.52        7.29       32.94        0.70        0.00        0.42        0.01        0.48       50.08        0.01        0.22        0.00        0.00        0.02        0.06
-C_obs                0.83       28.62        7.25        6.69        0.80        0.02        0.03       45.90        1.00        0.02        1.68        0.58        6.48        0.00        0.01        0.01        0.08
-NC_obs               0.10        5.49        4.58        5.09        7.96        0.16       29.83       15.37        0.45        0.13       11.72        0.63       12.03        1.12        1.17        0.93        3.25
-NI_obs               0.09        4.72        3.92        3.96        7.77        0.19        3.40       12.75        0.32        0.12       13.81        0.57       10.10        0.01        0.01        8.59       29.66
-util_ND_obs          0.09        6.01        6.94        7.44        0.68        0.02        0.01       64.92        1.43        0.02        1.69        0.87        9.79        0.00        0.00        0.01        0.08
-util_D_obs           0.07        3.97        4.73        4.92       12.88        0.34        0.01       41.49        0.80        0.35       23.52        0.34        6.53        0.00        0.00        0.01        0.04
-util_obs             0.01        2.28        5.13        5.49        4.77        0.12        0.01       70.05        1.38        0.13        8.84        0.19        1.57        0.00        0.00        0.00        0.02
-D_obs                0.02        1.64        1.05        0.86        0.41        0.01        0.00       92.72        2.30        0.01        0.79        0.02        0.16        0.00        0.00        0.00        0.00
-h_obs                0.07        2.04       12.90       15.10        4.71        0.13        0.02       52.14        1.69        0.08        9.49        0.18        1.43        0.00        0.00        0.00        0.02
+                  e_g     e_Z    e_ZI     e_N     e_D    e_DI     e_b   e_muC   e_muI
+Y_obs            8.12   17.97    1.47    0.01   68.91    2.33    1.18    0.00    0.01
+Y_N_obs         23.94   14.88    6.42   11.64   28.29    4.66    0.59    0.10    9.49
+SR_obs          20.76   17.28    4.43    4.96   43.99    3.89    0.65    0.04    3.99
+I_obs            0.61   23.17    6.11    0.01   56.98    6.95    6.16    0.00    0.01
+p_I_obs          0.02   25.58   38.83    0.00   16.16   19.13    0.24    0.00    0.04
+C_obs           20.05    7.43    0.43    0.01   60.17    0.56   11.31    0.00    0.05
+NC_obs           1.13    7.61    1.02   26.13   55.46    0.74    5.64    0.33    1.94
+NI_obs           0.83    9.96    6.66    2.45   46.28    2.80    2.26    0.00   28.76
+util_ND_obs      1.13   58.24    0.18    0.02   32.78    0.14    7.50    0.00    0.02
+util_D_obs       0.79    1.96   22.64    0.00   59.92    7.82    6.83    0.00    0.03
+util_obs         0.13   30.21    6.86    0.01   59.92    2.04    0.82    0.00    0.01
+D_obs            0.01    0.12    0.04    0.00   99.80    0.02    0.01    0.00    0.00
+h_obs            0.11   14.44    2.07    0.00   82.28    0.87    0.22    0.00    0.00
+tech_obs        19.15   68.71   12.14    0.00    0.00    0.00    0.00    0.00    0.00
 
 
 
 MATRIX OF CORRELATIONS
-Variables            Y_obs      Y_N_obs       SR_obs        I_obs      p_I_obs        C_obs       NC_obs       NI_obs  util_ND_obs   util_D_obs     util_obs        D_obs        h_obs
-Y_obs               1.0000       0.8535       0.8992       0.8331      -0.2644       0.9218       0.4565       0.4172       0.6348       0.6828       0.7474       0.6615      -0.0231
-Y_N_obs             0.8535       1.0000       0.9629       0.5757      -0.2968       0.8816      -0.0534      -0.0814       0.5756       0.3779       0.5609       0.5334      -0.1259
-SR_obs              0.8992       0.9629       1.0000       0.6217      -0.2521       0.9181       0.0880       0.0652       0.5128       0.4096       0.5351       0.4922      -0.0773
-I_obs               0.8331       0.5757       0.6217       1.0000      -0.5360       0.5536       0.6089       0.5551       0.4637       0.8627       0.7221       0.5297       0.1018
-p_I_obs            -0.2644      -0.2968      -0.2521      -0.5360       1.0000      -0.0225      -0.0411       0.0527      -0.1319      -0.2914      -0.2276       0.0085      -0.0665
-C_obs               0.9218       0.8816       0.9181       0.5536      -0.0225       1.0000       0.2606       0.2393       0.6308       0.4236       0.6193       0.6248      -0.1060
-NC_obs              0.4565      -0.0534       0.0880       0.6089      -0.0411       0.2606       1.0000       0.8124       0.2360       0.6536       0.4713       0.3350       0.1823
-NI_obs              0.4172      -0.0814       0.0652       0.5551       0.0527       0.2393       0.8124       1.0000       0.2086       0.6047       0.4297       0.3499       0.1355
-util_ND_obs         0.6348       0.5756       0.5128       0.4637      -0.1319       0.6308       0.2360       0.2086       1.0000       0.5259       0.9114       0.7559       0.1068
-util_D_obs          0.6828       0.3779       0.4096       0.8627      -0.2914       0.4236       0.6536       0.6047       0.5259       1.0000       0.8294       0.6056       0.1171
-util_obs            0.7474       0.5609       0.5351       0.7221      -0.2276       0.6193       0.4713       0.4297       0.9114       0.8294       1.0000       0.7896       0.1269
-D_obs               0.6615       0.5334       0.4922       0.5297       0.0085       0.6248       0.3350       0.3499       0.7559       0.6056       0.7896       1.0000      -0.4606
-h_obs              -0.0231      -0.1259      -0.0773       0.1018      -0.0665      -0.1060       0.1823       0.1355       0.1068       0.1171       0.1269      -0.4606       1.0000
+Variables            Y_obs      Y_N_obs       SR_obs        I_obs      p_I_obs        C_obs       NC_obs       NI_obs  util_ND_obs   util_D_obs     util_obs        D_obs        h_obs     tech_obs
+Y_obs               1.0000       0.7754       0.9038       0.8642      -0.1608       0.8851       0.7259       0.5644       0.4106       0.6645       0.6372       0.5585      -0.2641       0.3768
+Y_N_obs             0.7754       1.0000       0.9610       0.6472      -0.4231       0.7076       0.1974      -0.0025       0.3555       0.3523       0.4360       0.2436      -0.0345       0.4105
+SR_obs              0.9038       0.9610       1.0000       0.7815      -0.3138       0.7995       0.4003       0.2434       0.3611       0.4992       0.5162       0.4311      -0.2021       0.4563
+I_obs               0.8642       0.6472       0.7815       1.0000      -0.2555       0.5308       0.5580       0.6206       0.1904       0.7593       0.5298       0.5855      -0.3771       0.3307
+p_I_obs            -0.1608      -0.4231      -0.3138      -0.2555       1.0000      -0.0346       0.0607       0.3528      -0.2025       0.1933      -0.0437       0.3434      -0.3782      -0.1094
+C_obs               0.8851       0.7076       0.7995       0.5308      -0.0346       1.0000       0.7066       0.3768       0.5155       0.4171       0.5834       0.3993      -0.0962       0.3289
+NC_obs              0.7259       0.1974       0.4003       0.5580       0.0607       0.7066       1.0000       0.6489       0.3836       0.5207       0.5433       0.4781      -0.2123       0.1139
+NI_obs              0.5644      -0.0025       0.2434       0.6206       0.3528       0.3768       0.6489       1.0000       0.0484       0.6872       0.3913       0.6446      -0.4983       0.1429
+util_ND_obs         0.4106       0.3555       0.3611       0.1904      -0.2025       0.5155       0.3836       0.0484       1.0000       0.3031       0.8690       0.3130       0.1890      -0.5491
+util_D_obs          0.6645       0.3523       0.4992       0.7593       0.1933       0.4171       0.5207       0.6872       0.3031       1.0000       0.7349       0.6113      -0.2783      -0.1317
+util_obs            0.6372       0.4360       0.5162       0.5298      -0.0437       0.5834       0.5433       0.3913       0.8690       0.7349       1.0000       0.5402      -0.0100      -0.4592
+D_obs               0.5585       0.2436       0.4311       0.5855       0.3434       0.3993       0.4781       0.6446       0.3130       0.6113       0.5402       1.0000      -0.8395       0.0155
+h_obs              -0.2641      -0.0345      -0.2021      -0.3771      -0.3782      -0.0962      -0.2123      -0.4983       0.1890      -0.2783      -0.0100      -0.8395       1.0000      -0.3135
+tech_obs            0.3768       0.4105       0.4563       0.3307      -0.1094       0.3289       0.1139       0.1429      -0.5491      -0.1317      -0.4592       0.0155      -0.3135       1.0000
 
 
 
 COEFFICIENTS OF AUTOCORRELATION
 Order                1        2        3        4        5
-Y_obs           0.5625   0.3495   0.2384   0.1787   0.1041
-Y_N_obs         0.3688   0.1535   0.0716   0.0552  -0.0137
-SR_obs          0.4220   0.1984   0.1088   0.0853   0.0169
-I_obs           0.7691   0.5894   0.4441   0.3230   0.2187
-p_I_obs         0.1825   0.1285   0.0894   0.0466   0.0297
-C_obs           0.4025   0.1704   0.0909   0.0820   0.0132
-NC_obs          0.4892   0.4050   0.3277   0.2529   0.1920
-NI_obs          0.3102   0.2533   0.2029   0.1501   0.1126
-util_ND_obs     0.3951   0.2017   0.0940   0.0246  -0.0208
-util_D_obs      0.6877   0.5109   0.3765   0.2665   0.1736
-util_obs        0.5394   0.3400   0.2138   0.1233   0.0719
-D_obs           0.1125   0.0519   0.0183  -0.0022  -0.0118
-h_obs          -0.0457   0.0156   0.0349   0.0301   0.0564
-Total computing time : 0h04m13s
-Note: 2 warning(s) encountered in the preprocessor
+Y_obs           0.6949   0.4654   0.2925   0.1631   0.0674
+Y_N_obs         0.5120   0.3246   0.1952   0.1050   0.0419
+SR_obs          0.5975   0.3812   0.2282   0.1195   0.0424
+I_obs           0.6772   0.4308   0.2460   0.1104   0.0135
+p_I_obs         0.1143   0.0646   0.0283   0.0023  -0.0160
+C_obs           0.7226   0.5173   0.3604   0.2383   0.1425
+NC_obs          0.5022   0.3744   0.2662   0.1766   0.1037
+NI_obs          0.1740   0.0987   0.0438   0.0049  -0.0216
+util_ND_obs     0.2395   0.1828   0.1314   0.0862   0.0478
+util_D_obs      0.4807   0.2947   0.1577   0.0592  -0.0094
+util_obs        0.3995   0.2625   0.1567   0.0767   0.0175
+D_obs          -0.0173  -0.0213  -0.0241  -0.0259  -0.0268
+h_obs          -0.1209  -0.0967  -0.0763  -0.0594  -0.0456
+tech_obs        0.0949   0.0380   0.0064  -0.0107  -0.0196
+Total computing time : 0h29m25s
+Note: 4 warning(s) encountered in the preprocessor

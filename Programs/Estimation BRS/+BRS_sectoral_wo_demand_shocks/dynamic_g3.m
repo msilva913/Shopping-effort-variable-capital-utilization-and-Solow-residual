@@ -22,6 +22,6 @@ function g3 = dynamic_g3(T, y, x, params, steady_state, it_, T_flag)
 if T_flag
     T = BRS_sectoral_wo_demand_shocks.dynamic_g3_tt(T, y, x, params, steady_state, it_);
 end
-g3 = sparse([],[],[],125,9663597);
+g3 = sparse([],[],[],100,3869893);
 
 end

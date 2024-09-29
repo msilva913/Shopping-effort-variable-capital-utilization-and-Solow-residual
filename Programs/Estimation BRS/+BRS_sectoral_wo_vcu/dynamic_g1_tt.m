@@ -18,25 +18,23 @@ function T = dynamic_g1_tt(T, y, x, params, steady_state, it_)
 %   T           [#temp variables by 1]       double  vector of temporary terms
 %
 
-assert(length(T) >= 89);
+assert(length(T) >= 84);
 
 T = BRS_sectoral_wo_vcu.dynamic_resid_tt(T, y, x, params, steady_state, it_);
 
-T(74) = 1/y(65);
-T(75) = getPowerDeriv(T(11),params(5),1);
-T(76) = getPowerDeriv(T(38),1/T(1),1);
-T(77) = getPowerDeriv(T(55),1/(1+params(19)),1);
-T(78) = getPowerDeriv(y(81)/y(83),params(19),1);
-T(79) = getPowerDeriv(y(82)/y(83),params(19),1);
-T(80) = T(56)*getPowerDeriv(y(83),T(5),1);
-T(81) = exp(y(88))*getPowerDeriv(y(105),1/params(17),1);
-T(82) = exp(y(88))*getPowerDeriv(y(105),T(4),1)/T(4);
-T(83) = T(43)*getPowerDeriv(y(106),params(16),1);
-T(84) = T(44)*getPowerDeriv(y(107),params(16),1);
-T(85) = T(45)*getPowerDeriv(y(108),params(16),1);
-T(86) = T(16)*params(2)*exp(y(90))*(-y(193))/(y(114)*y(114));
-T(87) = T(16)*params(2)*exp(y(90))*1/y(114);
-T(88) = T(15)*getPowerDeriv(T(15),(-T(42)),1);
-T(89) = params(2)*exp(y(90))*y(193)/y(114)*exp(y(200))*getPowerDeriv(exp(y(200)),(-params(1)),1);
+T(71) = 1/y(33);
+T(72) = getPowerDeriv(T(36),1/T(1),1);
+T(73) = getPowerDeriv(T(53),1/(1+params(17)),1);
+T(74) = getPowerDeriv(y(49)/y(51),params(17),1);
+T(75) = getPowerDeriv(y(50)/y(51),params(17),1);
+T(76) = T(54)*getPowerDeriv(y(51),T(4),1);
+T(77) = exp(y(57))*getPowerDeriv(y(74),1/params(15),1);
+T(78) = T(41)*getPowerDeriv(y(75),params(14),1);
+T(79) = T(42)*getPowerDeriv(y(76),params(14),1);
+T(80) = T(43)*getPowerDeriv(y(77),params(14),1);
+T(81) = T(13)*params(2)*exp(y(59))*(-y(132))/(y(82)*y(82));
+T(82) = T(13)*params(2)*exp(y(59))*1/y(82);
+T(83) = T(12)*getPowerDeriv(T(12),(-T(40)),1);
+T(84) = params(2)*exp(y(59))*y(132)/y(82)*exp(y(139))*getPowerDeriv(exp(y(139)),(-params(1)),1);
 
 end

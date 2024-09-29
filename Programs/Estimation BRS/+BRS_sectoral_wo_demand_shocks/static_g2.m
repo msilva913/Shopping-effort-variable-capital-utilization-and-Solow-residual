@@ -18,6 +18,6 @@ function g2 = static_g2(T, y, x, params, T_flag)
 if T_flag
     T = BRS_sectoral_wo_demand_shocks.static_g2_tt(T, y, x, params);
 end
-g2 = sparse([],[],[],125,15625);
+g2 = sparse([],[],[],100,10000);
 
 end
