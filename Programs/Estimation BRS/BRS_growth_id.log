@@ -152,8 +152,8 @@ EIGENVALUES:
           0.9845           0.9845                0
            1.031            1.031                0
        7.203e+16       -7.203e+16                0
-       4.922e+17       -4.922e+17                0
-       1.329e+18       -1.329e+18                0
+       4.871e+17       -4.871e+17                0
+       1.331e+18       -1.331e+18                0
        2.581e+18        2.581e+18                0
 
 
@@ -173,7 +173,7 @@ the estimated_params_init block, or use another optimization routine.
 [Warning: The results below are most likely wrong!] 
 [> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation_1', 'C:\dynare\5.4\matlab\dynare_estimation_1.m', 318)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare_estimation_1.m',318,0)">line 318</a>)
 In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation', 'C:\dynare\5.4\matlab\dynare_estimation.m', 118)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare_estimation.m',118,0)">line 118</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('BRS_growth_id.driver', 'C:\Users\TJSEM\Github\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_growth_id\driver.m', 554)" style="font-weight:bold">BRS_growth_id.driver</a> (<a href="matlab: opentoline('C:\Users\TJSEM\Github\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_growth_id\driver.m',554,0)">line 554</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('BRS_growth_id.driver', 'C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_growth_id\driver.m', 554)" style="font-weight:bold">BRS_growth_id.driver</a> (<a href="matlab: opentoline('C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_growth_id\driver.m',554,0)">line 554</a>)
 In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare', 'C:\dynare\5.4\matlab\dynare.m', 278)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare.m',278,0)">line 278</a>)] 
 
 MODE CHECK
@@ -182,7 +182,7 @@ Fval obtained by the minimization routine (minus the posterior/likelihood)): -30
 [Warning: Matrix is singular, close to singular or badly scaled. Results may be inaccurate. RCOND = NaN.] 
 [> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation_1', 'C:\dynare\5.4\matlab\dynare_estimation_1.m', 341)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare_estimation_1.m',341,0)">line 341</a>)
 In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation', 'C:\dynare\5.4\matlab\dynare_estimation.m', 118)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare_estimation.m',118,0)">line 118</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('BRS_growth_id.driver', 'C:\Users\TJSEM\Github\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_growth_id\driver.m', 554)" style="font-weight:bold">BRS_growth_id.driver</a> (<a href="matlab: opentoline('C:\Users\TJSEM\Github\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_growth_id\driver.m',554,0)">line 554</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('BRS_growth_id.driver', 'C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_growth_id\driver.m', 554)" style="font-weight:bold">BRS_growth_id.driver</a> (<a href="matlab: opentoline('C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_growth_id\driver.m',554,0)">line 554</a>)
 In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare', 'C:\dynare\5.4\matlab\dynare.m', 278)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare.m',278,0)">line 278</a>)
 ] 
 
@@ -355,6 +355,6 @@ NI_obs       0.1035   0.0116   0.0109   0.0099   0.0087
 theta_D      0.8708   0.7582   0.6602   0.5749   0.5006
 D_obs       -0.0705  -0.0535  -0.0466  -0.0405  -0.0352
 util_obs    -0.0705  -0.0535  -0.0466  -0.0405  -0.0352
-Total computing time : 0h02m25s
+Total computing time : 0h01m18s
 Note: 10 warning(s) encountered in the preprocessor
 Note: warning(s) encountered in MATLAB/Octave code
