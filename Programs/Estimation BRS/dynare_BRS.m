@@ -38,6 +38,8 @@ tables = CFEVD_sum(res, M, 'level');
 %C_obs,Y_obs, SR_obs, TI_obs, NE, L ;
 %CFEVD = CFEVD(:, :, 1:(end-2));
 save('CFEVD.mat', 'CFEVD');
+%%
+dynare BRS_sectoral_rest.mod 
 %% Remove limited factor mobility
 %dynare BRS_sectoral_perfect_mobility.mod 
 res_pm = oo_;
