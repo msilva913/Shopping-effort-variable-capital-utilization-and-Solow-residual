@@ -107,7 +107,7 @@ save('M_wo_dem_shock_res', 'M_wo_dem_shock_res');
 %load res_KK.mat
 mom_wo_dem_shock_res = calc_moments(res_wo_dem_shock_res);
 [out, HPD] = main_table(res_wo_dem_shock_res, M_wo_dem_shock_res);
-FEVD_table = FEVD_sum(res_KK, M_KK, '');
+%FEVD_table = FEVD_sum(res_wo_dem_shock_res, M_wo_dem_shock_res, '');
 %% Estimate main model on artificial data
 dynare BRS_sectoral_artificial_data.mod 
 res_art = oo_;
