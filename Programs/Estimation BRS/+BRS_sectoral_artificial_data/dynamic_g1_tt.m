@@ -18,34 +18,32 @@ function T = dynamic_g1_tt(T, y, x, params, steady_state, it_)
 %   T           [#temp variables by 1]       double  vector of temporary terms
 %
 
-assert(length(T) >= 113);
+assert(length(T) >= 109);
 
 T = BRS_sectoral_artificial_data.dynamic_resid_tt(T, y, x, params, steady_state, it_);
 
-T(89) = 1/y(66);
-T(90) = getPowerDeriv(T(11),params(5),1);
-T(91) = getPowerDeriv(T(39),1/T(1),1);
-T(92) = getPowerDeriv(y(100)*y(5),T(45),1);
-T(93) = getPowerDeriv(y(101)*y(6),T(45),1);
-T(94) = getPowerDeriv(y(102)*y(7),T(45),1);
-T(95) = getPowerDeriv(y(80),T(2),1);
-T(96) = T(64)*T(68)*T(95);
-T(97) = getPowerDeriv(y(81),T(2),1);
-T(98) = T(70)*T(73)*T(97);
-T(99) = getPowerDeriv(T(58),1/(1+params(21)),1);
-T(100) = getPowerDeriv(y(82)/y(84),params(21),1);
-T(101) = getPowerDeriv(y(83)/y(84),params(21),1);
-T(102) = getPowerDeriv(y(83),T(2),1);
-T(103) = T(75)*T(78)*T(102);
-T(104) = T(59)*getPowerDeriv(y(84),T(5),1);
-T(105) = exp(y(89))*getPowerDeriv(y(116),1/params(19),1);
-T(106) = exp(y(89))*getPowerDeriv(y(116),T(4),1)/T(4);
-T(107) = T(46)*getPowerDeriv(y(117),params(18),1);
-T(108) = T(47)*getPowerDeriv(y(118),params(18),1);
-T(109) = T(48)*getPowerDeriv(y(119),params(18),1);
-T(110) = T(16)*params(2)*exp(y(91))*(-y(213))/(y(125)*y(125));
-T(111) = T(16)*params(2)*exp(y(91))*1/y(125);
-T(112) = T(15)*getPowerDeriv(T(15),(-T(45)),1);
-T(113) = params(2)*exp(y(91))*y(213)/y(125)*exp(y(220))*getPowerDeriv(exp(y(220)),(-params(1)),1);
+T(87) = 1/y(34);
+T(88) = getPowerDeriv(T(38),1/T(1),1);
+T(89) = getPowerDeriv(y(69)*y(5),T(44),1);
+T(90) = getPowerDeriv(y(70)*y(6),T(44),1);
+T(91) = getPowerDeriv(y(71)*y(7),T(44),1);
+T(92) = getPowerDeriv(y(48),T(2),1);
+T(93) = T(62)*T(66)*T(92);
+T(94) = getPowerDeriv(y(49),T(2),1);
+T(95) = T(68)*T(71)*T(94);
+T(96) = getPowerDeriv(T(57),1/(1+params(19)),1);
+T(97) = getPowerDeriv(y(50)/y(52),params(19),1);
+T(98) = getPowerDeriv(y(51)/y(52),params(19),1);
+T(99) = getPowerDeriv(y(51),T(2),1);
+T(100) = T(73)*T(76)*T(99);
+T(101) = T(58)*getPowerDeriv(y(52),T(4),1);
+T(102) = exp(y(58))*getPowerDeriv(y(85),1/params(17),1);
+T(103) = T(45)*getPowerDeriv(y(86),params(16),1);
+T(104) = T(46)*getPowerDeriv(y(87),params(16),1);
+T(105) = T(47)*getPowerDeriv(y(88),params(16),1);
+T(106) = T(13)*params(2)*exp(y(60))*(-y(151))/(y(93)*y(93));
+T(107) = T(13)*params(2)*exp(y(60))*1/y(93);
+T(108) = T(12)*getPowerDeriv(T(12),(-T(44)),1);
+T(109) = params(2)*exp(y(60))*y(151)/y(93)*exp(y(158))*getPowerDeriv(exp(y(158)),(-params(1)),1);
 
 end
