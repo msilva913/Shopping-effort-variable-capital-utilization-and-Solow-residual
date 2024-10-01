@@ -39,7 +39,7 @@ tables = CFEVD_sum(res, M, 'level');
 %CFEVD = CFEVD(:, :, 1:(end-2));
 save('CFEVD.mat', 'CFEVD');
 %%
-dynare BRS_sectoral_rest.mod 
+%dynare BRS_sectoral_rest.mod 
 %% Remove limited factor mobility
 %dynare BRS_sectoral_perfect_mobility.mod 
 res_pm = oo_;
@@ -59,7 +59,7 @@ save('M_cwm', 'M_cwm');
 %FEVD_table = FEVD_sum(res_pm, M_pm);
 [out, HPD] = main_table(res_cwm, M_cwm);
 %% Remove investment adjustment cost 
-dynare BRS_sectoral_wo_inv_adj_cost.mod 
+%dynare BRS_sectoral_wo_inv_adj_cost.mod 
 %% Remove fixed cost
 dynare BRS_sectoral_wo_fixed_cost.mod
 load res_wo_fc 
@@ -85,7 +85,7 @@ save('res_wo_vcu', 'res_wo_vcu');
 save('M_wo_vcu', 'M_wo_vcu');
 [out, HPD] = main_table(res_wo_vcu, M_wo_vcu);
 
-%% Remove search demand shocks
+%% Remove search demand shocks 
 dynare BRS_sectoral_wo_demand_shocks.mod 
 load res_wo_dem
 load M_wo_dem
@@ -108,31 +108,6 @@ save('M_KK', 'M_KK');
 mom_KK = calc_moments(res_KK);
 [out, HPD] = main_table(res_KK, M_KK);
 FEVD_table = FEVD_sum(res_KK, M_KK, '');
-
-%% Estimate general model but with fitting cross sectional price dispersion
-dynare BRS_price_dispersion.mod
-
-res_pd = oo_;
-M_pd = M_;
-save('res_pd', 'res_pd');
-save('M_pd', 'M_pd');
-load res_pd
-load M_pd
-posterior_mean = res_pd.posterior_mean.parameters;
-
-% Main output
-FEVD_table = FEVD_sum(res_pd, M_pd, 'growth');
-
-[out, HPD] = main_table(res_pd, M_pd, '');
-
-HPD_inf = res_pd.posterior_hpdinf.parameters;
-posterior_median = res_pd.posterior_median.parameters;
-HPD_sup = res_pd.posterior_hpdsup.parameters;
-HPD_eta = [HPD_inf.eta, posterior_median.eta, HPD_sup.eta];
-
-m = 0.15/0.524;
-HPD_phi = (HPD_eta+1)*m./(1+HPD_eta*m);
-HPD = [HPD_eta; HPD_phi]
 %% Estimate main model on artificial data
 dynare BRS_sectoral_artificial_data.mod 
 res_art = oo_;
@@ -167,6 +142,31 @@ end
 
 format short;
 table_ident = vertcat(summ_tables{1}, summ_tables{2})
+%% Estimate general model but with fitting cross sectional price dispersion
+% dynare BRS_price_dispersion.mod
+% 
+% res_pd = oo_;
+% M_pd = M_;
+% save('res_pd', 'res_pd');
+% save('M_pd', 'M_pd');
+% load res_pd
+% load M_pd
+% posterior_mean = res_pd.posterior_mean.parameters;
+% 
+% Main output
+% FEVD_table = FEVD_sum(res_pd, M_pd, 'growth');
+% 
+% [out, HPD] = main_table(res_pd, M_pd, '');
+% 
+% HPD_inf = res_pd.posterior_hpdinf.parameters;
+% posterior_median = res_pd.posterior_median.parameters;
+% HPD_sup = res_pd.posterior_hpdsup.parameters;
+% HPD_eta = [HPD_inf.eta, posterior_median.eta, HPD_sup.eta];
+% 
+% m = 0.15/0.524;
+% HPD_phi = (HPD_eta+1)*m./(1+HPD_eta*m);
+% HPD = [HPD_eta; HPD_phi]
+
 %% Proof of concept exercise in BRS
 %% Basic BRS (general replication)
 %dynare BRS_growth.mod
