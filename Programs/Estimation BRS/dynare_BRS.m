@@ -175,4 +175,6 @@ table_ident = vertcat(summ_tables{1}, summ_tables{2})
 dynare BRS_growth_id.mod
 %% estimate BRS with utilization data
 dynare BRS_util.mod 
+%% Benchmark RBC model
+dynare RBC.mod
 
