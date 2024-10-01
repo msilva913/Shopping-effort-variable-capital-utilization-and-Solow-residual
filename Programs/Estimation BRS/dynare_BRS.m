@@ -86,27 +86,27 @@ save('M_wo_vcu', 'M_wo_vcu');
 [out, HPD] = main_table(res_wo_vcu, M_wo_vcu);
 
 %% Remove search demand shocks 
-dynare BRS_sectoral_wo_demand_shocks.mod 
-load res_wo_dem
-load M_wo_dem
-res_wo_dem = oo_;
-M_wo_dem = M_;
-save('res_wo_dem', 'res_wo_dem');
-save('M_wo_dem', 'M_wo_dem');
-mom_wo_dem = calc_moments(res_wo_dem)
-[out, HPD] = main_table(res_wo_dem, M_wo_dem);
-FEVD_table = FEVD_sum(res_wo_dem, M_wo_dem, '');
+% dynare BRS_sectoral_wo_demand_shocks.mod 
+% load res_wo_dem
+% load M_wo_dem
+% res_wo_dem = oo_;
+% M_wo_dem = M_;
+% save('res_wo_dem', 'res_wo_dem');
+% save('M_wo_dem', 'M_wo_dem');
+% mom_wo_dem = calc_moments(res_wo_dem)
+% [out, HPD] = main_table(res_wo_dem, M_wo_dem);
+% FEVD_table = FEVD_sum(res_wo_dem, M_wo_dem, '');
 %% Examine ability to fit data without utilization
-dynare BRS_sectoral_KK.mod 
-load res_KK
-load M_KK
-res_KK = oo_;
-M_KK = M_;
-save('res_KK', 'res_KK');
-save('M_KK', 'M_KK');
+dynare BRS_sectoral_wo_dem_shocks_res.mod
+res_wo_dem_shock_res = oo_;
+M_wo_dem_shock_res = M_;
+save('res_wo_dem_shock_res', 'res_wo_dem_shock_res');
+save('M_wo_dem_shock_res', 'M_wo_dem_shock_res');
+%load res_KK
+%load M_KK
 %load res_KK.mat
-mom_KK = calc_moments(res_KK);
-[out, HPD] = main_table(res_KK, M_KK);
+mom_wo_dem_shock_res = calc_moments(res_wo_dem_shock_res);
+[out, HPD] = main_table(res_wo_dem_shock_res, M_wo_dem_shock_res);
 FEVD_table = FEVD_sum(res_KK, M_KK, '');
 %% Estimate main model on artificial data
 dynare BRS_sectoral_artificial_data.mod 
