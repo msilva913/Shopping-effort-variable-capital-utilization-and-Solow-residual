@@ -228,20 +228,20 @@ EIGENVALUES:
 
                0                0                0
                0                0                0
-        1.27e-18        -1.27e-18                0
-       6.153e-18        6.153e-18                0
-       8.086e-18       -8.086e-18                0
-       1.083e-17       -1.083e-17                0
-       1.156e-17        1.156e-17                0
-       1.188e-17        1.188e-17                0
-       9.503e-17       -9.503e-17                0
-       1.117e-16        1.117e-16                0
-       1.125e-16        1.125e-16                0
-       1.161e-16       -1.161e-16                0
-       2.702e-16        2.702e-16                0
-       2.857e-16       -2.857e-16                0
-       3.078e-16       -3.078e-16                0
-       3.908e-16        3.908e-16                0
+       8.342e-19       -8.342e-19                0
+       4.614e-18       -4.614e-18                0
+       2.374e-17        2.374e-17                0
+       2.428e-17       -2.428e-17                0
+       2.465e-17        2.465e-17                0
+       4.866e-17        4.866e-17                0
+       6.232e-17       -6.232e-17                0
+       8.106e-17        8.106e-17                0
+       1.058e-16        1.058e-16                0
+       2.176e-16        2.176e-16                0
+       6.065e-16        6.065e-16                0
+       7.236e-16        7.236e-16                0
+       8.109e-16       -8.109e-16                0
+       9.614e-16        9.614e-16                0
          0.07443          0.07443                0
              0.1              0.1                0
           0.5849           0.5849                0
@@ -262,20 +262,20 @@ EIGENVALUES:
            1.081            1.078           0.0752
            1.081            1.078          -0.0752
             1.74             1.74                0
-       5.804e+15       -5.804e+15                0
-       1.569e+16       -1.569e+16                0
-       2.316e+17       -2.316e+17                0
-       2.472e+17        2.472e+17                0
-       2.516e+17       -2.516e+17                0
-       2.548e+17        2.548e+17                0
-       1.416e+18       -1.416e+18                0
-       1.605e+18        1.605e+18                0
-        2.43e+18         2.43e+18                0
-       5.012e+18        5.012e+18                0
-       5.038e+19        5.038e+19                0
-       1.287e+45       -1.287e+45                0
-       1.398e+46        1.398e+46                0
-             Inf              Inf                0
+       7.122e+16       -7.122e+16                0
+       8.982e+16       -8.982e+16                0
+       9.529e+16        9.529e+16                0
+       1.039e+17       -1.039e+17                0
+        1.36e+17         1.36e+17                0
+       4.218e+17       -4.218e+17                0
+       4.824e+17       -4.824e+17                0
+       1.318e+18        1.318e+18                0
+       1.901e+18        1.901e+18                0
+       2.583e+18        2.583e+18                0
+       7.086e+18       -7.086e+18                0
+       6.334e+45       -6.334e+45                0
+        9.98e+45         9.98e+45                0
+         3.1e+47          3.1e+47                0
 
 
 There are 20 eigenvalue(s) larger than 1 in modulus 
@@ -284,89 +284,49 @@ for 20 forward-looking variable(s)
 The rank condition is verified.
 
 
-Initial value of the log posterior (or likelihood): 3840.2893
+Initial value of the log posterior (or likelihood): 3841.5675
 
 MODE CHECK
 
-Fval obtained by the minimization routine (minus the posterior/likelihood)): -3840.289312
-[Warning: Matrix is close to singular or badly scaled. Results may be inaccurate. RCOND =  7.179819e-17.] 
-[> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dyn_first_order_solver', 'C:\dynare\5.4\matlab\dyn_first_order_solver.m', 297)" style="font-weight:bold">dyn_first_order_solver</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dyn_first_order_solver.m',297,0)">line 297</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('stochastic_solvers', 'C:\dynare\5.4\matlab\stochastic_solvers.m', 251)" style="font-weight:bold">stochastic_solvers</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\stochastic_solvers.m',251,0)">line 251</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('resol', 'C:\dynare\5.4\matlab\resol.m', 119)" style="font-weight:bold">resol</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\resol.m',119,0)">line 119</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('compute_decision_rules', 'C:\dynare\5.4\matlab\compute_decision_rules.m', 34)" style="font-weight:bold">compute_decision_rules</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\compute_decision_rules.m',34,0)">line 34</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_resolve', 'C:\dynare\5.4\matlab\dynare_resolve.m', 36)" style="font-weight:bold">dynare_resolve</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare_resolve.m',36,0)">line 36</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dsge_likelihood', 'C:\dynare\5.4\matlab\dsge_likelihood.m', 216)" style="font-weight:bold">dsge_likelihood</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dsge_likelihood.m',216,0)">line 216</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('mode_check', 'C:\dynare\5.4\matlab\mode_check.m', 152)" style="font-weight:bold">mode_check</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\mode_check.m',152,0)">line 152</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation_1', 'C:\dynare\5.4\matlab\dynare_estimation_1.m', 325)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare_estimation_1.m',325,0)">line 325</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation', 'C:\dynare\5.4\matlab\dynare_estimation.m', 118)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare_estimation.m',118,0)">line 118</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('BRS_sectoral_wo_dem_shocks_res.driver', 'C:\Users\TJSEM\Github\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_sectoral_wo_dem_shocks_res\driver.m', 938)" style="font-weight:bold">BRS_sectoral_wo_dem_shocks_res.driver</a> (<a href="matlab: opentoline('C:\Users\TJSEM\Github\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_sectoral_wo_dem_shocks_res\driver.m',938,0)">line 938</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare', 'C:\dynare\5.4\matlab\dynare.m', 278)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare.m',278,0)">line 278</a>)
-] 
+Fval obtained by the minimization routine (minus the posterior/likelihood)): -3841.567524
 
 RESULTS FROM POSTERIOR ESTIMATION
 parameters
          prior mean     mode    s.d.  prior pstdev
 
-sigma        1.5000   1.2828  0.1414   beta 0.2500 
-ha           0.5000   0.6469  0.0570   beta 0.2000 
-nu           0.7200   1.1870  0.1407   gamm 0.2500 
-phi          0.3200   0.5058  0.0349   beta 0.2000 
-eta          0.2000   0.2214  0.1059   gamm 0.1500 
-xi           0.8500   0.7931  0.1458   gamm 0.1000 
-nu_R         0.2000   0.1402  0.0414   beta 0.1000 
-sigma_ac     1.0000   0.2779  0.0514   invg 1.0000 
-sigma_ai     1.0000   0.3799  0.0816   invg 1.0000 
-Psi_K        4.0000   0.1582  0.0542   gamm 1.0000 
-theta        1.0000   2.9685  0.2714   gamm 0.5000 
-rho_g        0.1000   0.2174  0.0243   beta 0.0500 
-rho_Z        0.6000   0.6886  0.0789   beta 0.2000 
-rho_ZI       0.6000   0.9869  0.0087   beta 0.2000 
-rho_N        0.6000   0.9915  0.0059   beta 0.2000 
-rho_b        0.6000   0.9514  0.0162   beta 0.2000 
-rho_muC      0.6000   0.8585  0.1165   beta 0.2000 
+sigma        1.5000   1.4382  0.1492   beta 0.2500 
+ha           0.5000   0.5979  0.0403   beta 0.2000 
+nu           0.7200   1.0564  0.1264   gamm 0.2500 
+phi          0.3200   0.5109  0.0338   beta 0.2000 
+eta          0.2000   0.3128  0.0744   gamm 0.1500 
+xi           0.8500   0.8261  0.1192   gamm 0.1000 
+nu_R         0.2000   0.1711  0.0343   beta 0.1000 
+sigma_ac     1.0000   0.2867  0.0506   invg 1.0000 
+sigma_ai     1.0000   0.3500  0.0908   invg 1.0000 
+Psi_K        4.0000   0.1697  0.0535   gamm 1.0000 
+theta        1.0000   3.2624  0.2440   gamm 0.5000 
+rho_g        0.1000   0.2555  0.0246   beta 0.0500 
+rho_Z        0.6000   0.7225  0.0695   beta 0.2000 
+rho_ZI       0.6000   0.9859  0.0086   beta 0.2000 
+rho_N        0.6000   0.9938  0.0058   beta 0.2000 
+rho_b        0.6000   0.9589  0.0161   beta 0.2000 
+rho_muC      0.6000   0.8719  0.1640   beta 0.2000 
 rho_muI      0.6000   0.9996  0.0004   beta 0.2000 
 
 standard deviation of shocks
          prior mean     mode    s.d.  prior pstdev
 
-e_g          0.0100   0.0039  0.0002   gamm 0.0100 
+e_g          0.0100   0.0042  0.0002   gamm 0.0100 
 e_Z          0.0100   0.0017  0.0002   gamm 0.0100 
-e_ZI         0.0100   0.0055  0.0004   gamm 0.0100 
-e_N          0.0100   0.0062  0.0005   gamm 0.0100 
-e_b          0.0100   0.0028  0.0018   gamm 0.0100 
-e_muC        0.0100   0.0010  0.0004   gamm 0.0100 
-e_muI        0.0100   0.0474  0.0040   gamm 0.0100 
+e_ZI         0.0100   0.0051  0.0004   gamm 0.0100 
+e_N          0.0100   0.0068  0.0005   gamm 0.0100 
+e_b          0.0100   0.0020  0.0016   gamm 0.0100 
+e_muC        0.0100   0.0006  0.0005   gamm 0.0100 
+e_muI        0.0100   0.0533  0.0035   gamm 0.0100 
 
 
-Log data density [Laplace approximation] is 3744.409752.
+Log data density [Laplace approximation] is 3747.067173.
 
-Estimation::mcmc: I am loading past Metropolis-Hastings simulations...
-Estimation::mcmc: Recovering the previous proposal density.
-Estimation::mcmc: I am writing a new mh-history file... Done.
-Estimation::mcmc: Ok. I have loaded 200000 simulations.
-
-[Warning: Matrix is close to singular or badly scaled. Results may be inaccurate. RCOND =  3.758685e-17.] 
-[> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dyn_first_order_solver', 'C:\dynare\5.4\matlab\dyn_first_order_solver.m', 297)" style="font-weight:bold">dyn_first_order_solver</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dyn_first_order_solver.m',297,0)">line 297</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('stochastic_solvers', 'C:\dynare\5.4\matlab\stochastic_solvers.m', 251)" style="font-weight:bold">stochastic_solvers</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\stochastic_solvers.m',251,0)">line 251</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('resol', 'C:\dynare\5.4\matlab\resol.m', 119)" style="font-weight:bold">resol</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\resol.m',119,0)">line 119</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('compute_decision_rules', 'C:\dynare\5.4\matlab\compute_decision_rules.m', 34)" style="font-weight:bold">compute_decision_rules</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\compute_decision_rules.m',34,0)">line 34</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_resolve', 'C:\dynare\5.4\matlab\dynare_resolve.m', 36)" style="font-weight:bold">dynare_resolve</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare_resolve.m',36,0)">line 36</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dsge_likelihood', 'C:\dynare\5.4\matlab\dsge_likelihood.m', 216)" style="font-weight:bold">dsge_likelihood</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dsge_likelihood.m',216,0)">line 216</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('posterior_sampler_iteration', 'C:\dynare\5.4\matlab\posterior_sampler_iteration.m', 64)" style="font-weight:bold">posterior_sampler_iteration</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\posterior_sampler_iteration.m',64,0)">line 64</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('posterior_sampler_core', 'C:\dynare\5.4\matlab\posterior_sampler_core.m', 197)" style="font-weight:bold">posterior_sampler_core</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\posterior_sampler_core.m',197,0)">line 197</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('posterior_sampler', 'C:\dynare\5.4\matlab\posterior_sampler.m', 121)" style="font-weight:bold">posterior_sampler</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\posterior_sampler.m',121,0)">line 121</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation_1', 'C:\dynare\5.4\matlab\dynare_estimation_1.m', 481)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare_estimation_1.m',481,0)">line 481</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation', 'C:\dynare\5.4\matlab\dynare_estimation.m', 118)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare_estimation.m',118,0)">line 118</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('BRS_sectoral_wo_dem_shocks_res.driver', 'C:\Users\TJSEM\Github\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_sectoral_wo_dem_shocks_res\driver.m', 938)" style="font-weight:bold">BRS_sectoral_wo_dem_shocks_res.driver</a> (<a href="matlab: opentoline('C:\Users\TJSEM\Github\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_sectoral_wo_dem_shocks_res\driver.m',938,0)">line 938</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare', 'C:\dynare\5.4\matlab\dynare.m', 278)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('C:\dynare\5.4\matlab\dynare.m',278,0)">line 278</a>)
-] 
-
-Estimation::mcmc: Number of mh files: 1 per block.
-Estimation::mcmc: Total number of generated files: 2.
-Estimation::mcmc: Total number of iterations: 300000.
-Estimation::mcmc: Current acceptance ratio per chain: 
-                                                       Chain  1: 8.215%
-                                                       Chain  2: 10.266%
 Estimation::mcmc: Total number of MH draws per chain: 300000.
 Estimation::mcmc: Total number of generated MH files: 1.
 Estimation::mcmc: I'll use mh-files 1 to 1.
@@ -561,6 +521,5 @@ util_D_obs      0.2621   0.0139  -0.0326  -0.0370  -0.0347
 util_obs        0.4847   0.1887   0.0885   0.0466   0.0254
 D_obs           0.2448   0.0419  -0.0031  -0.0109  -0.0105
 h_obs           0.3887   0.1588   0.0783   0.0433   0.0251
-Total computing time : 0h26m30s
+Total computing time : 0h02m22s
 Note: 2 warning(s) encountered in the preprocessor
-Note: warning(s) encountered in MATLAB/Octave code

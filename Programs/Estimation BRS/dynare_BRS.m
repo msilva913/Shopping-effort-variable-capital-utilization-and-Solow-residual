@@ -41,7 +41,7 @@ save('CFEVD.mat', 'CFEVD');
 %%
 %dynare BRS_sectoral_rest.mod 
 %% Remove limited factor mobility
-%dynare BRS_sectoral_perfect_mobility.mod 
+dynare BRS_sectoral_perfect_mobility.mod 
 res_pm = oo_;
 M_pm = M_;
 save('res_pm', 'res_pm');

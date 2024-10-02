@@ -4,7 +4,7 @@ function [out, HPD] = main_table(varargin)
 res = varargin{1};
 M = varargin{2};
  %1) Marginal density
- marginal_density = res.MarginalDensity.LaplaceApproximation;
+ marginal_density = res.MarginalDensity.ModifiedHarmonicMean;
 
 %2) Posterior probability band
  % Access the posterior density samples
