@@ -54,6 +54,8 @@ load M_pm
 dynare BRS_sectoral_com_wage_markup.mod 
 res_cwm = oo_;
 M_cwm = M_;
+load res_cwm
+load M_cwm
 save('res_cwm', 'res_cwm');
 save('M_cwm', 'M_cwm');
 %FEVD_table = FEVD_sum(res_pm, M_pm);
