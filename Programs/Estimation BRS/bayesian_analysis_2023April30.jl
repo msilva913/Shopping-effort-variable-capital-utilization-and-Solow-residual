@@ -69,6 +69,7 @@ function irf_fun_plot_grouped(irf_array, vars_list, vars_list_label; shock, save
     list_2 = ["NC_obs", "NI_obs"]
     list_3 = ["util_ND_obs", "util_D_obs"]
     lists = (list_1, list_2, list_3, ["SR_obs"], ["D_obs"], ["h_obs"])
+    linestyles = ["solid", "dashed"]
     j = 1
     for (n, list) in enumerate(lists)
         ax = fig.add_subplot(2, 3, n)
@@ -76,7 +77,7 @@ function irf_fun_plot_grouped(irf_array, vars_list, vars_list_label; shock, save
         ax.yaxis.set_major_formatter(matplotlib.ticker.PercentFormatter())
         for (i, key) in enumerate(list)
             irf = transpose(irf_array[j])
-            ax.plot(periods, 100*irf, linewidth=3, label=vars_list_label[j])
+            ax.plot(periods, 100*irf, linewidth=3, label=vars_list_label[j], linestyle = linestyles[i], alpha=0.7)
             ax.legend()
             #ax.set_title(vars_list_label[i])
             j += 1
@@ -85,10 +86,10 @@ function irf_fun_plot_grouped(irf_array, vars_list, vars_list_label; shock, save
     fig.suptitle("A 1 standard-deviation shock to "*shock, fontsize=14)
     plt.tight_layout()
     display(fig)
-  #  if savefig
-   #     figname = "irf_"*shock*".pdf"
-   # end
-    #plt.savefig(figname)
+    if savefig
+        figname = "irf_"*shock*".pdf"
+    end
+    plt.savefig(figname)
 end
 
 # Standard impulse responses: basic model
