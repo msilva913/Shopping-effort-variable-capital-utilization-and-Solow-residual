@@ -61,11 +61,41 @@ function irf_fun_plot(irf_array, vars_list, vars_list_label; shock, savefig=true
     plt.savefig(figname)
 end
 
+function irf_fun_plot_grouped(irf_array, vars_list, vars_list_label; shock, savefig=true)
+    fig = plt.figure(figsize=(16, 8))
+    periods = 1:length(irf_array[1][:])
+    periods = 1:length(irf_array[1])
+    list_1 = ["C_obs", "I_obs"]
+    list_2 = ["NC_obs", "NI_obs"]
+    list_3 = ["util_ND_obs", "util_D_obs"]
+    lists = (list_1, list_2, list_3, ["SR_obs"], ["D_obs"], ["h_obs"])
+    j = 1
+    for (n, list) in enumerate(lists)
+        ax = fig.add_subplot(2, 3, n)
+        ax.tick_params(labelsize=12)
+        ax.yaxis.set_major_formatter(matplotlib.ticker.PercentFormatter())
+        for (i, key) in enumerate(list)
+            irf = transpose(irf_array[j])
+            ax.plot(periods, 100*irf, linewidth=3, label=vars_list_label[j])
+            ax.legend()
+            #ax.set_title(vars_list_label[i])
+            j += 1
+        end 
+    end
+    fig.suptitle("A 1 standard-deviation shock to "*shock, fontsize=14)
+    plt.tight_layout()
+    display(fig)
+  #  if savefig
+   #     figname = "irf_"*shock*".pdf"
+   # end
+    #plt.savefig(figname)
+end
+
 # Standard impulse responses: basic model
 #vars_list = ["log_C", "log_I", "log_Y_N", "log_p_I", "log_NC", "log_NI"]
 #vars_list_label=[:C, :I, :Y_N, :p_I, :N_C, :N_I]
-vars_list = ["C_obs", "I_obs", "NC_obs", "NI_obs", "SR_obs", "util_ND_obs", "util_D_obs", "D_obs", "h_obs"]
-vars_list_label = [:C, :I, :N_C, :N_I, :SR, :util_ND, :util_D, :D, :h]
+vars_list = ["C_obs", "I_obs", "NC_obs", "NI_obs", "util_ND_obs", "util_D_obs", "SR_obs", "D_obs", "h_obs"]
+vars_list_label = [:C, :I, :N_C, :N_I, :util_ND, :util_D, :SR, :D, :h]
 
 x = matopen("irf.mat")
 vars = read(x, "irf")
@@ -75,19 +105,19 @@ irf_dic  = vars
 
 # Shopping preference shock
 irf_array = irf_fun(vars_list, irf_dic, shock="e_D", length=20 )
-irf_fun_plot(irf_array, vars_list, vars_list_label; shock="e_D")
+irf_fun_plot_grouped(irf_array, vars_list, vars_list_label; shock="e_D")
 
 # Stationary technology shock
 irf_array = irf_fun(vars_list, irf_dic, shock="e_Z", length=20 )
-irf_fun_plot(irf_array, vars_list, vars_list_label; shock="e_Z")
+irf_fun_plot_grouped(irf_array, vars_list, vars_list_label; shock="e_Z")
 
 # Permanent technology shock
 irf_array = irf_fun(vars_list, irf_dic, shock="e_g", length=20 )
-irf_fun_plot(irf_array, vars_list, vars_list_label; shock="e_g")
+irf_fun_plot_grouped(irf_array, vars_list, vars_list_label; shock="e_g")
 
 # Discount factor shock
 irf_array = irf_fun(vars_list, irf_dic, shock="e_b", length=20 )
-irf_fun_plot(irf_array, vars_list, vars_list_label; shock="e_b")
+irf_fun_plot_grouped(irf_array, vars_list, vars_list_label; shock="e_b")
 
 
 # In levels
