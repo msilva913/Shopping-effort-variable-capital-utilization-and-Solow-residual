@@ -61,14 +61,14 @@ function irf_fun_plot(irf_array, vars_list, vars_list_label; shock, savefig=true
     plt.savefig(figname)
 end
 
-function irf_fun_plot_grouped(irf_array, vars_list, vars_list_label; shock, savefig=true)
+function irf_fun_plot_grouped(irf_dic; shock, savefig=true)
     fig = plt.figure(figsize=(16, 8))
     periods = 1:length(irf_array[1][:])
     periods = 1:length(irf_array[1])
-    list_1 = ["C_obs", "I_obs"]
-    list_2 = ["NC_obs", "NI_obs"]
-    list_3 = ["util_ND_obs", "util_D_obs", "util_obs"]
-    lists = (list_1, list_2, list_3, ["SR_obs"], ["D_obs"], ["h_obs"])
+    list_1 = [:C, :I]
+    list_2 = [:N_C, :N_I]
+    list_3 = [:util_ND, :util_D, :util]
+    lists = (list_1, list_2, list_3, [:SR], [:D, :h, :util], [:p_I])
     linestyles = ["solid", "dashed", "dotted"]
     j = 1
     for (n, list) in enumerate(lists)
@@ -76,8 +76,8 @@ function irf_fun_plot_grouped(irf_array, vars_list, vars_list_label; shock, save
         ax.tick_params(labelsize=12)
         ax.yaxis.set_major_formatter(matplotlib.ticker.PercentFormatter())
         for (i, key) in enumerate(list)
-            irf = transpose(irf_array[j])
-            ax.plot(periods, 100*irf, linewidth=3, label=vars_list_label[j], linestyle = linestyles[i], alpha=0.7)
+            irf = transpose(irf_dic[key])
+            ax.plot(periods, 100*irf, linewidth=3, label=key, linestyle = linestyles[i], alpha=0.7)
             ax.legend()
             #ax.set_title(vars_list_label[i])
             j += 1
@@ -95,8 +95,8 @@ end
 # Standard impulse responses: basic model
 #vars_list = ["log_C", "log_I", "log_Y_N", "log_p_I", "log_NC", "log_NI"]
 #vars_list_label=[:C, :I, :Y_N, :p_I, :N_C, :N_I]
-vars_list = ["C_obs", "I_obs", "NC_obs", "NI_obs", "util_ND_obs", "util_D_obs", "util_obs", "SR_obs", "D_obs", "h_obs"]
-vars_list_label = [:C, :I, :N_C, :N_I, :util_ND, :util_D, :util_D, :SR, :D, :h]
+vars_list = ["C_obs", "I_obs", "NC_obs", "NI_obs", "util_ND_obs", "util_D_obs", "util_obs", "SR_obs", "D_obs", "h_obs", "p_I_obs"]
+vars_list_label = [:C, :I, :N_C, :N_I, :util_ND, :util_D, :util, :SR, :D, :h, :p_I]
 
 x = matopen("irf.mat")
 vars = read(x, "irf")
@@ -106,20 +106,23 @@ irf_dic  = vars
 
 # Shopping preference shock
 irf_array = irf_fun(vars_list, irf_dic, shock="e_D", length=20 )
-irf_dic = Dict(zip(keys, irf_array))
-irf_fun_plot_grouped(irf_array, vars_list, vars_list_label; shock="e_D")
+irf_dic_spec = Dict(zip(vars_list_label, irf_array))
+irf_fun_plot_grouped(irf_dic_spec; shock="e_D")
 
 # Stationary technology shock
 irf_array = irf_fun(vars_list, irf_dic, shock="e_Z", length=20 )
-irf_fun_plot_grouped(irf_array, vars_list, vars_list_label; shock="e_Z")
+irf_dic_spec = Dict(zip(vars_list_label, irf_array))
+irf_fun_plot_grouped(irf_dic_spec; shock="e_Z")
 
 # Permanent technology shock
 irf_array = irf_fun(vars_list, irf_dic, shock="e_g", length=20 )
-irf_fun_plot_grouped(irf_array, vars_list, vars_list_label; shock="e_g")
+irf_dic_spec = Dict(zip(vars_list_label, irf_array))
+irf_fun_plot_grouped(irf_dic_spec; shock="e_g")
 
 # Discount factor shock
 irf_array = irf_fun(vars_list, irf_dic, shock="e_b", length=20 )
-irf_fun_plot_grouped(irf_array, vars_list, vars_list_label; shock="e_b")
+irf_dic_spec = Dict(zip(vars_list_label, irf_array))
+irf_fun_plot_grouped(irf_dic_spec; shock="e_b")
 
 
 # In levels
