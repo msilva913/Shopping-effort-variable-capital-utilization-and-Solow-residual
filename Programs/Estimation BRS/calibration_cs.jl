@@ -271,15 +271,17 @@ end
 
 # Load posterior mode
 using MAT
-posterior_mode = matread("posterior_mode.mat")
-posterior_mode = posterior_mode["posterior_mode"]
+#posterior_mode = matread("posterior_mode.mat")
+#posterior_mode = posterior_mode["posterior_mode"]
+posterior_mean = matread("posterior_mean.mat")
+posterior_mean = posterior_mean["posterior_mean"]
 
-σ = posterior_mode["sigma"]
-ζ = posterior_mode["nu"]
-ϕ = posterior_mode["phi"]
-η = posterior_mode["eta"]
-ν_R = posterior_mode["nu_R"]
-ha = posterior_mode["ha"]
+σ = posterior_mean["sigma"]
+ζ = posterior_mean["nu"]
+ϕ = posterior_mean["phi"]
+η = posterior_mean["eta"]
+ν_R = posterior_mean["nu_R"]
+ha = posterior_mean["ha"]
 
 targets = Targets(σ=σ, ζ=ζ, ϕ=ϕ, η=η, ν_R=ν_R, ha=ha)
 para = calibrate(targets)
