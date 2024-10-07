@@ -30,7 +30,7 @@ extract_series(str, dic::Dict) = vec(dic[str])
 irf_array = irf_fun(vars_list, irf_dic, shock="e_D", length=20 )
 
 function irf_fun(vars, irf_dic; shock="e_D", length=20)
-    periods = 1:len
+    periods = 1:length
     irf_array = []
     for (i, key) in enumerate(vars)
         str = key*"_"*shock
@@ -69,7 +69,7 @@ function irf_fun_plot_grouped(irf_array, vars_list, vars_list_label; shock, save
     list_2 = ["NC_obs", "NI_obs"]
     list_3 = ["util_ND_obs", "util_D_obs", "util_obs"]
     lists = (list_1, list_2, list_3, ["SR_obs"], ["D_obs"], ["h_obs"])
-    linestyles = ["solid", "dashed"]
+    linestyles = ["solid", "dashed", "dotted"]
     j = 1
     for (n, list) in enumerate(lists)
         ax = fig.add_subplot(2, 3, n)
@@ -96,7 +96,7 @@ end
 #vars_list = ["log_C", "log_I", "log_Y_N", "log_p_I", "log_NC", "log_NI"]
 #vars_list_label=[:C, :I, :Y_N, :p_I, :N_C, :N_I]
 vars_list = ["C_obs", "I_obs", "NC_obs", "NI_obs", "util_ND_obs", "util_D_obs", "util_obs", "SR_obs", "D_obs", "h_obs"]
-vars_list_label = [:C, :I, :N_C, :N_I, :util_ND, :util_D, :SR, :D, :h]
+vars_list_label = [:C, :I, :N_C, :N_I, :util_ND, :util_D, :util_D, :SR, :D, :h]
 
 x = matopen("irf.mat")
 vars = read(x, "irf")
@@ -106,6 +106,7 @@ irf_dic  = vars
 
 # Shopping preference shock
 irf_array = irf_fun(vars_list, irf_dic, shock="e_D", length=20 )
+irf_dic = Dict(zip(keys, irf_array))
 irf_fun_plot_grouped(irf_array, vars_list, vars_list_label; shock="e_D")
 
 # Stationary technology shock
