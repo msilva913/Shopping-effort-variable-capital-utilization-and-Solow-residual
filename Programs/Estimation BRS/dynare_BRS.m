@@ -15,6 +15,8 @@ save('M', 'M');
 
 posterior_mode = res.posterior_mode.parameters;
 save('posterior_mode', 'posterior_mode');
+posterior_mean = res.posterior_mean.parameters;
+save('posterior_mean', 'posterior_mean');
 mom_bas = calc_moments(res);
 save('mom_bas', 'mom_bas');
 % Main output
