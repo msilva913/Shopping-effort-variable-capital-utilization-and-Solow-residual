@@ -734,18 +734,18 @@ estimated_params;
 //x, init_value, lower bound, upper bound, prior shape, prior mean, prior std
 
 //sigma, 1.5, 1.0, gam_max,       BETA_PDF, 1.5, 0.25, 1.0, gam_max;
-sigma, 1.5, 1.0, 4.0,             BETA_PDF, 1.5, 0.25, 1.0, 4.0;
+sigma, 2.0, 1.0, 4.0,             BETA_PDF, 1.5, 0.25, 1.0, 4.0;
 ha, 0.5, 0.0, 0.95,           BETA_PDF, 0.5, 0.2;
 nu, 0.72, 0.05, 2.0,           GAMMA_PDF, 0.72, 0.25;
 
-phi, 0.8, 0.00, 0.999,        BETA_PDF, 0.32, 0.2;
+phi, 0.6, 0.00, 0.999,        BETA_PDF, 0.32, 0.2;
 eta, 0.567, 0.00, 10.0,          GAMMA_PDF, 0.2, 0.15;
 //m, 0.286, 0.0, 0.95,          GAMMA_PDF, 0.286, 0.2;
 
 xi, 0.85, 0.5, 2.0,        GAMMA_PDF, 0.85, 0.1;
 
 
-nu_R, 0.20, 0.01, 0.5,        BETA_PDF, 0.2, 0.1;
+nu_R, 0.30, 0.01, 0.5,        BETA_PDF, 0.2, 0.1;
 
 sigma_ac, 0.32, 0.0, 10,       INV_GAMMA_PDF, 1, 1; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
 sigma_ai, 0.32, 0.0, 10,       INV_GAMMA_PDF, 1, 1; % Schmitt-Grohe and Uribe (2010), Katayama and Kim (2018)
@@ -792,7 +792,7 @@ estimation(tex, optim=('MaxIter', 200),
 datafile=observables_sectoral, 
 //mode_file=BRS_sectoral_wo_demand_shocks_mh_mode, %With _mh option uses mode after MCM run
 //nograph,
-load_mh_file, 
+//load_mh_file, 
 //mh_recover,
 mcmc_jumping_covariance=prior_variance,
 
@@ -803,8 +803,8 @@ mh_jscale=0.002,
 mh_init_scale =0.0001,
 //mh_jscale=0.1,
 mode_check, 
-//mh_replic=100000, 
-mh_replic=0,
+mh_replic=300000, 
+//mh_replic=0,
 mh_nblocks=2, 
 //bayesian_irf,
 //irf=100,
