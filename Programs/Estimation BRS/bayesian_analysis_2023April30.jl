@@ -27,8 +27,6 @@ end
 
 extract_series(str, dic::Dict) = vec(dic[str])
 
-irf_array = irf_fun(vars_list, irf_dic, shock="e_D", length=20 )
-
 function irf_fun(vars, irf_dic; shock="e_D", length=20)
     periods = 1:length
     irf_array = []
