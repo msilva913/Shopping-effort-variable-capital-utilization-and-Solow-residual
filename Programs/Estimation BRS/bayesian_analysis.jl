@@ -275,6 +275,7 @@ df = DataFrame()
 df[!, :C_obs] = C_obs 
 df[!, :tech_obs] = tech_obs
 df[!, :C_obs_lag1] = lag(df.C_obs, 1)
+df[!, :tech_obs_lag1] = lag(df.tech_obs, 1)
 df[!, :tech_obs_lag2] = lag(df.tech_obs, 2)
 df[!, :tech_obs_lag3] = lag(df.tech_obs, 3)
 df[!, :tech_obs_lag4] = lag(df.tech_obs, 4)
