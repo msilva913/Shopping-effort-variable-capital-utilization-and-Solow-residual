@@ -1,6 +1,6 @@
 clc;
 clear;
-addpath c:\dynare\5.4\matlab
+addpath c:\dynare\6.2\matlab
 %% Make preferences GHH in consumption, shopping effort, and labor supply
 
 %% Main model estimated with sectoral data 
@@ -8,10 +8,10 @@ addpath c:\dynare\5.4\matlab
 dynare BRS_sectoral.mod
 load res
 load M
-res = oo_;
-M = M_;
-save('res', 'res');
-save('M', 'M');
+%res = oo_;
+%M = M_;
+%save('res', 'res');
+%save('M', 'M');
 
 posterior_density = res.posterior_density.parameters;
 save('posterior_density', 'posterior_density')
@@ -30,7 +30,10 @@ FEVD_dem = decompose_demand(res, M);
 FEVD_tech = decompose_technology(res, M)
 [out, HPD] = main_table(res, M);
 
-% Impulse responses
+%% Smoothed series
+sv = res.SmoothedVariables
+save('sv', 'sv')
+%% Impulse responses
 irf = res.irfs;
 save('irf.mat', 'irf');
 

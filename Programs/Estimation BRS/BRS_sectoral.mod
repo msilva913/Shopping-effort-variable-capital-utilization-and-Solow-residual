@@ -573,7 +573,7 @@ Y_N_obs = log_Y_N - log_Y_N(-1) + g - g_bar ;
 K_obs = log_K - log_K(-1) + g - g_bar;
 w_obs = log_W - log_W(-1) +g - g_bar;
 SR_obs = log_SR - log_SR(-1) + labor_share*(g - g_bar);
-tech_obs = log_tech - log_tech(-1) + g - g_bar;
+tech_obs = log_tech - log_tech(-1) + (1-alpha_K)*(g - g_bar);
 
 % Stationary variables
 p_I_obs = log_p_I - log_p_I(-1);
@@ -883,4 +883,4 @@ Y_obs, Y_N_obs, SR_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_ND_obs, util
 //log_Y, log_Y_N, log_SR, log_I, log_p_I, log_C, log_N, log_NC, log_NI, log_util_ND, log_util_D, log_util, log_D, log_h, log_tech;
 
 % Save artificial data 
-save('artificial_data.mat', 'NC_obs', 'NI_obs', 'C_obs', 'I_obs', 'p_I_obs', 'util_ND_obs', 'util_D_obs', 'w_obs');
+//save('artificial_data.mat', 'NC_obs', 'NI_obs', 'C_obs', 'I_obs', 'p_I_obs', 'util_ND_obs', 'util_D_obs', 'w_obs');

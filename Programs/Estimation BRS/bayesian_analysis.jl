@@ -11,8 +11,8 @@ using PyPlot
 using MAT
 using TexTables
 using PyFormattedStrings
-using Dates
-
+using Dates, Distributions
+using StatsModels
 
 homedir()
 include("time_series_fun.jl")
@@ -74,13 +74,13 @@ end
 α, β = beta_map(0.32, 0.2)
 beta_dist = Beta(α, β)
 ϕ_x = 0:0.01:1
-ϕ_prior_pdf = pdf(beta_dist, x)
+ϕ_prior_pdf = pdf(beta_dist, ϕ_x)
 
 # eta prior
 α, β = gamma_map(0.2, 0.15)
 gamma_dist = Gamma(α, β)
 η_x = 0:0.01:1
-gamma_prior_pdf = pdf(beta_dist, x)
+gamma_prior_pdf = pdf(beta_dist, η_x)
 
 # Distribution: structural parameters
 key_map = ["σ_a", "ζ", "η", "ρ_ZI", "ρ_N", "ρ_D", "θ", "Ψ_K", "ρ_C", "ρ_g"]
@@ -167,6 +167,7 @@ function irf_fun_plot_grouped(irf_dic; shock, savefig=true)
     fig = plt.figure(figsize=(16, 8))
     periods = 1:length(irf_array[1][:])
     periods = 1:length(irf_array[1])
+    # lists of grouped variables
     list_1 = [:C, :I]
     list_2 = [:N_C, :N_I]
     list_3 = [:util_ND, :util_D, :util]
@@ -245,12 +246,104 @@ irf_fun_plot(irf_array, vars_list, vars_list_label; shock="e_muC")
 irf_array = irf_fun(vars_list, irf_dic, shock="e_muI", length=20 )
 irf_fun_plot(irf_array, vars_list, vars_list_label; shock="e_muI")
 
-# Standard impulse responses 
-x = matopen("irf.mat")
-vars = read(x, "irf")
-irf_dic  = vars
+## Smoothed variables
+sv = matopen("sv.mat")
+sv = read(sv, "sv")
+pprint(keys(sv))
 
 
+# 1. Subplot of shopping effort and utilization series
+# 2. Subplot decomposing utilization
+# 3. Subplot expressing utilization and Solow residual in growth rates
+
+# Create datetime object 
+# Create a range of dates starting from 1964 Q1
+start_date = Date(1964, 1, 1)
+end_date = start_date + Dates.Quarter(222)  # 223 elements long
+date_range = collect(start_date:Dates.Quarter(1):end_date)
+
+D, D_obs, util, util_obs, C_obs, tech_obs, SR_obs, util_ND, util_D, util_sc = 
+    [100 * vec(sv[symbol]) for symbol in ["D", "D_obs", "util", "util_obs", "C_obs", "tech_obs", 
+    "SR_obs", "util_ND", "util_D", "util_sc"]]
+
+SR_cum, tech_cum, C_cum = [100 * cumsum(vec(sv[symbol])) for symbol in ["SR_obs", "tech_obs", "C_obs"]]
+
+#
+var(SR_obs)
+var(tech_obs)/var(SR_obs)
+df = DataFrame()
+df[!, :C_obs] = C_obs 
+df[!, :tech_obs] = tech_obs
+df[!, :C_obs_lag1] = lag(df.C_obs, 1)
+df[!, :tech_obs_lag2] = lag(df.tech_obs, 2)
+df[!, :tech_obs_lag3] = lag(df.tech_obs, 3)
+df[!, :tech_obs_lag4] = lag(df.tech_obs, 4)
+model = lm(@formula(tech_obs ~ tech_obs_lag1 + tech_obs_lag2+tech_obs_lag3+tech_obs_lag4+ C_obs_lag1), df)
+
+# Annual percentage changes in shopping effort 
+function quarter_perc_ann(x)
+    n = length(x)
+    last_full_set = n ÷ 4
+    remaining_quarters = n % 4
+    ann_changes_full_sets = [prod(1 .+ x[(4*(i-1)+1):(4*i)]) - 1 for i in 1:last_full_set]
+    
+    last_year_changes = prod(1 .+ x[(4*last_full_set+1):end]) - 1
+    ann_changes = vcat(ann_changes_full_sets, last_year_changes)
+    return ann_changes
+end
+
+function to_annual(quarterly_date_range)
+    annual_dates = [quarterly_date_range[i] for i in 1:4:length(quarterly_date_range)]
+    return Dates.Date.(annual_dates)
+end
+
+D_obs_ann = quarter_perc_ann(D_obs)
+C_obs_ann = quarter_perc_ann(C_obs)
+tech_obs_ann = quarter_perc_ann(tech_obs)
+SR_obs_ann = quarter_perc_ann(SR_obs)
+
+# Filtering data
+dates_ann = to_annual(date_range)
+dates_red = filter(date -> year(date) in 2003:2019, dates_ann)
+indices = findall(date -> year(date) in 2003:2019, dates_red)
+fig = plt.figure()
+ax = fig.add_subplot(1,1,1)
+ax.plot(dates_red, D_obs_ann[indices])
+display(fig)
+
+fig = plt.figure(figsize=(16, 4))
+# Shopping effort and utilization
+ax1 = fig.add_subplot(1, 3, 1)
+ax1.plot(date_range, D.*util[1]./D[1], linewidth=1.5, color="orange", label="Shopping effort", zorder=2, alpha=0.7)
+ax1.plot(date_range, util, linewidth=1.5, color="blue", label="Utilization", alpha=0.7)
+ax1.set_xlabel("Time", fontsize=12)
+ax1.set_ylabel("Units", fontsize=12)
+ax1.legend(loc="upper right", fontsize=10)
+ax1.grid(linestyle="--", alpha=0.7)
+
+
+# Consumption, TFP, and Technology
+ax2 = fig.add_subplot(1, 3, 2)
+ax2.plot(dates_ann, C_obs_ann, linewidth=1.5, color="orange", label="Consumption", zorder=2, alpha=0.7)
+ax2.plot(dates_ann, SR_obs_ann, linewidth=1.5, color="blue", label="Solow residual", alpha=0.7)
+ax2.plot(dates_ann, tech_obs_ann, linewidth=1.5, color="red", label="Technology (purified Solow residual)", alpha=0.7)
+ax2.set_xlabel("Time", fontsize=12)
+#ax2.set_ylabel("Units", fontsize=12)
+#ax2.yaxis.set_major_formatter(matplotlib.ticker.PercentFormatter())
+ax2.legend(loc="upper right", fontsize=10)
+ax2.grid(linestyle="--", alpha=0.7)
+
+# Utilization series
+ax3 = fig.add_subplot(1, 3, 3)
+ax3.plot(date_range, util_ND, linewidth=1.5, color="orange", label="Utilization: non-durables", zorder=2, alpha=0.7)
+ax3.plot(date_range, util_D, linewidth=1.5, color="blue", label="Utilizaton: durables", alpha=0.7)
+#ax3.plot(date_range, util_sc, linewidth=1.5, color="red", label="Utilizaton: services", alpha=0.7)
+ax3.set_xlabel("Time", fontsize=12)
+ax3.set_ylabel("Units", fontsize=12)
+#ax2.yaxis.set_major_formatter(matplotlib.ticker.PercentFormatter())
+ax3.legend(loc="upper right", fontsize=10)
+ax3.grid(linestyle="--", alpha=0.7)
+display(fig)
 
 
 
