@@ -8,8 +8,8 @@ addpath c:\dynare\6.2\matlab
 dynare BRS_sectoral.mod
 load res
 load M
-%res = oo_;
-%M = M_;
+res = oo_;
+M = M_;
 %save('res', 'res');
 %save('M', 'M');
 
