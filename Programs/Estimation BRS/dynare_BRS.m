@@ -10,8 +10,8 @@ load res
 load M
 res = oo_;
 M = M_;
-%save('res', 'res');
-%save('M', 'M');
+save('res', 'res');
+save('M', 'M');
 
 posterior_density = res.posterior_density.parameters;
 save('posterior_density', 'posterior_density')

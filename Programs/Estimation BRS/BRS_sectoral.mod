@@ -848,7 +848,7 @@ mh_jscale=0.006,
 mh_init_scale =0.0001,
 //mh_jscale=0.1,
 mode_check, 
-mh_replic=100000, 
+mh_replic=200000, 
 //mh_replic=0,
 mh_nblocks=2, 
 //bayesian_irf,
@@ -870,6 +870,7 @@ write_latex_parameter_table;
 write_latex_definitions;
 write_latex_prior_table;
 //generate_trace_plots(1);
+trace_plot(options_,M_,estim_params_,'DeepParameter',1,'phi');
 
 collect_latex_files;
 % if system(['pdflatex -halt-on-error -interaction=batchmode ' M_.fname '_TeX_binder.tex'])

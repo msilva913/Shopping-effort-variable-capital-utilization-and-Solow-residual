@@ -145,7 +145,6 @@ varexo e_g ${e_g}$ (long_name= 'Labor-augmenting-technology growth shock')
        e_N ${e_N}$ (long_name= 'Labor supply shock')
 
        e_D ${e_D}$ (long_name = 'Shopping disutility shock')
-       e_D_news ${e_{D,4}}$ (long_name = 'Shopping disutility shock: news')
        e_DI ${e_DI}$ (long_name = 'Relative investment shopping disutility shock')
 
        e_b ${e_b}$ (long_name = 'Discount factor shock')
@@ -574,7 +573,7 @@ Y_N_obs = log_Y_N - log_Y_N(-1) + g - g_bar ;
 K_obs = log_K - log_K(-1) + g - g_bar;
 w_obs = log_W - log_W(-1) +g - g_bar;
 SR_obs = log_SR - log_SR(-1) + labor_share*(g - g_bar);
-tech_obs = log_tech - log_tech(-1) + g - g_bar;
+tech_obs = log_tech - log_tech(-1) + (1-alpha_K)*(g - g_bar);
 
 % Stationary variables
 p_I_obs = log_p_I - log_p_I(-1);
@@ -809,23 +808,16 @@ rho_muI,  0.95, 0.01, 0.99999999,        BETA_PDF, 0.6, 0.2;
 % Standard errors
 stderr e_g, 0.01, 0.0000001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 stderr e_Z, 0.01, 0.00001, 0.2,  GAMMA_PDF, 0.01, 0.01;
-stderr e_Z_news, 0.01, 0.00001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 stderr e_ZI, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
-stderr e_ZI_news, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 
 stderr e_N, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 stderr e_D, 0.01, 0.00001, 0.4,  GAMMA_PDF, 0.01, 0.01;
-stderr e_D_news, 0.01, 0.0001, 0.4,  GAMMA_PDF, 0.01, 0.01;
 stderr e_DI, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
-stderr e_DI_news, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 
 stderr e_b, 0.01, 0.0001, 0.4,  GAMMA_PDF, 0.01, 0.01;
-stderr e_b_news, 0.01, 0.0001, 0.4,  GAMMA_PDF, 0.01, 0.01;
 
 stderr e_muC, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
-stderr e_muC_news, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 stderr e_muI, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
-stderr e_muI_news, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 
 //stderr w_obs, 0.01, 0.0001, 0.05,  GAMMA_PDF, 0.01, 0.01;
 
@@ -843,12 +835,13 @@ varobs NC_obs, NI_obs, C_obs, I_obs, p_I_obs, util_ND_obs, util_D_obs;
 estimation(tex, optim=('MaxIter', 200), 
 datafile=observables_sectoral, 
 //mode_file=BRS_sectoral_mh_mode, %With _mh option uses mode after MCM run
+mode_file=BRS_sectoral_mh_mode,
 //nograph,
-//load_mh_file, 
+load_mh_file, 
 //mh_recover,
 mcmc_jumping_covariance=prior_variance,
 
-mode_compute=4,
+mode_compute=0,
 presample=0, 
 lik_init=2,
 mh_jscale=0.006, 
@@ -877,6 +870,7 @@ write_latex_parameter_table;
 write_latex_definitions;
 write_latex_prior_table;
 //generate_trace_plots(1);
+trace_plot(options_,M_,estim_params_,‘DeepParameter’,1,'phi’).
 collect_latex_files;
 % if system(['pdflatex -halt-on-error -interaction=batchmode ' M_.fname '_TeX_binder.tex'])
 %     error('TeX-File did not compile.')
@@ -884,6 +878,7 @@ collect_latex_files;
 
 
 % Stochastic simulation -> for conditional FEVD and IRF
+//stoch_simul (order=1, nofunctions, irf=20, periods=223)
 stoch_simul (order=1, nofunctions, irf=20, periods=0)
 //conditional_variance_decomposition=[1 4 8 40])
 Y_obs, Y_N_obs, SR_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_ND_obs, util_D_obs, util_obs, D_obs, h_obs, tech_obs;

@@ -307,6 +307,9 @@ SR_obs_ann = quarter_perc_ann(SR_obs)
 dates_ann = to_annual(date_range)
 dates_red = filter(date -> year(date) in 2003:2019, dates_ann)
 indices = findall(date -> year(date) in 2003:2019, dates_red)
+
+
+# Annualized shopping effort percentage changes
 fig = plt.figure()
 ax = fig.add_subplot(1,1,1)
 ax.plot(dates_red, D_obs_ann[indices])
