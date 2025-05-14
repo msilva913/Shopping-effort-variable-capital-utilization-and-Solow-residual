@@ -82,6 +82,12 @@ gamma_dist = Gamma(α, β)
 η_x = 0:0.01:1
 gamma_prior_pdf = pdf(beta_dist, η_x)
 
+# νR_prior
+α, β = beta_map(0.2, 0.1)
+beta_dist = Beta(α, β)
+νR_x = 0:0.01:1
+νR_prior_pdf = pdf(beta_dist, νR_x )
+
 # Distribution: structural parameters
 key_map = ["σ_a", "ζ", "η", "ρ_ZI", "ρ_N", "ρ_D", "θ", "Ψ_K", "ρ_C", "ρ_g"]
 
@@ -90,15 +96,16 @@ key_map = ["σ_a", "ζ", "η", "ρ_ZI", "ρ_N", "ρ_D", "θ", "Ψ_K", "ρ_C", "�
 # Table: prior mean, prior std, posterior mean, posterior std
 η_vals, η_density = columns(struc["eta"])
 ϕ_vals, ϕ_density = columns(struc["phi"])
+νR_vals, νR_density = columns(struc["nu_R"])
 
-fig = plt.figure(figsize=(12, 5))
+fig = plt.figure(figsize=(14, 4))
 # First subplot for ϕ
-ax2 = fig.add_subplot(1, 2, 1)
+ax2 = fig.add_subplot(1, 3, 1)
 ax2.plot(ϕ_vals, ϕ_density, linewidth=1.5, color="orange", label="Posterior", zorder=2)
 ax2.fill_between(ϕ_vals, ϕ_density, color="gold", alpha=0.3, zorder=1)
 ax2.plot(ϕ_x, ϕ_prior_pdf, linewidth=1, linestyle="--", color="blue", label="Prior", zorder=2)
 ax2.fill_between(ϕ_x, ϕ_prior_pdf, color="cyan", alpha=0.3, zorder=1)
-ax2.set_xlabel("ϕ", fontsize=12)
+ax2.set_xlabel("ϕ", fontsize=14)
 ax2.set_ylabel("Density", fontsize=12)
 ax2.legend(loc="upper right", fontsize=10)
 ax2.grid(linestyle="--", alpha=0.7)
@@ -106,22 +113,34 @@ ax2.set_xlim(minimum(ϕ_x), maximum(ϕ_x))
 ax2.set_ylim(0, max(maximum(ϕ_density), maximum(ϕ_prior_pdf)) * 1.1)
 
 # Second subplot for η
-ax1 = fig.add_subplot(1, 2, 2)
+ax1 = fig.add_subplot(1, 3, 2)
 ax1.plot(η_vals, η_density, linewidth=1.5, color="orange", label="Posterior", zorder=2)
 ax1.fill_between(η_vals, η_density, color="gold", alpha=0.3, zorder=1)
 ax1.plot(η_x, gamma_prior_pdf, linewidth=1, linestyle="--", color="blue", label="Prior", zorder=2)
 ax1.fill_between(η_x, gamma_prior_pdf, color="cyan", alpha=0.3, zorder=1)
 ax1.set_xlabel("η", fontsize=12)
-ax1.set_ylabel("Density", fontsize=12)
+ax1.set_ylabel("Density", fontsize=14)
 ax1.legend(loc="upper right", fontsize=10)
 ax1.grid(linestyle="--", alpha=0.7)
 ax1.set_xlim(minimum(η_x), maximum(η_x))
 ax1.set_ylim(0, max(maximum(η_density), maximum(gamma_prior_pdf)) * 1.1)
 
+ax1 = fig.add_subplot(1, 3, 3)
+ax1.plot(νR_vals, νR_density, linewidth=1.5, color="orange", label="Posterior", zorder=2)
+ax1.fill_between(νR_vals, νR_density, color="gold", alpha=0.3, zorder=1)
+ax1.plot(νR_x, νR_prior_pdf, linewidth=1, linestyle="--", color="blue", label="Prior", zorder=2)
+ax1.fill_between(νR_x, νR_prior_pdf, color="cyan", alpha=0.3, zorder=1)
+ax1.set_xlabel("νR", fontsize=14)
+ax1.set_ylabel("Density", fontsize=12)
+ax1.legend(loc="upper right", fontsize=10)
+ax1.grid(linestyle="--", alpha=0.7)
+ax1.set_xlim(minimum(νR_x), maximum(νR_x))
+ax1.set_ylim(0, max(maximum(νR_density), maximum(νR_prior_pdf)) * 1.1)
+
 # Adjust layout and display
 plt.tight_layout()
 display(fig)
-plt.savefig("posterior_prior_phi_eta.pdf")
+plt.savefig("posterior_prior_plots.pdf")
 
 
 function cumulate(x)
