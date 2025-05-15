@@ -848,8 +848,8 @@ mh_jscale=0.006,
 mh_init_scale =0.0001,
 //mh_jscale=0.1,
 mode_check, 
-mh_replic=100000, 
-//mh_replic=0,
+//mh_replic=100000, 
+mh_replic=0,
 mh_nblocks=2, 
 //bayesian_irf,
 //irf=100,
@@ -879,11 +879,9 @@ collect_latex_files;
 
 
 % Stochastic simulation -> for conditional FEVD and IRF
-//stoch_simul (order=1, nofunctions, irf=20, periods=223)
-stoch_simul (order=1, nofunctions, irf=20, periods=0)
-//conditional_variance_decomposition=[1 4 8 40])
+stoch_simul (order=1, nofunctions, irf=20, periods=223)
 Y_obs, Y_N_obs, SR_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_ND_obs, util_D_obs, util_obs, D_obs, h_obs, tech_obs;
 //log_Y, log_Y_N, log_SR, log_I, log_p_I, log_C, log_N, log_NC, log_NI, log_util_ND, log_util_D, log_util, log_D, log_h, log_tech;
 
 % Save artificial data 
-//save('artificial_data.mat', 'NC_obs', 'NI_obs', 'C_obs', 'I_obs', 'p_I_obs', 'util_ND_obs', 'util_D_obs', 'w_obs');
+save('artificial_data.mat', 'NC_obs', 'NI_obs', 'C_obs', 'I_obs', 'p_I_obs', 'util_ND_obs', 'util_D_obs');

@@ -11,9 +11,9 @@ tic0 = tic;
 global M_ options_ oo_ estim_params_ bayestopt_ dataset_ dataset_info estimation_info
 options_ = [];
 M_.fname = 'BRS_sectoral';
-M_.dynare_version = '6.2';
-oo_.dynare_version = '6.2';
-options_.dynare_version = '6.2';
+M_.dynare_version = '6.3';
+oo_.dynare_version = '6.3';
+options_.dynare_version = '6.3';
 %
 % Some global variables initialization
 %
@@ -2105,7 +2105,7 @@ options_.mh_drop = 0.3;
 options_.mh_init_scale = 0.0001;
 options_.mh_jscale = 0.006;
 options_.mh_nblck = 2;
-options_.mh_replic = 100000;
+options_.mh_replic = 0;
 options_.mode_check.status = true;
 options_.mode_compute = 0;
 options_.mode_file = 'BRS_sectoral_mh_mode';
@@ -2123,9 +2123,10 @@ collect_latex_files;
 options_.irf = 20;
 options_.nofunctions = true;
 options_.order = 1;
-options_.periods = 0;
+options_.periods = 223;
 var_list_ = {'Y_obs';'Y_N_obs';'SR_obs';'I_obs';'p_I_obs';'C_obs';'NC_obs';'NI_obs';'util_ND_obs';'util_D_obs';'util_obs';'D_obs';'h_obs';'tech_obs'};
 [info, oo_, options_, M_] = stoch_simul(M_, options_, oo_, var_list_);
+save('artificial_data.mat', 'NC_obs', 'NI_obs', 'C_obs', 'I_obs', 'p_I_obs', 'util_ND_obs', 'util_D_obs');
 
 
 oo_.time = toc(tic0);

@@ -1,6 +1,6 @@
 clc;
 clear;
-addpath c:\dynare\6.2\matlab
+addpath c:\dynare\6.3\matlab
 %% Make preferences GHH in consumption, shopping effort, and labor supply
 
 %% Main model estimated with sectoral data 
@@ -13,6 +13,8 @@ M = M_;
 save('res', 'res');
 save('M', 'M');
 
+
+res.endo_simul'
 posterior_density = res.posterior_density.parameters;
 save('posterior_density', 'posterior_density')
 
