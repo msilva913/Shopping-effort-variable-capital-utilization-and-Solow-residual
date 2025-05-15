@@ -819,8 +819,6 @@ stderr e_b, 0.01, 0.0001, 0.4,  GAMMA_PDF, 0.01, 0.01;
 stderr e_muC, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 stderr e_muI, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 
-//stderr w_obs, 0.01, 0.0001, 0.05,  GAMMA_PDF, 0.01, 0.01;
-
 % news
 
 
@@ -838,17 +836,17 @@ mode_file=BRS_sectoral_artificial_data_mh_mode, %With _mh option uses mode after
 //nograph,
 load_mh_file, 
 //mh_recover,
-mcmc_jumping_covariance=prior_variance,
+mcmc_jumping_covariance=hessian,
 
 mode_compute=0,
 presample=0, 
 lik_init=2,
-mh_jscale=0.008, 
+mh_jscale=0.004, 
 mh_init_scale =0.0001,
 //mh_jscale=0.1,
 mode_check, 
-//mh_replic=100000, 
-mh_replic=0,
+mh_replic=200000, 
+//mh_replic=0,
 mh_nblocks=2, 
 //bayesian_irf,
 //irf=100,
@@ -869,12 +867,11 @@ write_latex_parameter_table;
 write_latex_definitions;
 write_latex_prior_table;
 //generate_trace_plots(1);
-trace_plot(options_,M_,estim_params_,'StructuralShock',1,'phi'),
 collect_latex_files;
 % if system(['pdflatex -halt-on-error -interaction=batchmode ' M_.fname '_TeX_binder.tex'])
 %     error('TeX-File did not compile.')
 % end
-
+trace_plot(options_,M_,estim_params_,'DeepParameter',1,'phi');
 
 % Stochastic simulation -> for conditional FEVD and IRF
 stoch_simul (order=1, nofunctions, irf=0, periods=0)

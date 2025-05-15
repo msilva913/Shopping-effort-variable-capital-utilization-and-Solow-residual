@@ -13,8 +13,25 @@ M = M_;
 save('res', 'res');
 save('M', 'M');
 
+var_labels = {'NC_obs', 'NI_obs', 'C_obs', 'I_obs', 'p_I_obs', 'util_ND_obs', 'util_D_obs'}
+indices = [];
+for i =1:length(var_labels)
+    index = strmatch(var_labels{i}, M.endo_names, 'exact')
+    indices = vertcat(indices,index)
+end
+sim = res.endo_simul';
+sim = sim(:, indices);
+% Name each column
+NC_obs = sim(:, 1);
+NI_obs = sim(:, 2);
+C_obs = sim(:, 3);
+I_obs = sim(:, 4);
+p_I_obs = sim(:, 5);
+util_ND_obs = sim(:, 6);
+util_D_obs = sim(:, 7);
+save('artificial_data.mat', 'NC_obs', 'NI_obs', 'C_obs', 'I_obs', 'p_I_obs', 'util_ND_obs', 'util_D_obs');
+%%
 
-res.endo_simul'
 posterior_density = res.posterior_density.parameters;
 save('posterior_density', 'posterior_density')
 

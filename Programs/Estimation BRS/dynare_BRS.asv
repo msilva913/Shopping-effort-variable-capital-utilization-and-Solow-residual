@@ -1,6 +1,6 @@
 clc;
 clear;
-addpath c:\dynare\5.4\matlab
+addpath c:\dynare\6.3\matlab
 %% Make preferences GHH in consumption, shopping effort, and labor supply
 
 %% Main model estimated with sectoral data 
@@ -13,8 +13,21 @@ M = M_;
 save('res', 'res');
 save('M', 'M');
 
+var_labels = {'NC_obs', 'NI_obs', 'C_obs', 'I_obs', 'p_I_obs', 'util_ND_obs', 'util_D_obs'}
+indices = []
+for i =1:length(var_labels)
+    index = strmatch(i, M.endo_names, 'exact')
+    indices = vertcat(indices)
+end
+sim = res.endo_simul;
+
+posterior_density = res.posterior_density.parameters;
+save('posterior_density', 'posterior_density')
+
 posterior_mode = res.posterior_mode.parameters;
 save('posterior_mode', 'posterior_mode');
+posterior_mean = res.posterior_mean.parameters;
+save('posterior_mean', 'posterior_mean');
 mom_bas = calc_moments(res);
 save('mom_bas', 'mom_bas');
 % Main output
@@ -25,7 +38,10 @@ FEVD_dem = decompose_demand(res, M);
 FEVD_tech = decompose_technology(res, M)
 [out, HPD] = main_table(res, M);
 
-% Impulse responses
+%% Smoothed series
+sv = res.SmoothedVariables
+save('sv', 'sv')
+%% Impulse responses
 irf = res.irfs;
 save('irf.mat', 'irf');
 
