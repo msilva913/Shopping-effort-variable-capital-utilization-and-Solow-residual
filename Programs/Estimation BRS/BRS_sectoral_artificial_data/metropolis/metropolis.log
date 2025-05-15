@@ -2788,3 +2788,203 @@
   Number of blocks...............: 2
   Number of simulations per block: 200000
  
+
+% Mh1Blck1 (15-May-2025 16:02:15)
+ 
+  Number of simulations.: 400000
+  Acceptance ratio......: 0.39756
+  Feval per iteration...: 0.5
+  Posterior mean........:
+    params:1: 0.0040809
+    params:2: 0.0081688
+    params:3: 0.018422
+    params:4: 0.0060845
+    params:5: 0.099964
+    params:6: 0.014435
+    params:7: 0.011066
+    params:8: 0.0017557
+    params:9: 0.027069
+    params:10: 1.5791
+    params:11: 0.71317
+    params:12: 1.2626
+    params:13: 0.90878
+    params:14: 0.24625
+    params:15: 0.79718
+    params:16: 0.13699
+    params:17: 2.08
+    params:18: 0.29625
+    params:19: 7.5692
+    params:20: 1.5545
+    params:21: 0.33572
+    params:22: 0.71145
+    params:23: 0.82738
+    params:24: 0.92455
+    params:25: 0.87997
+    params:26: 0.93573
+    params:27: 0.91565
+    params:28: 0.88402
+    params:29: 0.96029
+    log2po:4768.8055
+  Minimum value.........:
+    params:1: 0.0030967
+    params:2: 0.0064935
+    params:3: 0.015227
+    params:4: 0.00086997
+    params:5: 0.079645
+    params:6: 0.01158
+    params:7: 0.0031698
+    params:8: 0.0001
+    params:9: 0.022027
+    params:10: 1.1277
+    params:11: 0.63895
+    params:12: 0.88963
+    params:13: 0.81389
+    params:14: 0.17841
+    params:15: 0.66642
+    params:16: 0.060102
+    params:17: 1.368
+    params:18: 0.15515
+    params:19: 6.2809
+    params:20: 1.1081
+    params:21: 0.28783
+    params:22: 0.496
+    params:23: 0.73019
+    params:24: 0.79104
+    params:25: 0.77684
+    params:26: 0.81219
+    params:27: 0.80766
+    params:28: 0.63189
+    params:29: 0.9
+    log2po:4729.52
+  Maximum value.........:
+    params:1: 0.0052156
+    params:2: 0.010321
+    params:3: 0.022582
+    params:4: 0.0093045
+    params:5: 0.11977
+    params:6: 0.017928
+    params:7: 0.021855
+    params:8: 0.0061849
+    params:9: 0.033357
+    params:10: 1.9536
+    params:11: 0.76706
+    params:12: 1.5679
+    params:13: 0.98716
+    params:14: 0.34018
+    params:15: 0.88797
+    params:16: 0.25128
+    params:17: 2.6906
+    params:18: 0.56362
+    params:19: 8.543
+    params:20: 1.8605
+    params:21: 0.40638
+    params:22: 0.87837
+    params:23: 0.93887
+    params:24: 0.99988
+    params:25: 0.95491
+    params:26: 0.99981
+    params:27: 0.98532
+    params:28: 0.99976
+    params:29: 0.99994
+    log2po:4780.9467
+ 
+
+% Mh1Blck2 (15-May-2025 16:25:58)
+ 
+  Number of simulations.: 400000
+  Acceptance ratio......: 0.40348
+  Feval per iteration...: 0.5
+  Posterior mean........:
+    params:1: 0.0040698
+    params:2: 0.0082459
+    params:3: 0.018313
+    params:4: 0.0060263
+    params:5: 0.095697
+    params:6: 0.014595
+    params:7: 0.012009
+    params:8: 0.0018206
+    params:9: 0.026543
+    params:10: 1.7733
+    params:11: 0.6996
+    params:12: 1.2747
+    params:13: 0.909
+    params:14: 0.26227
+    params:15: 0.80482
+    params:16: 0.13485
+    params:17: 1.9922
+    params:18: 0.29084
+    params:19: 7.8211
+    params:20: 1.5302
+    params:21: 0.29823
+    params:22: 0.74424
+    params:23: 0.8199
+    params:24: 0.92232
+    params:25: 0.8845
+    params:26: 0.92382
+    params:27: 0.91898
+    params:28: 0.88386
+    params:29: 0.96064
+    log2po:4769.5241
+  Minimum value.........:
+    params:1: 0.0029752
+    params:2: 0.0062023
+    params:3: 0.014744
+    params:4: 0.0026496
+    params:5: 0.08192
+    params:6: 0.012104
+    params:7: 0.0042261
+    params:8: 0.00010008
+    params:9: 0.021442
+    params:10: 1.4509
+    params:11: 0.63963
+    params:12: 1.0335
+    params:13: 0.80902
+    params:14: 0.2001
+    params:15: 0.66031
+    params:16: 0.026616
+    params:17: 1.4671
+    params:18: 0.16337
+    params:19: 6.7333
+    params:20: 1.1046
+    params:21: 0.18152
+    params:22: 0.58357
+    params:23: 0.73492
+    params:24: 0.82065
+    params:25: 0.79053
+    params:26: 0.82015
+    params:27: 0.82462
+    params:28: 0.56913
+    params:29: 0.89177
+    log2po:4729.3923
+  Maximum value.........:
+    params:1: 0.0054418
+    params:2: 0.0105
+    params:3: 0.023095
+    params:4: 0.0082332
+    params:5: 0.11185
+    params:6: 0.018021
+    params:7: 0.02423
+    params:8: 0.0057944
+    params:9: 0.032204
+    params:10: 2.1227
+    params:11: 0.7509
+    params:12: 1.6238
+    params:13: 0.98855
+    params:14: 0.36024
+    params:15: 0.92992
+    params:16: 0.27693
+    params:17: 2.7074
+    params:18: 0.49711
+    params:19: 9.1524
+    params:20: 1.8819
+    params:21: 0.38458
+    params:22: 0.87038
+    params:23: 0.92167
+    params:24: 0.99986
+    params:25: 0.96717
+    params:26: 0.9996
+    params:27: 0.98065
+    params:28: 0.99266
+    params:29: 0.99994
+    log2po:4781.1554
+ 
