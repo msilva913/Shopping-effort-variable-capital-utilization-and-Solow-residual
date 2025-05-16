@@ -232,15 +232,16 @@ irf_array = irf_fun(vars_list, irf_dic, shock="e_Z", length=20 )
 irf_dic_spec = Dict(zip(vars_list_label, irf_array))
 irf_fun_plot_grouped(irf_dic_spec; shock="e_Z")
 
+# Discount factor shock
+irf_array = irf_fun(vars_list, irf_dic, shock="e_b", length=20 )
+irf_dic_spec = Dict(zip(vars_list_label, irf_array))
+irf_fun_plot_grouped(irf_dic_spec; shock="e_b")
+
 # Permanent technology shock
 irf_array = irf_fun(vars_list, irf_dic, shock="e_g", length=20 )
 irf_dic_spec = Dict(zip(vars_list_label, irf_array))
 irf_fun_plot_grouped(irf_dic_spec; shock="e_g")
 
-# Discount factor shock
-irf_array = irf_fun(vars_list, irf_dic, shock="e_b", length=20 )
-irf_dic_spec = Dict(zip(vars_list_label, irf_array))
-irf_fun_plot_grouped(irf_dic_spec; shock="e_b")
 
 
 # In levels
