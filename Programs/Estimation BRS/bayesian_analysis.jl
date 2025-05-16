@@ -1,18 +1,14 @@
 
-using LaTeXStrings
 using CSV, ArgParse
 using Latexify
 #using LinearAlgebra, Roots, Optim, NLsolve
 using Printf
 using DataFrames
-using PrettyPrinting
-using PlotlyJS
 using PyPlot
 using MAT
 using TexTables
-using PyFormattedStrings
 using Dates, Distributions
-using StatsModels
+#using StatsModels
 
 homedir()
 include("time_series_fun.jl")

@@ -1,10 +1,10 @@
 using LaTeXStrings
-using Parameters, CSV, StatsBase, Statistics, Random, QuantEcon, ArgParse
+using Parameters, CSV, Statistics, Random, QuantEcon, ArgParse
 using PyPlot
-using PlotlyJS
 using Printf
 using DataFrames
 using PrettyPrinting
+using PlotlyJS
 # set directory to that of current file
 cd(@__DIR__)
 
@@ -191,31 +191,9 @@ steady_state = function(par)
 end
 
 
-function m_func(ϕ, η)
-    return ϕ/(η*(1-ϕ)+1)
-end
-m = 0.15/0.524
-η_func(m, ϕ) = (ϕ-m)/(m*(1-ϕ))
-@show η_func(m, 0.3249)
-
-fig, ax = plt.subplots()
-ϕ_vals = 0.0:0.1:0.99
-η_vals = η_func.(m, ϕ_vals)
-
-ϕ_fun(η, m=m) = (η+1)*m/(1+η*m)
-
-@show m_func(ϕ, η)
-#BRS
-@show ϕ_fun(0.20, m)
-@show ϕ_fun(2.0, 0.286)
-
-fig, ax = plt.subplots()
-ax.plot(ϕ_vals, η_vals, label="Values consistent with price dispersion")
-plt.show()
-display(fig)
 
 # To be modified #
-function table(cal, targets)
+function gen_table(cal, targets)
     @unpack σ, β, δ, α_n, α_k, A_mc, A_sc, A_i, z_mc, z_sc, z_i, σ_b, ω, θ_n, C, I, Y, K, N, N_c, N_i, p_sc = cal
     @unpack g_bar, μ, ζ, Y, p_i, N, Ψ_j, I_Y, K_Y, labor_share, ν_R = targets
     r = (1-β)/β
@@ -274,7 +252,9 @@ using MAT
 #posterior_mode = matread("posterior_mode.mat")
 #posterior_mode = posterior_mode["posterior_mode"]
 posterior_mean = matread("posterior_mean.mat")
-posterior_mean = posterior_mean["posterior_mean"]
+posterior_mean = read(posterior_mean)["posterior_mean"]
+
+# Estimated parameters to be used for calibration 
 
 σ = posterior_mean["sigma"]
 ζ = posterior_mean["nu"]
@@ -283,11 +263,14 @@ posterior_mean = posterior_mean["posterior_mean"]
 ν_R = posterior_mean["nu_R"]
 ha = posterior_mean["ha"]
 
+
 targets = Targets(σ=σ, ζ=ζ, ϕ=ϕ, η=η, ν_R=ν_R, ha=ha)
 para = calibrate(targets)
 #ss = steady_state(para)
-tab = table(para, targets)
+tab = gen_table(para, targets)
 
+cap_share = (1+ν_R)*para.α_k
+shopping_con = ϕ/(ϕ+cap_share)
 
 @unpack W, N, Y_mc, Y_sc, C, I, Y, r, ν_mc, ν_sc, ν_i, N_c, N_i, Π, Π_Y, δ, K, K_mc, K_sc, K_i, ω_sc, D_sc, D_i = para
 @unpack g_bar, labor_share, ν_R, Ψ_j, ν_R, p_i, K_Y, I_Y, ϕ, S_c = targets

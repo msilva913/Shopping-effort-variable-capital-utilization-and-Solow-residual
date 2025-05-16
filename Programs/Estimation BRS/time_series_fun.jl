@@ -1,7 +1,7 @@
 
 using PyPlot
 using LaTeXStrings, KernelDensity
-using Parameters, CSV, StatsBase, Statistics, Random
+using Parameters, CSV, Statistics, Random
 using DataFrames
 using ShiftedArrays
 using QuantEcon
