@@ -268,6 +268,8 @@ targets = Targets(σ=σ, ζ=ζ, ϕ=ϕ, η=η, ν_R=ν_R, ha=ha)
 para = calibrate(targets)
 #ss = steady_state(para)
 tab = gen_table(para, targets)
+html_file = "calibration_table.html"
+PlotlyJS.savefig(tab,  html_file)
 
 cap_share = (1+ν_R)*para.α_k
 shopping_con = ϕ/(ϕ+cap_share)
