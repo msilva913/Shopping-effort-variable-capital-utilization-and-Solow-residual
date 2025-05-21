@@ -11,9 +11,9 @@ tic0 = tic;
 global M_ options_ oo_ estim_params_ bayestopt_ dataset_ dataset_info estimation_info
 options_ = [];
 M_.fname = 'BRS_sectoral_wo_fixed_cost';
-M_.dynare_version = '6.2';
-oo_.dynare_version = '6.2';
-options_.dynare_version = '6.2';
+M_.dynare_version = '6.3';
+oo_.dynare_version = '6.3';
+options_.dynare_version = '6.3';
 %
 % Some global variables initialization
 %
@@ -2092,16 +2092,16 @@ if ~isempty(find(estim_params_.var_exo(:,1)==9))
 end
 estim_params_.var_exo = [estim_params_.var_exo; 9, 0.01, 0.0001, 0.2, 2, 0.01, 0.01, NaN, NaN, NaN ];
 options_.TeX=1;
-options_.MCMC_jumping_covariance = 'prior_variance';
+options_.MCMC_jumping_covariance = 'hessian';
 options_.TeX = true;
 options_.datafile = 'observables_sectoral';
 options_.lik_init = 2;
 options_.load_mh_file = true;
 options_.mh_drop = 0.3;
 options_.mh_init_scale = 0.0001;
-options_.mh_jscale = 0.006;
+options_.mh_jscale = 0.06;
 options_.mh_nblck = 2;
-options_.mh_replic = 0;
+options_.mh_replic = 200000;
 options_.mode_check.status = true;
 options_.mode_compute = 0;
 options_.mode_file = 'BRS_sectoral_wo_fixed_cost_mh_mode';

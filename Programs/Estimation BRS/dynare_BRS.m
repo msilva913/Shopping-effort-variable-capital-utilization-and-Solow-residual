@@ -29,7 +29,7 @@ I_obs = sim(:, 4);
 p_I_obs = sim(:, 5);
 util_ND_obs = sim(:, 6);
 util_D_obs = sim(:, 7);
-save('artificial_data.mat', 'NC_obs', 'NI_obs', 'C_obs', 'I_obs', 'p_I_obs', 'util_ND_obs', 'util_D_obs');
+%save('artificial_data.mat', 'NC_obs', 'NI_obs', 'C_obs', 'I_obs', 'p_I_obs', 'util_ND_obs', 'util_D_obs');
 %%
 
 posterior_density = res.posterior_density.parameters;
@@ -100,7 +100,7 @@ save('M_wo_fc', 'M_wo_fc');
 %mom_bas = calc_moments(res);
 %save('mom_bas', 'mom_bas');
 % Main output
-FEVD_table = FEVD_sum(res_wo_fc, M_wo_fc);
+%FEVD_table = FEVD_sum(res_wo_fc, M_wo_fc);
 [out, HPD] = main_table(res_wo_fc, M_wo_fc);
 
 
