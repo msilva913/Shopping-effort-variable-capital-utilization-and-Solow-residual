@@ -1,7 +1,18 @@
 clc;
 clear;
 addpath c:\dynare\6.3\matlab
-%% Make preferences GHH in consumption, shopping effort, and labor supply
+%% List of mod files used in estimation
+% BRS_sectoral 
+% BRS_sectoral_perfect_mobility
+% BRS_sectoral_com_wage_markup
+% BRS_sectoral_wo_fixed_cost.mod
+% BRS_sectoral_wo_vcu 
+% BRS_sectoral_wo_dem_shocks_res
+% BRS_sectoral 
+% BRS_growth_id 
+% BRS_util_mod 
+% BRS_sectoral with artificial data
+%%
 
 %% Main model estimated with sectoral data 
 %%
@@ -172,39 +183,13 @@ end
 
 format short;
 table_ident = vertcat(summ_tables{1}, summ_tables{2})
-%% Estimate general model but with fitting cross sectional price dispersion
-% dynare BRS_price_dispersion.mod
-% 
-% res_pd = oo_;
-% M_pd = M_;
-% save('res_pd', 'res_pd');
-% save('M_pd', 'M_pd');
-% load res_pd
-% load M_pd
-% posterior_mean = res_pd.posterior_mean.parameters;
-% 
-% Main output
-% FEVD_table = FEVD_sum(res_pd, M_pd, 'growth');
-% 
-% [out, HPD] = main_table(res_pd, M_pd, '');
-% 
-% HPD_inf = res_pd.posterior_hpdinf.parameters;
-% posterior_median = res_pd.posterior_median.parameters;
-% HPD_sup = res_pd.posterior_hpdsup.parameters;
-% HPD_eta = [HPD_inf.eta, posterior_median.eta, HPD_sup.eta];
-% 
-% m = 0.15/0.524;
-% HPD_phi = (HPD_eta+1)*m./(1+HPD_eta*m);
-% HPD = [HPD_eta; HPD_phi]
 
 %% Proof of concept exercise in BRS
 %% Basic BRS (general replication)
-%dynare BRS_growth.mod
 
 %% Basic BRS: estimate phi and eta
 dynare BRS_growth_id.mod
 %% estimate BRS with utilization data
 dynare BRS_util.mod 
-%% Benchmark RBC model
-dynare RBC.mod
+
 
