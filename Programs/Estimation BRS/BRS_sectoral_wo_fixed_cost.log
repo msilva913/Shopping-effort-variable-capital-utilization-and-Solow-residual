@@ -1,4 +1,4 @@
-Starting Dynare (version 6.2).
+Starting Dynare (version 6.3).
 Calling Dynare with arguments: none
 Starting preprocessing of the model file ... 
 WARNING: in the 'steady_state_model' block, variable 'log_h' is not assigned a value 
@@ -302,68 +302,359 @@ There are 20 eigenvalue(s) larger than 1 in modulus for 20 forward-looking varia
 The rank condition is verified.
 
 
-Initial value of the log posterior (or likelihood): 4668.1726
+Initial value of the log posterior (or likelihood): 4668.1719
 
 MODE CHECK
 
-Fval obtained by the optimization routine: -4668.172603
-[Warning: Matrix is close to singular or badly scaled. Results may be inaccurate. RCOND =  5.752551e-18.] 
-[> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dyn_first_order_solver', 'C:\dynare\6.2\matlab\stochastic_solver\dyn_first_order_solver.m', 283)" style="font-weight:bold">dyn_first_order_solver</a> (<a href="matlab: opentoline('C:\dynare\6.2\matlab\stochastic_solver\dyn_first_order_solver.m',283,0)">line 283</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('stochastic_solvers', 'C:\dynare\6.2\matlab\stochastic_solver\stochastic_solvers.m', 248)" style="font-weight:bold">stochastic_solvers</a> (<a href="matlab: opentoline('C:\dynare\6.2\matlab\stochastic_solver\stochastic_solvers.m',248,0)">line 248</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('resol', 'C:\dynare\6.2\matlab\stochastic_solver\resol.m', 115)" style="font-weight:bold">resol</a> (<a href="matlab: opentoline('C:\dynare\6.2\matlab\stochastic_solver\resol.m',115,0)">line 115</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('compute_decision_rules', 'C:\dynare\6.2\matlab\stochastic_solver\compute_decision_rules.m', 36)" style="font-weight:bold">compute_decision_rules</a> (<a href="matlab: opentoline('C:\dynare\6.2\matlab\stochastic_solver\compute_decision_rules.m',36,0)">line 36</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_resolve', 'C:\dynare\6.2\matlab\stochastic_solver\dynare_resolve.m', 39)" style="font-weight:bold">dynare_resolve</a> (<a href="matlab: opentoline('C:\dynare\6.2\matlab\stochastic_solver\dynare_resolve.m',39,0)">line 39</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dsge_likelihood', 'C:\dynare\6.2\matlab\estimation\dsge_likelihood.m', 138)" style="font-weight:bold">dsge_likelihood</a> (<a href="matlab: opentoline('C:\dynare\6.2\matlab\estimation\dsge_likelihood.m',138,0)">line 138</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('mode_check', 'C:\dynare\6.2\matlab\estimation\mode_check.m', 147)" style="font-weight:bold">mode_check</a> (<a href="matlab: opentoline('C:\dynare\6.2\matlab\estimation\mode_check.m',147,0)">line 147</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation_1', 'C:\dynare\6.2\matlab\estimation\dynare_estimation_1.m', 325)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('C:\dynare\6.2\matlab\estimation\dynare_estimation_1.m',325,0)">line 325</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation', 'C:\dynare\6.2\matlab\estimation\dynare_estimation.m', 105)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('C:\dynare\6.2\matlab\estimation\dynare_estimation.m',105,0)">line 105</a>)
+Fval obtained by the optimization routine: -4668.171913
+[Warning: Matrix is close to singular or badly scaled. Results may be inaccurate. RCOND =  5.625390e-18.] 
+[> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dyn_first_order_solver', 'C:\dynare\6.3\matlab\stochastic_solver\dyn_first_order_solver.m', 283)" style="font-weight:bold">dyn_first_order_solver</a> (<a href="matlab: opentoline('C:\dynare\6.3\matlab\stochastic_solver\dyn_first_order_solver.m',283,0)">line 283</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('stochastic_solvers', 'C:\dynare\6.3\matlab\stochastic_solver\stochastic_solvers.m', 248)" style="font-weight:bold">stochastic_solvers</a> (<a href="matlab: opentoline('C:\dynare\6.3\matlab\stochastic_solver\stochastic_solvers.m',248,0)">line 248</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('resol', 'C:\dynare\6.3\matlab\stochastic_solver\resol.m', 115)" style="font-weight:bold">resol</a> (<a href="matlab: opentoline('C:\dynare\6.3\matlab\stochastic_solver\resol.m',115,0)">line 115</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('compute_decision_rules', 'C:\dynare\6.3\matlab\stochastic_solver\compute_decision_rules.m', 36)" style="font-weight:bold">compute_decision_rules</a> (<a href="matlab: opentoline('C:\dynare\6.3\matlab\stochastic_solver\compute_decision_rules.m',36,0)">line 36</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_resolve', 'C:\dynare\6.3\matlab\stochastic_solver\dynare_resolve.m', 39)" style="font-weight:bold">dynare_resolve</a> (<a href="matlab: opentoline('C:\dynare\6.3\matlab\stochastic_solver\dynare_resolve.m',39,0)">line 39</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dsge_likelihood', 'C:\dynare\6.3\matlab\estimation\dsge_likelihood.m', 138)" style="font-weight:bold">dsge_likelihood</a> (<a href="matlab: opentoline('C:\dynare\6.3\matlab\estimation\dsge_likelihood.m',138,0)">line 138</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('mode_check', 'C:\dynare\6.3\matlab\estimation\mode_check.m', 147)" style="font-weight:bold">mode_check</a> (<a href="matlab: opentoline('C:\dynare\6.3\matlab\estimation\mode_check.m',147,0)">line 147</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation_1', 'C:\dynare\6.3\matlab\estimation\dynare_estimation_1.m', 334)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('C:\dynare\6.3\matlab\estimation\dynare_estimation_1.m',334,0)">line 334</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation', 'C:\dynare\6.3\matlab\estimation\dynare_estimation.m', 105)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('C:\dynare\6.3\matlab\estimation\dynare_estimation.m',105,0)">line 105</a>)
 In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('BRS_sectoral_wo_fixed_cost.driver', 'C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_sectoral_wo_fixed_cost\driver.m', 2113)" style="font-weight:bold">BRS_sectoral_wo_fixed_cost.driver</a> (<a href="matlab: opentoline('C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS\+BRS_sectoral_wo_fixed_cost\driver.m',2113,0)">line 2113</a>)
-In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare', 'C:\dynare\6.2\matlab\dynare.m', 308)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('C:\dynare\6.2\matlab\dynare.m',308,0)">line 308</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare', 'C:\dynare\6.3\matlab\dynare.m', 308)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('C:\dynare\6.3\matlab\dynare.m',308,0)">line 308</a>)
 ] 
 
 RESULTS FROM POSTERIOR ESTIMATION
 parameters
          prior mean     mode    s.d.  prior pstdev
 
-sigma        1.5000   2.0269  0.2771   beta 0.2500 
-ha           0.5000   0.7421  0.0240   beta 0.2000 
-nu           0.7200   1.7014  0.2574   gamm 0.2500 
-phi          0.3200   0.9748  0.0373   beta 0.2000 
-eta          0.2000   0.2269  0.0267   gamm 0.1500 
-xi           0.8500   0.8792  0.0726   gamm 0.1000 
-sigma_ac     1.0000   1.3050  0.3530   invg 1.0000 
-sigma_ai     1.0000   0.4031  0.0888   invg 1.0000 
-Psi_K        4.0000  15.5557  1.5510   gamm 1.0000 
-theta        1.0000   1.3827  0.2261   gamm 0.5000 
-rho_g        0.1000   0.3614  0.0829   beta 0.0500 
-rho_Z        0.6000   0.8306  0.0330   beta 0.2000 
-rho_ZI       0.6000   0.8126  0.0258   beta 0.2000 
-rho_N        0.6000   0.9709  0.0096   beta 0.2000 
-rho_D        0.6000   0.8797  0.0294   beta 0.2000 
-rho_DI       0.6000   0.9817  0.0078   beta 0.2000 
-rho_b        0.6000   0.9028  0.0214   beta 0.2000 
-rho_muC      0.6000   0.9763  0.2757   beta 0.2000 
-rho_muI      0.6000   0.9508  0.0213   beta 0.2000 
+sigma        1.5000   2.0269  0.3071   beta 0.2500 
+ha           0.5000   0.7421  0.0260   beta 0.2000 
+nu           0.7200   1.7014  0.2227   gamm 0.2500 
+phi          0.3200   0.9748  0.0254   beta 0.2000 
+eta          0.2000   0.2269  0.0328   gamm 0.1500 
+xi           0.8500   0.8792  0.0966   gamm 0.1000 
+sigma_ac     1.0000   1.3049  0.2574   invg 1.0000 
+sigma_ai     1.0000   0.4031  0.0785   invg 1.0000 
+Psi_K        4.0000  15.5559  1.4913   gamm 1.0000 
+theta        1.0000   1.3828  0.1830   gamm 0.5000 
+rho_g        0.1000   0.3614  0.0682   beta 0.0500 
+rho_Z        0.6000   0.8306  0.0301   beta 0.2000 
+rho_ZI       0.6000   0.8126  0.0273   beta 0.2000 
+rho_N        0.6000   0.9709  0.0102   beta 0.2000 
+rho_D        0.6000   0.8797  0.0288   beta 0.2000 
+rho_DI       0.6000   0.9817  0.0084   beta 0.2000 
+rho_b        0.6000   0.9028  0.0240   beta 0.2000 
+rho_muC      0.6000   0.9763  0.2273   beta 0.2000 
+rho_muI      0.6000   0.9508  0.0302   beta 0.2000 
 
 standard deviation of shocks
          prior mean     mode    s.d.  prior pstdev
 
-e_g          0.0100   0.0040  0.0004   gamm 0.0100 
+e_g          0.0100   0.0040  0.0003   gamm 0.0100 
 e_Z          0.0100   0.0101  0.0006   gamm 0.0100 
-e_ZI         0.0100   0.0237  0.0018   gamm 0.0100 
-e_N          0.0100   0.0047  0.0009   gamm 0.0100 
-e_D          0.0100   0.1574  0.0161   gamm 0.0100 
-e_DI         0.0100   0.0144  0.0009   gamm 0.0100 
-e_b          0.0100   0.0206  0.0053   gamm 0.0100 
+e_ZI         0.0100   0.0237  0.0016   gamm 0.0100 
+e_N          0.0100   0.0047  0.0006   gamm 0.0100 
+e_D          0.0100   0.1574  0.0252   gamm 0.0100 
+e_DI         0.0100   0.0144  0.0008   gamm 0.0100 
+e_b          0.0100   0.0206  0.0058   gamm 0.0100 
 e_muC        0.0100   0.0011  0.0006   gamm 0.0100 
-e_muI        0.0100   0.0260  0.0033   gamm 0.0100 
+e_muI        0.0100   0.0260  0.0026   gamm 0.0100 
 
 
-Log data density [Laplace approximation] is 4572.074094.
+Log data density [Laplace approximation] is 4573.054395.
 
-Estimation::mcmc: Total number of MH draws per chain: 600000.
-Estimation::mcmc: Total number of generated MH files: 2.
-Estimation::mcmc: I'll use mh-files 1 to 2.
-Estimation::mcmc: In MH-file number 1 I'll start at line 180001.
-Estimation::mcmc: Finally I keep 420000 draws per chain.
+Estimation::mcmc: I am loading past Metropolis-Hastings simulations...
+Estimation::mcmc: Recovering the previous proposal density.
+Estimation::mcmc: I am writing a new mh-history file... Done.
+Estimation::mcmc: Ok. I have loaded 200000 simulations.
 
+
+Estimation::mcmc: Number of mh files: 1 per block.
+Estimation::mcmc: Total number of generated files: 2.
+Estimation::mcmc: Total number of iterations: 400000.
+Estimation::mcmc: Current acceptance ratio per chain:
+                                                       Chain  1: 53.351%
+                                                       Chain  2: 62.38%
+Estimation::mcmc: Total number of MH draws per chain: 400000.
+Estimation::mcmc: Total number of generated MH files: 1.
+Estimation::mcmc: I'll use mh-files 1 to 1.
+Estimation::mcmc: In MH-file number 1 I'll start at line 120001.
+Estimation::mcmc: Finally I keep 280000 draws per chain.
+
+
+
+MCMC Inefficiency factors per block
+Parameter       Block 1     Block 2
+SE_e_g          568.019     593.033
+SE_e_Z          601.337     598.544
+SE_e_ZI         571.912     616.289
+SE_e_N          535.115     586.951
+SE_e_D          735.338     711.116
+SE_e_DI         619.171     571.811
+SE_e_b          649.133     653.775
+SE_e_muC        659.592     637.797
+SE_e_muI        574.815     588.721
+sigma           683.540     657.484
+ha              684.992     673.153
+nu              592.968     627.743
+phi             561.475     601.323
+eta             692.726     680.946
+xi              680.870     673.164
+sigma_ac        576.323     561.390
+sigma_ai        581.850     607.816
+Psi_K           651.225     628.106
+theta           591.201     591.742
+rho_g           629.944     600.064
+rho_Z           582.088     582.560
+rho_ZI          618.102     614.131
+rho_N           661.075     658.285
+rho_D           641.738     617.939
+rho_DI          621.111     577.054
+rho_b           632.807     637.979
+rho_muC         635.709     613.992
+rho_muI         692.715     692.835
+
+
+
+Convergence diagnostics results for chain 1.
+
+Geweke (1992) Convergence Tests, based on means of draws 120000 to 176000 vs 260000 to 400000 for chain 1.
+p-values are for Chi2-test for equality of means.
+Parameter         Post. Mean        Post. Std   p-val No Taper   p-val 4% Taper   p-val 8% Taper  p-val 15% Taper
+SE_e_g                 0.004            0.000            0.000            0.881            0.893            0.895
+SE_e_Z                 0.010            0.001            0.000            0.000            0.000            0.000
+SE_e_ZI                0.023            0.002            0.000            0.740            0.761            0.766
+SE_e_N                 0.005            0.001            0.000            0.029            0.053            0.066
+SE_e_D                 0.206            0.043            0.000            0.009            0.055            0.137
+SE_e_DI                0.015            0.001            0.000            0.684            0.719            0.737
+SE_e_b                 0.017            0.005            0.000            0.568            0.635            0.674
+SE_e_muC               0.001            0.001            0.000            0.020            0.056            0.077
+SE_e_muI               0.027            0.003            0.000            0.072            0.100            0.141
+sigma                  1.865            0.340            0.000            0.147            0.259            0.344
+ha                     0.779            0.031            0.000            0.400            0.503            0.571
+nu                     1.574            0.204            0.000            0.710            0.737            0.745
+phi                    0.958            0.024            0.000            0.879            0.895            0.908
+eta                    0.175            0.040            0.000            0.463            0.566            0.635
+xi                     0.874            0.105            0.000            0.707            0.751            0.757
+sigma_ac               1.343            0.258            0.000            0.004            0.015            0.030
+sigma_ai               0.406            0.082            0.000            0.072            0.123            0.142
+Psi_K                 15.331            1.573            0.000            0.274            0.361            0.416
+theta                  1.450            0.189            0.000            0.159            0.208            0.269
+rho_g                  0.416            0.081            0.000            0.001            0.006            0.022
+rho_Z                  0.810            0.030            0.000            0.020            0.029            0.017
+rho_ZI                 0.837            0.026            0.000            0.393            0.461            0.474
+rho_N                  0.984            0.011            0.000            0.000            0.000            0.001
+rho_D                  0.877            0.029            0.000            0.002            0.011            0.029
+rho_DI                 0.981            0.008            0.000            0.489            0.519            0.448
+rho_b                  0.901            0.023            0.000            0.578            0.641            0.688
+rho_muC                0.800            0.214            0.000            0.002            0.014            0.043
+rho_muI                0.969            0.025            0.000            0.627            0.704            0.748
+
+
+
+
+Convergence diagnostics results for chain 2.
+
+Geweke (1992) Convergence Tests, based on means of draws 120000 to 176000 vs 260000 to 400000 for chain 2.
+p-values are for Chi2-test for equality of means.
+Parameter         Post. Mean        Post. Std   p-val No Taper   p-val 4% Taper   p-val 8% Taper  p-val 15% Taper
+SE_e_g                 0.004            0.000            0.000            0.127            0.189            0.233
+SE_e_Z                 0.010            0.001            0.000            0.000            0.000            0.000
+SE_e_ZI                0.023            0.002            0.000            0.002            0.004            0.004
+SE_e_N                 0.005            0.001            0.000            0.000            0.001            0.005
+SE_e_D                 0.172            0.024            0.000            0.000            0.000            0.000
+SE_e_DI                0.015            0.001            0.000            0.036            0.054            0.058
+SE_e_b                 0.017            0.005            0.000            0.000            0.000            0.000
+SE_e_muC               0.001            0.001            0.000            0.006            0.032            0.085
+SE_e_muI               0.027            0.003            0.000            0.173            0.225            0.221
+sigma                  1.702            0.311            0.000            0.031            0.076            0.104
+ha                     0.758            0.028            0.000            0.000            0.003            0.010
+nu                     1.591            0.229            0.000            0.000            0.002            0.005
+phi                    0.955            0.028            0.000            0.881            0.905            0.917
+eta                    0.204            0.034            0.000            0.000            0.001            0.004
+xi                     0.884            0.101            0.000            0.804            0.831            0.846
+sigma_ac               1.392            0.265            0.000            0.000            0.000            0.000
+sigma_ai               0.410            0.085            0.000            0.009            0.015            0.028
+Psi_K                 15.459            1.395            0.000            0.002            0.009            0.012
+theta                  1.421            0.202            0.000            0.177            0.214            0.203
+rho_g                  0.442            0.076            0.000            0.020            0.039            0.046
+rho_Z                  0.804            0.031            0.000            0.006            0.013            0.011
+rho_ZI                 0.841            0.027            0.000            0.566            0.611            0.599
+rho_N                  0.984            0.010            0.000            0.001            0.006            0.015
+rho_D                  0.879            0.027            0.000            0.011            0.037            0.049
+rho_DI                 0.980            0.009            0.000            0.507            0.544            0.555
+rho_b                  0.906            0.023            0.000            0.000            0.000            0.000
+rho_muC                0.851            0.191            0.000            0.926            0.944            0.955
+rho_muI                0.963            0.029            0.000            0.000            0.001            0.007
+
+
+Univariate convergence diagnostic, Brooks and Gelman (1998):
+    Parameter 1...  Done! 
+    Parameter 2...  Done! 
+    Parameter 3...  Done! 
+    Parameter 4...  Done! 
+    Parameter 5...  Done! 
+    Parameter 6...  Done! 
+    Parameter 7...  Done! 
+    Parameter 8...  Done! 
+    Parameter 9...  Done! 
+    Parameter 10...  Done! 
+    Parameter 11...  Done! 
+    Parameter 12...  Done! 
+    Parameter 13...  Done! 
+    Parameter 14...  Done! 
+    Parameter 15...  Done! 
+    Parameter 16...  Done! 
+    Parameter 17...  Done! 
+    Parameter 18...  Done! 
+    Parameter 19...  Done! 
+    Parameter 20...  Done! 
+    Parameter 21...  Done! 
+    Parameter 22...  Done! 
+    Parameter 23...  Done! 
+    Parameter 24...  Done! 
+    Parameter 25...  Done! 
+    Parameter 26...  Done! 
+    Parameter 27...  Done! 
+    Parameter 28...  Done! 
+
+marginal density: I'm computing the posterior mean and covariance...  Done!
+marginal density: I'm computing the posterior log marginal density (modified harmonic mean)... Done!
+
+
+ESTIMATION RESULTS
+
+Log data density (Modified Harmonic Mean) is 4573.442337.
+parameters
+           prior mean   post. mean        90% HPD interval    prior       pstdev
+
+sigma           1.500       1.8499      1.2793      2.3778     beta       0.2500
+ha              0.500       0.7715      0.7161      0.8227     beta       0.2000
+nu              0.720       1.5822      1.2679      1.9656     gamm       0.2500
+phi             0.320       0.9552      0.9163      0.9941     beta       0.2000
+eta             0.200       0.1844      0.1142      0.2474     gamm       0.1500
+xi              0.850       0.8827      0.7137      1.0514     gamm       0.1000
+sigma_ac        1.000       1.3496      0.9366      1.7399     invg       1.0000
+sigma_ai        1.000       0.4102      0.2810      0.5359     invg       1.0000
+Psi_K           4.000      15.3581     12.9430     17.7956     gamm       1.0000
+theta           1.000       1.4435      1.1201      1.7653     gamm       0.5000
+rho_g           0.100       0.4286      0.2983      0.5640     beta       0.0500
+rho_Z           0.600       0.8081      0.7592      0.8549     beta       0.2000
+rho_ZI          0.600       0.8383      0.7949      0.8834     beta       0.2000
+rho_N           0.600       0.9838      0.9690      0.9998     beta       0.2000
+rho_D           0.600       0.8760      0.8290      0.9231     beta       0.2000
+rho_DI          0.600       0.9823      0.9701      0.9949     beta       0.2000
+rho_b           0.600       0.9029      0.8648      0.9418     beta       0.2000
+rho_muC         0.600       0.8206      0.4999      0.9983     beta       0.2000
+rho_muI         0.600       0.9677      0.9247      0.9999     beta       0.2000
+
+standard deviation of shocks
+           prior mean   post. mean        90% HPD interval    prior       pstdev
+
+e_g             0.010       0.0042      0.0037      0.0047     gamm       0.0100
+e_Z             0.010       0.0105      0.0095      0.0114     gamm       0.0100
+e_ZI            0.010       0.0227      0.0201      0.0254     gamm       0.0100
+e_N             0.010       0.0049      0.0039      0.0059     gamm       0.0100
+e_D             0.010       0.1969      0.1341      0.2684     gamm       0.0100
+e_DI            0.010       0.0149      0.0135      0.0162     gamm       0.0100
+e_b             0.010       0.0171      0.0078      0.0261     gamm       0.0100
+e_muC           0.010       0.0008      0.0001      0.0018     gamm       0.0100
+e_muI           0.010       0.0270      0.0226      0.0316     gamm       0.0100
+
+MODEL SUMMARY
+
+  Number of variables:         105
+  Number of stochastic shocks: 9
+  Number of state variables:   33
+  Number of jumpers:           20
+  Number of static variables:  53
+
+
+MATRIX OF COVARIANCE OF EXOGENOUS SHOCKS
+Variables         e_g       e_Z      e_ZI       e_N       e_D      e_DI       e_b     e_muC     e_muI
+e_g          0.000018  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000
+e_Z          0.000000  0.000109  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000
+e_ZI         0.000000  0.000000  0.000517  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000
+e_N          0.000000  0.000000  0.000000  0.000024  0.000000  0.000000  0.000000  0.000000  0.000000
+e_D          0.000000  0.000000  0.000000  0.000000  0.038764  0.000000  0.000000  0.000000  0.000000
+e_DI         0.000000  0.000000  0.000000  0.000000  0.000000  0.000221  0.000000  0.000000  0.000000
+e_b          0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000292  0.000000  0.000000
+e_muC        0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000001  0.000000
+e_muI        0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000000  0.000730
+
+
+
+THEORETICAL MOMENTS
+VARIABLE            MEAN  STD. DEV.   VARIANCE
+Y_obs             0.0000     0.0136     0.0002
+Y_N_obs           0.0000     0.0092     0.0001
+SR_obs            0.0000     0.0091     0.0001
+I_obs             0.0000     0.0407     0.0017
+p_I_obs           0.0000     0.0295     0.0009
+C_obs             0.0000     0.0094     0.0001
+NC_obs            0.0000     0.0068     0.0000
+NI_obs            0.0000     0.0236     0.0006
+util_ND_obs       0.0000     0.0122     0.0001
+util_D_obs        0.0000     0.0390     0.0015
+util_obs          0.0000     0.0140     0.0002
+D_obs             0.0000     0.0330     0.0011
+h_obs             0.0000     0.0776     0.0060
+tech_obs          0.0000     0.0126     0.0002
+
+
+
+VARIANCE DECOMPOSITION (in percent)
+                  e_g     e_Z    e_ZI     e_N     e_D    e_DI     e_b   e_muC   e_muI
+Y_obs            6.55   18.11    1.37    0.00   70.28    2.49    1.19    0.00    0.01
+Y_N_obs         20.84   15.91    8.86   10.69   24.89    5.34    0.47    0.22   12.77
+SR_obs          18.81   18.48    5.86    4.79   41.18    4.53    0.59    0.10    5.68
+I_obs            0.29   23.76    5.03    0.00   60.02    6.13    4.77    0.00    0.01
+p_I_obs          0.01   23.81   42.43    0.00   15.85   17.59    0.29    0.00    0.01
+C_obs           19.56    6.51    0.51    0.00   60.28    0.70   12.40    0.00    0.03
+NC_obs           0.70    7.28    1.65   19.90   60.18    1.02    5.81    0.56    2.89
+NI_obs           0.62    8.54    8.26    1.67   50.09    2.89    1.60    0.00   26.31
+util_ND_obs      1.16   67.14    0.19    0.00   24.45    0.14    6.90    0.00    0.01
+util_D_obs       0.54    2.60   25.00    0.00   60.32    6.46    5.06    0.00    0.02
+util_obs         0.15   34.40    8.43    0.00   54.31    1.94    0.75    0.00    0.00
+D_obs            0.00    0.04    0.02    0.00   99.91    0.01    0.00    0.00    0.00
+h_obs            0.07    9.83    1.70    0.00   87.67    0.60    0.14    0.00    0.00
+tech_obs        13.61   72.20   14.19    0.00   -0.00    0.00    0.00   -0.00   -0.00
+
+
+
+MATRIX OF CORRELATIONS
+Variables            Y_obs      Y_N_obs       SR_obs        I_obs      p_I_obs        C_obs       NC_obs       NI_obs  util_ND_obs   util_D_obs     util_obs        D_obs        h_obs     tech_obs
+Y_obs               1.0000       0.7301       0.8796       0.8774      -0.1986       0.8559       0.7578       0.5962       0.3430       0.6755       0.6145       0.5092      -0.2778       0.3325
+Y_N_obs             0.7301       1.0000       0.9515       0.6240      -0.5042       0.6428       0.1774      -0.0398       0.2900       0.2962       0.3668       0.1591      -0.0166       0.3759
+SR_obs              0.8796       0.9515       1.0000       0.7841      -0.3830       0.7395       0.3938       0.2370       0.2852       0.4727       0.4615       0.3825      -0.2213       0.4289
+I_obs               0.8774       0.6240       0.7841       1.0000      -0.2870       0.5029       0.5875       0.6438       0.1349       0.7554       0.5139       0.5503      -0.3837       0.3116
+p_I_obs            -0.1986      -0.5042      -0.3830      -0.2870       1.0000      -0.0484       0.0661       0.3299      -0.1602       0.2017       0.0005       0.3347      -0.3404      -0.1776
+C_obs               0.8559       0.6428       0.7395       0.5029      -0.0484       1.0000       0.7320       0.3801       0.4726       0.4028       0.5533       0.3242      -0.0869       0.2633
+NC_obs              0.7578       0.1774       0.3938       0.5875       0.0661       0.7320       1.0000       0.6930       0.3405       0.5632       0.5504       0.4556      -0.2355       0.0998
+NI_obs              0.5962      -0.0398       0.2370       0.6438       0.3299       0.3801       0.6930       1.0000       0.0355       0.7258       0.4281       0.6360      -0.4979       0.1144
+util_ND_obs         0.3430       0.2900       0.2852       0.1349      -0.1602       0.4726       0.3405       0.0355       1.0000       0.2647       0.8443       0.2500       0.1457      -0.6236
+util_D_obs          0.6755       0.2962       0.4727       0.7554       0.2017       0.4028       0.5632       0.7258       0.2647       1.0000       0.7403       0.5710      -0.2929      -0.1628
+util_obs            0.6145       0.3668       0.4615       0.5139       0.0005       0.5533       0.5504       0.4281       0.8443       0.7403       1.0000       0.4916      -0.0612      -0.5252
+D_obs               0.5092       0.1591       0.3825       0.5503       0.3347       0.3242       0.4556       0.6360       0.2500       0.5710       0.4916       1.0000      -0.8946       0.0083
+h_obs              -0.2778      -0.0166      -0.2213      -0.3837      -0.3404      -0.0869      -0.2355      -0.4979       0.1457      -0.2929      -0.0612      -0.8946       1.0000      -0.2774
+tech_obs            0.3325       0.3759       0.4289       0.3116      -0.1776       0.2633       0.0998       0.1144      -0.6236      -0.1628      -0.5252       0.0083      -0.2774       1.0000
+
+
+
+COEFFICIENTS OF AUTOCORRELATION
+Order                1        2        3        4        5
+Y_obs           0.7137   0.4965   0.3281   0.1971   0.0957
+Y_N_obs         0.4576   0.2919   0.1801   0.1007   0.0431
+SR_obs          0.5683   0.3699   0.2304   0.1287   0.0536
+I_obs           0.7062   0.4724   0.2893   0.1487   0.0430
+p_I_obs         0.1286   0.0784   0.0403   0.0118  -0.0090
+C_obs           0.7294   0.5435   0.4018   0.2870   0.1918
+NC_obs          0.5370   0.4140   0.3066   0.2144   0.1367
+NI_obs          0.2038   0.1258   0.0660   0.0210  -0.0121
+util_ND_obs     0.1773   0.1397   0.1042   0.0715   0.0424
+util_D_obs      0.4797   0.3100   0.1797   0.0814   0.0091
+util_obs        0.3659   0.2449   0.1497   0.0760   0.0200
+D_obs          -0.0450  -0.0417  -0.0387  -0.0358  -0.0331
+h_obs          -0.1127  -0.0922  -0.0746  -0.0597  -0.0472
+tech_obs        0.0628   0.0145  -0.0096  -0.0218  -0.0277
+Total computing time : 0h51m14s
+Note: 4 warning(s) encountered in the preprocessor
+Note: warning(s) encountered in MATLAB/Octave code

@@ -29,7 +29,7 @@ I_obs = sim(:, 4);
 p_I_obs = sim(:, 5);
 util_ND_obs = sim(:, 6);
 util_D_obs = sim(:, 7);
-save('artificial_data.mat', 'NC_obs', 'NI_obs', 'C_obs', 'I_obs', 'p_I_obs', 'util_ND_obs', 'util_D_obs');
+%save('artificial_data.mat', 'NC_obs', 'NI_obs', 'C_obs', 'I_obs', 'p_I_obs', 'util_ND_obs', 'util_D_obs');
 %%
 
 posterior_density = res.posterior_density.parameters;
@@ -71,8 +71,8 @@ save('CFEVD.mat', 'CFEVD');
 dynare BRS_sectoral_perfect_mobility.mod 
 res_pm = oo_;
 M_pm = M_;
-save('res_pm', 'res_pm');
-save('M_pm', 'M_pm');
+%save('res_pm', 'res_pm');
+%save('M_pm', 'M_pm');
 load res_pm
 load M_pm
 %FEVD_table = FEVD_sum(res_pm, M_pm);
@@ -81,18 +81,16 @@ load M_pm
 dynare BRS_sectoral_com_wage_markup.mod 
 res_cwm = oo_;
 M_cwm = M_;
-load res_cwm
-load M_cwm
 save('res_cwm', 'res_cwm');
 save('M_cwm', 'M_cwm');
+load res_cwm
+load M_cwm
 %FEVD_table = FEVD_sum(res_pm, M_pm);
 [out, HPD] = main_table(res_cwm, M_cwm);
 %% Remove investment adjustment cost 
 %dynare BRS_sectoral_wo_inv_adj_cost.mod 
 %% Remove fixed cost
 dynare BRS_sectoral_wo_fixed_cost.mod
-load res_wo_fc 
-load M_wo_fc
 res_wo_fc = oo_;
 M_wo_fc = M_;
 save('res_wo_fc', 'res_wo_fc');
@@ -100,18 +98,20 @@ save('M_wo_fc', 'M_wo_fc');
 %mom_bas = calc_moments(res);
 %save('mom_bas', 'mom_bas');
 % Main output
-FEVD_table = FEVD_sum(res_wo_fc, M_wo_fc);
+%FEVD_table = FEVD_sum(res_wo_fc, M_wo_fc);
+load res_wo_fc 
+load M_wo_fc
 [out, HPD] = main_table(res_wo_fc, M_wo_fc);
 
 
 %% Remove vcu
 dynare BRS_sectoral_wo_vcu.mod
-load res_wo_vcu
-load M_wo_vcu
 res_wo_vcu = oo_;
 M_wo_vcu = M_;
 save('res_wo_vcu', 'res_wo_vcu');
 save('M_wo_vcu', 'M_wo_vcu');
+load res_wo_vcu
+load M_wo_vcu
 [out, HPD] = main_table(res_wo_vcu, M_wo_vcu);
 
 %% Remove search demand shocks 
@@ -123,17 +123,18 @@ save('M_wo_vcu', 'M_wo_vcu');
 % save('res_wo_dem', 'res_wo_dem');
 % save('M_wo_dem', 'M_wo_dem');
 % mom_wo_dem = calc_moments(res_wo_dem)
-% [out, HPD] = main_table(res_wo_dem, M_wo_dem);
-% FEVD_table = FEVD_sum(res_wo_dem, M_wo_dem, '');
+load res_wo_dem
+load M_wo_dem
+[out, HPD] = main_table(res_wo_dem, M_wo_dem);
+%FEVD_table = FEVD_sum(res_wo_dem, M_wo_dem, '');
 %% Examine ability to fit data without utilization
 dynare BRS_sectoral_wo_dem_shocks_res.mod
-res_wo_dem_shock_res = oo_;
-M_wo_dem_shock_res = M_;
-save('res_wo_dem_shock_res', 'res_wo_dem_shock_res');
-save('M_wo_dem_shock_res', 'M_wo_dem_shock_res');
-%load res_KK
-%load M_KK
-%load res_KK.mat
+%res_wo_dem_shock_res = oo_;
+%M_wo_dem_shock_res = M_;
+%save('res_wo_dem_shock_res', 'res_wo_dem_shock_res');
+%save('M_wo_dem_shock_res', 'M_wo_dem_shock_res');
+load res_wo_dem_shock_res
+load M_wo_dem_shock_res
 mom_wo_dem_shock_res = calc_moments(res_wo_dem_shock_res);
 [out, HPD] = main_table(res_wo_dem_shock_res, M_wo_dem_shock_res);
 %FEVD_table = FEVD_sum(res_wo_dem_shock_res, M_wo_dem_shock_res, '');
