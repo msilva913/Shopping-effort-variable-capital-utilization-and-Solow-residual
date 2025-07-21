@@ -15,9 +15,8 @@ fred = Fred(api_key = 'd35aabd7dc07cd94481af3d1e2f0ecf3	')
 pd.set_option('display.precision', 2)
 #pd.options.display.float_format = '{:5,.4g}'.format
 # Get the parent directory of the current script
-os.chdir(r"C:\Users\msilv\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs")
+#os.chdir(r"C:\Users\msilv\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs")
 
-from time_series_functions import (moments, filter_transform, crosscorr)
 #import statsmodels
 #arima =  statsmodels.tsa.x13.x13_arima_analysis
 #path = r'C:\Users\TJSEM\Dropbox\Documents - Copy\Research\Consumption diversity, entry, and goods market frictions\Programs\Estimation'
@@ -82,7 +81,7 @@ def construct_data(freq):
     u = fred.get_series('UNRATE').resample(freq).mean().dropna()
     
     " Inflation rate: based on core CPE "
-    PCE = fred.get_series("PCEPILFE").resample(freq).mean().dropna()
+    PCE = fred.get_series("PCE").resample(freq).mean().dropna()
     pi = 100*np.log(PCE).diff()
     " List of data series "
     var_load_list = [util, u, pi] 
