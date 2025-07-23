@@ -32,7 +32,6 @@ def construct_data(init, final, freq):
 		- Nominal H: BLS PRS85006023
 		- Capacity utilization: Fed Board G.17, CAPUTL.B00004.S
 		- Relative price of investment: BEA B006RG
-		- Nonfarm Nominal Hourly Wage: BLS PRS85006103
 		- GDP Deflator: A191RD
     
     Sectoral data Tables B6 and B7
@@ -259,7 +258,7 @@ if __name__ == "__main__":
     years_fmt = mdates.DateFormatter('%Y')
     
         
-        
+    " Generate Figure B.10"
     linestyle = ['-', ':', '-.']
     # Hours
     fig, ax = plt.subplots(figsize=(11, 4))
