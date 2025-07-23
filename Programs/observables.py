@@ -126,7 +126,7 @@ def construct_data(init, final, freq):
     " Total factor productivity "
     dtfp = pd.read_csv('quarterly_tfp.csv', header=0, nrows=304, sep=';' )
     #dtfp = dtfp[dtfp['date'] < '2023:Q4']
-    date = pd.date_range(start='1947Q1', periods=dtfp.shape[0], freq='Q')
+    date = pd.date_range(start='1947Q1', periods=dtfp.shape[0], freq='QE')
     dtfp.index = date
     dtfp = dtfp[['dtfp', 'dtfp_util', 'dtfp_I', 'dtfp_C', 'dtfp_I_util', 'dtfp_C_util']]
     # Find cumulative sum of each series
@@ -171,8 +171,6 @@ if __name__ == "__main__":
     # Baseline
     init= '1964-01-01'
     final = '2019-12-30'
-    # Comparison to earlier BRS
-    #init = '1967-01-01'
     load = False
     #filter_type = 'hamilton'
     freq = 'QE'
@@ -294,10 +292,6 @@ if __name__ == "__main__":
     plt.savefig("utilization_comovement.pdf")
     plt.show()
     
-    
-    # fig, ax = plt.subplots()
-    # ax.plot(cycle.NE, label='NE', lw=2, alpha=0.6)
-    # plt.show()
     
     cycle.mean()
     
