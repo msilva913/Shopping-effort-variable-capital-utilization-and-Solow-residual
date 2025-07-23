@@ -11,7 +11,7 @@ addpath c:\dynare\6.3\matlab
 % BRS_sectoral 
 % BRS_growth_id 
 % BRS_util_mod 
-% BRS_sectoral with artificial data
+% BRS_sectoral_artificial_data.mod
 %%
 
 %% Main model estimated with sectoral data 
@@ -126,7 +126,7 @@ load M_wo_vcu
 [out, HPD] = main_table(res_wo_vcu, M_wo_vcu);
 
 %% Remove search demand shocks 
-% dynare BRS_sectoral_wo_demand_shocks.mod 
+dynare BRS_sectoral_wo_demand_shocks.mod 
 % load res_wo_dem
 % load M_wo_dem
 % res_wo_dem = oo_;
@@ -185,11 +185,10 @@ format short;
 table_ident = vertcat(summ_tables{1}, summ_tables{2})
 
 %% Proof of concept exercise in BRS
-%% Basic BRS (general replication)
 
 %% Basic BRS: estimate phi and eta
 dynare BRS_growth_id.mod
 %% estimate BRS with utilization data
-dynare BRS_util.mod 
+dynare BRS_util.mod
 
 

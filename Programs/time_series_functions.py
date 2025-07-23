@@ -29,47 +29,6 @@ def crosscorr(datax, datay, lag=0, wrap=False):
     else: 
         return datax.corr(datay.shift(lag))
 
-def plot_solution(dic_x, dic_y, sim_length=None, type='', suptitle ='', bins=20, freq='Quarterly'):
-    " Automatically adjust subplots to number of variables "
-    nvars = len(dic_y)
-    if nvars < 4: 
-        m, n = 1,3
-    if nvars == 4:
-        m, n = 2, 2
-    if 5 <= nvars <= 6:
-        m, n = 3, 2
-    if 7 <= nvars <= 9:
-        m, n = 3, 3
-    if 10 <= nvars <= 12:
-        m, n = 3, 4
-    if 13 <= nvars <= 16:
-        m, n = 4, 4
-    fig = plt.figure(figsize=(12, 12))
-    
-    for index_x, key_x in enumerate(dic_x):
-        for index, key in enumerate(dic_y):
-            k, l = np.unravel_index(index, (m, n))
-            ax = fig.add_subplot(m, n, index+1)
-            if type == 'plot':
-                ax.plot(dic_x[key_x], dic_y[key], label = key, lw=2)
-                ax.set_xlabel(key_x, fontsize=12)
-            elif type== 'scatter':
-                ax.scatter(dic_x[key_x], dic_y[key], label = key, lw=2)
-                ax.set_xlabel(key_x, fontsize=12)
-            elif type== 'hist':
-                ax.hist(dic_y[key], label = key, lw=2, bins=bins)
-                ax.set_xlabel('Value', fontsize=12)
-            else:
-                if sim_length is None:
-                    y = dic_y[key]
-                else:
-                    y = dic_y[key][0:sim_length]
-                T = range(len(y))
-                ax.plot(T, y, label = key, lw=2)
-                ax.set_xlabel(freq, fontsize=12)
-            ax.legend(loc='best')
-            fig.suptitle(suptitle, fontsize=18)
-    plt.show()
 
 
 def time_series_plot(dataframe, labels, nrows=2, ncols=3, figsize=(14, 10), loc='upper center', 

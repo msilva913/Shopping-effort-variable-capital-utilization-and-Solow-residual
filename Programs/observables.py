@@ -251,15 +251,35 @@ if __name__ == "__main__":
     # Moments from data in growth rates and Hamilton-filtered data
     save_object(mom_data, 'mom_data')
     
-    # Do plots
-    
+    " Figure 1 "
+    linestyle = ['-', ':', '-.']
     import matplotlib.dates as mdates
     years = mdates.YearLocator(5, month=1)
     years_fmt = mdates.DateFormatter('%Y')
+    fig, ax = plt.subplots(figsize=(11, 4))
+    ax.plot(100*cycle.util_D, linestyle[1], label= "Total capacity utilization: durables", lw=2, alpha=0.7, color="blue")
+    ax.plot(100*cycle.util_ND, linestyle[2], label= "Total capacity utilization: nondurables", lw=2, alpha=0.7, color="green")
+    ax.plot(100*cycle.util_Fern, linestyle[0], label="Fernald utilization measure", lw=2, alpha=0.7, color="red")
+    ax.plot(100*cycle.Y, label="Real output (consumption plus investment)", lw=2, alpha=0.6, color="black")
+    ax.legend(loc="upper right")
+    ax.xaxis.set_major_locator(years)
+    ax.xaxis.set_major_formatter(years_fmt)
+    ax.set_ylabel("%")
+    ax.grid(True)
+    plt.tight_layout()
+    plt.savefig("utilization_output.pdf")
+    plt.show()
+    
+    util_series = cycle[["util_Fern", "util", "Y"]]
+    mom_util = moments(100*util_series)
+    print(mom_util.to_latex())
+    
+    # Do plots
+    
     
         
     " Generate Figure B.10"
-    linestyle = ['-', ':', '-.']
+
     # Hours
     fig, ax = plt.subplots(figsize=(11, 4))
     ax.plot(100*cycle.NC, linestyle[0], label= "Hours: consumption", lw=2, alpha=0.7)
@@ -313,24 +333,7 @@ if __name__ == "__main__":
     
     
     
-    " Figure 1 "
-    fig, ax = plt.subplots(figsize=(11, 4))
-    ax.plot(100*cycle.util_D, linestyle[1], label= "Total capacity utilization: durables", lw=2, alpha=0.7, color="blue")
-    ax.plot(100*cycle.util_ND, linestyle[2], label= "Total capacity utilization: nondurables", lw=2, alpha=0.7, color="green")
-    ax.plot(100*cycle.util_Fern, linestyle[0], label="Fernald utilization measure", lw=2, alpha=0.7, color="red")
-    ax.plot(100*cycle.Y, label="Real output (consumption plus investment)", lw=2, alpha=0.6, color="black")
-    ax.legend(loc="upper right")
-    ax.xaxis.set_major_locator(years)
-    ax.xaxis.set_major_formatter(years_fmt)
-    ax.set_ylabel("%")
-    ax.grid(True)
-    plt.tight_layout()
-    plt.savefig("utilization_output.pdf")
-    plt.show()
-    
-    util_series = cycle[["util_Fern", "util", "Y"]]
-    mom_util = moments(100*util_series)
-    print(mom_util.to_latex())
+
     
     
    
