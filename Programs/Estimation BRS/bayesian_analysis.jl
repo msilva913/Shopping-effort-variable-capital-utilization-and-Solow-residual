@@ -12,8 +12,6 @@ using Dates, Distributions
 
 homedir()
 include("time_series_fun.jl")
-#cd(raw"C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS")
-#cd(raw"C:\Users\TJSEM\Github\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation BRS")
 cd(@__DIR__)
 
 posterior = matopen("posterior_density.mat")
@@ -136,7 +134,7 @@ ax1.set_ylim(0, max(maximum(νR_density), maximum(νR_prior_pdf)) * 1.1)
 # Adjust layout and display
 plt.tight_layout()
 display(fig)
-plt.savefig("posterior_prior_plots.pdf")
+#plt.savefig("posterior_prior_plots.pdf")
 
 
 function cumulate(x)
@@ -175,7 +173,7 @@ function irf_fun_plot(irf_array, vars_list, vars_list_label; shock, savefig=true
     if savefig
         figname = "irf_"*shock*".pdf"
     end
-    plt.savefig(figname)
+    #plt.savefig(figname)
 end
 
 function irf_fun_plot_grouped(irf_dic; shock, savefig=true)
@@ -207,7 +205,7 @@ function irf_fun_plot_grouped(irf_dic; shock, savefig=true)
     if savefig
         figname = "irf_"*shock*".pdf"
     end
-    plt.savefig(figname)
+    #plt.savefig(figname)
 end
 
 # Standard impulse responses: basic model

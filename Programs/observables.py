@@ -34,7 +34,6 @@ def construct_data(init, final, freq):
 		- Relative price of investment: BEA B006RG
 		- Nonfarm Nominal Hourly Wage: BLS PRS85006103
 		- GDP Deflator: A191RD
-		- Fed Funds rate: Fed Board H.15 (TB3MS for early sample)
     
     Sectoral data Tables B6 and B7
     B6: number of nonsupervisory employees
@@ -164,8 +163,6 @@ def construct_data(init, final, freq):
     var_load_list = [y, c, i, lc, li, l, lab_prod, p_I, SR, SR_util, util, util_D, util_ND] 
     return var_load_list
 
-        
-        
 
 if __name__ == "__main__":
     # Baseline

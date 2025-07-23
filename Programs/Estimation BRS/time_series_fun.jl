@@ -1,13 +1,9 @@
 
-using PyPlot
-using LaTeXStrings, KernelDensity
 using Parameters, CSV, Statistics, Random
 using DataFrames
 using ShiftedArrays
 using QuantEcon
-using MappedArrays
 using TexTables
-using TypedTables
 using GLM
 
 columns(M) = (view(M, :, i) for i in 1:size(M, 2))
