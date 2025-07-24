@@ -24,8 +24,8 @@ dynare BRS_sectoral.mod
 % Save results for further use
 res = oo_;
 M = M_;
-save('res', 'res');
-save('M', 'M');
+%save('res', 'res');
+%save('M', 'M');
 
 % Collect indices for selected variables
 var_labels = {'NC_obs', 'NI_obs', 'C_obs', 'I_obs', 'p_I_obs', 'util_ND_obs', 'util_D_obs'};
@@ -63,7 +63,6 @@ FEVD_tech  = decompose_technology(res, M);
 [out, HPD] = main_table(res, M);
 
 % Save smoothed variables and IRFs
-sv  = res.SmoothedVariables; save('sv', 'sv')
 irf = res.irfs; save('irf.mat', 'irf');
 %% ========================================================================
 

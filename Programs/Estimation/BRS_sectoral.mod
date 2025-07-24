@@ -1,8 +1,22 @@
+// ======================================================================
+// TABLE OF CONTENTS
+//   1. Variable Declarations
+//   2. Exogenous Shocks
+//   3. Parameter Declarations & Calibration
+//   4. Model Equations
+//   5. Steady State Block
+//   6. Shock Specifications
+//   7. Estimated Parameters & Priors
+//   8. Observation Variables
+//   9. Estimation Block
+//  10. LaTeX Output
+//  11. Stochastic Simulation
+// ======================================================================
 
-
-// define variables
-
-var Y           ${Y}$ (long_name='output')
+%% 1. VARIABLE DECLARATIONS
+// -------------------------
+var 
+    Y           ${Y}$ (long_name='output')
     C           ${C}$ (long_name='consumption')
     Y_mc        ${Y_{mc}}$ (long_name = 'consumption non-durable goods')
     Y_sc        $Y_{sc}}$ (long_name = 'consumption services')
@@ -138,27 +152,23 @@ var Y           ${Y}$ (long_name='output')
   
     ;
 
-varexo e_g ${e_g}$ (long_name= 'Labor-augmenting-technology growth shock')
-       e_Z ${e_Z}$ (long_name= 'TFP shock')
-       e_ZI ${e_{ZI}}$ (long_name= 'Investment-specific tech shock')
-       
-       e_N ${e_N}$ (long_name= 'Labor supply shock')
-
-       e_D ${e_D}$ (long_name = 'Shopping disutility shock')
-       e_DI ${e_DI}$ (long_name = 'Relative investment shopping disutility shock')
-
-       e_b ${e_b}$ (long_name = 'Discount factor shock')
-
-       e_muC ${e_{muC}}$ (long_name = 'Wage markup shock: C')
-       e_muI ${e_{muI}}$ (long_name = 'Wage markup shock: I')
-
-
-       % News shocks
-   
-   
+%% 2. EXOGENOUS SHOCKS
+// ---
+varexo
+    e_g     ${e_g}$     (long_name='TFP growth shock')
+    e_Z     ${e_Z}$     (long_name='TFP shock')
+    e_ZI    ${e_{ZI}}$  (long_name='Investment-specific tech shock')
+    e_N     ${e_N}$     (long_name='Labor supply shock')
+    e_D     ${e_D}$     (long_name='Shopping disutility shock')
+    e_DI    ${e_{DI}}$  (long_name='Relative investment shopping disutility shock')
+    e_b     ${e_b}$     (long_name='Discount factor shock')
+    e_muC   ${e_{muC}}$ (long_name='Wage markup shock: C')
+    e_muI   ${e_{muI}}$ (long_name='Wage markup shock: I')
     ;
     
-parameters 
+%% 3. PARAMETER DECLARATIONS & VALUES
+// ----------------------------------------
+parameters
     sigma    ${\sigma}$   (long_name= 'Risk aversion')
     beta  ${\beta}$    (long_name='Discount factor')
     g_bar  ${\overline{g}}$ (long_name = 'Quarterly trend growth rate')
@@ -180,7 +190,6 @@ parameters
     ha     ${ha}$ (long_name = 'Habit persistence')
 
     phi  ${\phi}$ (long_name = 'Shopping matching function elasticity')
-    //m    ${m}$    (long_name = 'Ratio of price dispersion to consumption dispersion')
     eta  ${\eta}$ (long_name = 'Shopping disutility')
     Psi  ${\Psi}$ (long_name = 'Matching utilization')
 
@@ -200,9 +209,7 @@ parameters
     N_ss
     ;
 
-%----------------------------------------------------------------
-% set parameter values 
-%----------------------------------------------------------------
+// --------- Parameterization ----------
 sigma = 2.0; % risk aversion
 beta = 0.99; % discount factor
 //r_ann = 0.04; % annual interest rate 
@@ -244,10 +251,8 @@ rho_b = 0.9;
 rho_muC = 0.9;
 rho_muI = 0.9;
 
-%----------------------------------------------------------------
-% enter model equations
-%----------------------------------------------------------------
-
+%% 4. MODEL EQUATIONS
+// ------------------
 model;
 % Dependent parameters
 #omega_mc = 1-omega_sc;
@@ -590,8 +595,9 @@ h_obs = log_h - log_h(-1);
 
 end;
 
+%% 5. STEADY STATE BLOCK
+// ---------------------
 steady_state_model;
-    //Do Calibration
     //Calibrate the model to N=0.3, annual interest rate, and normalizations
     N = N_ss;
     Y = 1.0;
@@ -747,15 +753,18 @@ steady_state_model;
 
 end;
 
-//set shock variances
+%% 6. SHOCK SPECIFICATIONS
+// -----------------------
 shocks;
-    var e_g=0.0072^2;
-    var e_Z = 0.0072^2;
-    var e_ZI=0.0072^2;
-    var e_N = 0.0072^2;
-    var e_D = 0.0072^2;
-    var e_b = 0.0072^2;
-    var e_DI = 0.0072^2;
+    var e_g   = 0.0072^2;
+    var e_Z   = 0.0072^2;
+    var e_ZI  = 0.0072^2;
+    var e_N   = 0.0072^2;
+    var e_D   = 0.0072^2;
+    var e_DI  = 0.0072^2;
+    var e_b   = 0.0072^2;
+    var e_muC = 0.0072^2;
+    var e_muI = 0.0072^2;
 end;
 
 // local identification
@@ -769,10 +778,11 @@ steady;
 check;
 
 
+%% 7. ESTIMATED PARAMETERS & PRIORS
+// ---------------------------------
 estimated_params;
 //x, init_value, lower bound, upper bound, prior shape, prior mean, prior std
 
-//sigma, 1.5, 1.0, gam_max,       BETA_PDF, 1.5, 0.25, 1.0, gam_max;
 sigma, 1.5, 1.0, 4.0,             BETA_PDF, 1.5, 0.25, 1.0, 4.0;
 ha, 0.5, 0.0, 0.95,           BETA_PDF, 0.5, 0.2;
 nu, 0.72, 0.05, 2.0,           GAMMA_PDF, 0.72, 0.25;
@@ -819,66 +829,47 @@ stderr e_b, 0.01, 0.0001, 0.4,  GAMMA_PDF, 0.01, 0.01;
 stderr e_muC, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 stderr e_muI, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 
-
-
-
-
 end;
 
 options_.TeX=1;
 
+%% 8. OBSERVATION VARIABLES
+// ------------------------
 varobs NC_obs, NI_obs, C_obs, I_obs, p_I_obs, util_ND_obs, util_D_obs;
 
 
+%% 9. ESTIMATION BLOCK
+// -------------------
 estimation(tex, optim=('MaxIter', 200), 
-datafile=observables_sectoral, 
-//mode_file=BRS_sectoral_mh_mode, %With _mh option uses mode after MCM run
-mode_file=BRS_sectoral_mh_mode,
-//nograph,
-load_mh_file, 
-//mh_recover,
-mcmc_jumping_covariance=hessian,
+    datafile=observables_sectoral, 
+    mode_file=BRS_sectoral_mh_mode,
+    load_mh_file, 
+    mcmc_jumping_covariance=hessian,
+    mode_compute=0,
+    presample=0, 
+    lik_init=2,
+    mh_jscale=0.006, 
+    mh_init_scale=0.0001,
+    mode_check, 
+    mh_replic=0,
+    mh_nblocks=2, 
+    mh_drop=0.3, 
+    prior_trunc=0)
+    Y_obs, Y_N_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_ND_obs, util_D_obs, SR_obs, util_obs, D_obs, h_obs;
 
-mode_compute=0,
-presample=0, 
-lik_init=2,
-mh_jscale=0.006, 
-mh_init_scale =0.0001,
-//mh_jscale=0.1,
-mode_check, 
-//mh_replic=100000, 
-mh_replic=0,
-mh_nblocks=2, 
-//bayesian_irf,
-//irf=100,
-mh_drop=0.3, 
-//moments_varendo,
-prior_trunc=0)
-Y_obs, Y_N_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_ND_obs, util_D_obs, SR_obs, util_obs, D_obs, h_obs;
-//log_Y, log_Y_N, log_I, log_p_I, log_C, log_N, log_NC, log_NI, util;
-
-
-
-%----------------------------------------------------------------
-% generate LaTeX output
-%----------------------------------------------------------------
-
+%% 10. LATEX OUTPUT
+// ----------------
 write_latex_dynamic_model;
 write_latex_parameter_table;
 write_latex_definitions;
 write_latex_prior_table;
-//generate_trace_plots(1);
+collect_latex_files;
 trace_plot(options_,M_,estim_params_,'DeepParameter',1,'phi');
 
-collect_latex_files;
-% if system(['pdflatex -halt-on-error -interaction=batchmode ' M_.fname '_TeX_binder.tex'])
-%     error('TeX-File did not compile.')
-% end
-
-
-% Stochastic simulation -> for conditional FEVD and IRF
-stoch_simul (order=1, nofunctions, irf=20, periods=223)
-Y_obs, Y_N_obs, SR_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_ND_obs, util_D_obs, util_obs, D_obs, h_obs, tech_obs;
-//log_Y, log_Y_N, log_SR, log_I, log_p_I, log_C, log_N, log_NC, log_NI, log_util_ND, log_util_D, log_util, log_D, log_h, log_tech;
-
-
+%% 11. STOCHASTIC SIMULATION
+// -------------------------
+% Simulate with periods=0 to obtain unconditional moments
+stoch_simul(order=1, nofunctions, irf=20, periods=0)
+% Use periods=223 to simulate artificial data (to be used for identification analysis)
+%stoch_simul(order=1, nofunctions, irf=20, periods=223)
+    Y_obs, Y_N_obs, SR_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_ND_obs, util_D_obs, util_obs, D_obs, h_obs, tech_obs;

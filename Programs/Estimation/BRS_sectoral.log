@@ -246,22 +246,22 @@ EIGENVALUES:
          Modulus             Real        Imaginary
                0                0                0
                0                0                0
-        2.15e-18         2.15e-18                0
-       2.543e-18       -2.543e-18                0
-       6.024e-18       -6.024e-18                0
-       1.315e-17       -1.315e-17                0
-       3.588e-17        3.588e-17                0
-       3.874e-17        3.874e-17                0
-        4.46e-17        -4.46e-17                0
-       5.141e-17       -5.141e-17                0
-       5.185e-17       -5.185e-17                0
-       5.212e-17        5.212e-17                0
-       6.644e-17        6.644e-17                0
-       1.854e-16        1.854e-16                0
-       2.941e-16        2.941e-16                0
-       4.081e-16        4.081e-16                0
-       5.727e-16       -5.727e-16                0
-       7.733e-16       -7.733e-16                0
+       2.001e-19       -2.001e-19                0
+        9.79e-19        -9.79e-19                0
+       1.658e-18       -1.658e-18                0
+       2.664e-18        2.664e-18                0
+       8.391e-18        8.391e-18                0
+       1.533e-17       -1.533e-17                0
+       1.821e-17       -1.821e-17                0
+       3.201e-17        3.201e-17                0
+       4.424e-17       -4.424e-17                0
+       4.525e-17       -4.525e-17                0
+       5.766e-17        5.766e-17                0
+       1.204e-16        1.204e-16                0
+       1.933e-16        1.933e-16                0
+       2.808e-16       -2.808e-16                0
+       4.891e-16       -4.891e-16                0
+       1.417e-15        1.417e-15                0
              0.1              0.1                0
           0.5872           0.5872                0
              0.9              0.9                0
@@ -283,25 +283,26 @@ EIGENVALUES:
            1.081            1.078           0.0752
            1.081            1.078          -0.0752
            1.728            1.728                0
-       4.157e+15        4.157e+15                0
-       6.974e+16       -6.974e+16                0
-       6.976e+16       -6.976e+16                0
-       8.181e+16       -8.181e+16                0
-       2.392e+17        2.392e+17                0
-       2.448e+17        2.448e+17                0
-       3.378e+17        3.378e+17                0
-       3.749e+17        3.749e+17                0
-       4.167e+17       -4.167e+17                0
-       8.222e+17        8.222e+17                0
-       1.117e+18        1.117e+18                0
-       9.712e+19        9.712e+19                0
-       4.057e+21       -4.057e+21                0
-        4.46e+21         4.46e+21                0
+       1.698e+16        1.698e+16                0
+       1.048e+17        1.048e+17                0
+       1.296e+17        1.296e+17                0
+       1.334e+17        1.334e+17                0
+       1.408e+17        1.408e+17                0
+       3.093e+17        3.093e+17                0
+       3.649e+17        3.649e+17                0
+       3.781e+17        3.781e+17                0
+       2.521e+18       -2.521e+18                0
+       3.168e+18        3.168e+18                0
+       2.722e+19       -2.722e+19                0
+       5.317e+45        5.317e+45                0
+       2.058e+46       -2.058e+46                0
+             Inf             -Inf                0
 
 There are 20 eigenvalue(s) larger than 1 in modulus for 20 forward-looking variable(s)
 The rank condition is verified.
 
 
+[Warning: Exported image displays axes toolbar. To remove axes toolbar from image, export again.] 
 Initial value of the log posterior (or likelihood): 4669.1515
 
 MODE CHECK
@@ -636,3 +637,6 @@ h_obs                      0.13             15.38              2.24             
 tech_obs                  10.76             66.45             11.70              0.00              0.00              0.00              0.00              0.00              0.00             88.91
 Note: numbers do not add up to 100 due to non-zero correlation of simulated shocks in small samples
 
+Total computing time : 0h19m41s
+Note: 4 warning(s) encountered in the preprocessor
+Note: warning(s) encountered in MATLAB/Octave code
