@@ -8,11 +8,14 @@ import statsmodels.api as sm
 from fredapi import Fred
 import pickle
 fred = Fred(api_key = 'd35aabd7dc07cd94481af3d1e2f0ecf3	')
+import matplotlib.dates as mdates
 #from statsmodels.tsa.arima_model import ARMA
 pd.set_option('display.precision', 2)
 #pd.options.display.float_format = '{:5,.4g}'.format
 
 from time_series_functions import (moments, filter_transform)
+years = mdates.YearLocator(5, month=1)
+years_fmt = mdates.DateFormatter('%Y')
 #import statsmodels
 #arima =  statsmodels.tsa.x13.x13_arima_analysis
 #path = r'C:\Users\TJSEM\Dropbox\Documents - Copy\Research\Consumption diversity, entry, and goods market frictions\Programs\Estimation'
@@ -253,9 +256,11 @@ if __name__ == "__main__":
     
     " Figure 1 "
     linestyle = ['-', ':', '-.']
-    import matplotlib.dates as mdates
-    years = mdates.YearLocator(5, month=1)
-    years_fmt = mdates.DateFormatter('%Y')
+    
+        
+    " Compare Fernald utilization vs capacity utilization "
+    cycle["util_Fern"] = cycle.SR - cycle.SR_util
+    
     fig, ax = plt.subplots(figsize=(11, 4))
     ax.plot(100*cycle.util_D, linestyle[1], label= "Total capacity utilization: durables", lw=2, alpha=0.7, color="blue")
     ax.plot(100*cycle.util_ND, linestyle[2], label= "Total capacity utilization: nondurables", lw=2, alpha=0.7, color="green")
@@ -326,10 +331,6 @@ if __name__ == "__main__":
     plt.tight_layout()
     ax.legend(fontsize=11)
     plt.savefig("TFP_comparison.pdf")
-    
-    
-    " Compare Fernald utilization vs capacity utilization "
-    cycle["util_Fern"] = cycle.SR - cycle.SR_util
     
     
     
