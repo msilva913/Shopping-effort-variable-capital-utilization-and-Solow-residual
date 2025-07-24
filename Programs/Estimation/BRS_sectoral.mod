@@ -565,7 +565,7 @@ log_SR = log(SR) - steady_state(log(SR));
 [name = 'Definition of log technology']
 log_tech = log(tech) - steady_state(log(tech));
 
-% Observation variables: first differences (demeaned) -> link to data in first differences (p. 58 of Pfeifer's Observation Equations)
+% Observation variables: first differences (demeaned) -> link to data(p. 58 of Pfeifer's Observation Equations)
 C_obs = log_C - log_C(-1) + g - g_bar ;
 I_obs = log_I - log_I(-1) + g - g_bar ;
 Y_obs = log_Y - log_Y(-1) + g - g_bar ;
@@ -819,9 +819,7 @@ stderr e_b, 0.01, 0.0001, 0.4,  GAMMA_PDF, 0.01, 0.01;
 stderr e_muC, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 stderr e_muI, 0.01, 0.0001, 0.2,  GAMMA_PDF, 0.01, 0.01;
 
-//stderr w_obs, 0.01, 0.0001, 0.05,  GAMMA_PDF, 0.01, 0.01;
 
-% news
 
 
 
@@ -883,5 +881,4 @@ stoch_simul (order=1, nofunctions, irf=20, periods=223)
 Y_obs, Y_N_obs, SR_obs, I_obs, p_I_obs, C_obs, NC_obs, NI_obs, util_ND_obs, util_D_obs, util_obs, D_obs, h_obs, tech_obs;
 //log_Y, log_Y_N, log_SR, log_I, log_p_I, log_C, log_N, log_NC, log_NI, log_util_ND, log_util_D, log_util, log_D, log_h, log_tech;
 
-% Save artificial data 
-save('artificial_data.mat', 'NC_obs', 'NI_obs', 'C_obs', 'I_obs', 'p_I_obs', 'util_ND_obs', 'util_D_obs');
+
