@@ -250,11 +250,9 @@ posterior_mean = posterior_mean_dict["posterior_mean"]
 ν_R = posterior_mean["nu_R"]
 ha = posterior_mean["ha"]
 
-
 # Populate targets with parameters evaluated at posterior mean
 targets = Targets(σ=σ, ζ=ζ, ϕ=ϕ, η=η, ν_R=ν_R, ha=ha)
 para = calibrate(targets)
-
 
 " Generate Table 2 "
 tab = gen_table(para, targets)
@@ -266,13 +264,12 @@ shopping_con = ϕ/(ϕ+cap_share)
 
 @unpack W, N, Y_mc, Y_sc, C, I, Y, r, ν_mc, ν_sc, ν_i, N_c, N_i, δ, K, K_mc, K_sc, K_i, ω_sc, D_sc, D_i = para
 @unpack g_bar, labor_share, ν_R, Ψ_j, ν_R, p_i, K_Y, I_Y, ϕ, S_c = targets
-#γ_max = log(1+r)/g_bar
 
 # Tests 
 @assert Y_sc/C ≈ S_c ≈ ω_sc
 @show W*N/Y - labor_share
 @show Ψ_j*ν_mc/Y_mc - ν_R
-@show Ψ_j ν_sc/Y_sc - ν_R
+@show Ψ_j*ν_sc/Y_sc - ν_R
 @show Ψ_j*ν_i/I - ν_R
 @show D_sc/D_i - S_c*(1-I_Y)/I_Y
 @show K - K_mc - K_sc - K_i
