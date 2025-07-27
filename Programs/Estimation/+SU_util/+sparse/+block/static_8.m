@@ -1,0 +1,24 @@
+function [y, T] = static_8(y, x, params, sparse_rowval, sparse_colval, sparse_colptr, T)
+  y(26)=T(23);
+  y(25)=T(15);
+  y(5)=y(6)+y(7);
+  y(31)=log(y(8))-(log(y(8)));
+  y(1)=y(2)+params(16)*y(3);
+  y(28)=log(y(1))-(log(y(1)));
+  y(27)=y(25)*y(2)/(y(2)+y(3))+y(26)*y(3)/(y(2)+y(3));
+  T(29)=T(3)^(1-params(7));
+  T(30)=y(6)^(1-params(7))*y(9)^params(7);
+  T(31)=y(7)^(1-params(7))*y(10)^params(7);
+  y(4)=T(29)*(y(2)*y(2)/y(1)/T(30)+y(3)*y(3)/y(1)/T(31));
+  y(40)=log(y(26))-(log(y(26)));
+  y(39)=log(y(25))-(log(y(25)));
+  y(38)=log(y(27))-(log(y(27)));
+  y(37)=log(y(23))-(log(y(23)));
+  y(36)=log(y(19))-(log(y(19)));
+  y(35)=log(y(4))-(log(y(4)));
+  y(34)=y(28)-y(31);
+  y(33)=log(y(10))-(log(y(10)));
+  y(32)=log(y(9))-(log(y(9)));
+  y(30)=log(y(3))-(log(y(3)));
+  y(29)=log(y(2))-(log(y(2)));
+end

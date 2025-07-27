@@ -1,0 +1,302 @@
+Starting Dynare (version 6.3).
+Calling Dynare with arguments: none
+Starting preprocessing of the model file ... 
+WARNING: in the 'steady_state_model' block, variable 'log_h' is not assigned a value 
+WARNING: in the 'steady_state_model' block, variable 'h_obs' is not assigned a value 
+Found 100 equation(s). 
+Evaluating expressions... 
+Computing static model derivatives (order 1). 
+Normalizing the static model... 
+Finding the optimal block decomposition of the static model... 
+10 block(s) found: 
+  8 recursive block(s) and 2 simultaneous block(s). 
+  the largest simultaneous block has 39 equation(s) 
+                                 and 39 feedback variable(s). 
+Computing dynamic model derivatives (order 1). 
+Normalizing the dynamic model... 
+Finding the optimal block decomposition of the dynamic model... 
+4 block(s) found: 
+  2 recursive block(s) and 2 simultaneous block(s). 
+  the largest simultaneous block has 50 equation(s) 
+                                 and 42 feedback variable(s). 
+Preprocessing completed. 
+Preprocessing time: 0h00m00s.
+
+
+Residuals of the static equations:
+Equation number   1: Labor composite                                    :       0.000000
+Equation number   2: Labor leisure:C                                    :       0.000000
+Equation number   3: Labor leisure:I                                    :       0.000000
+Equation number   4: Marginal utility of wealth                         :       0.000000
+Equation number   5: Demand curve: mc                                   :       0.000000
+Equation number   6: Demand curve: sc                                   :       0.000000
+Equation number   7: Shopping:mc                                        :       0.000000
+Equation number   8: Shopping:sc                                        :       0.000000
+Equation number   9: Shopping:I                                         :       0.000000
+Equation number  10: Composite utility term                             :       0.000000
+Equation number  11: Consumption CES aggregator                         :       0.000000
+Equation number  12: Investment adjustment cost function:mc             :       0.000000
+Equation number  13: Investment adjustment cost function:mc             :       0.000000
+Equation number  14: Investment adjustment cost function:I              :       0.000000
+Equation number  15: Investment adjustment cost function: derivative mc :       0.000000
+Equation number  16: Investment adjustment cost function: derivative mc :       0.000000
+Equation number  17: Investment adjustment cost function: derivative I  :       0.000000
+Equation number  18: Investment growth:mc                               :       0.000000
+Equation number  19: Investment growth:mc                               :       0.000000
+Equation number  20: Investment growth:I                                :       0.000000
+Equation number  21: Depreciation rate: mc                              :       0.000000
+Equation number  22: Depreciation rate: sc                              :       0.000000
+Equation number  23: Depreciation rate: I                               :       0.000000
+Equation number  24: Depreciation rate derivative: mc                   :       0.000000
+Equation number  25: Depreciation rate derivative: sc                   :       0.000000
+Equation number  26: Depreciation rate derivative: I                    :       0.000000
+Equation number  27: Tobins Q: mc                                       :       0.000000
+Equation number  28: Tobins Q: sc                                       :       0.000000
+Equation number  29: Tobins Q: I                                        :       0.000000
+Equation number  30: Euler equation: mc                                 :       0.000000
+Equation number  31: Euler equation: sc                                 :       0.000000
+Equation number  32: Euler equation: I                                  :       0.000000
+Equation number  33: Utilization: mc                                    :       0.000000
+Equation number  34: Utilization: sc                                    :       0.000000
+Equation number  35: Utilization: I                                     :       0.000000
+Equation number  36: Non-durable goods production                       :       0.000000
+Equation number  37: Services production                                :       0.000000
+Equation number  38: Investment production                              :       0.000000
+Equation number  39: Capital law of motion:mc                           :       0.000000
+Equation number  40: Capital law of motion:sc                           :       0.000000
+Equation number  41: Capital law of motion:I                            :       0.000000
+Equation number  42: Labor demand:mc                                    :       0.000000
+Equation number  43: Labor demand:sc                                    :       0.000000
+Equation number  44: Labor demand:I                                     :       0.000000
+Equation number  45: Capital demand:mc                                  :       0.000000
+Equation number  46: Capital demand:sc                                  :       0.000000
+Equation number  47: Capital demand:I                                   :       0.000000
+Equation number  48: Labor composition                                  :       0.000000
+Equation number  49: Labor composition: C                               :       0.000000
+Equation number  50: Capital composition                                :       0.000000
+Equation number  51: Investment composition                             :       0.000000
+Equation number  52: Shopping composition                               :       0.000000
+Equation number  53: Capital utilization composition                    :       0.000000
+Equation number  54: Aggregate wage                                     :       0.000000
+Equation number  55: Output (base-year prices)                          :       0.000000
+Equation number  56: Solow residual                                     :       0.000000
+Equation number  57: Capacity utilization                               :       0.000000
+Equation number  58: util_sc                                            :       0.000000
+Equation number  59: util_D                                             :       0.000000
+Equation number  60: util                                               :       0.000000
+Equation number  61: stochastic trend process                           :       0.000000
+Equation number  62: Stationary TFP process                             :       0.000000
+Equation number  63: Independent component of I-specific tech           :       0.000000
+Equation number  64: Investment-specific TFP process                    :       0.000000
+Equation number  65: Labor supply process                               :       0.000000
+Equation number  66: Consumption preference process                     :       0.000000
+Equation number  67: Wage-markup process: C                             :       0.000000
+Equation number  68: Wage-markup process: I                             :       0.000000
+Equation number  69: Definition log output                              :       0.000000
+Equation number  70: Definition log consumption                         :       0.000000
+Equation number  71: Definition log investment                          :       0.000000
+Equation number  72: Definition log hours                               :       0.000000
+Equation number  73: log_NC                                             :       0.000000
+Equation number  74: log_NI                                             :       0.000000
+Equation number  75: log capital                                        :       0.000000
+Equation number  76: Definition log labor productivity                  :       0.000000
+Equation number  77: Definition log shopping effort                     :       0.000000
+Equation number  78: Definition log capital utilization                 :       0.000000
+Equation number  79: Definition of log relative investment  price       :       0.000000
+Equation number  80: Definition of log capacity utilization             :       0.000000
+Equation number  81: log_util_ND                                        :       0.000000
+Equation number  82: log_util_D                                         :       0.000000
+Equation number  83: Definition of log wages                            :       0.000000
+Equation number  84: Definition of log Solow residual                   :       0.000000
+Equation number  85: C_obs                                              :       0.000000
+Equation number  86: I_obs                                              :       0.000000
+Equation number  87: Y_obs                                              :       0.000000
+Equation number  88: Y_N_obs                                            :       0.000000
+Equation number  89: K_obs                                              :       0.000000
+Equation number  90: w_obs                                              :       0.000000
+Equation number  91: SR_obs                                             :       0.000000
+Equation number  92: p_I_obs                                            :       0.000000
+Equation number  93: N_obs                                              :       0.000000
+Equation number  94: NC_obs                                             :       0.000000
+Equation number  95: NI_obs                                             :       0.000000
+Equation number  96: util_ND_obs                                        :       0.000000
+Equation number  97: util_D_obs                                         :       0.000000
+Equation number  98: util_obs                                           :       0.000000
+Equation number  99: D_obs                                              :       0.000000
+Equation number 100: h_obs                                              :       0.000000
+
+
+
+STEADY-STATE RESULTS:
+
+Y           		 1
+C           		 0.8
+Y_mc        		 0.28
+Y_sc        		 0.52
+SR          		 1.01547
+I           		 0.2
+I_mc        		 0.056
+I_sc        		 0.104
+I_I         		 0.04
+K           		 11.0496
+K_mc        		 3.09389
+K_sc        		 5.7458
+K_I         		 2.20992
+N           		 0.3
+N_mc        		 0.084
+N_sc        		 0.156
+N_C         		 0.24
+N_I         		 0.06
+N_comp      		 0.3
+Z_C         		 0
+u_ZI        		 0
+Z_I         		 0
+theta_N     		 0
+theta_b     		 0
+mu_C        		 0
+mu_I        		 0
+R_mc        		 0.0483892
+R_sc        		 0.0483892
+R_I         		 0.0483892
+W_C         		 2.23333
+W_I         		 2.23333
+W           		 2.23333
+h_mc        		 1
+h_sc        		 1
+h_I         		 1
+h           		 1
+delta_mc    		 0.0136717
+delta_sc    		 0.0136717
+delta_I     		 0.0136717
+delta_mc_pr 		 0.0329046
+delta_sc_pr 		 0.0329046
+delta_I_pr  		 0.0329046
+Smc         		 0
+Ssc         		 0
+Si          		 0
+Smc_pr      		 0
+Ssc_pr      		 0
+Si_pr       		 0
+D           		 0.827037
+D_mc        		 0.23157
+D_sc        		 0.430059
+D_I         		 0.165407
+Gam         		 0.500826
+p_mc        		 1
+p_sc        		 1
+p_I         		 1
+lam         		 2.71103
+Q_mc        		 1.47059
+Q_sc        		 1.47059
+Q_I         		 1.47059
+x_mc        		 1.00451
+x_sc        		 1.00451
+x_I         		 1.00451
+log_SR      		 0
+util        		 0.81
+util_ND     		 0.81
+util_sc     		 0.81
+util_D      		 0.81
+g           		 0.0045
+log_Y       		 0
+log_C       		 0
+log_I       		 0
+log_N       		 0
+log_NC      		 0
+log_NI      		 0
+log_K       		 0
+log_Y_N     		 0
+log_D       		 0
+log_h       		 0
+log_p_I     		 0
+log_util    		 0
+log_util_ND 		 0
+log_util_D  		 0
+log_W       		 0
+C_obs       		 0
+I_obs       		 0
+Y_obs       		 0
+SR_obs      		 0
+Y_N_obs     		 0
+p_I_obs     		 0
+N_obs       		 0
+NC_obs      		 0
+NI_obs      		 0
+util_ND_obs 		 0
+util_D_obs  		 0
+util_obs    		 0
+w_obs       		 0
+D_obs       		 0
+h_obs       		 0
+K_obs       		 0
+
+EIGENVALUES:
+         Modulus             Real        Imaginary
+               0                0                0
+               0                0                0
+       2.234e-18       -2.234e-18                0
+        3.44e-18        -3.44e-18                0
+       6.344e-18        6.344e-18                0
+        1.04e-17        -1.04e-17                0
+       1.238e-17        1.238e-17                0
+       1.291e-17        1.291e-17                0
+        9.28e-17        -9.28e-17                0
+        1.14e-16         1.14e-16                0
+       1.154e-16       -1.154e-16                0
+       1.164e-16        1.164e-16                0
+       2.457e-16       -2.457e-16                0
+       2.635e-16       -2.635e-16                0
+       2.708e-16        2.708e-16                0
+       3.688e-16        3.688e-16                0
+         0.07443          0.07443                0
+             0.1              0.1                0
+          0.5849           0.5849                0
+             0.9              0.9                0
+             0.9              0.9                0
+             0.9              0.9                0
+             0.9              0.9                0
+             0.9              0.9                0
+             0.9              0.9                0
+          0.9387           0.9364          0.06531
+          0.9387           0.9364         -0.06531
+          0.9406           0.9385          0.06314
+          0.9406           0.9385         -0.06314
+          0.9933           0.9933                0
+           1.022            1.022                0
+           1.079            1.076          0.07244
+           1.079            1.076         -0.07244
+           1.081            1.078           0.0752
+           1.081            1.078          -0.0752
+            1.74             1.74                0
+       5.804e+15       -5.804e+15                0
+       1.569e+16       -1.569e+16                0
+       2.316e+17       -2.316e+17                0
+       2.472e+17        2.472e+17                0
+       2.516e+17       -2.516e+17                0
+       2.548e+17        2.548e+17                0
+       1.416e+18       -1.416e+18                0
+       1.605e+18        1.605e+18                0
+        2.43e+18         2.43e+18                0
+       5.012e+18        5.012e+18                0
+       5.038e+19        5.038e+19                0
+       1.287e+45       -1.287e+45                0
+       1.398e+46        1.398e+46                0
+             Inf              Inf                0
+
+There are 20 eigenvalue(s) larger than 1 in modulus for 20 forward-looking variable(s)
+The rank condition is verified.
+
+
+The 'mode_file' SU_sectoral_wo_demand_shocks_mh_mode has been generated using another specification of the model or another model!
+Your file contains estimates for 33 parameters, while you are attempting to estimate only 25 parameters:
+    {'--> Estimated parameter '}    {'Psi_K'}    {' is not present in the …'}
+
+--> Parameter e_g_news is not estimated according to the current mod file.
+--> Parameter e_Z_news is not estimated according to the current mod file.
+--> Parameter e_ZI_news is not estimated according to the current mod file.
+--> Parameter e_b_news is not estimated according to the current mod file.
+--> Parameter e_muC_news is not estimated according to the current mod file.
+--> Parameter e_muI_news is not estimated according to the current mod file.
+--> Parameter gam is not estimated according to the current mod file.
+--> Parameter Psi_C is not estimated according to the current mod file.
+--> Parameter Psi_I is not estimated according to the current mod file.
