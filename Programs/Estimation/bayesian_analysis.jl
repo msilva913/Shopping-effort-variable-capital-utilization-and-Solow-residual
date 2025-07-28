@@ -80,7 +80,7 @@ gamma_prior_pdf = pdf(beta_dist, η_x)
 α, β = beta_map(0.2, 0.1)
 beta_dist = Beta(α, β)
 νR_x = 0:0.01:1
-νR_prior_pdf = pdf(beta_dist, νR_x )
+νR_prior_pdf = pdf(beta_dist, νR_x)
 
 # Distribution: structural parameters
 key_map = ["σ_a", "ζ", "η", "ρ_ZI", "ρ_N", "ρ_D", "θ", "Ψ_K", "ρ_C", "ρ_g"]
@@ -138,17 +138,17 @@ display(fig)
 
 
 function cumulate(x)
-    irf_levels = 100*cumsum(x)
-    irf_levels =  cat(zeros(1), irf_levels, dims=1)
+    irf_levels = 100 * cumsum(x)
+    irf_levels = cat(zeros(1), irf_levels, dims=1)
 end
 
 extract_series(str, dic::Dict) = vec(dic[str])
 
-function irf_fun(vars, irf_dic; shock="e_D", length=20)
+function irf_fun(vars, irf_dic; shock="e_D", length=20, cumulate_resp=false)
     periods = 1:length
     irf_array = []
     for (i, key) in enumerate(vars)
-        str = key*"_"*shock
+        str = key * "_" * shock
         irf = irf_dic[str]
         push!(irf_array, irf)
     end
@@ -156,24 +156,27 @@ function irf_fun(vars, irf_dic; shock="e_D", length=20)
 end
 
 function irf_fun_plot(irf_array, vars_list, vars_list_label; shock, savefig=true)
-    fig = plt.figure(figsize=(16, 10))
-    periods = 1:length(irf_array[1][:])
+    n_vars = length(vars_list)
+    n_cols = 3
+    n_rows = ceil(Int, n_vars / n_cols)
+
+    fig = plt.figure(figsize=(16, 4 * n_rows))
     periods = 1:length(irf_array[1])
     for (i, key) in enumerate(vars_list)
         irf = transpose(irf_array[i])
-        ax = fig.add_subplot(3, 3, i)
-        ax.plot(periods, 100*irf, linewidth=3, color="teal")
+        ax = fig.add_subplot(n_rows, n_cols, i)
+        ax.plot(periods, 100 * irf, linewidth=3, color="teal")
         ax.tick_params(labelsize=12)
         ax.yaxis.set_major_formatter(matplotlib.ticker.PercentFormatter())
         ax.set_title(vars_list_label[i])
-        plt.tight_layout()
-        fig.suptitle("A 1 standard-deviation shock to "*shock, fontsize=14)
-    end 
+    end
+    plt.tight_layout()
+    fig.suptitle("A 1 standard-deviation shock to " * shock, fontsize=14)
     display(fig)
     if savefig
-        figname = "irf_"*shock*".pdf"
+        figname = "irf_" * shock * ".pdf"
+        # plt.savefig(figname)
     end
-    #plt.savefig(figname)
 end
 
 function irf_fun_plot_grouped(irf_dic; shock, savefig=true)
@@ -193,17 +196,17 @@ function irf_fun_plot_grouped(irf_dic; shock, savefig=true)
         ax.yaxis.set_major_formatter(matplotlib.ticker.PercentFormatter())
         for (i, key) in enumerate(list)
             irf = transpose(irf_dic[key])
-            ax.plot(periods, 100*irf, linewidth=3, label=key, linestyle = linestyles[i], alpha=0.7)
+            ax.plot(periods, 100 * irf, linewidth=3, label=key, linestyle=linestyles[i], alpha=0.7)
             ax.legend()
             #ax.set_title(vars_list_label[i])
             j += 1
-        end 
+        end
     end
-    fig.suptitle("A 1 standard-deviation shock to "*shock, fontsize=14)
+    fig.suptitle("A 1 standard-deviation shock to " * shock, fontsize=14)
     plt.tight_layout()
     display(fig)
     if savefig
-        figname = "irf_"*shock*".pdf"
+        figname = "irf_" * shock * ".pdf"
     end
     #plt.savefig(figname)
 end
@@ -216,92 +219,92 @@ vars_list_label = [:C, :I, :N_C, :N_I, :util_ND, :util_D, :util, :SR, :D, :h, :p
 
 x = matopen("irf.mat")
 vars = read(x, "irf")
-irf_dic  = vars
+irf_dic = vars
 
 
 
 # Shopping preference shock
-irf_array = irf_fun(vars_list, irf_dic, shock="e_D", length=20 )
+irf_array = irf_fun(vars_list, irf_dic, shock="e_D", length=20)
 irf_dic_spec = Dict(zip(vars_list_label, irf_array))
 irf_fun_plot_grouped(irf_dic_spec; shock="e_D")
 
 # Stationary technology shock
-irf_array = irf_fun(vars_list, irf_dic, shock="e_Z", length=20 )
+irf_array = irf_fun(vars_list, irf_dic, shock="e_Z", length=20)
 irf_dic_spec = Dict(zip(vars_list_label, irf_array))
 irf_fun_plot_grouped(irf_dic_spec; shock="e_Z")
 
 # Discount factor shock
-irf_array = irf_fun(vars_list, irf_dic, shock="e_b", length=20 )
+irf_array = irf_fun(vars_list, irf_dic, shock="e_b", length=20)
 irf_dic_spec = Dict(zip(vars_list_label, irf_array))
 irf_fun_plot_grouped(irf_dic_spec; shock="e_b")
 
 # Permanent technology shock
-irf_array = irf_fun(vars_list, irf_dic, shock="e_g", length=20 )
+irf_array = irf_fun(vars_list, irf_dic, shock="e_g", length=20)
 irf_dic_spec = Dict(zip(vars_list_label, irf_array))
 irf_fun_plot_grouped(irf_dic_spec; shock="e_g")
 
 
 
 # In levels
-irf_array = irf_fun(vars_list, irf_dic, shock="e_b", length=20, cumulate_resp=true )
+irf_array = irf_fun(vars_list, irf_dic, shock="e_b", length=20, cumulate_resp=true)
 irf_fun_plot(irf_array, vars_list, vars_list_label; shock="e_b", savefig=false)
 
 # I-specific shopping shock
-irf_array = irf_fun(vars_list, irf_dic, shock="e_DI", length=20 )
+irf_array = irf_fun(vars_list, irf_dic, shock="e_DI", length=20)
 irf_fun_plot(irf_array, vars_list, vars_list_label; shock="e_DI")
 # Shopping preference shock
 
 
 # Wage markup shock
 
-irf_array = irf_fun(vars_list, irf_dic, shock="e_muC", length=20 )
+irf_array = irf_fun(vars_list, irf_dic, shock="e_muC", length=20)
 irf_fun_plot(irf_array, vars_list, vars_list_label; shock="e_muC")
 
-irf_array = irf_fun(vars_list, irf_dic, shock="e_muI", length=20 )
+irf_array = irf_fun(vars_list, irf_dic, shock="e_muI", length=20)
 irf_fun_plot(irf_array, vars_list, vars_list_label; shock="e_muI")
 
 ## Smoothed variables
 sv = matopen("sv.mat")
 sv = read(sv, "sv")
-pprint(keys(sv))
+print(keys(sv))
 
 
 # 1. Subplot of shopping effort and utilization series
 # 2. Subplot decomposing utilization
 # 3. Subplot expressing utilization and Solow residual in growth rates
 
-# Create datetime object 
+# Create datetime object
 # Create a range of dates starting from 1964 Q1
 start_date = Date(1964, 1, 1)
 end_date = start_date + Dates.Quarter(222)  # 223 elements long
 date_range = collect(start_date:Dates.Quarter(1):end_date)
 
-D, D_obs, util, util_obs, C_obs, tech_obs, SR_obs, util_ND, util_D, util_sc = 
-    [100 * vec(sv[symbol]) for symbol in ["D", "D_obs", "util", "util_obs", "C_obs", "tech_obs", 
-    "SR_obs", "util_ND", "util_D", "util_sc"]]
+D, D_obs, util, util_obs, C_obs, tech_obs, SR_obs, util_ND, util_D, util_sc =
+    [100 * vec(sv[symbol]) for symbol in ["D", "D_obs", "util", "util_obs", "C_obs", "tech_obs",
+        "SR_obs", "util_ND", "util_D", "util_sc"]]
 
 SR_cum, tech_cum, C_cum = [100 * cumsum(vec(sv[symbol])) for symbol in ["SR_obs", "tech_obs", "C_obs"]]
 
 #
 var(SR_obs)
-var(tech_obs)/var(SR_obs)
+var(tech_obs) / var(SR_obs)
 df = DataFrame()
-df[!, :C_obs] = C_obs 
+df[!, :C_obs] = C_obs
 df[!, :tech_obs] = tech_obs
 df[!, :C_obs_lag1] = lag(df.C_obs, 1)
 df[!, :tech_obs_lag1] = lag(df.tech_obs, 1)
 df[!, :tech_obs_lag2] = lag(df.tech_obs, 2)
 df[!, :tech_obs_lag3] = lag(df.tech_obs, 3)
 df[!, :tech_obs_lag4] = lag(df.tech_obs, 4)
-model = lm(@formula(tech_obs ~ tech_obs_lag1 + tech_obs_lag2+tech_obs_lag3+tech_obs_lag4+ C_obs_lag1), df)
+model = lm(@formula(tech_obs ~ tech_obs_lag1 + tech_obs_lag2 + tech_obs_lag3 + tech_obs_lag4 + C_obs_lag1), df)
 
-# Annual percentage changes in shopping effort 
+# Annual percentage changes in shopping effort
 function quarter_perc_ann(x)
     n = length(x)
     last_full_set = n ÷ 4
     remaining_quarters = n % 4
     ann_changes_full_sets = [prod(1 .+ x[(4*(i-1)+1):(4*i)]) - 1 for i in 1:last_full_set]
-    
+
     last_year_changes = prod(1 .+ x[(4*last_full_set+1):end]) - 1
     ann_changes = vcat(ann_changes_full_sets, last_year_changes)
     return ann_changes
@@ -325,14 +328,14 @@ indices = findall(date -> year(date) in 2003:2019, dates_red)
 
 # Annualized shopping effort percentage changes
 fig = plt.figure()
-ax = fig.add_subplot(1,1,1)
+ax = fig.add_subplot(1, 1, 1)
 ax.plot(dates_red, D_obs_ann[indices])
 display(fig)
 
 fig = plt.figure(figsize=(16, 4))
 # Shopping effort and utilization
 ax1 = fig.add_subplot(1, 3, 1)
-ax1.plot(date_range, D.*util[1]./D[1], linewidth=1.5, color="orange", label="Shopping effort", zorder=2, alpha=0.7)
+ax1.plot(date_range, D .* util[1] ./ D[1], linewidth=1.5, color="orange", label="Shopping effort", zorder=2, alpha=0.7)
 ax1.plot(date_range, util, linewidth=1.5, color="blue", label="Utilization", alpha=0.7)
 ax1.set_xlabel("Time", fontsize=12)
 ax1.set_ylabel("Units", fontsize=12)
