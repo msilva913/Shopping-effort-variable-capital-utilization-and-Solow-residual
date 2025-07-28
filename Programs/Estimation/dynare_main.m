@@ -26,7 +26,8 @@ res = oo_;
 M = M_;
 %save('res', 'res');
 %save('M', 'M');
-
+%load res;
+%load M;
 % Collect indices for selected variables
 var_labels = {'NC_obs', 'NI_obs', 'C_obs', 'I_obs', 'p_I_obs', 'util_ND_obs', 'util_D_obs'};
 indices = [];
@@ -70,8 +71,13 @@ irf = res.irfs; save('irf.mat', 'irf');
 %% 2. ALTERNATIVE SPECIFICATION: Perfect mobility
 % ------------------------------------------------------------------------
 dynare SU_sectoral_perfect_mobility.mod
-res_pm = oo_; M_pm = M_;
-%save('res_pm', 'res_pm'); save('M_pm', 'M_pm');
+%res_pm = oo_; M_pm = M_;
+trace_plot(options_,M_,estim_params_,'DeepParameter',1,'phi');
+trace_plot(options_,M_,estim_params_,'DeepParameter',1,'eta');
+trace_plot(options_,M_,estim_params_,'DeepParameter',1,'nu_R');
+nparams = size(res_pm.posterior_draws, 2);
+
+save('res_pm', 'res_pm'); save('M_pm', 'M_pm');
 [out_pm, HPD_pm] = main_table(res_pm, M_pm);
 %% ========================================================================
 
