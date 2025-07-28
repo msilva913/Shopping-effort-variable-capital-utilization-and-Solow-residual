@@ -72,10 +72,9 @@ irf = res.irfs; save('irf.mat', 'irf');
 % ------------------------------------------------------------------------
 dynare SU_sectoral_perfect_mobility.mod
 %res_pm = oo_; M_pm = M_;
-trace_plot(options_,M_,estim_params_,'DeepParameter',1,'phi');
-trace_plot(options_,M_,estim_params_,'DeepParameter',1,'eta');
-trace_plot(options_,M_,estim_params_,'DeepParameter',1,'nu_R');
-nparams = size(res_pm.posterior_draws, 2);
+%trace_plot(options_,M_,estim_params_,'DeepParameter',1,'phi');
+%trace_plot(options_,M_,estim_params_,'DeepParameter',1,'eta');
+%trace_plot(options_,M_,estim_params_,'DeepParameter',1,'nu_R');
 
 save('res_pm', 'res_pm'); save('M_pm', 'M_pm');
 [out_pm, HPD_pm] = main_table(res_pm, M_pm);
@@ -85,7 +84,12 @@ save('res_pm', 'res_pm'); save('M_pm', 'M_pm');
 %% 3. ALTERNATIVE: Common wage markup shock
 % ------------------------------------------------------------------------
 dynare SU_sectoral_com_wage_markup.mod
+load res_cwm;
+load M_cwm;
 res_cwm = oo_; M_cwm = M_;
+trace_plot(options_,M_cwm,estim_params_,'DeepParameter',1,'phi');
+trace_plot(options_,M_cwm,estim_params_,'DeepParameter',1,'eta');
+trace_plot(options_,M_cwm,estim_params_,'DeepParameter',1,'nu_R');
 %save('res_cwm', 'res_cwm'); save('M_cwm', 'M_cwm');
 [out_cwm, HPD_cwm] = main_table(res_cwm, M_cwm);
 %% ========================================================================

@@ -821,7 +821,6 @@ datafile=observables_sectoral,
 mode_file=SU_sectoral_com_wage_markup_mh_mode, %With _mh option uses mode after MCM run
 //nograph,
 load_mh_file, 
-//mh_recover,
 mcmc_jumping_covariance=prior_variance,
 
 mode_compute=0,
@@ -833,8 +832,6 @@ mh_init_scale =0.0001,
 mode_check, 
 mh_replic=0,
 mh_nblocks=2, 
-//bayesian_irf,
-//irf=100,
 mh_drop=0.3, 
 //moments_varendo,
 prior_trunc=0)
