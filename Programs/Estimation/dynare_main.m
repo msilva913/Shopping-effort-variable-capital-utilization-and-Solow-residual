@@ -4,16 +4,16 @@ addpath c:\dynare\6.3\matlab
 
 %% ========================================================================
 %% MODEL FILES USED
-%   - BRS_sectoral.mod 
-%   - BRS_sectoral_perfect_mobility.mod
-%   - BRS_sectoral_com_wage_markup.mod
-%   - BRS_sectoral_wo_fixed_cost.mod
-%   - BRS_sectoral_wo_vcu.mod
-%   - BRS_sectoral_wo_demand_shocks.mod
-%   - BRS_sectoral_wo_dem_shocks_res.mod
-%   - BRS_growth_id.mod
-%   - BRS_util.mod
-%   - BRS_sectoral_artificial_data.mod
+%   - SU_sectoral.mod 
+%   - SU_sectoral_perfect_mobility.mod
+%   - SU_sectoral_com_wage_markup.mod
+%   - SU_sectoral_wo_fixed_cost.mod
+%   - SU_sectoral_wo_vcu.mod
+%   - SU_sectoral_wo_demand_shocks.mod
+%   - SU_sectoral_wo_dem_shocks_res.mod
+%   - SU_growth_id.mod
+%   - SU_util.mod
+%   - SU_sectoral_artificial_data.mod
 %% ========================================================================
 
 %% ========================================================================

@@ -220,21 +220,21 @@ EIGENVALUES:
          Modulus             Real        Imaginary
                0                0                0
                0                0                0
-       7.874e-19        7.874e-19                0
-       2.272e-18        2.272e-18                0
-        5.81e-18        -5.81e-18                0
-        7.25e-18         7.25e-18                0
-       1.379e-17       -1.379e-17                0
-       2.912e-17       -2.912e-17                0
-       3.527e-17        3.527e-17                0
-       4.725e-17       -4.725e-17                0
-       6.225e-17        6.225e-17                0
-         7.3e-17         -7.3e-17                0
-       9.024e-17        9.024e-17                0
-       1.194e-16       -1.194e-16                0
-       1.487e-16       -1.487e-16                0
-       3.484e-16       -3.484e-16                0
-       3.902e-16        3.902e-16                0
+       1.725e-19        1.725e-19                0
+       9.088e-19        9.088e-19                0
+       2.195e-18        2.195e-18                0
+       7.196e-18       -7.196e-18                0
+       9.465e-18        9.465e-18                0
+       1.382e-17       -1.382e-17                0
+       1.875e-17        1.875e-17                0
+       2.029e-17        2.029e-17                0
+       3.033e-17        3.033e-17                0
+       4.087e-17       -4.087e-17                0
+        6.45e-17         6.45e-17                0
+       8.565e-17        8.565e-17                0
+       1.385e-16        1.385e-16                0
+       1.556e-16        1.556e-16                0
+       1.711e-15       -1.711e-15                0
              0.1              0.1                0
           0.3889           0.3889                0
              0.9              0.9                0
@@ -256,63 +256,81 @@ EIGENVALUES:
            1.117            1.111           0.1132
            1.117            1.111          -0.1132
            2.607            2.607                0
-       2.759e+16        2.759e+16                0
-       1.245e+17       -1.245e+17                0
-       3.079e+17        3.079e+17                0
-       9.662e+17       -9.662e+17                0
-       3.894e+18        3.894e+18                0
-       1.647e+47       -1.647e+47                0
+       2.558e+16        2.558e+16                0
+       8.612e+16       -8.612e+16                0
+       8.725e+17       -8.725e+17                0
+       1.713e+18       -1.713e+18                0
+       1.233e+20       -1.233e+20                0
        1.317e+48        1.317e+48                0
-       1.317e+48        1.317e+48                0
+             Inf              Inf                0
+             Inf              Inf                0
 
 There are 14 eigenvalue(s) larger than 1 in modulus for 14 forward-looking variable(s)
 The rank condition is verified.
 
 
-Initial value of the log posterior (or likelihood): 4677.1974
+Initial value of the log posterior (or likelihood): 4434.1931
+
+OPTIMIZATION PROBLEM!
+ (minus) the hessian matrix at the "mode" is not positive definite!
+=> variance of the estimated parameters are not positive.
+You should try to change the initial values of the parameters using
+the estimated_params_init block, or use another optimization routine.
+[Warning: The results below are most likely wrong!] 
+[> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('check_hessian_at_the_mode', 'C:\dynare\6.3\matlab\utilities\estimation\check_hessian_at_the_mode.m', 68)" style="font-weight:bold">check_hessian_at_the_mode</a> (<a href="matlab: opentoline('C:\dynare\6.3\matlab\utilities\estimation\check_hessian_at_the_mode.m',68,0)">line 68</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation_1', 'C:\dynare\6.3\matlab\estimation\dynare_estimation_1.m', 324)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('C:\dynare\6.3\matlab\estimation\dynare_estimation_1.m',324,0)">line 324</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation', 'C:\dynare\6.3\matlab\estimation\dynare_estimation.m', 105)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('C:\dynare\6.3\matlab\estimation\dynare_estimation.m',105,0)">line 105</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('SU_sectoral_wo_vcu.driver', 'C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation\+SU_sectoral_wo_vcu\driver.m', 1892)" style="font-weight:bold">SU_sectoral_wo_vcu.driver</a> (<a href="matlab: opentoline('C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation\+SU_sectoral_wo_vcu\driver.m',1892,0)">line 1892</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare', 'C:\dynare\6.3\matlab\dynare.m', 308)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('C:\dynare\6.3\matlab\dynare.m',308,0)">line 308</a>)] 
 
 MODE CHECK
 
-Fval obtained by the optimization routine: -4677.197395
+Fval obtained by the optimization routine: -4434.193095
+[Warning: Matrix is singular, close to singular or badly scaled. Results may be inaccurate. RCOND = NaN.] 
+[> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation_1', 'C:\dynare\6.3\matlab\estimation\dynare_estimation_1.m', 353)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('C:\dynare\6.3\matlab\estimation\dynare_estimation_1.m',353,0)">line 353</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation', 'C:\dynare\6.3\matlab\estimation\dynare_estimation.m', 105)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('C:\dynare\6.3\matlab\estimation\dynare_estimation.m',105,0)">line 105</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('SU_sectoral_wo_vcu.driver', 'C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation\+SU_sectoral_wo_vcu\driver.m', 1892)" style="font-weight:bold">SU_sectoral_wo_vcu.driver</a> (<a href="matlab: opentoline('C:\Users\msilva913\Documents\GitHub\Shopping-effort-variable-capital-utilization-and-Solow-residual\Programs\Estimation\+SU_sectoral_wo_vcu\driver.m',1892,0)">line 1892</a>)
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare', 'C:\dynare\6.3\matlab\dynare.m', 308)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('C:\dynare\6.3\matlab\dynare.m',308,0)">line 308</a>)
+] 
 
 RESULTS FROM POSTERIOR ESTIMATION
 parameters
         prior mean     mode    s.d.  prior pstdev
 
-sigma       1.5000   1.0723  0.2223   beta 0.2500 
-ha          0.5000   0.0265  0.2770   beta 0.2000 
-nu          0.7200   0.4762  0.1463   gamm 0.2500 
-phi         0.3200   0.2639  0.1277   beta 0.2000 
-eta         0.2000   0.6000  0.1448   gamm 0.1500 
-xi          0.8500   0.8675  0.0904   gamm 0.1000 
-nu_R        0.2000   0.4792  0.0124   beta 0.1000 
-Psi_K       4.0000   0.1303  2.1762   gamm 1.0000 
-theta       1.0000   0.6739  0.2047   gamm 0.5000 
-rho_g       0.1000   0.3023  0.0452   beta 0.0500 
-rho_Z       0.6000   0.7578  0.0454   beta 0.2000 
-rho_ZI      0.6000   0.9097  0.0301   beta 0.2000 
-rho_N       0.6000   0.9701  0.0091   beta 0.2000 
-rho_D       0.6000   0.9786  0.0170   beta 0.2000 
-rho_DI      0.6000   0.9435  0.0227   beta 0.2000 
-rho_b       0.6000   0.9906  0.0338   beta 0.2000 
-rho_muC     0.6000   0.5901  0.2016   beta 0.2000 
-rho_muI     0.6000   0.9965  0.0252   beta 0.2000 
+sigma       1.5000   1.4242     NaN   beta 0.2500 
+ha          0.5000   0.7196     NaN   beta 0.2000 
+nu          0.7200   1.1213     NaN   gamm 0.2500 
+phi         0.3200   0.8408     NaN   beta 0.2000 
+eta         0.2000   0.2404     NaN   gamm 0.1500 
+xi          0.8500   0.7694     NaN   gamm 0.1000 
+nu_R        0.2000   0.1065     NaN   beta 0.1000 
+Psi_K       4.0000  11.9210     NaN   gamm 1.0000 
+theta       1.0000   1.4610     NaN   gamm 0.5000 
+rho_g       0.1000   0.6458     NaN   beta 0.0500 
+rho_Z       0.6000   0.7839     NaN   beta 0.2000 
+rho_ZI      0.6000   0.8267     NaN   beta 0.2000 
+rho_N       0.6000   0.9938     NaN   beta 0.2000 
+rho_D       0.6000   0.9134     NaN   beta 0.2000 
+rho_DI      0.6000   0.9847     NaN   beta 0.2000 
+rho_b       0.6000   0.9086     NaN   beta 0.2000 
+rho_muC     0.6000   0.8378     NaN   beta 0.2000 
+rho_muI     0.6000   0.9994     NaN   beta 0.2000 
 
 standard deviation of shocks
         prior mean     mode    s.d.  prior pstdev
 
-e_g         0.0100   0.0163  0.0025   gamm 0.0100 
-e_Z         0.0100   0.0030  0.0010   gamm 0.0100 
-e_ZI        0.0100   0.0112  0.0007   gamm 0.0100 
-e_N         0.0100   0.0141  0.0022   gamm 0.0100 
-e_D         0.0100   0.1051  0.0212   gamm 0.0100 
-e_DI        0.0100   0.0526  0.0093   gamm 0.0100 
-e_b         0.0100   0.0002  0.0017   gamm 0.0100 
-e_muC       0.0100   0.0003  0.0004   gamm 0.0100 
-e_muI       0.0100   0.0163  0.0023   gamm 0.0100 
+e_g         0.0100   0.0050     NaN   gamm 0.0100 
+e_Z         0.0100   0.0092     NaN   gamm 0.0100 
+e_ZI        0.0100   0.0186     NaN   gamm 0.0100 
+e_N         0.0100   0.0063     NaN   gamm 0.0100 
+e_D         0.0100   0.1270     NaN   gamm 0.0100 
+e_DI        0.0100   0.0164     NaN   gamm 0.0100 
+e_b         0.0100   0.0200     NaN   gamm 0.0100 
+e_muC       0.0100   0.0001     NaN   gamm 0.0100 
+e_muI       0.0100   0.0278     NaN   gamm 0.0100 
 
 
-Log data density [Laplace approximation] is 4580.496546.
+Log data density [Laplace approximation] is NaN.
 
 Estimation::mcmc: Total number of MH draws per chain: 300000.
 Estimation::mcmc: Total number of generated MH files: 1.
