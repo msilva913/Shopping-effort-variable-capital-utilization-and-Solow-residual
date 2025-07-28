@@ -84,9 +84,9 @@ save('res_pm', 'res_pm'); save('M_pm', 'M_pm');
 %% 3. ALTERNATIVE: Common wage markup shock
 % ------------------------------------------------------------------------
 dynare SU_sectoral_com_wage_markup.mod
+res_cwm = oo_; M_cwm = M_;
 load res_cwm;
 load M_cwm;
-res_cwm = oo_; M_cwm = M_;
 trace_plot(options_,M_cwm,estim_params_,'DeepParameter',1,'phi');
 trace_plot(options_,M_cwm,estim_params_,'DeepParameter',1,'eta');
 trace_plot(options_,M_cwm,estim_params_,'DeepParameter',1,'nu_R');
