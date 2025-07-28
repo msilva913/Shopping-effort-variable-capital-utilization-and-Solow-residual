@@ -763,16 +763,16 @@ varobs NC_obs, NI_obs, C_obs, I_obs, p_I_obs, util_ND_obs, util_D_obs;
 
 estimation(tex, optim=('MaxIter', 200), 
 datafile=observables_sectoral, 
-mode_file=SU_sectoral_wo_vcu_mode, %With _mh option uses mode after MCM run
+mode_file=SU_sectoral_wo_vcu_mh_mode, %With _mh option uses mode after MCM run
 //nograph,
 load_mh_file, 
 //mh_recover,
-mcmc_jumping_covariance=prior_variance,
+mcmc_jumping_covariance=hessian,
 
 mode_compute=0,
 presample=0, 
 lik_init=2,
-mh_jscale=0.004, 
+mh_jscale=0.02, 
 mh_init_scale =0.0001,
 //mh_jscale=0.1,
 mode_check, 

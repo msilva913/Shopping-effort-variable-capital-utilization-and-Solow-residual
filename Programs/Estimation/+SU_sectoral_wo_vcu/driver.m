@@ -1871,19 +1871,19 @@ if ~isempty(find(estim_params_.var_exo(:,1)==9))
 end
 estim_params_.var_exo = [estim_params_.var_exo; 9, 0.01, 0.0001, 0.2, 2, 0.01, 0.01, NaN, NaN, NaN ];
 options_.TeX=1;
-options_.MCMC_jumping_covariance = 'prior_variance';
+options_.MCMC_jumping_covariance = 'hessian';
 options_.TeX = true;
 options_.datafile = 'observables_sectoral';
 options_.lik_init = 2;
 options_.load_mh_file = true;
 options_.mh_drop = 0.3;
 options_.mh_init_scale = 0.0001;
-options_.mh_jscale = 0.004;
+options_.mh_jscale = 0.02;
 options_.mh_nblck = 2;
-options_.mh_replic = 0;
+options_.mh_replic = 50000;
 options_.mode_check.status = true;
 options_.mode_compute = 0;
-options_.mode_file = 'SU_sectoral_wo_vcu_mode';
+options_.mode_file = 'SU_sectoral_wo_vcu_mh_mode';
 options_.optim_opt = '''MaxIter'',200';
 options_.presample = 0;
 options_.prior_trunc = 0;
