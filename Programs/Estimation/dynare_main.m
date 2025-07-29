@@ -85,9 +85,9 @@ save('res_pm', 'res_pm'); save('M_pm', 'M_pm');
 % ------------------------------------------------------------------------
 dynare SU_sectoral_com_wage_markup.mod
 res_cwm = oo_; M_cwm = M_;
-save('res_cwm', 'res_cwm'); save('M_cwm', 'M_cwm');
-load res_cwm;
-load M_cwm;
+%save('res_cwm', 'res_cwm'); save('M_cwm', 'M_cwm');
+%load res_cwm;
+%load M_cwm;
 [out_cwm, HPD_cwm] = main_table(res_cwm, M_cwm);
 %% ========================================================================
 
