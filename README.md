@@ -1,5 +1,6 @@
 
 # Replication Package for “Productive demand, sectoral comovement, and total capacity utilization”
+[![DOI](https://zenodo.org/badge/706019487.svg)](https://doi.org/10.5281/zenodo.16562979)
 
 For a detailed PDF overview, see the [Replication Package](Replication_Package.pdf).
 
