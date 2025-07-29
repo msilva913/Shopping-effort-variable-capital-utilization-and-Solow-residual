@@ -821,12 +821,12 @@ datafile=observables_sectoral,
 mode_file=SU_sectoral_com_wage_markup_mh_mode, %With _mh option uses mode after MCM run
 //nograph,
 load_mh_file, 
-mcmc_jumping_covariance=prior_variance,
+mcmc_jumping_covariance=hessian,
 
 mode_compute=0,
 presample=0, 
 lik_init=2,
-mh_jscale=0.002, 
+mh_jscale=0.081539, % optimal value according to mode_compute=6
 mh_init_scale =0.0001,
 //mh_jscale=0.1,
 mode_check, 

@@ -85,12 +85,9 @@ save('res_pm', 'res_pm'); save('M_pm', 'M_pm');
 % ------------------------------------------------------------------------
 dynare SU_sectoral_com_wage_markup.mod
 res_cwm = oo_; M_cwm = M_;
+save('res_cwm', 'res_cwm'); save('M_cwm', 'M_cwm');
 load res_cwm;
 load M_cwm;
-trace_plot(options_,M_cwm,estim_params_,'DeepParameter',1,'phi');
-trace_plot(options_,M_cwm,estim_params_,'DeepParameter',1,'eta');
-trace_plot(options_,M_cwm,estim_params_,'DeepParameter',1,'nu_R');
-%save('res_cwm', 'res_cwm'); save('M_cwm', 'M_cwm');
 [out_cwm, HPD_cwm] = main_table(res_cwm, M_cwm);
 %% ========================================================================
 
