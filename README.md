@@ -1,1 +1,1 @@
-For a detailed overview, see the [Replication Package](Replication_.pdf).
+For a detailed overview, see the [Replication Package](Replication_Package.pdf).
