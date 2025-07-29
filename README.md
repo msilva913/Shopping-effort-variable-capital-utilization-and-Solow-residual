@@ -88,10 +88,10 @@ Appendix B in the main text details the construction of variables used in the pa
 The construction of sectoral data follows Katayama et al. (2018). We obtain consumption and investment as follows:
 
 \[
-\begin{aligned}
+\begin{align}
 C_t &= \left(\frac{\text{Nondurable (PCND)} + \text{Services (PCESV)}}{P_c \times \text{Civilian Noninstitutional Population (CNP160V)}}\right) \\
 I_t &= \left(\frac{\text{Durable (PCDG)} + \text{Nonresidential Investment (PNFI)} + \text{Residential Investment (PRFI)}}{P_i \times \text{Civilian Noninstitutional Population (CNP160V)}}\right)
-\end{aligned}
+\end{align}
 \]
 
 We use an HP-filtered trend for population \((\lambda = 10,000)\) to eliminate jumps around census dates.
