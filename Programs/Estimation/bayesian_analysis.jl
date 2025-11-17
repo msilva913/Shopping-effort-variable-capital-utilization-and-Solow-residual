@@ -7,6 +7,7 @@ using DataFrames
 using PyPlot
 using MAT
 using TexTables
+using LaTeXStrings
 using Dates, Distributions
 #using StatsModels
 
@@ -82,24 +83,38 @@ beta_dist = Beta(α, β)
 νR_x = 0:0.01:1
 νR_prior_pdf = pdf(beta_dist, νR_x )
 
+# ρ_D prior 
+α, β = beta_map(0.6, 0.2)
+beta_dist = Beta(α, β)
+x_vals = 0:0.01:1.0 
+ρD_prior_pdf = pdf(beta_dist, x_vals)
+
+# e_D prior 
+α, β = gamma_map(0.01, 0.01)
+gamma_dist = Gamma(α, β)
+eD_x = 0:0.001:1.3
+eD_prior_pdf = pdf(gamma_dist, eD_x)
+
 # Distribution: structural parameters
 key_map = ["σ_a", "ζ", "η", "ρ_ZI", "ρ_N", "ρ_D", "θ", "Ψ_K", "ρ_C", "ρ_g"]
 
 
-
+println(keys(struc))
 # Table: prior mean, prior std, posterior mean, posterior std
 η_vals, η_density = columns(struc["eta"])
 ϕ_vals, ϕ_density = columns(struc["phi"])
 νR_vals, νR_density = columns(struc["nu_R"])
+ρD_vals, ρD_density = columns(struc["rho_D"])
 
-fig = plt.figure(figsize=(14, 4))
+fig = plt.figure(figsize=(12, 7))
 # First subplot for ϕ
-ax2 = fig.add_subplot(1, 3, 1)
+ax2 = fig.add_subplot(2, 2, 1)
 ax2.plot(ϕ_vals, ϕ_density, linewidth=1.5, color="orange", label="Posterior", zorder=2)
 ax2.fill_between(ϕ_vals, ϕ_density, color="gold", alpha=0.3, zorder=1)
 ax2.plot(ϕ_x, ϕ_prior_pdf, linewidth=1, linestyle="--", color="blue", label="Prior", zorder=2)
 ax2.fill_between(ϕ_x, ϕ_prior_pdf, color="cyan", alpha=0.3, zorder=1)
-ax2.set_xlabel("ϕ", fontsize=14)
+ax2.set_title(L"Matching function elasticity: $\phi$", fontsize=14)
+ax2.set_xlabel("Value", fontsize=14)
 ax2.set_ylabel("Density", fontsize=12)
 ax2.legend(loc="upper right", fontsize=10)
 ax2.grid(linestyle="--", alpha=0.7)
@@ -107,34 +122,49 @@ ax2.set_xlim(minimum(ϕ_x), maximum(ϕ_x))
 ax2.set_ylim(0, max(maximum(ϕ_density), maximum(ϕ_prior_pdf)) * 1.1)
 
 # Second subplot for η
-ax1 = fig.add_subplot(1, 3, 2)
+ax1 = fig.add_subplot(2, 2, 2)
 ax1.plot(η_vals, η_density, linewidth=1.5, color="orange", label="Posterior", zorder=2)
 ax1.fill_between(η_vals, η_density, color="gold", alpha=0.3, zorder=1)
 ax1.plot(η_x, gamma_prior_pdf, linewidth=1, linestyle="--", color="blue", label="Prior", zorder=2)
 ax1.fill_between(η_x, gamma_prior_pdf, color="cyan", alpha=0.3, zorder=1)
-ax1.set_xlabel("η", fontsize=12)
+ax1.set_title(L"Shopping cost elasticity: $\eta$", fontsize=14)
+ax1.set_xlabel("Value", fontsize=12)
 ax1.set_ylabel("Density", fontsize=14)
 ax1.legend(loc="upper right", fontsize=10)
 ax1.grid(linestyle="--", alpha=0.7)
 ax1.set_xlim(minimum(η_x), maximum(η_x))
 ax1.set_ylim(0, max(maximum(η_density), maximum(gamma_prior_pdf)) * 1.1)
 
-ax1 = fig.add_subplot(1, 3, 3)
+ax1 = fig.add_subplot(2, 2, 3)
 ax1.plot(νR_vals, νR_density, linewidth=1.5, color="orange", label="Posterior", zorder=2)
 ax1.fill_between(νR_vals, νR_density, color="gold", alpha=0.3, zorder=1)
 ax1.plot(νR_x, νR_prior_pdf, linewidth=1, linestyle="--", color="blue", label="Prior", zorder=2)
 ax1.fill_between(νR_x, νR_prior_pdf, color="cyan", alpha=0.3, zorder=1)
-ax1.set_xlabel("νR", fontsize=14)
+ax1.set_title(L"Fixed cost share: $\nu^R$", fontsize=14)
+ax1.set_xlabel("Value", fontsize=12)
 ax1.set_ylabel("Density", fontsize=12)
 ax1.legend(loc="upper right", fontsize=10)
 ax1.grid(linestyle="--", alpha=0.7)
 ax1.set_xlim(minimum(νR_x), maximum(νR_x))
 ax1.set_ylim(0, max(maximum(νR_density), maximum(νR_prior_pdf)) * 1.1)
 
+ax1 = fig.add_subplot(2, 2, 4)
+ax1.plot(ρD_vals, ρD_density, linewidth=1.5, color="orange", label="Posterior", zorder=2)
+ax1.fill_between(ρD_vals, ρD_density, color="gold", alpha=0.3, zorder=1)
+ax1.plot(νR_x, ρD_prior_pdf, linewidth=1, linestyle="--", color="blue", label="Prior", zorder=2)
+ax1.fill_between(νR_x, ρD_prior_pdf, color="cyan", alpha=0.3, zorder=1)
+ax1.set_title(L"Shopping effort shock persistence: $\rho_d$", fontsize=14)
+ax1.set_xlabel("Value", fontsize=12)
+ax1.set_ylabel("Density", fontsize=12)
+ax1.legend(loc="upper right", fontsize=10)
+ax1.grid(linestyle="--", alpha=0.7)
+ax1.set_xlim(minimum(νR_x), maximum(νR_x))
+ax1.set_ylim(0, max(maximum(ρD_density), maximum(ρD_prior_pdf)) * 1.1)
+
 # Adjust layout and display
 plt.tight_layout()
 display(fig)
-#plt.savefig("posterior_prior_plots.pdf")
+plt.savefig("posterior_prior_plots_4x4.pdf")
 
 
 function cumulate(x)
@@ -202,10 +232,10 @@ function irf_fun_plot_grouped(irf_dic; shock, savefig=true)
     fig.suptitle("A 1 standard-deviation shock to "*shock, fontsize=14)
     plt.tight_layout()
     display(fig)
-    if savefig
+    if savefig == true
         figname = "irf_"*shock*".pdf"
+        plt.savefig(figname)
     end
-    #plt.savefig(figname)
 end
 
 # Standard impulse responses: basic model
@@ -239,6 +269,16 @@ irf_fun_plot_grouped(irf_dic_spec; shock="e_b")
 irf_array = irf_fun(vars_list, irf_dic, shock="e_g", length=20 )
 irf_dic_spec = Dict(zip(vars_list_label, irf_array))
 irf_fun_plot_grouped(irf_dic_spec; shock="e_g")
+
+# Labor supply shock 
+irf_array = irf_fun(vars_list, irf_dic, shock="e_N", length=20)
+irf_dic_spec = Dict(zip(vars_list_label, irf_array))
+irf_fun_plot_grouped(irf_dic_spec; shock="e_N")
+
+# Wage markup shocks:C
+irf_array = irf_fun(vars_list, irf_dic, shock="e_muC", length=20)
+irf_dic_spec = Dict(zip(vars_list_label, irf_array))
+irf_fun_plot_grouped(irf_dic_spec; shock="e_muC", savefig=false)
 
 
 
